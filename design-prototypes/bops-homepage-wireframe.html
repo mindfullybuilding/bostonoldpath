@@ -1,0 +1,960 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BOPS Homepage Wireframe</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #20231f;
+        --muted: #5f665d;
+        --line: #cfd8cb;
+        --line-strong: #9aaa95;
+        --paper: #fbfaf5;
+        --panel: #ffffff;
+        --soft-green: #e7f0e1;
+        --soft-blue: #e8f0f6;
+        --soft-gold: #f4ead1;
+        --soft-clay: #f2e3d9;
+        --focus: #315f80;
+        --action: #2f5e44;
+        --action-ink: #ffffff;
+        --radius: 8px;
+        --shadow: 0 1px 0 rgba(32, 35, 31, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      a:focus-visible,
+      button:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+      }
+
+      .page {
+        min-height: 100vh;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--line);
+        background: rgba(251, 250, 245, 0.96);
+        backdrop-filter: blur(10px);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 14px 0;
+      }
+
+      .brand {
+        display: grid;
+        gap: 2px;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .brand strong {
+        font-size: 1rem;
+        letter-spacing: 0;
+      }
+
+      .brand span {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .nav-links {
+        display: none;
+        align-items: center;
+        gap: 18px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+      }
+
+      .nav-links a:hover {
+        color: var(--ink);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      main {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .hero {
+        display: grid;
+        gap: 22px;
+        padding: 34px 0 24px;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--muted);
+        font-size: 0.83rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 12ch;
+        margin-bottom: 16px;
+        font-size: clamp(2.35rem, 8vw, 4.8rem);
+        line-height: 0.95;
+        letter-spacing: 0;
+      }
+
+      .hero-copy {
+        max-width: 650px;
+        margin-bottom: 22px;
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 46px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line-strong);
+        border-radius: 999px;
+        padding: 0 18px;
+        background: var(--panel);
+        color: var(--ink);
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: var(--shadow);
+      }
+
+      .button.primary {
+        border-color: var(--action);
+        background: var(--action);
+        color: var(--action-ink);
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+      }
+
+      .hero-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card-header {
+        border-bottom: 1px solid var(--line);
+        padding: 18px;
+        background: var(--soft-green);
+      }
+
+      .hero-card-header h2 {
+        margin-bottom: 6px;
+        font-size: 1.08rem;
+      }
+
+      .hero-card-header p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.94rem;
+      }
+
+      .persona-picker {
+        display: grid;
+        gap: 8px;
+        padding: 12px;
+      }
+
+      .persona-button {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 12px;
+        background: #fff;
+        color: var(--ink);
+        cursor: pointer;
+        font: inherit;
+        text-align: left;
+      }
+
+      .persona-button strong {
+        display: block;
+        margin-bottom: 2px;
+        font-size: 0.96rem;
+      }
+
+      .persona-button span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.83rem;
+      }
+
+      .persona-button[aria-selected="true"] {
+        border-color: var(--action);
+        background: var(--soft-gold);
+        box-shadow: inset 0 0 0 1px var(--action);
+      }
+
+      .section {
+        padding: 18px 0;
+      }
+
+      .section-heading {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .section-heading h2 {
+        margin-bottom: 0;
+        font-size: 1.4rem;
+        line-height: 1.15;
+      }
+
+      .section-heading p {
+        max-width: 520px;
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .grid {
+        display: grid;
+        gap: 14px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+      }
+
+      .card-inner {
+        padding: 16px;
+      }
+
+      .card h3 {
+        margin-bottom: 8px;
+        font-size: 1rem;
+      }
+
+      .card p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.93rem;
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 10px;
+      }
+
+      .tag {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 3px 8px;
+        background: var(--soft-blue);
+        color: var(--ink);
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      .sitting-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .sitting-card {
+        display: grid;
+        gap: 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 14px;
+        background: #fff;
+      }
+
+      .sitting-card strong {
+        font-size: 1rem;
+      }
+
+      .sitting-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .sitting-note {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .guide {
+        display: grid;
+        gap: 14px;
+      }
+
+      .guide-main {
+        border-color: var(--line-strong);
+        background: var(--soft-green);
+      }
+
+      .guide-main h2 {
+        margin-bottom: 8px;
+        font-size: 1.35rem;
+      }
+
+      .guide-main p {
+        color: #334037;
+      }
+
+      .steps {
+        display: grid;
+        gap: 10px;
+        margin: 16px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .steps li {
+        display: grid;
+        grid-template-columns: 28px 1fr;
+        gap: 10px;
+        align-items: start;
+      }
+
+      .step-number {
+        display: inline-grid;
+        width: 28px;
+        height: 28px;
+        place-items: center;
+        border-radius: 999px;
+        background: #fff;
+        color: var(--action);
+        font-size: 0.8rem;
+        font-weight: 800;
+      }
+
+      .resource-card {
+        min-height: 138px;
+      }
+
+      .resource-card:nth-child(2n) {
+        background: var(--soft-blue);
+      }
+
+      .resource-card:nth-child(3n) {
+        background: var(--soft-clay);
+      }
+
+      .mentor-strip {
+        display: grid;
+        gap: 14px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 16px;
+        background: var(--soft-gold);
+      }
+
+      .mentor-strip h2 {
+        margin-bottom: 6px;
+        font-size: 1.2rem;
+      }
+
+      .mentor-strip p {
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .calendar-band {
+        display: grid;
+        gap: 14px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 16px;
+        background: var(--panel);
+      }
+
+      .calendar-row {
+        display: grid;
+        grid-template-columns: 68px 1fr;
+        gap: 12px;
+        align-items: start;
+        border-top: 1px solid var(--line);
+        padding-top: 12px;
+      }
+
+      .calendar-row:first-of-type {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .date-box {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 8px 6px;
+        background: var(--soft-green);
+        text-align: center;
+      }
+
+      .date-box span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .date-box strong {
+        display: block;
+        font-size: 1.4rem;
+        line-height: 1;
+      }
+
+      .event-copy h3 {
+        margin-bottom: 4px;
+      }
+
+      .event-copy p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .footer {
+        margin-top: 22px;
+        border-top: 1px solid var(--line);
+        padding: 24px 0 36px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 10px;
+      }
+
+      .footer-links a {
+        text-underline-offset: 4px;
+      }
+
+      .wire-note {
+        border: 1px dashed var(--line-strong);
+        border-radius: var(--radius);
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.55);
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
+      @media (min-width: 720px) {
+        .nav-links {
+          display: flex;
+        }
+
+        .hero {
+          grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.85fr);
+          align-items: center;
+          padding-top: 52px;
+        }
+
+        .persona-picker {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .guide {
+          grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+        }
+
+        .grid.two {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .grid.three {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .mentor-strip {
+          grid-template-columns: minmax(0, 1fr) auto;
+          align-items: center;
+        }
+      }
+
+      @media (min-width: 980px) {
+        .grid.four {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .sitting-card {
+          grid-template-columns: minmax(0, 1fr) auto;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <a class="brand" href="#" aria-label="BOPS homepage">
+            <strong>Boston Old Path Sangha</strong>
+            <span>Mindfulness practice in the Plum Village tradition</span>
+          </a>
+          <nav class="nav-links" aria-label="Prototype sections">
+            <a href="#find-a-sitting">Find a sitting</a>
+            <a href="#new-here">New here?</a>
+            <a href="#resources">Resources</a>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" aria-labelledby="page-title">
+          <div>
+            <p class="eyebrow">BOPS homepage wireframe</p>
+            <h1 id="page-title">Practice with community.</h1>
+            <p class="hero-copy">
+              A calmer front door for people finding meditation, continuing a
+              practice, or helping a sangha grow in the Greater Boston area.
+            </p>
+            <div class="hero-actions" aria-label="Primary actions">
+              <a class="button primary" href="#find-a-sitting"
+                >Find a sitting</a
+              >
+              <a class="button" href="#new-here">New here?</a>
+            </div>
+          </div>
+
+          <aside class="hero-card" aria-labelledby="persona-heading">
+            <div class="hero-card-header">
+              <h2 id="persona-heading">I am here to...</h2>
+              <p>
+                Choose a path for guidance. This is not a login, and it can be
+                changed anytime.
+              </p>
+            </div>
+            <div class="persona-picker" role="tablist" aria-label="Visitor path">
+              <button
+                class="persona-button"
+                type="button"
+                role="tab"
+                aria-selected="true"
+                data-persona="newcomer"
+              >
+                <strong>Start meditating</strong>
+                <span>What to expect, where to begin, how to attend.</span>
+              </button>
+              <button
+                class="persona-button"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                data-persona="practitioner"
+              >
+                <strong>Deepen practice</strong>
+                <span>Retreats, trainings, study, and affinity groups.</span>
+              </button>
+              <button
+                class="persona-button"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                data-persona="builder"
+              >
+                <strong>Support a sangha</strong>
+                <span>Facilitation tools, mentoring, songs, and guides.</span>
+              </button>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section" id="find-a-sitting" aria-labelledby="sitting-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Most important task</p>
+              <h2 id="sitting-title">Find a sitting</h2>
+            </div>
+            <p>
+              Wireframe cards show the intended structure: day, time, modality,
+              location, contact expectations, and a direct next action.
+            </p>
+          </div>
+
+          <div class="grid two">
+            <article class="card">
+              <div class="card-inner">
+                <div class="tag-row">
+                  <span class="tag">Weekly</span>
+                  <span class="tag">Local and online</span>
+                </div>
+                <h3>Weekly meditation sittings</h3>
+                <div class="sitting-list" aria-label="Example sitting cards">
+                  <div class="sitting-card">
+                    <div>
+                      <strong>Sunday community sitting</strong>
+                      <div class="sitting-meta">
+                        <span>In person or hybrid</span>
+                        <span>Boston area</span>
+                        <span>Morning</span>
+                      </div>
+                      <p class="sitting-note">
+                        New visitors can arrive a few minutes early. Chairs and
+                        cushions are available where applicable.
+                      </p>
+                    </div>
+                    <a class="button primary" href="#">View details</a>
+                  </div>
+                  <div class="sitting-card">
+                    <div>
+                      <strong>Weeknight online practice</strong>
+                      <div class="sitting-meta">
+                        <span>Online</span>
+                        <span>Zoom link by group</span>
+                        <span>Evening</span>
+                      </div>
+                      <p class="sitting-note">
+                        Show contact path, typical agenda, and any access notes
+                        before asking visitors to email.
+                      </p>
+                    </div>
+                    <a class="button" href="#">Contact host</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <aside class="calendar-band" aria-labelledby="calendar-title">
+              <div>
+                <p class="eyebrow">Shared by every path</p>
+                <h2 id="calendar-title">Calendar preview</h2>
+              </div>
+              <div class="calendar-row">
+                <div class="date-box" aria-hidden="true">
+                  <span>Next</span>
+                  <strong>Sun</strong>
+                </div>
+                <div class="event-copy">
+                  <h3>Practice gathering</h3>
+                  <p>Show time, format, location, and what a newcomer needs.</p>
+                </div>
+              </div>
+              <div class="calendar-row">
+                <div class="date-box" aria-hidden="true">
+                  <span>Soon</span>
+                  <strong>DOM</strong>
+                </div>
+                <div class="event-copy">
+                  <h3>Day of Mindfulness or retreat</h3>
+                  <p>
+                    Use clear current/future status so stale pages do not erode
+                    trust.
+                  </p>
+                </div>
+              </div>
+              <a class="button" href="#">Open full calendar</a>
+            </aside>
+          </div>
+        </section>
+
+        <section class="section guide" id="new-here" aria-live="polite">
+          <article class="card guide-main">
+            <div class="card-inner">
+              <p class="eyebrow" id="persona-label">New to meditation</p>
+              <h2 id="persona-title">A simple path into practice</h2>
+              <p id="persona-summary">
+                Start with what sangha means, what happens at a sitting, and how
+                to attend without prior meditation experience.
+              </p>
+              <ol class="steps" id="persona-steps">
+                <li>
+                  <span class="step-number">1</span>
+                  <span>Read a short welcome and what-to-expect guide.</span>
+                </li>
+                <li>
+                  <span class="step-number">2</span>
+                  <span>Choose an online, in-person, or hybrid sitting.</span>
+                </li>
+                <li>
+                  <span class="step-number">3</span>
+                  <span>Arrive a few minutes early and meet the host.</span>
+                </li>
+              </ol>
+            </div>
+          </article>
+
+          <aside class="card">
+            <div class="card-inner">
+              <p class="eyebrow">Next best content</p>
+              <h3 id="persona-aside-title">For people starting out</h3>
+              <p id="persona-aside-copy">
+                Explain mindfulness practice, Plum Village, Thich Nhat Hanh,
+                singing, dharma sharing, and deep listening in plain language.
+              </p>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section" aria-labelledby="mentor-title">
+          <div class="mentor-strip">
+            <div>
+              <h2 id="mentor-title">Mentorship belongs across every path</h2>
+              <p>
+                Newcomers may need a host, practitioners may need a practice
+                mentor, and facilitators may need builder support.
+              </p>
+            </div>
+            <a class="button" href="#">Ask for guidance</a>
+          </div>
+        </section>
+
+        <section class="section" id="resources" aria-labelledby="resource-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Resource map</p>
+              <h2 id="resource-title">What the homepage should surface</h2>
+            </div>
+            <p>
+              These clusters come from the PDF and audit. They are intentionally
+              sketched as navigation targets, not final content pages.
+            </p>
+          </div>
+
+          <div class="grid four">
+            <article class="card resource-card">
+              <div class="card-inner">
+                <h3>Intro to practice</h3>
+                <p>Mindfulness, meditation, sangha, Plum Village, and BOPS.</p>
+              </div>
+            </article>
+            <article class="card resource-card">
+              <div class="card-inner">
+                <h3>5 Mindfulness Trainings</h3>
+                <p>Description, transmission, recitations, and learning path.</p>
+              </div>
+            </article>
+            <article class="card resource-card">
+              <div class="card-inner">
+                <h3>14 MT / Order of Interbeing</h3>
+                <p>What it is, who it is for, and how to explore next steps.</p>
+              </div>
+            </article>
+            <article class="card resource-card">
+              <div class="card-inner">
+                <h3>Songs and printables</h3>
+                <p>Plum Village links, Plumline links, and one-page sheets.</p>
+              </div>
+            </article>
+            <article class="card resource-card">
+              <div class="card-inner">
+                <h3>Dharma sharing guides</h3>
+                <p>Structure, facilitation norms, deep listening, and safety.</p>
+              </div>
+            </article>
+            <article class="card resource-card">
+              <div class="card-inner">
+                <h3>Community builders</h3>
+                <p>Collaboration process, mailing list, and working groups.</p>
+              </div>
+            </article>
+            <article class="card resource-card">
+              <div class="card-inner">
+                <h3>Retreats and DOM</h3>
+                <p>Current dates first, past event history second.</p>
+              </div>
+            </article>
+            <article class="card resource-card">
+              <div class="card-inner">
+                <h3>Newsletter and photos</h3>
+                <p>Recent newsletter, community archive, and event photos.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="wireframe-title">
+          <div class="wire-note">
+            <h2 id="wireframe-title">Wireframe note</h2>
+            <p>
+              This prototype tests hierarchy and content flow. Exact sangha
+              times, locations, images, contact links, and data ownership should
+              be filled in during the next content/data pass.
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <main>
+          <strong>Reference links for the next pass</strong>
+          <div class="footer-links">
+            <a href="https://bostonoldpath.org/">Current BOPS site</a>
+            <a href="https://plumline.org/">Plumline</a>
+            <a href="https://plumvillage.org/">Plum Village</a>
+          </div>
+        </main>
+      </footer>
+    </div>
+
+    <script>
+      const personaContent = {
+        newcomer: {
+          label: "New to meditation",
+          title: "A simple path into practice",
+          summary:
+            "Start with what sangha means, what happens at a sitting, and how to attend without prior meditation experience.",
+          asideTitle: "For people starting out",
+          asideCopy:
+            "Explain mindfulness practice, Plum Village, Thich Nhat Hanh, singing, dharma sharing, and deep listening in plain language.",
+          steps: [
+            "Read a short welcome and what-to-expect guide.",
+            "Choose an online, in-person, or hybrid sitting.",
+            "Arrive a few minutes early and meet the host.",
+          ],
+        },
+        practitioner: {
+          label: "Existing practitioner",
+          title: "Keep practicing and go deeper",
+          summary:
+            "Help returning practitioners find sittings, retreats, trainings, study opportunities, and community practice between gatherings.",
+          asideTitle: "For deepening practice",
+          asideCopy:
+            "Prioritize the calendar, 5 Mindfulness Trainings, 14 MT/OI, Days of Mindfulness, retreats, affinity groups, and Plum Village app resources.",
+          steps: [
+            "Find this week or month's practice opportunities.",
+            "Explore trainings, retreats, study, and affinity groups.",
+            "Use curated Plum Village resources between sittings.",
+          ],
+        },
+        builder: {
+          label: "Facilitator or builder",
+          title: "Support a sangha with practical tools",
+          summary:
+            "Give facilitators the templates, guidelines, contacts, and mentorship pathways that make sangha care easier to maintain.",
+          asideTitle: "For community builders",
+          asideCopy:
+            "Bring forward dharma sharing structure, song sheets, local hosting practices, builder mentoring, working groups, and collaboration process.",
+          steps: [
+            "Use facilitator guides, printables, and song resources.",
+            "Find mentoring or join builder-focused collaboration spaces.",
+            "Keep sangha details current through a clear update pathway.",
+          ],
+        },
+      };
+
+      const buttons = Array.from(document.querySelectorAll(".persona-button"));
+      const label = document.querySelector("#persona-label");
+      const title = document.querySelector("#persona-title");
+      const summary = document.querySelector("#persona-summary");
+      const asideTitle = document.querySelector("#persona-aside-title");
+      const asideCopy = document.querySelector("#persona-aside-copy");
+      const steps = document.querySelector("#persona-steps");
+      const storageKey = "bops-wireframe-persona";
+
+      function getStoredPersona() {
+        try {
+          return window.localStorage.getItem(storageKey);
+        } catch {
+          return null;
+        }
+      }
+
+      function setStoredPersona(persona) {
+        try {
+          window.localStorage.setItem(storageKey, persona);
+        } catch {
+          // Local files can be opened in browsers that block storage.
+        }
+      }
+
+      function setPersona(persona) {
+        const content = personaContent[persona] || personaContent.newcomer;
+
+        buttons.forEach((button) => {
+          button.setAttribute(
+            "aria-selected",
+            String(button.dataset.persona === persona),
+          );
+        });
+
+        label.textContent = content.label;
+        title.textContent = content.title;
+        summary.textContent = content.summary;
+        asideTitle.textContent = content.asideTitle;
+        asideCopy.textContent = content.asideCopy;
+        steps.innerHTML = content.steps
+          .map(
+            (step, index) =>
+              `<li><span class="step-number">${index + 1}</span><span>${step}</span></li>`,
+          )
+          .join("");
+
+        setStoredPersona(persona);
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => setPersona(button.dataset.persona));
+      });
+
+      setPersona(getStoredPersona() || "newcomer");
+    </script>
+  </body>
+</html>
