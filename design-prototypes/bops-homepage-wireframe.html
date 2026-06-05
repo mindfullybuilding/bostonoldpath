@@ -222,7 +222,11 @@
         flex-wrap: wrap;
         align-items: center;
         justify-content: flex-end;
-        gap: 10px;
+        gap: 8px;
+        border: 1px solid rgba(139, 87, 42, 0.14);
+        border-radius: 999px;
+        padding: 6px 10px 6px 12px;
+        background: rgba(255, 210, 42, 0.16);
       }
 
       .text-button {
@@ -306,6 +310,7 @@
       }
 
       .path-options-panel.is-compact-sticky p {
+        width: 100%;
         font-size: 0.78rem;
         text-align: center;
       }
@@ -511,22 +516,32 @@
         background: var(--cloud);
       }
 
-      .finder-header {
+      .finder-header,
+      .detail-panel-header {
         display: grid;
         gap: 16px;
+      }
+
+      .finder-header {
         border-bottom: 1px solid var(--less-light-ink);
         padding: 18px;
       }
 
-      .finder-header h2 {
-        margin-bottom: 6px;
-        font-size: 1.4rem;
-        font-weight: 500;
+      .detail-panel {
+        background: var(--cloud);
       }
 
-      .finder-header p {
-        margin-bottom: 0;
-        color: var(--muted);
+      .detail-panel-header {
+        padding-bottom: 14px;
+      }
+
+      .panel-heading {
+        margin: 0;
+        color: var(--earth);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
       }
 
       .filter-group {
@@ -561,9 +576,13 @@
         background: var(--sun);
       }
 
-      .finder-layout {
+      .finder-layout,
+      .detail-panel-body {
         display: grid;
         gap: 18px;
+      }
+
+      .finder-layout {
         padding: 18px;
       }
 
@@ -761,6 +780,17 @@
         padding-top: 18px;
         color: var(--muted);
         font-size: 0.88rem;
+        text-align: center;
+      }
+
+      .footer-note a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .footer-note a:hover {
+        color: var(--ink);
+        text-decoration: underline;
       }
 
       [hidden] {
@@ -881,7 +911,7 @@
           <div class="topbar-inner">
             <div class="brand" aria-label="BOPS homepage">
               <strong>Boston Old Path Sangha</strong>
-              <span>Mindfulness practice in the Plum Village tradition</span>
+              <span>Mindfulness in Boston and everywhere...</span>
             </div>
             <div class="path-tools">
               <span class="path-label" id="selected-path-label"></span>
@@ -930,14 +960,7 @@
           >
             <div class="finder">
               <div class="finder-header">
-                <div>
-                  <p class="eyebrow" id="finder-eyebrow">Find a sangha</p>
-                  <h2 id="finder-title">Find</h2>
-                  <p>
-                    Filter by region and format. This static mockup sketches the
-                    calendar, map, and listing behavior.
-                  </p>
-                </div>
+                <h2 class="panel-heading" id="finder-title">Find a sangha</h2>
                 <div class="filter-group" aria-label="Sangha filters">
                   <div>
                     <span class="filter-label">Region</span>
@@ -972,9 +995,10 @@
           <div id="extra-sections"></div>
 
           <p class="footer-note">
-            Wireframe note: this V7 keeps the prototype standalone. Map
-            behavior, calendar feeds, and contact links are still mock content
-            for review only.
+            <a href="#">Terms and Conditions</a> |
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Press &amp; Media</a> |
+            <a href="#">Contact Us</a>
           </p>
         </main>
       </section>
@@ -1180,9 +1204,9 @@
           imagePosition: "center 58%",
           hasFinder: true,
           summaryItems: [
-            ["#learning-more", "Learning more"],
+            ["#learning-more", "Learn more"],
             ["#finder-section", "Find a sangha"],
-            ["#join-mailing-list", "Join our mailing list"],
+            ["#join-mailing-list", "Publications"],
             ["#request-mentorship", "Request mentorship"],
           ],
           primary: {
@@ -1196,7 +1220,7 @@
                 copy: "A short welcome for people with no meditation background and no need to know Buddhist vocabulary.",
               },
               {
-                title: "Our Practice",
+                title: "Our practice",
                 copy: "What practice looks like: mindfulness, meditation, community, singing, Dharma study, Dharma sharing, and deep listening.",
               },
               {
@@ -1225,7 +1249,7 @@
             {
               id: "join-mailing-list",
               eyebrow: "Join",
-              title: "Join",
+              title: "Publications",
               intro:
                 "Keep the connection step distinct from learning so newcomers can choose it when they are ready.",
               cards: [
@@ -1234,6 +1258,25 @@
                   copy: "Receive sitting updates, day-of-mindfulness notes, retreat information, and community announcements.",
                   action: "Join our mailing list",
                 },
+                {
+                  title: "Browse Recent Newsletters",
+                  copy: "Scan recent community updates, announcements, and practice opportunities.",
+                  action: "Browse newsletters",
+                },
+                {
+                  title: "Join Plumline mailing list",
+                  copy: "Receive broader Plumline updates for sangha discovery and community-building resources.",
+                  action: "Join Plumline",
+                },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
               ],
             },
             {
@@ -1261,10 +1304,10 @@
           imageAlt: "A close view of a large seated Buddha statue.",
           imagePosition: "center 34%",
           hasFinder: true,
-          finderTitle: "Sangha",
+          finderTitle: "Sangha Finder",
           finderFirst: true,
           summaryItems: [
-            ["#finder-section", "Sangha"],
+            ["#finder-section", "Sangha Finder"],
             ["#additional-activities", "Additional activities"],
             ["#five-mindfulness-trainings", "5 Mindfulness Trainings"],
             ["#order-of-interbeing", "Order of Interbeing"],
@@ -1296,6 +1339,10 @@
                 title: "Contribute to BOPS",
                 copy: "Find working groups and volunteer roles that match your capacity.",
               },
+              { placeholder: true },
+              { placeholder: true },
+              { placeholder: true },
+              { placeholder: true },
             ],
           },
           secondary: null,
@@ -1378,6 +1425,14 @@
                 title: "Dharma sharing guides",
                 copy: "Structure, deep listening norms, facilitation prompts, and group agreements.",
               },
+              { placeholder: true },
+              { placeholder: true },
+              { placeholder: true },
+              { placeholder: true },
+              { placeholder: true },
+              { placeholder: true },
+              { placeholder: true },
+              { placeholder: true },
             ],
           },
           secondary: null,
@@ -1444,7 +1499,6 @@
       const heroActions = document.querySelector("#hero-actions");
       const pathHeroImage = document.querySelector("#path-hero-image");
       const finderSection = document.querySelector("#finder-section");
-      const finderEyebrow = document.querySelector("#finder-eyebrow");
       const finderTitle = document.querySelector("#finder-title");
       const regionFilters = document.querySelector("#region-filters");
       const modalityFilters = document.querySelector("#modality-filters");
@@ -1740,23 +1794,35 @@
         `;
       }
 
+      function getSectionLabel(content, sectionId) {
+        const match = content.summaryItems.find(
+          ([href]) => href.replace("#", "") === sectionId,
+        );
+        return match ? match[1] : "";
+      }
+
+      function renderDetailPanel(label, cards) {
+        return `
+          <div class="detail-panel">
+            <div class="detail-panel-header">
+              <h2 class="panel-heading">${label}</h2>
+            </div>
+            <div class="detail-panel-body">
+              <div class="card-grid three">
+                ${cards.map((card) => renderInfoCard(card)).join("")}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
       function renderPrimarySection(content) {
         primarySection.hidden = false;
         primarySection.id = content.primary.id;
-        primarySection.innerHTML = `
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">${content.label}</p>
-              <h2>${content.primary.title}</h2>
-            </div>
-            <p>${content.primary.intro}</p>
-          </div>
-          <div class="card-grid three">
-            ${content.primary.cards
-              .map((card) => renderInfoCard(card))
-              .join("")}
-          </div>
-        `;
+        primarySection.innerHTML = renderDetailPanel(
+          getSectionLabel(content, content.primary.id) || content.primary.title,
+          content.primary.cards,
+        );
       }
 
       function renderSecondarySection(content) {
@@ -1770,22 +1836,28 @@
         secondarySection.hidden = false;
         secondarySection.id = content.secondary.id;
         secondarySection.innerHTML = `
-          <div class="section-heading">
-            <h2>${content.secondary.title}</h2>
-          </div>
-          <div class="card-grid three">
-            ${content.secondary.groups
-              .map(
-                (group) => `
-                  <article class="info-card">
-                    <h3>${group.title}</h3>
-                    <ul class="list">
-                      ${group.items.map((item) => `<li>${item}</li>`).join("")}
-                    </ul>
-                  </article>
-                `,
-              )
-              .join("")}
+          <div class="detail-panel">
+            <div class="detail-panel-header">
+              <h2 class="panel-heading">
+                ${getSectionLabel(content, content.secondary.id) || content.secondary.title}
+              </h2>
+            </div>
+            <div class="detail-panel-body">
+              <div class="card-grid three">
+                ${content.secondary.groups
+                  .map(
+                    (group) => `
+                      <article class="info-card">
+                        <h3>${group.title}</h3>
+                        <ul class="list">
+                          ${group.items.map((item) => `<li>${item}</li>`).join("")}
+                        </ul>
+                      </article>
+                    `,
+                  )
+                  .join("")}
+              </div>
+            </div>
           </div>
         `;
       }
@@ -1795,18 +1867,10 @@
           .map(
             (section) => `
               <section class="section" id="${section.id}">
-                <div class="section-heading">
-                  <div>
-                    <p class="eyebrow">${section.eyebrow}</p>
-                    <h2>${section.title}</h2>
-                  </div>
-                  <p>${section.intro}</p>
-                </div>
-                <div class="card-grid three">
-                  ${section.cards
-                    .map((card) => renderInfoCard(card))
-                    .join("")}
-                </div>
+                ${renderDetailPanel(
+                  getSectionLabel(content, section.id) || section.title,
+                  section.cards,
+                )}
               </section>
             `,
           )
@@ -1885,8 +1949,10 @@
 
         finderSection.hidden = !content.hasFinder;
         if (content.hasFinder) {
-          finderEyebrow.textContent = content.finderEyebrow || "Find a sangha";
-          finderTitle.textContent = content.finderTitle || "Find";
+          finderTitle.textContent =
+            content.finderTitle ||
+            getSectionLabel(content, "finder-section") ||
+            "Find a sangha";
           finderRegion = "boston";
           finderModality = "all";
           renderFinder();
