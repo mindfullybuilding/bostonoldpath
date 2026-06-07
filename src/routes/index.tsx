@@ -5,5 +5,11 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  return <div className="min-h-screen bg-white" />;
+  return (
+    <iframe
+      src="/bops-homepage-wireframe.html"
+      title="BOPS Homepage"
+      className="block h-screen w-screen border-0"
+    />
+  );
 }
