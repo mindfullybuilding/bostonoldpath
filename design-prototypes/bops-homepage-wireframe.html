@@ -240,6 +240,9 @@
       }
 
       .content {
+        display: flex;
+        min-height: calc(100vh - var(--sticky-offset));
+        flex-direction: column;
         padding: clamp(28px, 6vw, 64px) 0 52px;
       }
 
@@ -484,7 +487,14 @@
         text-decoration: none;
       }
 
+      .linked-card {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+      }
+
       .resource-link:hover,
+      .linked-card:hover,
       .sangha-card:hover {
         border-color: var(--earth);
         background: var(--light-sun);
@@ -601,6 +611,12 @@
       .finder-guidance h3 {
         margin-bottom: 8px;
         font-size: 0.98rem;
+      }
+
+      .guidance-copy {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.88rem;
       }
 
       .guidance-list {
@@ -775,7 +791,7 @@
       }
 
       .footer-note {
-        margin-top: 38px;
+        margin-top: auto;
         border-top: 1px solid var(--less-light-ink);
         padding-top: 18px;
         color: var(--muted);
@@ -881,7 +897,10 @@
           <div class="choice-grid" aria-label="Choose a visitor path">
             <button class="choice-button" type="button" data-persona="beginner">
               <strong>Beginner's Mind</strong>
-              <span>Learn about the Practice, Thay, and Sanghas near you.</span>
+              <span
+                >Learn about the Plum Village Tradition, and find sangha to
+                support your practice.</span
+              >
             </button>
             <button
               class="choice-button"
@@ -900,7 +919,7 @@
               data-persona="facilitator"
             >
               <strong>Facilitator</strong>
-              <span>Cultivate deeper sangha environments and mentorship.</span>
+              <span>Cultivate sangha, mentorship, and a deep practice.</span>
             </button>
           </div>
         </div>
@@ -1006,32 +1025,38 @@
 
     <script>
       const storageKey = "bops-prototype-v7-persona";
+      const weeklySittingsUrl =
+        "https://bostonoldpath.org/practice-with-us/weekly-sittings/";
 
       const sanghas = [
         {
           id: "dandelions-heart",
-          name: "Newton / Dandelions of the Heart Sangha",
+          name: "Dandelions of the Heart Sangha",
           region: "boston",
           modality: "virtual",
           day: "Mon-Fri",
-          time: "6:30 AM",
-          location: "Newton / Zoom link by organizer contact",
+          time: "6:30-7:30 AM",
+          location: "Newton",
+          access: "Zoom link by organizer contact",
           description:
             "A mostly silent morning sit with closing dharma reflection except Thursday and Friday. Visitors may drop in for any part.",
-          action: "Email for details",
+          learnUrl: weeklySittingsUrl,
+          registerUrl: weeklySittingsUrl,
           marker: ["B1", 39, 49],
         },
         {
           id: "peaceful-garden",
-          name: "Brookline / Peaceful Garden Sangha",
+          name: "Peaceful Garden Sangha",
           region: "boston",
           modality: "in-person",
           day: "Tuesday",
-          time: "7:00 PM",
-          location: "United Parish Church, 210 Harvard Street, Brookline",
+          time: "7:00-8:30 PM",
+          location: "Brookline",
+          access: "United Parish Church, 210 Harvard Street",
           description:
             "An open walk-in, peer-led evening sitting with reading and discussion. Side-street parking and transit access are available.",
-          action: "View sitting details",
+          learnUrl: weeklySittingsUrl,
+          registerUrl: weeklySittingsUrl,
           marker: ["B2", 48, 52],
         },
         {
@@ -1040,24 +1065,28 @@
           region: "boston",
           modality: "virtual",
           day: "Wednesday",
-          time: "12:00 PM",
-          location: "Zoom link by organizer contact",
+          time: "12:00-12:45 PM",
+          location: "Online",
+          access: "Zoom link by organizer contact",
           description:
             "A brief mid-day eating practice for pausing, arriving, and practicing mindfulness during lunch.",
-          action: "Email for Zoom link",
+          learnUrl: weeklySittingsUrl,
+          registerUrl: weeklySittingsUrl,
           marker: ["B3", 64, 44],
         },
         {
           id: "peaceful-songbird",
-          name: "Roslindale / Peaceful Songbird Sangha",
+          name: "Peaceful Songbird Sangha",
           region: "boston",
           modality: "hybrid",
           day: "Saturday",
-          time: "9:30 AM",
-          location: "Zoom and occasional in-person temple practice",
+          time: "9:30-11:30 AM",
+          location: "Roslindale",
+          access: "Zoom and occasional in-person temple practice",
           description:
             "Saturday practice with meditation, check-in, reading, dharma discussion, metta practice, and closing meditation.",
-          action: "Request Zoom link",
+          learnUrl: weeklySittingsUrl,
+          registerUrl: "mailto:PeacefulSongbird+owner@BostonOldPath.groups.io",
           marker: ["B4", 45, 67],
         },
         {
@@ -1066,11 +1095,13 @@
           region: "boston",
           modality: "virtual",
           day: "Friday",
-          time: "8:30 AM",
-          location: "Zoom",
+          time: "8:30-10:00 AM",
+          location: "Online",
+          access: "Zoom",
           description:
             "A welcoming weekly online sangha with sitting, walking, dharma sharing, rotating facilitation, and confidentiality.",
-          action: "Email for Zoom link",
+          learnUrl: weeklySittingsUrl,
+          registerUrl: weeklySittingsUrl,
           marker: ["B5", 57, 41],
         },
         {
@@ -1078,12 +1109,13 @@
           name: "Wake Up Boston",
           region: "boston",
           modality: "in-person",
-          day: "2nd/4th Wed",
+          day: "2nd and 4th Wednesday",
           time: "Evening",
           location: "Cambridge Central Square",
           description:
             "A young adult sangha for 18-35-ish practitioners with guided sitting, walking, dharma reading, and dharma sharing.",
-          action: "Visit Wake Up Boston",
+          learnUrl: "https://bostonwakeup.substack.com/about",
+          registerUrl: "https://bostonwakeup.substack.com/about",
           marker: ["B6", 55, 35],
         },
         {
@@ -1092,11 +1124,12 @@
           region: "boston",
           modality: "virtual",
           day: "Wednesday",
-          time: "7:30 PM",
+          time: "7:30-9:00 PM",
           location: "Online study group",
           description:
             "A weekly study group grounded in the 14 Mindfulness Trainings for Order of Interbeing members, aspirants, and pre-aspirants.",
-          action: "Contact coordinator",
+          learnUrl: weeklySittingsUrl,
+          registerUrl: weeklySittingsUrl,
           marker: ["B7", 69, 56],
         },
         {
@@ -1104,12 +1137,13 @@
           name: "Joyful Lotus Sangha",
           region: "boston",
           modality: "in-person",
-          day: "1st Wed",
-          time: "5:00 PM",
+          day: "First Wednesday of the month",
+          time: "5:00-6:30 PM",
           location: "Cambridge Zen Center",
           description:
             "A monthly BIPOC gathering for meditation and exploration of contemplative practices in a safe community space.",
-          action: "View gathering details",
+          learnUrl: "https://cambridgezen.org/weekly-announcements",
+          registerUrl: "mailto:kfoo@wpi.edu",
           marker: ["B8", 60, 32],
         },
         {
@@ -1122,7 +1156,8 @@
           location: "Online",
           description:
             "An international online sangha in the Plum Village tradition with weekly live practice.",
-          action: "Visit sangha page",
+          learnUrl: "https://www.plumline.org/",
+          registerUrl: "https://www.plumline.org/",
           marker: ["G1", 47, 44],
         },
         {
@@ -1135,7 +1170,8 @@
           location: "Online",
           description:
             "A trauma-informed online Plum Village sangha with sitting, reading, sharing, and song.",
-          action: "Visit sangha page",
+          learnUrl: "https://www.plumline.org/",
+          registerUrl: "https://www.plumline.org/",
           marker: ["G2", 30, 50],
         },
         {
@@ -1148,7 +1184,8 @@
           location: "Global directory",
           description:
             "A placeholder for Plumline listings that combine online access with local practice.",
-          action: "Search Plumline",
+          learnUrl: "https://www.plumline.org/",
+          registerUrl: "https://www.plumline.org/",
           marker: ["G3", 62, 38],
         },
         {
@@ -1161,7 +1198,8 @@
           location: "Pine Bush, NY",
           description:
             "A regional monastic practice center for retreats, days of mindfulness, and deeper practice.",
-          action: "View retreat calendar",
+          learnUrl: "https://www.plumvillage.org/practice-centre/blue-cliff-monastery/",
+          registerUrl: "https://www.plumvillage.org/practice-centre/blue-cliff-monastery/",
           marker: ["G4", 74, 60],
         },
       ];
@@ -1178,18 +1216,113 @@
         ["in-person", "In-person"],
       ];
 
-      const bopsFinderGuidance = [
-        "No advance contact needed for many sittings.",
-        "Cushions, chairs, and some benches are available.",
-        "Visitors may stay for all or part of a sitting.",
-        "Arrive five minutes early.",
-        "Contact each sitting for Zoom links and mailing lists.",
-      ];
+      const bopsFinderGuidance =
+        "Sanghas are communities of monastic and/or lay Buddhist practitioners. A sangha is the best way to practice meditation, as it offers deep support and wisdom for beginners and seasoned practitioners alike. In Greater Boston, there are ample virtual, hybrid, and in-person options. Globally, there are thousands of sanghas meeting regularly for mornings, evenings, or days of mindfulness practice.";
 
       const globalFinderGuidance = [
         "These are placeholder examples for the prototype.",
         "A production version should connect to trusted global directory sources.",
         "Use local contact details to confirm time zones, access, and format.",
+      ];
+
+      const publicationCards = [
+        {
+          title: "Join our mailing list",
+          copy: "Receive sitting updates, day-of-mindfulness notes, retreat information, and community announcements.",
+          action: "Join our mailing list",
+          url: "https://bostonoldpath.org/about/community/",
+        },
+        {
+          title: "Browse Recent Newsletters",
+          copy: "Scan recent community updates, announcements, and practice opportunities.",
+          action: "Browse newsletters",
+          url: "https://bostonoldpath.org/newsletters/",
+        },
+        {
+          title: "Join Plumline mailing list",
+          copy: "Receive broader Plumline updates for sangha discovery and community-building resources.",
+          action: "Join Plumline",
+          url: "https://www.plumline.org/building",
+        },
+        {
+          title: "The Way Out Is In Podcast",
+          copy: "Listen to conversations on mindfulness, engaged practice, and daily life in the Plum Village tradition.",
+          action: "Listen to podcast",
+          url: "https://plumvillage.org/podcasts/the-way-out-is-in",
+        },
+        {
+          title: "Key Books",
+          copy: "Browse foundational books from Thich Nhat Hanh for study, reflection, and practice.",
+          action: "Browse books",
+          url: "https://plumvillage.org/about/thich-nhat-hanh/key-books",
+        },
+        {
+          title: "Letters from Thich Nhat Hanh",
+          copy: "Read letters and teachings from Thay for personal practice and community reflection.",
+          action: "Read letters",
+          url: "https://plumvillage.org/about/thich-nhat-hanh/letters",
+        },
+        {
+          title: "Joanna Macy",
+          copy: "Explore resources on engaged ecological practice, grief, resilience, and the work that reconnects.",
+          action: "Visit resource",
+          url: "https://www.joannamacy.net/main",
+        },
+        {
+          title: "Pema Chodron",
+          copy: "Find teachings and resources on compassion, courage, and working with difficulty.",
+          action: "Visit resource",
+          url: "https://pemachodronfoundation.org/",
+        },
+        {
+          title: "Jack Kornfield",
+          copy: "Explore talks, writings, and practice resources from a Western insight meditation teacher.",
+          action: "Visit resource",
+          url: "https://jackkornfield.com/",
+        },
+        {
+          title: "Bhante Gunaratana",
+          copy: "Browse teachings and books from a Theravada monk known for practical mindfulness instruction.",
+          action: "Visit resource",
+          url: "https://wisdomexperience.org/content-author/bhante-gunaratana/",
+        },
+        {
+          title: "New England Buddhist Poetry Exchange",
+          copy: "Read community poetry, reflections, and Buddhist practice writing from New England practitioners.",
+          action: "Read poetry",
+          url: "https://buddhistpoetryexchange.blogspot.com",
+        },
+        { placeholder: true },
+      ];
+
+      const additionalActivityCards = [
+        {
+          title: "Affinity Groups",
+          copy: "Practice with people who share a life context, identity, or care focus.",
+        },
+        {
+          title: "Education / Dharma study",
+          copy: "Study groups, talks, readings, and learning paths from local and Plum Village resources.",
+        },
+        {
+          title: "Days of Mindfulness",
+          copy: "A daylong opportunity to pause, practice, listen, and renew community connection.",
+        },
+        {
+          title: "Retreats",
+          copy: "Longer practice periods for rest, silence, teachings, and deepening mindfulness in community.",
+        },
+        {
+          title: "Retreat Centers",
+          copy: "Connect with Plum Village practice centers and regional retreat opportunities.",
+        },
+        {
+          title: "Contribute to BOPS",
+          copy: "Find working groups and volunteer roles that match your capacity.",
+        },
+        { placeholder: true },
+        { placeholder: true },
+        { placeholder: true },
       ];
 
       const pathContent = {
@@ -1206,6 +1339,7 @@
           summaryItems: [
             ["#learning-more", "Learn more"],
             ["#finder-section", "Find a sangha"],
+            ["#additional-activities", "Additional activities"],
             ["#join-mailing-list", "Publications"],
             ["#request-mentorship", "Request mentorship"],
           ],
@@ -1217,67 +1351,64 @@
             cards: [
               {
                 title: "Start Here",
-                copy: "A short welcome for people with no meditation background and no need to know Buddhist vocabulary.",
+                copy: "An intro to mindfulness and mindful living.",
+                action: "Learn more",
+                url: "https://plumvillage.org/mindfulness/mindfulness-practice",
               },
               {
-                title: "Our practice",
-                copy: "What practice looks like: mindfulness, meditation, community, singing, Dharma study, Dharma sharing, and deep listening.",
+                title: "Thich Nhat Hanh",
+                copy: "Learn about Thich Nhat Hanh (Thay), his teachings, and the Plum Village tradition.",
+                action: "Learn about Thay",
+                url: "https://plumvillage.org/about/thich-nhat-hanh",
               },
               {
-                title: "Our community",
-                copy: "Who we practice with: Plum Village, Thich Nhat Hanh (Thay), comparisons with other traditions, and Greater Boston history.",
+                title: "Plum Village",
+                copy: "Learn about the Plum Village tradition, practice centers, and global community.",
+                action: "Learn about Plum Village",
+                url: "https://plumvillage.org/about/plum-village",
               },
               {
-                title: "Who is Thich Nhat Hanh?",
-                copy: "A simple introduction to Thay, his teachings, and the Plum Village tradition.",
+                title: "Boston Old Path Sangha",
+                copy: "Learn about local Plum Village practice, community history, and sangha life in Greater Boston.",
               },
               {
-                title: "Resources",
-                copy: "Talks, readings, songs, practices, and links for learning between sittings.",
+                title: "About this Website",
+                copy: "A guide to the paths, resources, and ways this prototype helps visitors find what they need.",
               },
               {
                 title: "FAQ",
                 copy: "Common questions about what to expect, how to attend, and how to begin.",
               },
               { placeholder: true },
-              { placeholder: true },
-              { placeholder: true },
+              {
+                title: "Resources",
+                copy: "Talks, readings, songs, practices, and links for learning between sittings.",
+              },
+              {
+                title: "Dana",
+                copy: "Learn about generosity as a practice of giving and sustaining community.",
+                action: "Learn about dana",
+                url: "https://plumvillage.app/dana-the-practice-of-giving/",
+              },
             ],
           },
           secondary: null,
           extraSections: [
+            {
+              id: "additional-activities",
+              eyebrow: "Practice",
+              title: "Additional activities",
+              intro:
+                "Make ongoing practice opportunities visible once someone has found a starting point.",
+              cards: additionalActivityCards,
+            },
             {
               id: "join-mailing-list",
               eyebrow: "Join",
               title: "Publications",
               intro:
                 "Keep the connection step distinct from learning so newcomers can choose it when they are ready.",
-              cards: [
-                {
-                  title: "Join our mailing list",
-                  copy: "Receive sitting updates, day-of-mindfulness notes, retreat information, and community announcements.",
-                  action: "Join our mailing list",
-                },
-                {
-                  title: "Browse Recent Newsletters",
-                  copy: "Scan recent community updates, announcements, and practice opportunities.",
-                  action: "Browse newsletters",
-                },
-                {
-                  title: "Join Plumline mailing list",
-                  copy: "Receive broader Plumline updates for sangha discovery and community-building resources.",
-                  action: "Join Plumline",
-                },
-                { placeholder: true },
-                { placeholder: true },
-                { placeholder: true },
-                { placeholder: true },
-                { placeholder: true },
-                { placeholder: true },
-                { placeholder: true },
-                { placeholder: true },
-                { placeholder: true },
-              ],
+              cards: publicationCards,
             },
             {
               id: "request-mentorship",
@@ -1304,46 +1435,22 @@
           imageAlt: "A close view of a large seated Buddha statue.",
           imagePosition: "center 34%",
           hasFinder: true,
-          finderTitle: "Sangha Finder",
+          finderTitle: "Find a sangha",
           finderFirst: true,
           summaryItems: [
-            ["#finder-section", "Sangha Finder"],
+            ["#finder-section", "Find a sangha"],
             ["#additional-activities", "Additional activities"],
             ["#five-mindfulness-trainings", "5 Mindfulness Trainings"],
             ["#order-of-interbeing", "Order of Interbeing"],
-            ["#community-builders", "Community Builders"],
+            ["#community-builders", "Engaged Buddhism"],
+            ["#practitioner-publications", "Publications"],
           ],
           primary: {
             id: "additional-activities",
             title: "Additional activities",
             intro:
               "Bring the deeper practice opportunities forward without making people search through archived pages.",
-            cards: [
-              {
-                title: "Affinity Groups",
-                copy: "Practice with people who share a life context, identity, or care focus.",
-              },
-              {
-                title: "Education / Dharma study",
-                copy: "Study groups, talks, readings, and learning paths from local and Plum Village resources.",
-              },
-              {
-                title: "Receive the 5 Mindfulness Trainings",
-                copy: "Preparation and local/global opportunities for receiving the 5 Mindfulness Trainings.",
-              },
-              {
-                title: "Special events",
-                copy: "Days of Mindfulness, retreats, and calendar-based practice opportunities.",
-              },
-              {
-                title: "Contribute to BOPS",
-                copy: "Find working groups and volunteer roles that match your capacity.",
-              },
-              { placeholder: true },
-              { placeholder: true },
-              { placeholder: true },
-              { placeholder: true },
-            ],
+            cards: additionalActivityCards,
           },
           secondary: null,
           extraSections: [
@@ -1396,7 +1503,26 @@
                   title: "Community Builders",
                   copy: "Our collaboration process, working groups, and mailing list for people who help sustain BOPS.",
                 },
+                {
+                  title: "Activism",
+                  copy: "Practice engaged Buddhism through compassionate action, skillful participation, and community care.",
+                },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
               ],
+            },
+            {
+              id: "practitioner-publications",
+              eyebrow: "Practice",
+              title: "Publications",
+              intro:
+                "Offer practitioners the same reading, listening, and newsletter resources as the beginner path.",
+              cards: publicationCards,
             },
           ],
         },
@@ -1411,6 +1537,7 @@
           hasFinder: false,
           summaryItems: [
             ["#dharma-sharing-structure", "Sangha Resources"],
+            ["#additional-activities", "Additional activities"],
             ["#song-sheets-printables", "Join Builder Sangha"],
             ["#builder-mentorship", "Become a mentor"],
             ["#keep-sangha-details-current", "Update sangha details"],
@@ -1425,18 +1552,50 @@
                 title: "Dharma sharing guides",
                 copy: "Structure, deep listening norms, facilitation prompts, and group agreements.",
               },
-              { placeholder: true },
-              { placeholder: true },
-              { placeholder: true },
-              { placeholder: true },
-              { placeholder: true },
-              { placeholder: true },
+              {
+                title: "Sangha Facilitation",
+                copy: "Guidance for facilitating Plum Village sangha practice with care, clarity, and inclusion.",
+                action: "View facilitation guide",
+                url: "https://www.plumline.org/facilitation",
+              },
+              {
+                title: "Songbook",
+                copy: "Songs and shared practice materials for Plum Village gatherings and local sangha use.",
+                action: "View songbook",
+                url: "https://www.plumline.org/songbook",
+              },
+              {
+                title: "New Sangha Practice Book",
+                copy: "A practical guide for new and existing sanghas from the Thich Nhat Hanh Foundation.",
+                action: "View practice book",
+                url: "https://thichnhathanhfoundation.app.box.com/s/kkw4prrlwhrsxza5vf9hof1ec6ljbkso",
+              },
+              {
+                title: "OI Directory",
+                copy: "A placeholder for connecting with Order of Interbeing members and aspirant support.",
+              },
+              {
+                title: "Care Taking Council (CTC)",
+                copy: "A placeholder for care-taking roles, coordination, and sangha stewardship practices.",
+              },
+              {
+                title: "Host Recitation",
+                copy: "A placeholder for hosting recitations, preparing materials, and supporting shared practice.",
+              },
               { placeholder: true },
               { placeholder: true },
             ],
           },
           secondary: null,
           extraSections: [
+            {
+              id: "additional-activities",
+              eyebrow: "Practice",
+              title: "Additional activities",
+              intro:
+                "Make broader practice opportunities visible for facilitators and community builders.",
+              cards: additionalActivityCards,
+            },
             {
               id: "song-sheets-printables",
               eyebrow: "Facilitator",
@@ -1681,6 +1840,12 @@
         return value.charAt(0).toUpperCase() + value.slice(1);
       }
 
+      function linkAttributes(url) {
+        const href = url || "#";
+        const opensNewTab = /^https?:\/\//.test(href);
+        return `href="${href}"${opensNewTab ? ' target="_blank" rel="noopener noreferrer"' : ""}`;
+      }
+
       function renderFinder() {
         renderFilterButtons(regionFilters, regionOptions, finderRegion, "region");
         renderFilterButtons(
@@ -1699,18 +1864,22 @@
             ? `${filtered.length} sangha option${filtered.length === 1 ? "" : "s"} shown. Map pins are a visual placeholder for the review prototype.`
             : "No mock sanghas match these filters yet.";
 
-        const guidance =
-          finderRegion === "boston" ? bopsFinderGuidance : globalFinderGuidance;
+        const isBostonRegion = finderRegion === "boston";
+        const guidance = isBostonRegion ? bopsFinderGuidance : globalFinderGuidance;
         const guidanceTitle =
-          finderRegion === "boston"
+          isBostonRegion
             ? "Before attending"
             : "Global placeholder note";
         const guidanceMarkup = `
           <aside class="finder-guidance" aria-label="${guidanceTitle}">
             <h3>${guidanceTitle}</h3>
-            <ul class="guidance-list">
-              ${guidance.map((item) => `<li>${item}</li>`).join("")}
-            </ul>
+            ${
+              isBostonRegion
+                ? `<p class="guidance-copy">${guidance}</p>`
+                : `<ul class="guidance-list">
+                    ${guidance.map((item) => `<li>${item}</li>`).join("")}
+                  </ul>`
+            }
           </aside>
         `;
 
@@ -1725,16 +1894,23 @@
                         <div class="sangha-meta">
                           <span class="pill sun">${formatModality(sangha.modality)}</span>
                           <span class="pill">${regionLabel}</span>
-                          <span class="pill">${sangha.day} ${sangha.time}</span>
+                          <span class="pill">${sangha.location}</span>
+                          <span class="pill">${sangha.day}</span>
+                          <span class="pill">${sangha.time}</span>
                         </div>
                         <h3>${sangha.name}</h3>
                         <p>${sangha.description}</p>
                       </div>
                       <div>
                         <p><strong>Location:</strong> ${sangha.location}</p>
+                        ${
+                          sangha.access
+                            ? `<p><strong>Access:</strong> ${sangha.access}</p>`
+                            : ""
+                        }
                         <div class="sangha-actions">
-                          <a class="button secondary" href="#">Learn More</a>
-                          <a class="button" href="#">Register</a>
+                          <a class="button secondary" ${linkAttributes(sangha.learnUrl)}>Learn More</a>
+                          <a class="button" ${linkAttributes(sangha.registerUrl)}>Register</a>
                         </div>
                       </div>
                     </article>
@@ -1781,13 +1957,22 @@
           return '<article class="info-card placeholder-card" aria-hidden="true"></article>';
         }
 
+        if (card.url) {
+          return `
+            <a class="info-card linked-card" ${linkAttributes(card.url)}>
+              <h3>${card.title}</h3>
+              <p>${card.copy}</p>
+            </a>
+          `;
+        }
+
         return `
           <article class="info-card">
             <h3>${card.title}</h3>
             <p>${card.copy}</p>
             ${
               card.action
-                ? `<a class="button secondary" href="#">${card.action}</a>`
+                ? `<a class="button secondary" href="${card.url || "#"}">${card.action}</a>`
                 : ""
             }
           </article>
