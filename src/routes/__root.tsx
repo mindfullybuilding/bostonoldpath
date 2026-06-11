@@ -85,6 +85,12 @@ export const Route = createRootRoute({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Boston Old Path Sangha" },
+      { name: "description", content: "Mindfulness in Boston and everywhere..." },
+      { property: "og:description", content: "Mindfulness in Boston and everywhere..." },
+      { name: "twitter:description", content: "Mindfulness in Boston and everywhere..." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/gUaNuOWEhfOiZOieqNTQXnNaS333/social-images/social-1781189267814-intro-page-hero.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/gUaNuOWEhfOiZOieqNTQXnNaS333/social-images/social-1781189267814-intro-page-hero.webp" },
     ],
     links: [
       {
