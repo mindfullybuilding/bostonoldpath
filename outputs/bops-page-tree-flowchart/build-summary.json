@@ -1,0 +1,172 @@
+{
+  "outputPath": "/Users/jameswilliams/Documents/GitHub/bostonoldpath/outputs/bops-page-tree-flowchart/bops-page-tree-flowchart.xlsx",
+  "nodeCount": 92,
+  "duplicateGroupCount": 22,
+  "duplicateGroups": [
+    {
+      "id": "D01",
+      "title": "Find a sangha",
+      "routes": "Beginner's Mind; Practitioner",
+      "color": "#FDE68A",
+      "occurrences": 2
+    },
+    {
+      "id": "D02",
+      "title": "Additional activities",
+      "routes": "Beginner's Mind; Practitioner; Facilitator",
+      "color": "#BFDBFE",
+      "occurrences": 3
+    },
+    {
+      "id": "D03",
+      "title": "Additional activity cards",
+      "routes": "Beginner's Mind; Practitioner; Facilitator",
+      "color": "#C7D2FE",
+      "occurrences": 3
+    },
+    {
+      "id": "D04",
+      "title": "Affinity Groups",
+      "routes": "Beginner's Mind; Practitioner; Facilitator",
+      "color": "#FBCFE8",
+      "occurrences": 3
+    },
+    {
+      "id": "D05",
+      "title": "Education / Dharma study",
+      "routes": "Beginner's Mind; Practitioner; Facilitator",
+      "color": "#BBF7D0",
+      "occurrences": 3
+    },
+    {
+      "id": "D06",
+      "title": "Days of Mindfulness",
+      "routes": "Beginner's Mind; Practitioner; Facilitator",
+      "color": "#FED7AA",
+      "occurrences": 3
+    },
+    {
+      "id": "D07",
+      "title": "Retreats",
+      "routes": "Beginner's Mind; Practitioner; Facilitator",
+      "color": "#DDD6FE",
+      "occurrences": 3
+    },
+    {
+      "id": "D08",
+      "title": "Retreat Centers",
+      "routes": "Beginner's Mind; Practitioner; Facilitator",
+      "color": "#A7F3D0",
+      "occurrences": 3
+    },
+    {
+      "id": "D09",
+      "title": "Contribute to BOPS",
+      "routes": "Beginner's Mind; Practitioner; Facilitator",
+      "color": "#FECACA",
+      "occurrences": 3
+    },
+    {
+      "id": "D10",
+      "title": "Publications",
+      "routes": "Beginner's Mind; Practitioner",
+      "color": "#E9D5FF",
+      "occurrences": 2
+    },
+    {
+      "id": "D11",
+      "title": "Publication cards",
+      "routes": "Beginner's Mind; Practitioner",
+      "color": "#BAE6FD",
+      "occurrences": 2
+    },
+    {
+      "id": "D12",
+      "title": "Join our mailing list",
+      "routes": "Beginner's Mind; Practitioner",
+      "color": "#D9F99D",
+      "occurrences": 2
+    },
+    {
+      "id": "D13",
+      "title": "Browse Recent Newsletters",
+      "routes": "Beginner's Mind; Practitioner",
+      "color": "#F5D0FE",
+      "occurrences": 2
+    },
+    {
+      "id": "D14",
+      "title": "Join Plumline mailing list",
+      "routes": "Beginner's Mind; Practitioner",
+      "color": "#A5F3FC",
+      "occurrences": 2
+    },
+    {
+      "id": "D15",
+      "title": "The Way Out Is In Podcast",
+      "routes": "Beginner's Mind; Practitioner",
+      "color": "#FDE2E4",
+      "occurrences": 2
+    },
+    {
+      "id": "D16",
+      "title": "Key Books",
+      "routes": "Beginner's Mind; Practitioner",
+      "color": "#CCEABB",
+      "occurrences": 2
+    },
+    {
+      "id": "D17",
+      "title": "Letters from Thich Nhat Hanh",
+      "routes": "Beginner's Mind; Practitioner",
+      "color": "#FCE7A0",
+      "occurrences": 2
+    },
+    {
+      "id": "D18",
+      "title": "Joanna Macy",
+      "routes": "Beginner's Mind; Practitioner",
+      "color": "#CFFAFE",
+      "occurrences": 2
+    },
+    {
+      "id": "D19",
+      "title": "Pema Chodron",
+      "routes": "Beginner's Mind; Practitioner",
+      "color": "#E0E7FF",
+      "occurrences": 2
+    },
+    {
+      "id": "D20",
+      "title": "Jack Kornfield",
+      "routes": "Beginner's Mind; Practitioner",
+      "color": "#FFE4B5",
+      "occurrences": 2
+    },
+    {
+      "id": "D21",
+      "title": "Bhante Gunaratana",
+      "routes": "Beginner's Mind; Practitioner",
+      "color": "#D1FAE5",
+      "occurrences": 2
+    },
+    {
+      "id": "D22",
+      "title": "New England Buddhist Poetry Exchange",
+      "routes": "Beginner's Mind; Practitioner",
+      "color": "#F8D7DA",
+      "occurrences": 2
+    }
+  ],
+  "previews": {
+    "flowchart": "/Users/jameswilliams/Documents/GitHub/bostonoldpath/outputs/bops-page-tree-flowchart/previews/flowchart.png",
+    "nodeList": "/Users/jameswilliams/Documents/GitHub/bostonoldpath/outputs/bops-page-tree-flowchart/previews/node-list.png",
+    "duplicateLegend": "/Users/jameswilliams/Documents/GitHub/bostonoldpath/outputs/bops-page-tree-flowchart/previews/duplicate-legend.png"
+  },
+  "inspections": {
+    "flowchart": "{\"kind\":\"table\",\"sheet\":\"Flowchart\",\"address\":\"A4:G40\",\"rows\":37,\"cols\":7,\"values\":[[\"Landing Page\",\"Persona Page\",\"Subcategory Page\",\"Card Array Page\",\"Leaf Page\",\"URL\",\"Duplicate Group\"],[\"Landing Page\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Beginner's Mind\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"Learn more\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"Start Here\",\"\",\"https://plumvillage.org/mindfulness/mindfulness-practice\",\"\"],[\"\",\"\",\"\",\"Thich Nhat Hanh\",\"\",\"https://plumvillage.org/about/thich-nhat-hanh\",\"\"],[\"\",\"\",\"\",\"Plum Village\",\"\",\"https://plumvillage.org/about/plum-village\",\"\"],[\"\",\"\",\"\",\"Boston Old Path Sangha\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"About this Website\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"FAQ\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"Resources\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"Dana\",\"\",\"https://plumvillage.app/dana-the-practice-of-giving/\",\"\"],[\"\",\"\",\"Find a sangha\",\"\",\"\",\"\",\"D01\"],[\"\",\"\",\"Additional activities\",\"\",\"\",\"\",\"D02\"],[\"\",\"\",\"\",\"Additional activity cards\",\"\",\"\",\"D03\"],[\"\",\"\",\"\",\"\",\"Affinity Groups\",\"\",\"D04\"],[\"\",\"\",\"\",\"\",\"Education / Dharma study\",\"\",\"D05\"],[\"\",\"\",\"\",\"\",\"Days of Mindfulness\",\"\",\"D06\"],[\"\",\"\",\"\",\"\",\"Retreats\",\"\",\"D07\"],[\"\",\"\",\"\",\"\",\"Retreat Centers\",\"\",\"D08\"],[\"\",\"\",\"\",\"\",\"Contribute to BOPS\",\"\",\"D09\"],[\"\",\"\",\"Publications\",\"\",\"\",\"\",\"D10\"],[\"\",\"\",\"\",\"Publication cards\",\"\",\"\",\"D11\"],[\"\",\"\",\"\",\"\",\"Join our mailing list\",\"https://bostonoldpath.org/about/community/\",\"D12\"],[\"\",\"\",\"\",\"\",\"Browse Recent Newsletters\",\"https://bostonoldpath.org/newsletters/\",\"D13\"],[\"\",\"\",\"\",\"\",\"Join Plumline mailing list\",\"https://www.plumline.org/building\",\"D14\"],[\"\",\"\",\"\",\"\",\"The Way Out Is In Podcast\",\"https://plumvillage.org/podcasts/the-way-out-is-in\",\"D15\"],[\"\",\"\",\"\",\"\",\"Key Books\",\"https://plumvillage.org/about/thich-nhat-hanh/key-books\",\"D16\"],[\"\",\"\",\"\",\"\",\"Letters from Thich Nhat Hanh\",\"https://plumvillage.org/about/thich-nhat-hanh/letters\",\"D17\"],[\"\",\"\",\"\",\"\",\"Joanna Macy\",\"https://www.joannamacy.net/main\",\"D18\"],[\"\",\"\",\"\",\"\",\"Pema Chodron\",\"https://pemachodronfoundation.org/\",\"D19\"],[\"\",\"\",\"\",\"\",\"Jack Kornfield\",\"https://jackkornfield.com/\",\"D20\"],[\"\",\"\",\"\",\"\",\"Bhante Gunaratana\",\"https://wisdomexperience.org/content-author/bhante-gunaratana/\",\"D21\"],[\"\",\"\",\"\",\"\",\"New England Buddhist Poetry Exchange\",\"https://buddhistpoetryexchange.blogspot.com\",\"D22\"],[\"\",\"\",\"Request mentorship\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"Request mentorship\",\"\",\"\",\"\"],[\"\",\"Practitioner\",\"\",\"\",\"\",\"\",\"\"]]}",
+    "nodeList": "{\"kind\":\"table\",\"sheet\":\"Node List\",\"address\":\"A4:J30\",\"rows\":27,\"cols\":10,\"values\":[[\"Node ID\",\"Route\",\"Parent Page\",\"Page Title\",\"Depth\",\"Page Type\",\"Source Section/Card Array\",\"URL\",\"Duplicate Group\",\"Duplicate Routes\"],[\"N001\",\"All\",\"\",\"Landing Page\",0,\"Root page\",\"public/bops-homepage-wireframe.html\",\"\",\"\",\"\"],[\"N002\",\"Beginner's Mind\",\"Landing Page\",\"Beginner's Mind\",1,\"Persona page\",\"pathContent.beginner\",\"\",\"\",\"\"],[\"N003\",\"Beginner's Mind\",\"Beginner's Mind\",\"Learn more\",2,\"Subcategory page\",\"section:learning-more\",\"\",\"\",\"\"],[\"N004\",\"Beginner's Mind\",\"Learn more\",\"Start Here\",3,\"Leaf page\",\"section:learning-more\",\"https://plumvillage.org/mindfulness/mindfulness-practice\",\"\",\"\"],[\"N005\",\"Beginner's Mind\",\"Learn more\",\"Thich Nhat Hanh\",3,\"Leaf page\",\"section:learning-more\",\"https://plumvillage.org/about/thich-nhat-hanh\",\"\",\"\"],[\"N006\",\"Beginner's Mind\",\"Learn more\",\"Plum Village\",3,\"Leaf page\",\"section:learning-more\",\"https://plumvillage.org/about/plum-village\",\"\",\"\"],[\"N007\",\"Beginner's Mind\",\"Learn more\",\"Boston Old Path Sangha\",3,\"Leaf page\",\"section:learning-more\",\"\",\"\",\"\"],[\"N008\",\"Beginner's Mind\",\"Learn more\",\"About this Website\",3,\"Leaf page\",\"section:learning-more\",\"\",\"\",\"\"],[\"N009\",\"Beginner's Mind\",\"Learn more\",\"FAQ\",3,\"Leaf page\",\"section:learning-more\",\"\",\"\",\"\"],[\"N010\",\"Beginner's Mind\",\"Learn more\",\"Resources\",3,\"Leaf page\",\"section:learning-more\",\"\",\"\",\"\"],[\"N011\",\"Beginner's Mind\",\"Learn more\",\"Dana\",3,\"Leaf page\",\"section:learning-more\",\"https://plumvillage.app/dana-the-practice-of-giving/\",\"\",\"\"],[\"N012\",\"Beginner's Mind\",\"Beginner's Mind\",\"Find a sangha\",2,\"Subcategory page / dynamic finder\",\"section:finder-section\",\"\",\"D01\",\"Beginner's Mind; Practitioner\"],[\"N013\",\"Beginner's Mind\",\"Beginner's Mind\",\"Additional activities\",2,\"Subcategory page\",\"section:additional-activities\",\"\",\"D02\",\"Beginner's Mind; Practitioner; Facilitator\"],[\"N014\",\"Beginner's Mind\",\"Additional activities\",\"Additional activity cards\",3,\"Card array page\",\"additionalActivityCards\",\"\",\"D03\",\"Beginner's Mind; Practitioner; Facilitator\"],[\"N015\",\"Beginner's Mind\",\"Additional activity cards\",\"Affinity Groups\",4,\"Leaf page\",\"additionalActivityCards\",\"\",\"D04\",\"Beginner's Mind; Practitioner; Facilitator\"],[\"N016\",\"Beginner's Mind\",\"Additional activity cards\",\"Education / Dharma study\",4,\"Leaf page\",\"additionalActivityCards\",\"\",\"D05\",\"Beginner's Mind; Practitioner; Facilitator\"],[\"N017\",\"Beginner's Mind\",\"Additional activity cards\",\"Days of Mindfulness\",4,\"Leaf page\",\"additionalActivityCards\",\"\",\"D06\",\"Beginner's Mind; Practitioner; Facilitator\"],[\"N018\",\"Beginner's Mind\",\"Additional activity cards\",\"Retreats\",4,\"Leaf page\",\"additionalActivityCards\",\"\",\"D07\",\"Beginner's Mind; Practitioner; Facilitator\"],[\"N019\",\"Beginner's Mind\",\"Additional activity cards\",\"Retreat Centers\",4,\"Leaf page\",\"additionalActivityCards\",\"\",\"D08\",\"Beginner's Mind; Practitioner; Facilitator\"],[\"N020\",\"Beginner's Mind\",\"Additional activity cards\",\"Contribute to BOPS\",4,\"Leaf page\",\"additionalActivityCards\",\"\",\"D09\",\"Beginner's Mind; Practitioner; Facilitator\"],[\"N021\",\"Beginner's Mind\",\"Beginner's Mind\",\"Publications\",2,\"Subcategory page\",\"section:join-mailing-list\",\"\",\"D10\",\"Beginner's Mind; Practitioner\"],[\"N022\",\"Beginner's Mind\",\"Publications\",\"Publication cards\",3,\"Card array page\",\"publicationCards\",\"\",\"D11\",\"Beginner's Mind; Practitioner\"],[\"N023\",\"Beginner's Mind\",\"Publication cards\",\"Join our mailing list\",4,\"Leaf page\",\"publicationCards\",\"https://bostonoldpath.org/about/community/\",\"D12\",\"Beginner's Mind; Practitioner\"],[\"N024\",\"Beginner's Mind\",\"Publication cards\",\"Browse Recent Newsletters\",4,\"Leaf page\",\"publicationCards\",\"https://bostonoldpath.org/newsletters/\",\"D13\",\"Beginner's Mind; Practitioner\"],[\"N025\",\"Beginner's Mind\",\"Publication cards\",\"Join Plumline mailing list\",4,\"Leaf page\",\"publicationCards\",\"https://www.plumline.org/building\",\"D14\",\"Beginner's Mind; Practitioner\"],[\"N026\",\"Beginner's Mind\",\"Publication cards\",\"The Way Out Is In Podcast\",4,\"Leaf page\",\"publicationCards\",\"https://plumvillage.org/podcasts/the-way-out-is-in\",\"D15\",\"Beginner's Mind; Practitioner\"]]}",
+    "duplicateLegend": "{\"kind\":\"table\",\"sheet\":\"Duplicate Legend\",\"address\":\"A4:E26\",\"rows\":23,\"cols\":5,\"values\":[[\"Duplicate Group\",\"Page Title\",\"Color\",\"Routes\",\"Occurrences\"],[\"D01\",\"Find a sangha\",\"#FDE68A\",\"Beginner's Mind; Practitioner\",2],[\"D02\",\"Additional activities\",\"#BFDBFE\",\"Beginner's Mind; Practitioner; Facilitator\",3],[\"D03\",\"Additional activity cards\",\"#C7D2FE\",\"Beginner's Mind; Practitioner; Facilitator\",3],[\"D04\",\"Affinity Groups\",\"#FBCFE8\",\"Beginner's Mind; Practitioner; Facilitator\",3],[\"D05\",\"Education / Dharma study\",\"#BBF7D0\",\"Beginner's Mind; Practitioner; Facilitator\",3],[\"D06\",\"Days of Mindfulness\",\"#FED7AA\",\"Beginner's Mind; Practitioner; Facilitator\",3],[\"D07\",\"Retreats\",\"#DDD6FE\",\"Beginner's Mind; Practitioner; Facilitator\",3],[\"D08\",\"Retreat Centers\",\"#A7F3D0\",\"Beginner's Mind; Practitioner; Facilitator\",3],[\"D09\",\"Contribute to BOPS\",\"#FECACA\",\"Beginner's Mind; Practitioner; Facilitator\",3],[\"D10\",\"Publications\",\"#E9D5FF\",\"Beginner's Mind; Practitioner\",2],[\"D11\",\"Publication cards\",\"#BAE6FD\",\"Beginner's Mind; Practitioner\",2],[\"D12\",\"Join our mailing list\",\"#D9F99D\",\"Beginner's Mind; Practitioner\",2],[\"D13\",\"Browse Recent Newsletters\",\"#F5D0FE\",\"Beginner's Mind; Practitioner\",2],[\"D14\",\"Join Plumline mailing list\",\"#A5F3FC\",\"Beginner's Mind; Practitioner\",2],[\"D15\",\"The Way Out Is In Podcast\",\"#FDE2E4\",\"Beginner's Mind; Practitioner\",2],[\"D16\",\"Key Books\",\"#CCEABB\",\"Beginner's Mind; Practitioner\",2],[\"D17\",\"Letters from Thich Nhat Hanh\",\"#FCE7A0\",\"Beginner's Mind; Practitioner\",2],[\"D18\",\"Joanna Macy\",\"#CFFAFE\",\"Beginner's Mind; Practitioner\",2],[\"D19\",\"Pema Chodron\",\"#E0E7FF\",\"Beginner's Mind; Practitioner\",2],[\"D20\",\"Jack Kornfield\",\"#FFE4B5\",\"Beginner's Mind; Practitioner\",2],[\"D21\",\"Bhante Gunaratana\",\"#D1FAE5\",\"Beginner's Mind; Practitioner\",2],[\"D22\",\"New England Buddhist Poetry Exchange\",\"#F8D7DA\",\"Beginner's Mind; Practitioner\",2]]}",
+    "errorScan": "{\"kind\":\"notice\",\"message\":\"Cell search matched 0 entries.\"}"
+  }
+}
