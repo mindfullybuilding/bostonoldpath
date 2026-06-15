@@ -7,7 +7,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <iframe
-      src="/bops-homepage-wireframe.html"
+      src="/bops-homepage-wireframe-6.15.26.html"
       title="BOPS Homepage Wireframe"
       className="block h-screen w-screen border-0"
     />
