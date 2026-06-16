@@ -4,11 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BOPS Homepage Wireframe</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      crossorigin=""
-    />
     <style>
       :root {
         color-scheme: light;
@@ -739,7 +734,8 @@
         box-shadow: 0 8px 24px rgba(34, 34, 34, 0.08);
       }
 
-      .map-meta {
+      .map-meta,
+      .map-open-link {
         border: 1px solid rgba(234, 234, 234, 0.92);
         border-radius: var(--radius);
         padding: 8px 10px;
@@ -750,103 +746,25 @@
         box-shadow: 0 8px 24px rgba(34, 34, 34, 0.08);
       }
 
+      .map-open-link {
+        pointer-events: auto;
+        color: var(--earth);
+        text-decoration: none;
+      }
+
+      .map-open-link:hover {
+        color: var(--ink);
+        text-decoration: underline;
+      }
+
       .map-canvas {
         position: absolute;
         inset: 0;
         width: 100%;
         height: 100%;
+        border: 0;
         min-height: 420px;
         background: #e8eee6;
-      }
-
-      .leaflet-container {
-        width: 100%;
-        height: 100%;
-        font: inherit;
-        background: #e8eee6;
-      }
-
-      .leaflet-control-attribution {
-        border-top-left-radius: 6px;
-        background: rgba(255, 255, 255, 0.88);
-        color: var(--muted);
-        font-size: 0.66rem;
-      }
-
-      .sangha-marker-icon {
-        display: grid;
-        width: 36px;
-        height: 36px;
-        place-items: center;
-        border: 2px solid var(--cloud);
-        border-radius: 50%;
-        background: var(--earth);
-        color: var(--ink);
-        box-shadow: 0 9px 20px rgba(34, 34, 34, 0.22);
-        color: var(--cloud);
-        font-size: 0.72rem;
-        font-weight: 800;
-      }
-
-      .sangha-marker-icon.is-active {
-        outline: 4px solid rgba(255, 210, 42, 0.42);
-        background: var(--sun);
-        color: var(--ink);
-      }
-
-      .sangha-marker-icon.is-approximate {
-        border-style: dashed;
-      }
-
-      .map-popup {
-        display: grid;
-        gap: 8px;
-        min-width: 210px;
-      }
-
-      .map-popup h3 {
-        margin: 0;
-        font-size: 0.96rem;
-      }
-
-      .map-popup p {
-        margin: 0;
-        color: var(--muted);
-        font-size: 0.82rem;
-      }
-
-      .map-popup .button {
-        min-height: 34px;
-        padding: 0.3rem 0.75rem;
-        font-size: 0.78rem;
-      }
-
-      .map-fallback {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        display: grid;
-        place-items: center;
-        border: 1px solid var(--less-light-ink);
-        padding: 24px;
-        background: var(--light-sun);
-        color: var(--muted);
-        font-size: 0.84rem;
-        line-height: 1.45;
-        text-align: center;
-      }
-
-      .map-fallback.is-map-notice {
-        inset: auto 14px 14px 14px;
-        z-index: 800;
-        min-height: auto;
-        place-items: start;
-        border-radius: var(--radius);
-        padding: 10px 12px;
-        background: rgba(255, 255, 255, 0.94);
-        box-shadow: 0 8px 24px rgba(34, 34, 34, 0.08);
-        pointer-events: none;
-        text-align: left;
       }
 
       .calendar-panel {
@@ -1100,12 +1018,23 @@
                     <div class="map-toolbar">
                       <div class="map-label" id="map-label">Greater Boston</div>
                       <div class="map-meta" id="map-meta"></div>
+                      <a
+                        class="map-open-link"
+                        href="https://www.google.com/maps/d/viewer?mid=1TBbpA9rWK7PatKg8S-NV2kAVLRAaE_c"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Open map
+                      </a>
                     </div>
-                    <div class="map-canvas" id="sangha-map"></div>
-                    <div class="map-fallback" id="map-fallback" hidden>
-                      Map resources could not load. Open this prototype with
-                      internet access to view OpenStreetMap tiles.
-                    </div>
+                    <iframe
+                      class="map-canvas"
+                      title="Boston Old Path Sangha map"
+                      src="https://www.google.com/maps/d/embed?mid=1TBbpA9rWK7PatKg8S-NV2kAVLRAaE_c&ehbc=2E312F"
+                      loading="lazy"
+                      allowfullscreen
+                      referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
                   </div>
                   <div class="calendar-panel">
                     <h3>Schedule</h3>
@@ -1137,16 +1066,10 @@
       </section>
     </div>
 
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      crossorigin=""
-    ></script>
     <script>
       const storageKey = "bops-prototype-v7-persona";
       const weeklySittingsUrl =
         "https://bostonoldpath.org/practice-with-us/weekly-sittings/";
-      const openStreetMapTileUrl =
-        "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
 
       const sanghas = [
         {
@@ -1884,8 +1807,6 @@
       const sanghaList = document.querySelector("#sangha-list");
       const mapLabel = document.querySelector("#map-label");
       const mapMeta = document.querySelector("#map-meta");
-      const sanghaMapElement = document.querySelector("#sangha-map");
-      const mapFallback = document.querySelector("#map-fallback");
       const primarySection = document.querySelector("#primary-section");
       const secondarySection = document.querySelector("#secondary-section");
       const extraSections = document.querySelector("#extra-sections");
@@ -1896,12 +1817,7 @@
       let finderModality = "all";
       let activeSectionId = null;
       let pathOptionsInlineHeight = 0;
-      let sanghaMap = null;
-      let sanghaMapLayers = [];
-      let sanghaMarkers = new Map();
       let selectedSanghaId = null;
-      let sanghaMapTilesUnavailable = false;
-      let sanghaMapResizeObserver = null;
 
       function updateStickyOffset() {
         if (!topbar) return;
@@ -2092,128 +2008,6 @@
         return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
       }
 
-      function isFinderVisible() {
-        return (
-          finderSection &&
-          !finderSection.hidden &&
-          experience &&
-          !experience.hidden &&
-          sanghaMapElement &&
-          sanghaMapElement.offsetParent !== null
-        );
-      }
-
-      function setMapFallback(message, options = {}) {
-        if (!mapFallback) return;
-        mapFallback.textContent = message;
-        mapFallback.classList.toggle("is-map-notice", options.notice === true);
-        mapFallback.hidden = false;
-      }
-
-      function clearMapFallback() {
-        if (mapFallback) {
-          mapFallback.classList.remove("is-map-notice");
-          mapFallback.hidden = true;
-        }
-      }
-
-      function handleSanghaMapTileError() {
-        if (sanghaMapTilesUnavailable) return;
-        sanghaMapTilesUnavailable = true;
-        if (mapMeta) mapMeta.textContent = "Map tiles unavailable";
-        setMapFallback(
-          "Map tiles are temporarily unavailable. Sangha pins and the list remain available.",
-          { notice: true },
-        );
-      }
-
-      function initSanghaMap() {
-        if (sanghaMap) return true;
-
-        if (!window.L) {
-          setMapFallback(
-            "Map resources could not load. Open this prototype with internet access to view OpenStreetMap tiles.",
-          );
-          if (mapMeta) mapMeta.textContent = "Map unavailable";
-          return false;
-        }
-
-        clearMapFallback();
-        sanghaMap = L.map(sanghaMapElement, {
-          attributionControl: true,
-          zoomControl: false,
-        }).setView([42.36, -71.13], 10);
-
-        L.control.zoom({ position: "bottomleft" }).addTo(sanghaMap);
-        const tileLayer = L.tileLayer(openStreetMapTileUrl, {
-          minZoom: 7,
-          maxZoom: 19,
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
-        });
-        tileLayer.on("tileerror", handleSanghaMapTileError);
-        tileLayer.addTo(sanghaMap);
-
-        if ("ResizeObserver" in window) {
-          sanghaMapResizeObserver = new ResizeObserver(() => {
-            sanghaMap?.invalidateSize();
-          });
-          sanghaMapResizeObserver.observe(sanghaMapElement);
-        }
-
-        requestAnimationFrame(() => sanghaMap?.invalidateSize());
-        setTimeout(() => sanghaMap?.invalidateSize(), 240);
-        return true;
-      }
-
-      function clearSanghaMapLayers() {
-        sanghaMapLayers.forEach((layer) => layer.remove());
-        sanghaMapLayers = [];
-        sanghaMarkers = new Map();
-      }
-
-      function createSanghaMarkerIcon(sangha) {
-        const isActive = sangha.id === selectedSanghaId;
-        return L.divIcon({
-          className: [
-            "sangha-marker-icon",
-            isActive ? "is-active" : "",
-            sangha.approximate ? "is-approximate" : "",
-          ]
-            .filter(Boolean)
-            .join(" "),
-          html: "",
-          iconSize: [36, 36],
-          iconAnchor: [18, 18],
-          popupAnchor: [0, -18],
-        });
-      }
-
-      function renderMapPopup(sangha) {
-        const directionsUrl = getDirectionsUrl(sangha);
-        return `
-          <div class="map-popup">
-            <h3>${escapeHtml(sangha.name)}</h3>
-            <p>${escapeHtml(sangha.address || sangha.access || sangha.location)}</p>
-            <p>${escapeHtml(`${sangha.day} · ${sangha.time}`)}</p>
-            ${
-              sangha.approximate
-                ? "<p>Approximate map location. Confirm details before attending.</p>"
-                : ""
-            }
-            ${
-              directionsUrl
-                ? `<a class="button" ${linkAttributes(directionsUrl)}>Get directions</a>`
-                : ""
-            }
-          </div>
-        `;
-      }
-
-      function getMappedSanghas(sanghaItems) {
-        return sanghaItems.filter((sangha) => Array.isArray(sangha.latLng));
-      }
-
       function syncSanghaCardSelection(options = {}) {
         const cards = Array.from(sanghaList.querySelectorAll("[data-sangha-id]"));
         cards.forEach((card) => {
@@ -2228,107 +2022,20 @@
 
       function selectSangha(sanghaId, options = {}) {
         selectedSanghaId = sanghaId;
-        renderSanghaMap(getFilteredSanghas(), { fit: false });
+        renderSanghaMap();
         syncSanghaCardSelection({
           scrollIntoView: options.scrollIntoView === true,
         });
-
-        const marker = sanghaMarkers.get(sanghaId);
-        if (!marker || !sanghaMap) return;
-
-        if (options.pan !== false) {
-          sanghaMap.setView(marker.getLatLng(), Math.max(sanghaMap.getZoom(), 12), {
-            animate: true,
-          });
-        }
-        if (options.openPopup !== false) {
-          marker.openPopup();
-        }
       }
 
-      function renderSanghaMap(sanghaItems, options = {}) {
-        const mapped = getMappedSanghas(sanghaItems);
-        const listOnlyCount = sanghaItems.length - mapped.length;
-
+      function renderSanghaMap() {
         if (mapMeta) {
-          mapMeta.textContent =
-            mapped.length > 0
-              ? `${mapped.length} mapped · ${listOnlyCount} list-only`
-              : `${sanghaItems.length} list-only option${sanghaItems.length === 1 ? "" : "s"}`;
+          mapMeta.textContent = "Google My Maps";
         }
-
-        if (!isFinderVisible()) return;
-        if (!initSanghaMap()) return;
-
-        clearSanghaMapLayers();
-
-        if (mapped.length === 0) {
-          sanghaMap.setView([42.36, -71.13], finderRegion === "global" ? 3 : 10);
-          return;
-        }
-
-        const bounds = L.latLngBounds([]);
-
-        mapped.forEach((sangha) => {
-          const marker = L.marker(sangha.latLng, {
-            icon: createSanghaMarkerIcon(sangha),
-            keyboard: true,
-            title: sangha.name,
-          }).addTo(sanghaMap);
-
-          marker.bindPopup(renderMapPopup(sangha));
-          marker.on("click", () => {
-            selectSangha(sangha.id, {
-              pan: false,
-              openPopup: true,
-              scrollIntoView: true,
-            });
-          });
-
-          const markerElement = marker.getElement();
-          if (markerElement) {
-            markerElement.addEventListener("click", (event) => {
-              event.stopPropagation();
-              selectSangha(sangha.id, {
-                pan: false,
-                openPopup: true,
-                scrollIntoView: true,
-              });
-            });
-            markerElement.addEventListener("keydown", (event) => {
-              if (event.key !== "Enter" && event.key !== " ") return;
-              event.preventDefault();
-              selectSangha(sangha.id, {
-                pan: false,
-                openPopup: true,
-                scrollIntoView: true,
-              });
-            });
-          }
-
-          sanghaMapLayers.push(marker);
-          sanghaMarkers.set(sangha.id, marker);
-          bounds.extend(marker.getLatLng());
-        });
-
-        if (options.fit !== false && bounds.isValid()) {
-          sanghaMap.fitBounds(bounds.pad(0.16), {
-            animate: false,
-            maxZoom: 11,
-            paddingTopLeft: [22, 82],
-            paddingBottomRight: [22, 24],
-          });
-        }
-
-        requestAnimationFrame(() => sanghaMap?.invalidateSize());
-        setTimeout(() => sanghaMap?.invalidateSize(), 180);
       }
 
       function refreshSanghaMap() {
-        requestAnimationFrame(() => {
-          if (!isFinderVisible()) return;
-          renderSanghaMap(getFilteredSanghas());
-        });
+        renderSanghaMap();
       }
 
       function renderFinder() {
@@ -2343,7 +2050,7 @@
         const filtered = getFilteredSanghas();
         const regionLabel =
           finderRegion === "boston" ? "Greater Boston & Area" : "Global Sanghas";
-        mapLabel.textContent = regionLabel;
+        mapLabel.textContent = "Sangha Map";
         if (selectedSanghaId && !filtered.some((sangha) => sangha.id === selectedSanghaId)) {
           selectedSanghaId = null;
         }
@@ -2745,7 +2452,6 @@
       window.addEventListener("resize", () => {
         resetPathOptionsPanel();
         refreshPathOptionsPosition();
-        sanghaMap?.invalidateSize();
       });
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(refreshPathOptionsPosition).catch(() => {});
