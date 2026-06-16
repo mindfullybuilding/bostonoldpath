@@ -836,6 +836,19 @@
         text-align: center;
       }
 
+      .map-fallback.is-map-notice {
+        inset: auto 14px 14px 14px;
+        z-index: 800;
+        min-height: auto;
+        place-items: start;
+        border-radius: var(--radius);
+        padding: 10px 12px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 8px 24px rgba(34, 34, 34, 0.08);
+        pointer-events: none;
+        text-align: left;
+      }
+
       .calendar-panel {
         padding: 14px;
       }
@@ -846,45 +859,17 @@
       }
 
       .calendar-preview {
-        display: grid;
-        gap: 8px;
-      }
-
-      .calendar-row {
-        display: grid;
-        grid-template-columns: 54px 1fr;
-        gap: 10px;
-        align-items: center;
-        border-top: 1px solid var(--less-light-ink);
-        padding-top: 8px;
-      }
-
-      .calendar-row:first-child {
-        border-top: 0;
-        padding-top: 0;
-      }
-
-      .date-chip {
-        display: grid;
-        min-height: 48px;
-        place-items: center;
+        overflow: hidden;
         border: 1px solid var(--less-light-ink);
         border-radius: 4px;
         background: var(--cloud);
-        color: var(--earth);
-        font-weight: 700;
-        text-align: center;
       }
 
-      .calendar-row strong {
+      .calendar-embed {
         display: block;
-        font-size: 0.9rem;
-      }
-
-      .calendar-row span {
-        display: block;
-        color: var(--muted);
-        font-size: 0.82rem;
+        width: 100%;
+        height: 360px;
+        border: 0;
       }
 
       .empty-state {
@@ -1123,8 +1108,16 @@
                     </div>
                   </div>
                   <div class="calendar-panel">
-                    <h3>Calendar preview</h3>
-                    <div class="calendar-preview" id="calendar-preview"></div>
+                    <h3>Schedule</h3>
+                    <div class="calendar-preview">
+                      <iframe
+                        class="calendar-embed"
+                        title="Boston Old Path Sangha calendar"
+                        src="https://calendar.google.com/calendar/u/0/newembed?src=cGx1bXZpbGxhZ2Vib3N0b25AZ21haWwuY29t&color=%23039be5&mode=AGENDA"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                      ></iframe>
+                    </div>
                   </div>
                 </aside>
               </div>
@@ -1153,7 +1146,7 @@
       const weeklySittingsUrl =
         "https://bostonoldpath.org/practice-with-us/weekly-sittings/";
       const openStreetMapTileUrl =
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
 
       const sanghas = [
         {
@@ -1893,7 +1886,6 @@
       const mapMeta = document.querySelector("#map-meta");
       const sanghaMapElement = document.querySelector("#sangha-map");
       const mapFallback = document.querySelector("#map-fallback");
-      const calendarPreview = document.querySelector("#calendar-preview");
       const primarySection = document.querySelector("#primary-section");
       const secondarySection = document.querySelector("#secondary-section");
       const extraSections = document.querySelector("#extra-sections");
@@ -1908,6 +1900,7 @@
       let sanghaMapLayers = [];
       let sanghaMarkers = new Map();
       let selectedSanghaId = null;
+      let sanghaMapTilesUnavailable = false;
       let sanghaMapResizeObserver = null;
 
       function updateStickyOffset() {
@@ -2110,16 +2103,28 @@
         );
       }
 
-      function setMapFallback(message) {
+      function setMapFallback(message, options = {}) {
         if (!mapFallback) return;
         mapFallback.textContent = message;
+        mapFallback.classList.toggle("is-map-notice", options.notice === true);
         mapFallback.hidden = false;
       }
 
       function clearMapFallback() {
         if (mapFallback) {
+          mapFallback.classList.remove("is-map-notice");
           mapFallback.hidden = true;
         }
+      }
+
+      function handleSanghaMapTileError() {
+        if (sanghaMapTilesUnavailable) return;
+        sanghaMapTilesUnavailable = true;
+        if (mapMeta) mapMeta.textContent = "Map tiles unavailable";
+        setMapFallback(
+          "Map tiles are temporarily unavailable. Sangha pins and the list remain available.",
+          { notice: true },
+        );
       }
 
       function initSanghaMap() {
@@ -2140,12 +2145,14 @@
         }).setView([42.36, -71.13], 10);
 
         L.control.zoom({ position: "bottomleft" }).addTo(sanghaMap);
-        L.tileLayer(openStreetMapTileUrl, {
+        const tileLayer = L.tileLayer(openStreetMapTileUrl, {
           minZoom: 7,
           maxZoom: 19,
           attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
-        }).addTo(sanghaMap);
+        });
+        tileLayer.on("tileerror", handleSanghaMapTileError);
+        tileLayer.addTo(sanghaMap);
 
         if ("ResizeObserver" in window) {
           sanghaMapResizeObserver = new ResizeObserver(() => {
@@ -2175,7 +2182,7 @@
           ]
             .filter(Boolean)
             .join(" "),
-          html: `<span>${escapeHtml(sangha.mapCode || "")}</span>`,
+          html: "",
           iconSize: [36, 36],
           iconAnchor: [18, 18],
           popupAnchor: [0, -18],
@@ -2421,24 +2428,6 @@
             : '<div class="empty-state">No sanghas match this filter combination.</div>');
 
         renderSanghaMap(filtered);
-
-        calendarPreview.innerHTML =
-          filtered.length > 0
-            ? filtered
-                .slice(0, 3)
-                .map(
-                  (sangha) => `
-                    <div class="calendar-row">
-                      <div class="date-chip">${sangha.day.slice(0, 3)}</div>
-                      <div>
-                        <strong>${sangha.name}</strong>
-                        <span>${sangha.time} - ${formatModality(sangha.modality)}</span>
-                      </div>
-                    </div>
-                  `,
-                )
-                .join("")
-            : '<div class="empty-state">Calendar preview updates with filters.</div>';
       }
 
       function renderInfoCard(card) {
