@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/assets/:path*",
+      "destination": "/client/assets/:path*"
+    },
+    {
+      "source": "/bops-homepage-wireframe-6.15.26.html",
+      "destination": "/client/bops-homepage-wireframe-6.15.26.html"
+    },
+    {
+      "source": "/bops-homepage-wireframe.html",
+      "destination": "/client/bops-homepage-wireframe.html"
+    },
+    {
+      "source": "/",
+      "destination": "/client/bops-homepage-wireframe-6.15.26.html"
+    }
+  ]
+}
