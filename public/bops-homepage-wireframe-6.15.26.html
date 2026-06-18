@@ -494,6 +494,14 @@
         text-decoration: none;
       }
 
+      .card-action {
+        display: inline-flex;
+        margin-top: 12px;
+        color: var(--earth);
+        font-size: 0.84rem;
+        font-weight: 700;
+      }
+
       button.linked-card {
         width: 100%;
         -webkit-appearance: none;
@@ -545,6 +553,44 @@
       .list li:first-child {
         border-top: 0;
         padding-top: 0;
+      }
+
+      .inner-page {
+        display: grid;
+        gap: 18px;
+      }
+
+      .inner-page-intro {
+        max-width: 760px;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      .inner-page-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .inner-page-block {
+        border-top: 1px solid var(--less-light-ink);
+        padding-top: 14px;
+      }
+
+      .inner-page-block h3 {
+        margin-bottom: 6px;
+        font-size: 1rem;
+      }
+
+      .inner-page-block p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .inner-page-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
       }
 
       .finder {
@@ -1447,6 +1493,22 @@
         { placeholder: true },
       ];
 
+      const resourceCards = [
+        {
+          title: "Thich Nhat Hanh",
+          copy: "Learn about Thich Nhat Hanh (Thay), his teachings, and the Plum Village tradition.",
+          action: "Learn about Thay",
+          url: "https://plumvillage.org/about/thich-nhat-hanh",
+        },
+        {
+          title: "Plum Village",
+          copy: "Learn about the Plum Village tradition, practice centers, and global community.",
+          action: "Learn about Plum Village",
+          url: "https://plumvillage.org/about/plum-village",
+        },
+        ...publicationCards.slice(2),
+      ];
+
       const additionalActivityCards = [
         {
           title: "Affinity Groups",
@@ -1491,6 +1553,9 @@
           finderTitle: "Find a sangha",
           sectionParents: {
             "finder-section": "practice-events",
+            "our-community-page": "learn-belong",
+            "our-practice-page": "learn-belong",
+            "resources-page": "learn-belong",
           },
           summaryItems: [
             ["#learn-belong", "Learn"],
@@ -1503,24 +1568,20 @@
             intro:
               "A plain-language starting point for practice, community, and essential orientation.",
             cards: [
-              // Planned inner pages are represented as descriptive cards only in this version.
               {
                 title: "Our Practice",
                 copy: "An intro to mindfulness & mindful living, Thich Nhat Hanh, and the Plum Village tradition.",
-                futurePage:
-                  "Inner page for practice basics, Thich Nhat Hanh, and Plum Village orientation.",
+                url: "our-practice.html",
               },
               {
                 title: "Our Community",
                 copy: "Learn who we are, where BOPS comes from, and how Plum Village practice is held in this community.",
-                futurePage:
-                  "Inner page for BOPS identity, history, community life, website orientation, and FAQs.",
+                targetSection: "our-community-page",
               },
               {
-                title: "Essential Resources",
+                title: "Resources",
                 copy: "Find foundational readings, talks, songs, practice links, and beginner-friendly resources.",
-                futurePage:
-                  "Inner page for publications, resources, practice materials, and beginner-friendly links.",
+                targetSection: "resources-page",
               },
             ],
           },
@@ -1545,6 +1606,72 @@
                   url: "https://calendar.google.com/calendar/u/0/newembed?color=%23fa573c&src=boston.kindness@gmail.com",
                 },
               ],
+            },
+            {
+              id: "our-practice-page",
+              type: "inner-page",
+              eyebrow: "Learn",
+              title: "Our Practice",
+              parentSection: "learn-belong",
+              sourceUrl:
+                "https://sites.google.com/view/mindfulnesspracticecommunityof/our-community/our-practice",
+              intro:
+                "A beginner-friendly overview of mindfulness as present-moment awareness practiced in daily life, supported by sangha and rooted in the Plum Village tradition.",
+              blocks: [
+                {
+                  title: "Mindfulness in daily life",
+                  copy:
+                    "Practice is not limited to formal meditation. It includes bringing body and mind together while washing dishes, driving, walking, eating, and meeting ordinary moments with care.",
+                },
+                {
+                  title: "Practicing with sangha",
+                  copy:
+                    "Community practice makes mindfulness steadier and more joyful. Sangha members support one another as reminders to return to peace, clarity, and compassion.",
+                },
+                {
+                  title: "Core practices",
+                  copy:
+                    "The source page introduces sitting meditation, walking meditation, mindful meals, dharma study, and singing as common Plum Village practice forms.",
+                },
+              ],
+            },
+            {
+              id: "our-community-page",
+              type: "inner-page",
+              eyebrow: "Learn",
+              title: "Our Community",
+              parentSection: "learn-belong",
+              sourceUrl:
+                "https://sites.google.com/view/mindfulnesspracticecommunityof/our-community/our-community",
+              intro:
+                "An introduction to the Greater Boston mindfulness practice community, its Plum Village roots, and the ways people gather across local sanghas.",
+              blocks: [
+                {
+                  title: "Greater Boston practice community",
+                  copy:
+                    "The community is made up of mindfulness practitioners around Greater Boston practicing in the Plum Village tradition of Zen master Thich Nhat Hanh.",
+                },
+                {
+                  title: "Plum Village emphasis",
+                  copy:
+                    "The tradition emphasizes applying mindfulness to everyday activities as a joyful, communal, and continuous practice.",
+                },
+                {
+                  title: "How people gather",
+                  copy:
+                    "Practitioners meet through local sanghas in homes, rented spaces, outdoor spaces, and online, with periodic shared events across the community.",
+                },
+              ],
+            },
+            {
+              id: "resources-page",
+              type: "inner-page",
+              eyebrow: "Learn",
+              title: "Resources",
+              parentSection: "learn-belong",
+              intro:
+                "Talks, readings, newsletters, teachers, and practice links for learning between sittings.",
+              cards: resourceCards,
             },
             {
               id: "stay-connected",
@@ -2147,6 +2274,7 @@
             <button class="info-card linked-card" type="button" data-card-section="${card.targetSection}" aria-controls="${card.targetSection}">
               <h3>${card.title}</h3>
               <p>${card.copy}</p>
+              ${card.action ? `<span class="card-action">${card.action}</span>` : ""}
             </button>
           `;
         }
@@ -2216,6 +2344,56 @@
         `;
       }
 
+      function renderInnerPageSection(section) {
+        const hasCards = Array.isArray(section.cards);
+        const hasBlocks = Array.isArray(section.blocks);
+
+        return `
+          <div class="detail-panel inner-page">
+            <div class="detail-panel-header">
+              <p class="panel-heading">${section.eyebrow || "Learn"}</p>
+              <h2>${section.title}</h2>
+              <p class="inner-page-intro">${section.intro}</p>
+            </div>
+            ${
+              hasCards
+                ? `<div class="card-grid three">
+                    ${section.cards.map((card) => renderInfoCard(card)).join("")}
+                  </div>`
+                : ""
+            }
+            ${
+              hasBlocks
+                ? `<div class="inner-page-grid">
+                    ${section.blocks
+                      .map(
+                        (block) => `
+                          <article class="inner-page-block">
+                            <h3>${block.title}</h3>
+                            <p>${block.copy}</p>
+                          </article>
+                        `,
+                      )
+                      .join("")}
+                  </div>`
+                : ""
+            }
+            <div class="inner-page-actions">
+              <button class="button secondary" type="button" data-card-section="${section.parentSection || "learn-belong"}">
+                Back to Learn
+              </button>
+              ${
+                section.sourceUrl
+                  ? `<a class="button" ${linkAttributes(section.sourceUrl)}>
+                      Open full page
+                    </a>`
+                  : ""
+              }
+            </div>
+          </div>
+        `;
+      }
+
       function renderPrimarySection(content) {
         primarySection.hidden = false;
         primarySection.id = content.primary.id;
@@ -2267,10 +2445,14 @@
           .map(
             (section) => `
               <section class="section" id="${section.id}">
-                ${renderDetailPanel(
-                  getSectionLabel(content, section.id) || section.title,
-                  section.cards,
-                )}
+                ${
+                  section.type === "inner-page"
+                    ? renderInnerPageSection(section)
+                    : renderDetailPanel(
+                        getSectionLabel(content, section.id) || section.title,
+                        section.cards,
+                      )
+                }
               </section>
             `,
           )

@@ -13,6 +13,10 @@
       "destination": "/client/bops-homepage-wireframe.html"
     },
     {
+      "source": "/our-practice.html",
+      "destination": "/client/our-practice.html"
+    },
+    {
       "source": "/",
       "destination": "/client/bops-homepage-wireframe-6.15.26.html"
     }
