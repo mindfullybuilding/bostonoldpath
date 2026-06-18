@@ -21,6 +21,10 @@
       "destination": "/client/our-community.html"
     },
     {
+      "source": "/find-a-sangha.html",
+      "destination": "/client/find-a-sangha.html"
+    },
+    {
       "source": "/",
       "destination": "/client/bops-homepage-wireframe-6.15.26.html"
     }

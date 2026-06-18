@@ -753,56 +753,6 @@
         position: relative;
       }
 
-      .map-toolbar {
-        position: absolute;
-        z-index: 900;
-        top: 14px;
-        left: 14px;
-        right: 14px;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 8px;
-        pointer-events: none;
-      }
-
-      .map-label {
-        border: 1px solid rgba(234, 234, 234, 0.92);
-        border-radius: var(--radius);
-        padding: 8px 10px;
-        background: rgba(255, 255, 255, 0.92);
-        color: var(--earth);
-        font-size: 0.76rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        box-shadow: 0 8px 24px rgba(34, 34, 34, 0.08);
-      }
-
-      .map-meta,
-      .map-open-link {
-        border: 1px solid rgba(234, 234, 234, 0.92);
-        border-radius: var(--radius);
-        padding: 8px 10px;
-        background: rgba(255, 255, 255, 0.92);
-        color: var(--muted);
-        font-size: 0.78rem;
-        font-weight: 700;
-        box-shadow: 0 8px 24px rgba(34, 34, 34, 0.08);
-      }
-
-      .map-open-link {
-        pointer-events: auto;
-        color: var(--earth);
-        text-decoration: none;
-      }
-
-      .map-open-link:hover {
-        color: var(--ink);
-        text-decoration: underline;
-      }
-
       .map-canvas {
         position: absolute;
         inset: 0;
@@ -1047,12 +997,16 @@
                 <h2 class="panel-heading" id="finder-title">Find a sangha</h2>
                 <div class="filter-group" aria-label="Sangha filters">
                   <div>
-                    <span class="filter-label">Region</span>
-                    <div class="filter-row" id="region-filters"></div>
-                  </div>
-                  <div>
                     <span class="filter-label">Format</span>
                     <div class="filter-row" id="modality-filters"></div>
+                  </div>
+                  <div>
+                    <span class="filter-label">Days</span>
+                    <div class="filter-row" id="day-filters"></div>
+                  </div>
+                  <div>
+                    <span class="filter-label">Time</span>
+                    <div class="filter-row" id="time-filters"></div>
                   </div>
                 </div>
               </div>
@@ -1061,18 +1015,6 @@
                 <div class="sangha-list" id="sangha-list"></div>
                 <aside class="finder-visual" aria-label="Map and calendar">
                   <div class="map-panel">
-                    <div class="map-toolbar">
-                      <div class="map-label" id="map-label">Greater Boston</div>
-                      <div class="map-meta" id="map-meta"></div>
-                      <a
-                        class="map-open-link"
-                        href="https://www.google.com/maps/d/viewer?mid=1TBbpA9rWK7PatKg8S-NV2kAVLRAaE_c"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Open map
-                      </a>
-                    </div>
                     <iframe
                       class="map-canvas"
                       title="Boston Old Path Sangha map"
@@ -1114,96 +1056,59 @@
 
     <script>
       const storageKey = "bops-prototype-v7-persona";
-      const weeklySittingsUrl =
-        "https://bostonoldpath.org/practice-with-us/weekly-sittings/";
 
       const sanghas = [
         {
-          id: "dandelions-heart",
+          id: "dandelions-of-the-heart-sangha",
           name: "Dandelions of the Heart Sangha",
           region: "boston",
           area: "Greater Boston",
           modality: "hybrid",
           day: "Mon-Fri",
           time: "6:30-7:30 AM",
+          days: ["monday","tuesday","wednesday","thursday","friday"],
+          timeBand: "morning",
           location: "Brookline",
-          access:
-            "Boston Center for Contemplative Practice, 11 Kent Street, Brookline, MA 02445",
-          address:
-            "Boston Center for Contemplative Practice, 11 Kent Street, Brookline, MA 02445",
-          description:
-            "A mostly silent morning sit with closing dharma reflection except Thursday and Friday. Visitors may drop in for any part.",
-          learnUrl: weeklySittingsUrl,
-          registerUrl: weeklySittingsUrl,
           latLng: [42.3331519, -71.1181054],
-          mapCode: "B1",
+          address: "Boston Center for Contemplative Practice, 11 Kent Street, Brookline, MA 02445",
+          access: "Boston Center for Contemplative Practice, 11 Kent Street, Brookline, MA 02445",
+          description: "This is a mostly silent sit with a closing dharma reflection except on Thursday and Friday. Feel to drop in and sit for any part of that time.",
+          registerUrl: "mailto:info@yenkuei.org",
         },
         {
-          id: "peaceful-garden",
+          id: "peaceful-garden-sangha",
           name: "Peaceful Garden Sangha",
           region: "boston",
           area: "Greater Boston",
           modality: "in-person",
           day: "Tuesday",
           time: "7:00-8:30 PM",
+          days: ["tuesday"],
+          timeBand: "evening",
           location: "Brookline",
-          access: "United Parish Church, 210 Harvard Street, Brookline, MA",
-          address: "United Parish Church, 210 Harvard Street, Brookline, MA",
-          description:
-            "An open walk-in, peer-led evening sitting with reading and discussion. Side-street parking and transit access are available.",
-          learnUrl: weeklySittingsUrl,
-          registerUrl: weeklySittingsUrl,
           latLng: [42.340198, -71.1214634],
-          mapCode: "B2",
+          address: "United Parish Church, 210 Harvard Street, Brookline, MA",
+          access: "Use the Marion Street entrance (up the stairs to the Parlor on the left). Green C line or Bus 66. Or ample free parking on side streets.",
+          description: "We are a community of friends brand new and others with an established practice. We are open to everyone on a walk-in basis. We're peer-led and rotate facilitation. Each evening we share a reading and talk about what comes up for us. Together, we discover the power of being and practicing in community.",
+          registerUrl: "mailto:sanghamatters@gmail.com",
         },
         {
-          id: "mindful-lunch",
-          name: "Mindful Lunch",
-          region: "boston",
-          area: "Greater Boston",
-          modality: "virtual",
-          day: "Wednesday",
-          time: "12:00-12:45 PM",
-          location: "Online",
-          access: "Zoom link by organizer contact",
-          description:
-            "A brief mid-day eating practice for pausing, arriving, and practicing mindfulness during lunch.",
-          learnUrl: weeklySittingsUrl,
-          registerUrl: weeklySittingsUrl,
-        },
-        {
-          id: "peaceful-songbird",
+          id: "peaceful-songbird-sangha",
           name: "Peaceful Songbird Sangha",
           region: "boston",
           area: "Greater Boston",
           modality: "hybrid",
           day: "Saturday",
           time: "9:30-11:30 AM",
+          days: ["saturday"],
+          timeBand: "morning",
           location: "Roslindale",
-          access: "Chua Vietnam, Roslindale, MA, and Zoom",
-          address: "Chua Vietnam, Roslindale, MA",
-          description:
-            "Saturday practice with meditation, check-in, reading, dharma discussion, metta practice, and closing meditation.",
-          learnUrl: weeklySittingsUrl,
-          registerUrl: "mailto:PeacefulSongbird+owner@BostonOldPath.groups.io",
           latLng: [42.2912093, -71.1244966],
-          mapCode: "B3",
+          address: "Chua Vietnam, Roslindale, MA",
+          access: "For in-person, there's street parking and lot parking behind the temple.",
+          description: "We meditate, check-in with one another, share a reading from a teacher of the dharma, and follow with dharma discussion, metta practice and a final meditation. We practice in the Plum Village tradition of Thich Nhat Hanh, with its emphasis on engaged Buddhism and the art of mindful living. We began meeting at Chua Vietnam, a beautiful Vietnamese temple in Roslindale, MA. We have been practicing online via zoom since March of 2020. Once a month we meet in person, dates depending on the schedule of the temple.All are welcome to join us.",
+          registerUrl: "mailto:PeacefulSongbird+owner@BostonOldPath.groups.io",
           approximate: true,
-        },
-        {
-          id: "peaceful-heart",
-          name: "Peaceful Heart Sangha",
-          region: "boston",
-          area: "Greater Boston",
-          modality: "virtual",
-          day: "Friday",
-          time: "8:30-10:00 AM",
-          location: "Online",
-          access: "Zoom",
-          description:
-            "A welcoming weekly online sangha with sitting, walking, dharma sharing, rotating facilitation, and confidentiality.",
-          learnUrl: weeklySittingsUrl,
-          registerUrl: weeklySittingsUrl,
         },
         {
           id: "wake-up-boston",
@@ -1213,198 +1118,161 @@
           modality: "in-person",
           day: "2nd and 4th Wednesday",
           time: "Evening",
+          days: ["wednesday"],
+          timeBand: "evening",
           location: "Cambridge",
-          access: "763 Massachusetts Ave, Cambridge, MA 02139",
-          address: "763 Massachusetts Ave, Cambridge, MA 02139",
-          description:
-            "A young adult sangha for 18-35-ish community members with guided sitting, walking, dharma reading, and dharma sharing.",
-          learnUrl: "https://bostonwakeup.substack.com/about",
-          registerUrl: "https://bostonwakeup.substack.com/about",
           latLng: [42.3666402, -71.1053125],
-          mapCode: "B4",
+          address: "763 Massachusetts Ave, Cambridge, MA 02139",
+          access: "Conveniently off the red line, with limited metered street parking.",
+          description: "A mindfulness meditation community for 18-35-ish year olds practicing in the tradition of Plum Village Buddhism / Zen Master Thich Nhat Hanh. In a typical evening gathering, we'll enjoy a guided sitting meditation, walking meditation, dharma reading, and dharma sharing about our experiences and practice in everyday life. We welcome people of all backgrounds regardless of faith or meditation experience.",
+          registerUrl: "https://bostonwakeup.substack.com/about",
         },
         {
-          id: "living-the-14",
-          name: "Living the 14 Sangha",
-          region: "boston",
-          area: "Greater Boston",
-          modality: "virtual",
-          day: "Wednesday",
-          time: "7:30-9:00 PM",
-          location: "Online study group",
-          description:
-            "A weekly study group grounded in the 14 Mindfulness Trainings for Order of Interbeing members, aspirants, and pre-aspirants.",
-          learnUrl: weeklySittingsUrl,
-          registerUrl: weeklySittingsUrl,
-        },
-        {
-          id: "joyful-lotus",
+          id: "joyful-lotus-sangha",
           name: "Joyful Lotus Sangha",
           region: "boston",
           area: "Greater Boston",
           modality: "in-person",
           day: "First Wednesday of the month",
           time: "5:00-6:30 PM",
+          days: ["wednesday"],
+          timeBand: "evening",
           location: "Cambridge Zen Center",
-          access: "Cambridge Zen Center, 199 Auburn Street, Cambridge, MA",
-          address: "Cambridge Zen Center, 199 Auburn Street, Cambridge, MA",
-          description:
-            "A monthly BIPOC gathering for meditation and exploration of contemplative practices in a safe community space.",
-          learnUrl: "https://cambridgezen.org/weekly-announcements",
-          registerUrl: "mailto:kfoo@wpi.edu",
           latLng: [42.364369, -71.1060039],
-          mapCode: "B5",
+          address: "Cambridge Zen Center, 199 Auburn Street, Cambridge, MA",
+          access: "Conveniently off the red line, with limited metered street parking.",
+          description: "The Black, Indigenous and People of Color (BIPOC) Sangha is a monthly gathering of self-identifying BIPOC practitioners that provides a safe place to meditate and explore contemplative practices. This sangha cultivates an environment that welcomes diverse voices and builds community. In a typical practice group, we enjoy a mix of walking meditation, sitting meditation, chanting, readings, and dharma sharing about our experiences and practice in everyday life.",
+          registerUrl: "mailto:kfoo@wpi.edu",
         },
         {
-          id: "lotus-pond",
-          name: "Lotus Pond Sangha",
-          region: "boston",
-          area: "Other Area",
-          modality: "virtual",
-          day: "Thursday",
-          time: "7:15-9:00 PM",
-          location: "Online",
-          access: "Zoom link by organizer contact",
-          description:
-            "An online evening sangha listed with other area Plum Village communities.",
-          learnUrl: weeklySittingsUrl,
-          registerUrl: weeklySittingsUrl,
-        },
-        {
-          id: "tree-house",
+          id: "tree-house-sangha",
           name: "Tree House Sangha",
           region: "boston",
-          area: "Other Area",
+          area: "Greater Boston",
           modality: "hybrid",
           day: "1st and 3rd Monday",
           time: "8:30-10:00 AM",
+          days: ["monday"],
+          timeBand: "morning",
           location: "Bedford",
-          access: "Carlisle Rd, Bedford, MA",
-          address: "Carlisle Rd, Bedford, MA",
-          description:
-            "A morning practice gathering in the Bedford area with contact details available through BOPS.",
-          learnUrl: weeklySittingsUrl,
-          registerUrl: weeklySittingsUrl,
           latLng: [42.5041811, -71.30135],
-          mapCode: "O1",
+          address: "Carlisle Rd, Bedford, MA",
+          access: "Street parking available.",
+          description: "A morning practice gathering in the Bedford area.",
+          registerUrl: "mailto:Fbigdapeyton@gmail.com",
           approximate: true,
         },
         {
-          id: "mountain-bell",
+          id: "mountain-bell-sangha",
           name: "Mountain Bell Sangha",
           region: "boston",
-          area: "Other Area",
+          area: "Greater Boston",
           modality: "hybrid",
           day: "2nd and 4th Sunday",
           time: "7:00-9:00 PM",
+          days: ["sunday"],
+          timeBand: "evening",
           location: "Belmont",
-          access: "366 Marsh St, Belmont, MA, and Zoom",
-          address: "366 Marsh St, Belmont, MA",
-          description:
-            "A Belmont-area sangha with in-person and online practice options.",
-          learnUrl: weeklySittingsUrl,
-          registerUrl: weeklySittingsUrl,
           latLng: [42.4065684, -71.1964366],
-          mapCode: "O2",
+          address: "366 Marsh St, Belmont, MA",
+          access: "Street parking available.",
+          description: "A Belmont-area sangha with in-person and online practice options.",
+          registerUrl: "mailto:email1@gmail.com?cc=email2@gmail.com",
         },
         {
-          id: "green-fields",
+          id: "green-fields-sangha",
           name: "Green Fields Sangha",
           region: "boston",
-          area: "Other Area",
+          area: "Greater Boston",
           modality: "hybrid",
           day: "Tuesday",
           time: "4:00-5:30 PM",
+          days: ["tuesday"],
+          timeBand: "afternoon",
           location: "Lincoln",
-          access:
-            "First Parish Church, 4 Bedford Rd, Lincoln Center, MA, and Zoom",
-          address: "First Parish Church, 4 Bedford Rd, Lincoln, MA",
-          description:
-            "A Lincoln-area sangha meeting at First Parish Church with online access noted by BOPS.",
-          learnUrl: weeklySittingsUrl,
-          registerUrl: weeklySittingsUrl,
           latLng: [42.4263662, -71.3037098],
-          mapCode: "O3",
+          address: "First Parish Church, 4 Bedford Rd, Lincoln, MA",
+          access: "Street parking available.",
+          description: "A Lincoln-area hybrid sangha.",
+          registerUrl: "mailto:selenejck@gmail.com",
         },
         {
-          id: "seven-hills",
+          id: "sangha-of-the-seven-hills",
           name: "Sangha of the Seven Hills",
           region: "boston",
-          area: "Other Area",
+          area: "Greater Boston",
           modality: "in-person",
           day: "Friday",
           time: "1:00-2:00 PM",
+          days: ["friday"],
+          timeBand: "afternoon",
           location: "Worcester",
-          access: "Assumption Center, 16 Vineyard St, Worcester, MA",
-          address: "Assumption Center, 16 Vineyard St, Worcester, MA",
-          description:
-            "A Worcester sangha in the Plum Village tradition, hosted at Assumption Center.",
-          learnUrl: weeklySittingsUrl,
-          registerUrl: weeklySittingsUrl,
           latLng: [42.2530938, -71.8319824],
-          mapCode: "O4",
+          address: "Assumption Center, 16 Vineyard St, Worcester, MA",
+          access: "Free parking in the lot available.",
+          description: "A Worcester sangha in the Plum Village tradition, hosted at Assumption Center. Our format: 20 min sitting, 10 min walking, a short reading, dharma sharing. Welcoming to, new or experienced practitioners. Drop in anytime, no advance notice needed, free to participate.",
+          registerUrl: "mailto:ellenzanino@yahoo.com",
         },
         {
-          id: "true-love",
-          name: "Global placeholder / True Love Sangha",
-          region: "global",
-          area: "Global",
+          id: "mindful-lunch",
+          name: "Mindful Lunch",
+          region: "boston",
+          area: "Greater Boston",
           modality: "virtual",
-          day: "Tuesday",
-          time: "12:00 PM ET",
+          day: "Wednesday",
+          time: "12:00-12:45 PM",
+          days: ["wednesday"],
+          timeBand: "afternoon",
           location: "Online",
-          description:
-            "An international online sangha in the Plum Village tradition with weekly live practice.",
-          learnUrl: "https://www.plumline.org/",
-          registerUrl: "https://www.plumline.org/",
+          access: "Contact the organizer for the Zoom Link.",
+          description: "A brief mid-day eating practice for pausing, arriving, and practicing mindfulness during lunch.",
+          registerUrl: "mailto:info@yenkuei.org",
         },
         {
-          id: "joyful-mountain",
-          name: "Global placeholder / Joyful Mountain Sangha",
-          region: "global",
-          area: "Global",
+          id: "peaceful-heart-sangha",
+          name: "Peaceful Heart Sangha",
+          region: "boston",
+          area: "Greater Boston",
           modality: "virtual",
-          day: "Saturday",
-          time: "9:00 AM PT",
+          day: "Friday",
+          time: "8:30-10:00 AM",
+          days: ["friday"],
+          timeBand: "morning",
           location: "Online",
-          description:
-            "A trauma-informed online Plum Village sangha with sitting, reading, sharing, and song.",
-          learnUrl: "https://www.plumline.org/",
-          registerUrl: "https://www.plumline.org/",
+          access: "Contact the organizer for the Zoom Link.",
+          description: "We meet weekly over zoom. All are welcome and no previous meditation experience is necessary. We rotate facilitation by volunteer who chooses a reading. We practice sitting, walking and dharma sharing in a welcoming, non judgmental confidential setting.",
+          registerUrl: "mailto:nancypar@gmail.com",
         },
         {
-          id: "plumline-hybrid",
-          name: "Global placeholder / Plumline Directory Example",
-          region: "global",
-          area: "Global",
-          modality: "hybrid",
-          day: "Varies",
-          time: "Local time",
-          location: "Global directory",
-          description:
-            "A placeholder for Plumline listings that combine online access with local practice.",
-          learnUrl: "https://www.plumline.org/",
-          registerUrl: "https://www.plumline.org/",
+          id: "living-the-14-sangha",
+          name: "Living the 14 Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "virtual",
+          day: "Wednesday",
+          time: "7:30-9:00 PM",
+          days: ["wednesday"],
+          timeBand: "evening",
+          location: "Online",
+          access: "Contact the organizer for the Zoom Link.",
+          description: "The 14 Mindfulness Trainings are the foundation of the Order of Interbeing and we are strengthening our commitment to them by looking deeply at a single training each week. We are open to OI members, OI Aspirants and pre-Aspirants. \"Pre-Aspirants\" includes anyone who would like to learn more about Thay's teachings. Each week is a study in itself. You are welcome anytime, week to week.",
+          registerUrl: "mailto:donald.leka@gmail.com",
         },
         {
-          id: "blue-cliff",
-          name: "Global placeholder / Blue Cliff Practice Center",
-          region: "global",
-          area: "Global",
-          modality: "in-person",
-          day: "Retreat calendar",
-          time: "Varies",
-          location: "Pine Bush, NY",
-          description:
-            "A regional monastic practice center for retreats, days of mindfulness, and deeper practice.",
-          learnUrl: "https://www.plumvillage.org/practice-centre/blue-cliff-monastery/",
-          registerUrl: "https://www.plumvillage.org/practice-centre/blue-cliff-monastery/",
+          id: "lotus-pond-sangha",
+          name: "Lotus Pond Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "virtual",
+          day: "Thursday",
+          time: "7:15-9:00 PM",
+          days: ["thursday"],
+          timeBand: "evening",
+          location: "Online",
+          access: "Contact the organizer for the Zoom Link.",
+          description: "We meet every other week on Zoom to practice sitting and walking meditation, followed by dharma sharing. We often read a short text to start dharma sharing to help us gather the mind and open the heart. We welcome everyone.",
+          registerUrl: "mailto:m.romang@rcn.com",
         },
-      ];
-
-      const regionOptions = [
-        ["boston", "Greater Boston & Area"],
-        ["global", "Global Sanghas"],
       ];
 
       const modalityOptions = [
@@ -1414,14 +1282,24 @@
         ["in-person", "In-person"],
       ];
 
-      const bopsFinderGuidance =
-        "Sanghas are communities of monastic and/or lay Buddhist community members. A sangha is the best way to practice meditation, as it offers deep support and wisdom for beginners and seasoned community members alike. In Greater Boston, there are ample virtual, hybrid, and in-person options. Globally, there are thousands of sanghas meeting regularly for mornings, evenings, or days of mindfulness practice.";
-
-      const globalFinderGuidance = [
-        "These are placeholder examples for the prototype.",
-        "A production version should connect to trusted global directory sources.",
-        "Use local contact details to confirm time zones, access, and format.",
+      const dayOptions = [
+        ["monday", "Mon"],
+        ["tuesday", "Tue"],
+        ["wednesday", "Wed"],
+        ["thursday", "Thu"],
+        ["friday", "Fri"],
+        ["saturday", "Sat"],
+        ["sunday", "Sun"],
       ];
+
+      const timeOptions = [
+        ["morning", "Morning"],
+        ["afternoon", "Afternoon"],
+        ["evening", "Evening"],
+      ];
+
+      const bopsFinderGuidance =
+        "Sanghas are communities of monastic and/or lay Buddhist community members. A sangha is the best way to practice meditation, as it offers deep support and wisdom for beginners and seasoned community members alike. In Greater Boston, there are virtual, hybrid, and in-person options for mornings, afternoons, evenings, and days of mindfulness practice.";
 
       const publicationCards = [
         {
@@ -1597,7 +1475,7 @@
                 {
                   title: "Find a Sangha",
                   copy: "Explore Greater Boston and global sangha options by region and format.",
-                  targetSection: "finder-section",
+                  url: "find-a-sangha.html",
                 },
                 {
                   title: "Upcoming Events",
@@ -1929,19 +1807,18 @@
       const pathHeroImage = document.querySelector("#path-hero-image");
       const finderSection = document.querySelector("#finder-section");
       const finderTitle = document.querySelector("#finder-title");
-      const regionFilters = document.querySelector("#region-filters");
       const modalityFilters = document.querySelector("#modality-filters");
+      const dayFilters = document.querySelector("#day-filters");
+      const timeFilters = document.querySelector("#time-filters");
       const sanghaList = document.querySelector("#sangha-list");
-      const mapLabel = document.querySelector("#map-label");
-      const mapMeta = document.querySelector("#map-meta");
       const primarySection = document.querySelector("#primary-section");
       const secondarySection = document.querySelector("#secondary-section");
       const extraSections = document.querySelector("#extra-sections");
       const footerNote = document.querySelector(".footer-note");
-
       let selectedPersona = null;
-      let finderRegion = "boston";
       let finderModality = "all";
+      const selectedDays = new Set();
+      const selectedTimeBands = new Set();
       let activeSectionId = null;
       let pathOptionsInlineHeight = 0;
       let selectedSanghaId = null;
@@ -2078,6 +1955,8 @@
       }
 
       function renderFilterButtons(container, options, selected, type) {
+        const isSelected = (value) =>
+          selected instanceof Set ? selected.has(value) : value === selected;
         container.innerHTML = options
           .map(
             ([value, label]) => `
@@ -2086,7 +1965,7 @@
                 type="button"
                 data-filter-type="${type}"
                 data-filter-value="${value}"
-                aria-pressed="${String(value === selected)}"
+                aria-pressed="${String(isSelected(value))}"
               >
                 ${label}
               </button>
@@ -2097,10 +1976,15 @@
 
       function getFilteredSanghas() {
         return sanghas.filter((sangha) => {
-          const regionMatch = sangha.region === finderRegion;
           const modalityMatch =
             finderModality === "all" || sangha.modality === finderModality;
-          return regionMatch && modalityMatch;
+          const dayMatch =
+            selectedDays.size === 0 ||
+            sangha.days.some((day) => selectedDays.has(day));
+          const timeMatch =
+            selectedTimeBands.size === 0 ||
+            selectedTimeBands.has(sangha.timeBand);
+          return modalityMatch && dayMatch && timeMatch;
         });
       }
 
@@ -2149,55 +2033,31 @@
 
       function selectSangha(sanghaId, options = {}) {
         selectedSanghaId = sanghaId;
-        renderSanghaMap();
         syncSanghaCardSelection({
           scrollIntoView: options.scrollIntoView === true,
         });
       }
 
-      function renderSanghaMap() {
-        if (mapMeta) {
-          mapMeta.textContent = "Google My Maps";
-        }
-      }
-
-      function refreshSanghaMap() {
-        renderSanghaMap();
-      }
-
       function renderFinder() {
-        renderFilterButtons(regionFilters, regionOptions, finderRegion, "region");
         renderFilterButtons(
           modalityFilters,
           modalityOptions,
           finderModality,
           "modality",
         );
+        renderFilterButtons(dayFilters, dayOptions, selectedDays, "day");
+        renderFilterButtons(timeFilters, timeOptions, selectedTimeBands, "time");
 
         const filtered = getFilteredSanghas();
-        const regionLabel =
-          finderRegion === "boston" ? "Greater Boston & Area" : "Global Sanghas";
-        mapLabel.textContent = "Sangha Map";
         if (selectedSanghaId && !filtered.some((sangha) => sangha.id === selectedSanghaId)) {
           selectedSanghaId = null;
         }
 
-        const isBostonRegion = finderRegion === "boston";
-        const guidance = isBostonRegion ? bopsFinderGuidance : globalFinderGuidance;
-        const guidanceTitle =
-          isBostonRegion
-            ? "Before attending"
-            : "Global placeholder note";
+        const guidanceTitle = "Before attending";
         const guidanceMarkup = `
           <aside class="finder-guidance" aria-label="${guidanceTitle}">
             <h3>${guidanceTitle}</h3>
-            ${
-              isBostonRegion
-                ? `<p class="guidance-copy">${guidance}</p>`
-                : `<ul class="guidance-list">
-                    ${guidance.map((item) => `<li>${item}</li>`).join("")}
-                  </ul>`
-            }
+            <p class="guidance-copy">${bopsFinderGuidance}</p>
           </aside>
         `;
 
@@ -2220,7 +2080,7 @@
                       <div>
                         <div class="sangha-meta">
                           <span class="pill sun">${formatModality(sangha.modality)}</span>
-                          <span class="pill">${escapeHtml(sangha.area || regionLabel)}</span>
+                          <span class="pill">${escapeHtml(sangha.area || "Greater Boston")}</span>
                           <span class="pill">${escapeHtml(sangha.location)}</span>
                           <span class="pill">${escapeHtml(sangha.day)}</span>
                           <span class="pill">${escapeHtml(sangha.time)}</span>
@@ -2241,10 +2101,9 @@
                             : ""
                         }
                         <div class="sangha-actions">
-                          <a class="button secondary" ${linkAttributes(sangha.learnUrl)}>Learn More</a>
                           ${
                             sangha.registerUrl
-                              ? `<a class="button secondary" ${linkAttributes(sangha.registerUrl)}>${sangha.registerUrl.startsWith("mailto:") ? "Contact" : "Register"}</a>`
+                              ? `<a class="button secondary" ${linkAttributes(sangha.registerUrl)}>Contact Organizer</a>`
                               : ""
                           }
                           ${
@@ -2260,8 +2119,6 @@
                 )
                 .join("")
             : '<div class="empty-state">No sanghas match this filter combination.</div>');
-
-        renderSanghaMap(filtered);
       }
 
       function renderInfoCard(card) {
@@ -2501,10 +2358,6 @@
             );
           },
         );
-
-        if (activeSectionId === "finder-section") {
-          refreshSanghaMap();
-        }
       }
 
       function arrangeSections(content) {
@@ -2542,8 +2395,10 @@
             content.finderTitle ||
             getSectionLabel(content, "finder-section") ||
             "Find a sangha";
-          finderRegion = "boston";
           finderModality = "all";
+          selectedDays.clear();
+          selectedTimeBands.clear();
+          selectedSanghaId = null;
           renderFinder();
         }
 
@@ -2555,9 +2410,6 @@
 
         entryScreen.hidden = true;
         experience.hidden = false;
-        if (content.hasFinder) {
-          refreshSanghaMap();
-        }
         resetPathOptionsPanel();
         window.scrollTo({ top: 0, behavior: "auto" });
         window.requestAnimationFrame(refreshPathOptionsPosition);
@@ -2594,11 +2446,19 @@
       document.addEventListener("click", (event) => {
         const target = event.target.closest("[data-filter-type]");
         if (!target) return;
-        if (target.dataset.filterType === "region") {
-          finderRegion = target.dataset.filterValue;
-        }
+
         if (target.dataset.filterType === "modality") {
           finderModality = target.dataset.filterValue;
+        }
+        if (target.dataset.filterType === "day") {
+          const day = target.dataset.filterValue;
+          selectedDays.has(day) ? selectedDays.delete(day) : selectedDays.add(day);
+        }
+        if (target.dataset.filterType === "time") {
+          const timeBand = target.dataset.filterValue;
+          selectedTimeBands.has(timeBand)
+            ? selectedTimeBands.delete(timeBand)
+            : selectedTimeBands.add(timeBand);
         }
         renderFinder();
       });
