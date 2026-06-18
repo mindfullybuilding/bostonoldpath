@@ -298,38 +298,6 @@
         text-align: left;
       }
 
-      .path-options-panel.is-compact-sticky {
-        position: fixed;
-        top: var(--sticky-offset);
-        left: 50%;
-        z-index: 9;
-        width: min(760px, calc(100% - 32px));
-        gap: 8px;
-        padding: 10px 12px;
-        background: rgba(254, 251, 243, 0.96);
-        box-shadow: 0 16px 48px rgba(34, 34, 34, 0.14);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-        transform: translateX(-50%);
-      }
-
-      .path-options-panel.is-compact-sticky p {
-        width: 100%;
-        font-size: 0.78rem;
-        text-align: center;
-      }
-
-      .path-options-panel.is-compact-sticky .hero-actions {
-        justify-content: center;
-        gap: 8px;
-      }
-
-      .path-options-panel.is-compact-sticky .path-option-button {
-        min-height: 38px;
-        padding: 0.32rem 0.85rem;
-        font-size: 0.82rem;
-      }
-
       .hero-actions {
         display: flex;
         flex-wrap: wrap;
@@ -607,7 +575,13 @@
 
       .finder-header {
         border-bottom: 1px solid var(--less-light-ink);
-        padding: 18px;
+        padding: 14px 16px;
+      }
+
+      .finder-heading {
+        display: grid;
+        align-content: start;
+        gap: 8px;
       }
 
       .detail-panel {
@@ -628,13 +602,33 @@
       }
 
       .filter-group {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 12px;
+      }
+
+      .finder-controls {
         display: grid;
         gap: 8px;
+        border: 1px solid rgba(139, 87, 42, 0.14);
+        border-radius: var(--radius);
+        padding: 10px;
+        background: rgba(254, 251, 243, 0.72);
+      }
+
+      .filter-set {
+        display: flex;
+        flex: 0 1 auto;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
       }
 
       .filter-label {
+        flex: 0 0 auto;
         color: var(--earth);
-        font-size: 0.75rem;
+        font-size: 0.68rem;
         font-weight: 700;
         letter-spacing: 0.09em;
         text-transform: uppercase;
@@ -643,14 +637,14 @@
       .filter-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 6px;
       }
 
       .filter-button {
-        min-height: 36px;
+        min-height: 30px;
         border-radius: 999px;
-        padding: 0 13px;
-        font-size: 0.86rem;
+        padding: 0 10px;
+        font-size: 0.8rem;
         font-weight: 700;
       }
 
@@ -675,34 +669,11 @@
       }
 
       .finder-guidance {
-        border: 1px solid var(--less-light-ink);
-        border-radius: var(--radius);
-        padding: 14px;
-        background: var(--light-sun);
-      }
-
-      .finder-guidance h3 {
-        margin-bottom: 8px;
-        font-size: 0.98rem;
-      }
-
-      .guidance-copy {
-        margin-bottom: 0;
-        color: var(--muted);
-        font-size: 0.88rem;
-      }
-
-      .guidance-list {
-        display: grid;
-        gap: 6px;
+        max-width: 58ch;
         margin: 0;
-        padding-left: 18px;
         color: var(--muted);
-        font-size: 0.88rem;
-      }
-
-      .guidance-list li::marker {
-        color: var(--earth);
+        font-size: 0.84rem;
+        line-height: 1.45;
       }
 
       .sangha-card {
@@ -840,12 +811,6 @@
           flex: 0 1 auto;
         }
 
-        .path-options-panel.is-compact-sticky .path-option-button {
-          min-width: auto;
-          max-width: 240px;
-          flex: 0 1 auto;
-        }
-
         .card-grid.steps,
         .card-grid.three {
           grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -873,8 +838,37 @@
         }
 
         .finder-header {
-          grid-template-columns: minmax(0, 1fr) minmax(360px, 0.9fr);
+          grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
           align-items: start;
+        }
+      }
+
+      @media (max-width: 739px) {
+        .finder-header {
+          gap: 10px;
+          padding: 12px;
+        }
+
+        .filter-group {
+          align-items: stretch;
+          gap: 6px;
+        }
+
+        .filter-set {
+          display: grid;
+          width: 100%;
+          grid-template-columns: 58px minmax(0, 1fr);
+          align-items: center;
+        }
+
+        .filter-row {
+          gap: 4px;
+        }
+
+        .filter-button {
+          min-height: 28px;
+          padding: 0 8px;
+          font-size: 0.76rem;
         }
       }
 
@@ -994,19 +988,28 @@
           >
             <div class="finder">
               <div class="finder-header">
-                <h2 class="panel-heading" id="finder-title">Find a sangha</h2>
-                <div class="filter-group" aria-label="Sangha filters">
-                  <div>
-                    <span class="filter-label">Format</span>
-                    <div class="filter-row" id="modality-filters"></div>
-                  </div>
-                  <div>
-                    <span class="filter-label">Days</span>
-                    <div class="filter-row" id="day-filters"></div>
-                  </div>
-                  <div>
-                    <span class="filter-label">Time</span>
-                    <div class="filter-row" id="time-filters"></div>
+                <div class="finder-heading">
+                  <h2 class="panel-heading" id="finder-title">Find a sangha</h2>
+                  <p class="finder-guidance">
+                    Sanghas are practice communities that offer support for beginners
+                    and experienced practitioners alike. In Greater Boston, you can
+                    filter virtual, hybrid, and in-person options by day and time.
+                  </p>
+                </div>
+                <div class="finder-controls">
+                  <div class="filter-group" aria-label="Sangha filters">
+                    <div class="filter-set">
+                      <span class="filter-label">Format</span>
+                      <div class="filter-row" id="modality-filters"></div>
+                    </div>
+                    <div class="filter-set">
+                      <span class="filter-label">Days</span>
+                      <div class="filter-row" id="day-filters"></div>
+                    </div>
+                    <div class="filter-set">
+                      <span class="filter-label">Time</span>
+                      <div class="filter-row" id="time-filters"></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1820,7 +1823,6 @@
       const selectedDays = new Set();
       const selectedTimeBands = new Set();
       let activeSectionId = null;
-      let pathOptionsInlineHeight = 0;
       let selectedSanghaId = null;
 
       function updateStickyOffset() {
@@ -1868,55 +1870,13 @@
       }
 
       function resetPathOptionsPanel() {
-        if (!pathOptionsAnchor || !pathOptionsPanel) return;
-        pathOptionsPanel.classList.remove("is-compact-sticky");
+        if (!pathOptionsAnchor) return;
         pathOptionsAnchor.style.height = "auto";
-        pathOptionsInlineHeight = 0;
-      }
-
-      function syncPathOptionsAnchorHeight() {
-        if (!pathOptionsAnchor || !pathOptionsPanel) return;
-        if (pathOptionsPanel.classList.contains("is-compact-sticky")) {
-          if (pathOptionsInlineHeight > 0) {
-            pathOptionsAnchor.style.height = `${pathOptionsInlineHeight}px`;
-          }
-          return;
-        }
-
-        pathOptionsAnchor.style.height = "auto";
-        pathOptionsInlineHeight = pathOptionsPanel.offsetHeight;
-        pathOptionsAnchor.style.height = `${pathOptionsInlineHeight}px`;
-      }
-
-      function updatePathOptionsScrollState() {
-        if (
-          !selectedPersona ||
-          experience.hidden ||
-          !pathOptionsAnchor ||
-          !pathOptionsPanel
-        ) {
-          resetPathOptionsPanel();
-          return;
-        }
-
-        const stickyOffset = topbar ? topbar.offsetHeight + 10 : 82;
-        const shouldCompact =
-          pathOptionsAnchor.getBoundingClientRect().top <= stickyOffset;
-
-        if (shouldCompact) {
-          syncPathOptionsAnchorHeight();
-          pathOptionsPanel.classList.add("is-compact-sticky");
-          return;
-        }
-
-        resetPathOptionsPanel();
-        syncPathOptionsAnchorHeight();
       }
 
       function refreshPathOptionsPosition() {
         updateStickyOffset();
         updatePathTitleMeasure();
-        updatePathOptionsScrollState();
       }
 
       function getStoredPersona() {
@@ -2053,16 +2013,7 @@
           selectedSanghaId = null;
         }
 
-        const guidanceTitle = "Before attending";
-        const guidanceMarkup = `
-          <aside class="finder-guidance" aria-label="${guidanceTitle}">
-            <h3>${guidanceTitle}</h3>
-            <p class="guidance-copy">${bopsFinderGuidance}</p>
-          </aside>
-        `;
-
         sanghaList.innerHTML =
-          guidanceMarkup +
           (filtered.length > 0
             ? filtered
                 .map(
@@ -2371,7 +2322,7 @@
         contentRoot.insertBefore(extraSections, footerNote);
       }
 
-      function showExperience(persona) {
+      function showExperience(persona, options = {}) {
         const content = pathContent[persona] || pathContent.beginner;
         selectedPersona = persona;
         setStoredPersona(persona);
@@ -2380,7 +2331,6 @@
         pathEyebrow.textContent = content.eyebrow;
         pathTitle.textContent = content.title;
         pathSummary.textContent = content.summary;
-        activeSectionId = content.summaryItems[0][0].replace("#", "");
         pathHeroImage.src = content.image;
         pathHeroImage.alt = content.imageAlt;
         pathHeroImage.style.setProperty(
@@ -2388,6 +2338,12 @@
           content.imagePosition,
         );
         renderHeroActions(content);
+        const requestedSectionId = options.sectionId;
+        const controlledSectionIds = getControlledSectionIds(content);
+        activeSectionId =
+          requestedSectionId && controlledSectionIds.includes(requestedSectionId)
+            ? requestedSectionId
+            : content.summaryItems[0][0].replace("#", "");
 
         finderSection.hidden = !content.hasFinder;
         if (content.hasFinder) {
@@ -2488,9 +2444,6 @@
         showEntry({ clearStored: true });
       });
 
-      window.addEventListener("scroll", updatePathOptionsScrollState, {
-        passive: true,
-      });
       window.addEventListener("resize", () => {
         resetPathOptionsPanel();
         refreshPathOptionsPosition();
@@ -2499,16 +2452,52 @@
         document.fonts.ready.then(refreshPathOptionsPosition).catch(() => {});
       }
 
+      function getInitialRouteFromQuery() {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("reset") === "1") {
+          return { type: "reset" };
+        }
+
+        const persona = params.get("path");
+        const sectionId = params.get("section");
+        if (!persona || !pathContent[persona]) return null;
+        if (!sectionId) return { type: "experience", persona };
+
+        const controlledSectionIds = getControlledSectionIds(pathContent[persona]);
+        if (!controlledSectionIds.includes(sectionId)) return null;
+        return { type: "experience", persona, sectionId };
+      }
+
+      function clearInitialQuery() {
+        if (!window.location.search || !window.history?.replaceState) return;
+        window.history.replaceState(
+          {},
+          "",
+          `${window.location.pathname}${window.location.hash}`,
+        );
+      }
+
       const legacyPathMap = {
         newcomer: "beginner",
         builder: "facilitator",
       };
-      const initialPersona = getStoredPersona();
-      const normalizedPersona = legacyPathMap[initialPersona] || initialPersona;
-      if (normalizedPersona && pathContent[normalizedPersona]) {
-        showExperience(normalizedPersona);
+      const initialRoute = getInitialRouteFromQuery();
+      if (initialRoute?.type === "reset") {
+        showEntry({ clearStored: true });
+        clearInitialQuery();
+      } else if (initialRoute?.type === "experience") {
+        showExperience(initialRoute.persona, {
+          sectionId: initialRoute.sectionId,
+        });
+        clearInitialQuery();
       } else {
-        showEntry();
+        const initialPersona = getStoredPersona();
+        const normalizedPersona = legacyPathMap[initialPersona] || initialPersona;
+        if (normalizedPersona && pathContent[normalizedPersona]) {
+          showExperience(normalizedPersona);
+        } else {
+          showEntry();
+        }
       }
     </script>
   </body>

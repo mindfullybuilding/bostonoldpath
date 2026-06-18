@@ -297,38 +297,6 @@
         text-align: left;
       }
 
-      .path-options-panel.is-compact-sticky {
-        position: fixed;
-        top: var(--sticky-offset);
-        left: 50%;
-        z-index: 9;
-        width: min(760px, calc(100% - 32px));
-        gap: 8px;
-        padding: 10px 12px;
-        background: rgba(254, 251, 243, 0.96);
-        box-shadow: 0 16px 48px rgba(34, 34, 34, 0.14);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-        transform: translateX(-50%);
-      }
-
-      .path-options-panel.is-compact-sticky p {
-        width: 100%;
-        font-size: 0.78rem;
-        text-align: center;
-      }
-
-      .path-options-panel.is-compact-sticky .hero-actions {
-        justify-content: center;
-        gap: 8px;
-      }
-
-      .path-options-panel.is-compact-sticky .path-option-button {
-        min-height: 38px;
-        padding: 0.32rem 0.85rem;
-        font-size: 0.82rem;
-      }
-
       .hero-actions {
         display: flex;
         flex-wrap: wrap;
@@ -834,13 +802,6 @@
           min-width: 0;
           max-width: 220px;
           flex: 0 1 auto;
-        }
-
-        .path-options-panel.is-compact-sticky .path-option-button {
-          min-width: auto;
-          max-width: 220px;
-          flex: 0 1 auto;
-          white-space: nowrap;
         }
 
         .card-grid.steps,
@@ -1675,7 +1636,6 @@
       let finderRegion = "boston";
       let finderModality = "all";
       let activeSectionId = null;
-      let pathOptionsInlineHeight = 0;
 
       function updateStickyOffset() {
         if (!topbar) return;
@@ -1722,55 +1682,13 @@
       }
 
       function resetPathOptionsPanel() {
-        if (!pathOptionsAnchor || !pathOptionsPanel) return;
-        pathOptionsPanel.classList.remove("is-compact-sticky");
+        if (!pathOptionsAnchor) return;
         pathOptionsAnchor.style.height = "auto";
-        pathOptionsInlineHeight = 0;
-      }
-
-      function syncPathOptionsAnchorHeight() {
-        if (!pathOptionsAnchor || !pathOptionsPanel) return;
-        if (pathOptionsPanel.classList.contains("is-compact-sticky")) {
-          if (pathOptionsInlineHeight > 0) {
-            pathOptionsAnchor.style.height = `${pathOptionsInlineHeight}px`;
-          }
-          return;
-        }
-
-        pathOptionsAnchor.style.height = "auto";
-        pathOptionsInlineHeight = pathOptionsPanel.offsetHeight;
-        pathOptionsAnchor.style.height = `${pathOptionsInlineHeight}px`;
-      }
-
-      function updatePathOptionsScrollState() {
-        if (
-          !selectedPersona ||
-          experience.hidden ||
-          !pathOptionsAnchor ||
-          !pathOptionsPanel
-        ) {
-          resetPathOptionsPanel();
-          return;
-        }
-
-        const stickyOffset = topbar ? topbar.offsetHeight + 10 : 82;
-        const shouldCompact =
-          pathOptionsAnchor.getBoundingClientRect().top <= stickyOffset;
-
-        if (shouldCompact) {
-          syncPathOptionsAnchorHeight();
-          pathOptionsPanel.classList.add("is-compact-sticky");
-          return;
-        }
-
-        resetPathOptionsPanel();
-        syncPathOptionsAnchorHeight();
       }
 
       function refreshPathOptionsPosition() {
         updateStickyOffset();
         updatePathTitleMeasure();
-        updatePathOptionsScrollState();
       }
 
       function getStoredPersona() {
@@ -2185,9 +2103,6 @@
         showEntry({ clearStored: true });
       });
 
-      window.addEventListener("scroll", updatePathOptionsScrollState, {
-        passive: true,
-      });
       window.addEventListener("resize", () => {
         resetPathOptionsPanel();
         refreshPathOptionsPosition();
