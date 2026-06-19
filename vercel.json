@@ -9,6 +9,10 @@
       "destination": "/client/bops-homepage-wireframe-6.15.26.html"
     },
     {
+      "source": "/bops-homepage-wireframe-feedback-1.html",
+      "destination": "/client/bops-homepage-wireframe-feedback-1.html"
+    },
+    {
       "source": "/bops-homepage-wireframe.html",
       "destination": "/client/bops-homepage-wireframe.html"
     },
@@ -37,8 +41,32 @@
       "destination": "/client/newsletters.html"
     },
     {
+      "source": "/our-practice-feedback-1.html",
+      "destination": "/client/our-practice-feedback-1.html"
+    },
+    {
+      "source": "/our-community-feedback-1.html",
+      "destination": "/client/our-community-feedback-1.html"
+    },
+    {
+      "source": "/resources-feedback-1.html",
+      "destination": "/client/resources-feedback-1.html"
+    },
+    {
+      "source": "/find-a-sangha-feedback-1.html",
+      "destination": "/client/find-a-sangha-feedback-1.html"
+    },
+    {
+      "source": "/join-mailing-list-feedback-1.html",
+      "destination": "/client/join-mailing-list-feedback-1.html"
+    },
+    {
+      "source": "/newsletters-feedback-1.html",
+      "destination": "/client/newsletters-feedback-1.html"
+    },
+    {
       "source": "/",
-      "destination": "/client/bops-homepage-wireframe-6.15.26.html"
+      "destination": "/client/bops-homepage-wireframe-feedback-1.html"
     }
   ]
 }
