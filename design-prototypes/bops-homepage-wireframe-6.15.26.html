@@ -1374,22 +1374,6 @@
         { placeholder: true },
       ];
 
-      const resourceCards = [
-        {
-          title: "Thich Nhat Hanh",
-          copy: "Learn about Thich Nhat Hanh (Thay), his teachings, and the Plum Village tradition.",
-          action: "Learn about Thay",
-          url: "https://plumvillage.org/about/thich-nhat-hanh",
-        },
-        {
-          title: "Plum Village",
-          copy: "Learn about the Plum Village tradition, practice centers, and global community.",
-          action: "Learn about Plum Village",
-          url: "https://plumvillage.org/about/plum-village",
-        },
-        ...publicationCards.slice(2),
-      ];
-
       const additionalActivityCards = [
         {
           title: "Affinity Groups",
@@ -1436,7 +1420,6 @@
             "finder-section": "practice-events",
             "our-community-page": "learn-belong",
             "our-practice-page": "learn-belong",
-            "resources-page": "learn-belong",
           },
           summaryItems: [
             ["#learn-belong", "Learn"],
@@ -1462,7 +1445,7 @@
               {
                 title: "Resources",
                 copy: "Find foundational readings, talks, songs, practice links, and beginner-friendly resources.",
-                targetSection: "resources-page",
+                url: "resources.html",
               },
             ],
           },
@@ -1545,16 +1528,6 @@
               ],
             },
             {
-              id: "resources-page",
-              type: "inner-page",
-              eyebrow: "Learn",
-              title: "Resources",
-              parentSection: "learn-belong",
-              intro:
-                "Talks, readings, newsletters, teachers, and practice links for learning between sittings.",
-              cards: resourceCards,
-            },
-            {
               id: "stay-connected",
               eyebrow: "Join",
               title: "Newsletter & Mailing List",
@@ -1565,13 +1538,13 @@
                   title: "Join our Mailing List",
                   copy: "Receive sitting updates, retreat information, and community announcements.",
                   action: "Join mailing list",
-                  url: "https://bostonoldpath.org/about/community/",
+                  url: "join-mailing-list.html",
                 },
                 {
                   title: "Follow Our Newsletter",
                   copy: "Read recent community updates and stay connected with ongoing practice opportunities.",
                   action: "Browse newsletters",
-                  url: "https://bostonoldpath.org/newsletters/",
+                  url: "newsletters.html",
                 },
               ],
             },

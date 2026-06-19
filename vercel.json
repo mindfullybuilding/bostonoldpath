@@ -25,6 +25,18 @@
       "destination": "/client/find-a-sangha.html"
     },
     {
+      "source": "/resources.html",
+      "destination": "/client/resources.html"
+    },
+    {
+      "source": "/join-mailing-list.html",
+      "destination": "/client/join-mailing-list.html"
+    },
+    {
+      "source": "/newsletters.html",
+      "destination": "/client/newsletters.html"
+    },
+    {
       "source": "/",
       "destination": "/client/bops-homepage-wireframe-6.15.26.html"
     }
