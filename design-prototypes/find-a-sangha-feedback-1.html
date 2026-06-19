@@ -259,6 +259,7 @@
 
       .sangha-list {
         display: grid;
+        align-content: start;
         gap: 12px;
       }
 
@@ -390,11 +391,19 @@
       }
 
       .empty-state {
+        display: grid;
+        align-self: start;
+        justify-items: center;
+        gap: 12px;
         border: 1px dashed var(--less-light-ink);
         border-radius: var(--radius);
         padding: 18px;
         color: var(--muted);
         text-align: center;
+      }
+
+      .empty-state p {
+        margin: 0;
       }
 
       .footer-note {
@@ -996,10 +1005,25 @@
                   `;
                 })
                 .join("")
-            : '<div class="empty-state">No sanghas match this filter combination.</div>');
+            : `<div class="empty-state">
+                <p role="status">No sanghas match this filter combination.</p>
+                <button class="button secondary" type="button" data-clear-filters>
+                  Clear filters
+                </button>
+              </div>`);
       }
 
       document.addEventListener("click", (event) => {
+        const clearFiltersButton = event.target.closest("[data-clear-filters]");
+        if (clearFiltersButton) {
+          finderModality = "all";
+          selectedDays.clear();
+          selectedTimeBands.clear();
+          selectedSanghaId = null;
+          renderFinder();
+          return;
+        }
+
         const target = event.target.closest("[data-filter-type]");
         if (!target) return;
 

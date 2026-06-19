@@ -690,6 +690,7 @@
 
       .sangha-list {
         display: grid;
+        align-content: start;
         gap: 12px;
       }
 
@@ -783,11 +784,19 @@
       }
 
       .empty-state {
+        display: grid;
+        align-self: start;
+        justify-items: center;
+        gap: 12px;
         border: 1px dashed var(--less-light-ink);
         border-radius: var(--radius);
         padding: 18px;
         color: var(--muted);
         text-align: center;
+      }
+
+      .empty-state p {
+        margin: 0;
       }
 
       .footer-note {
@@ -1476,8 +1485,6 @@
               eyebrow: "Learn",
               title: "Our Practice",
               parentSection: "learn-belong",
-              sourceUrl:
-                "https://sites.google.com/view/mindfulnesspracticecommunityof/our-community/our-practice",
               intro:
                 "A beginner-friendly overview of mindfulness as present-moment awareness practiced in daily life, supported by sangha and rooted in the Plum Village tradition.",
               blocks: [
@@ -1504,8 +1511,6 @@
               eyebrow: "Learn",
               title: "Our Community",
               parentSection: "learn-belong",
-              sourceUrl:
-                "https://sites.google.com/view/mindfulnesspracticecommunityof/our-community/our-community",
               intro:
                 "An introduction to the Greater Boston mindfulness practice community, its Plum Village roots, and the ways people gather across local sanghas.",
               blocks: [
@@ -2039,7 +2044,12 @@
                   },
                 )
                 .join("")
-            : '<div class="empty-state">No sanghas match this filter combination.</div>');
+            : `<div class="empty-state">
+                <p role="status">No sanghas match this filter combination.</p>
+                <button class="button secondary" type="button" data-clear-filters>
+                  Clear filters
+                </button>
+              </div>`);
       }
 
       function renderInfoCard(card) {
@@ -2160,13 +2170,6 @@
               <button class="button secondary" type="button" data-card-section="${section.parentSection || "learn-belong"}">
                 Back to Learn
               </button>
-              ${
-                section.sourceUrl
-                  ? `<a class="button" ${linkAttributes(section.sourceUrl)}>
-                      Open full page
-                    </a>`
-                  : ""
-              }
             </div>
           </div>
         `;
@@ -2364,6 +2367,16 @@
       });
 
       document.addEventListener("click", (event) => {
+        const clearFiltersButton = event.target.closest("[data-clear-filters]");
+        if (clearFiltersButton) {
+          finderModality = "all";
+          selectedDays.clear();
+          selectedTimeBands.clear();
+          selectedSanghaId = null;
+          renderFinder();
+          return;
+        }
+
         const target = event.target.closest("[data-filter-type]");
         if (!target) return;
 
