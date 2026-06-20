@@ -6,6 +6,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { Analytics } from "@vercel/analytics/react";
 import { type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
@@ -89,8 +90,16 @@ export const Route = createRootRoute({
       { name: "description", content: "Mindfulness in Boston and everywhere..." },
       { property: "og:description", content: "Mindfulness in Boston and everywhere..." },
       { name: "twitter:description", content: "Mindfulness in Boston and everywhere..." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/gUaNuOWEhfOiZOieqNTQXnNaS333/social-images/social-1781189267814-intro-page-hero.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/gUaNuOWEhfOiZOieqNTQXnNaS333/social-images/social-1781189267814-intro-page-hero.webp" },
+      {
+        property: "og:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/gUaNuOWEhfOiZOieqNTQXnNaS333/social-images/social-1781189267814-intro-page-hero.webp",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/gUaNuOWEhfOiZOieqNTQXnNaS333/social-images/social-1781189267814-intro-page-hero.webp",
+      },
     ],
     links: [
       {
@@ -113,6 +122,7 @@ function RootShell({ children }: { children: ReactNode }) {
       </head>
       <body>
         {children}
+        <Analytics />
         <Scripts />
       </body>
     </html>
