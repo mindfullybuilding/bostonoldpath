@@ -65,8 +65,36 @@
       "destination": "/client/newsletters-feedback-1.html"
     },
     {
+      "source": "/mcgb-homepage-wireframe-feedback-2.html",
+      "destination": "/client/mcgb-homepage-wireframe-feedback-2.html"
+    },
+    {
+      "source": "/our-practice-feedback-2.html",
+      "destination": "/client/our-practice-feedback-2.html"
+    },
+    {
+      "source": "/our-community-feedback-2.html",
+      "destination": "/client/our-community-feedback-2.html"
+    },
+    {
+      "source": "/resources-feedback-2.html",
+      "destination": "/client/resources-feedback-2.html"
+    },
+    {
+      "source": "/find-a-sangha-feedback-2.html",
+      "destination": "/client/find-a-sangha-feedback-2.html"
+    },
+    {
+      "source": "/join-mailing-list-feedback-2.html",
+      "destination": "/client/join-mailing-list-feedback-2.html"
+    },
+    {
+      "source": "/newsletters-feedback-2.html",
+      "destination": "/client/newsletters-feedback-2.html"
+    },
+    {
       "source": "/",
-      "destination": "/client/bops-homepage-wireframe-feedback-1.html"
+      "destination": "/client/mcgb-homepage-wireframe-feedback-2.html"
     }
   ]
 }

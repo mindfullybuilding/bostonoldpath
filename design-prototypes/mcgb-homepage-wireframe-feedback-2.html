@@ -1,0 +1,2515 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MCGB Beginner's Mind Feedback</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --sun: #ffd22a;
+        --light-sun: #fefbf3;
+        --ink: #222;
+        --dark-ink: #272727;
+        --earth: #8b572a;
+        --cloud: #fff;
+        --light-ink: #f3f3f3;
+        --less-light-ink: #eaeaea;
+        --stamp: #ea4334;
+        --muted: #6d6a62;
+        --focus: #8b572a;
+        --radius: 8px;
+        --shadow: 0 18px 60px rgba(34, 34, 34, 0.08);
+        --sticky-offset: 82px;
+        --font-sans: "PV Sans Serif", ui-sans-serif, system-ui, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-height: 100%;
+        background: var(--light-sun);
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: var(--light-sun);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      a:focus-visible,
+      button:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      .page {
+        min-height: 100vh;
+      }
+
+      .entry-screen {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        padding: 24px;
+        background:
+          linear-gradient(
+            rgba(34, 34, 34, 0.34),
+            rgba(139, 87, 42, 0.2)
+          ),
+          url("assets/intro-page-hero.jpg") center center / cover no-repeat;
+        background-color: var(--earth);
+      }
+
+      .entry-card {
+        width: min(900px, 100%);
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        border-radius: var(--radius);
+        padding: clamp(28px, 7vw, 62px);
+        background: rgba(254, 251, 243, 0.94);
+        box-shadow: 0 24px 80px rgba(34, 34, 34, 0.26);
+        text-align: center;
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+      }
+
+      .brand-kicker,
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--earth);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .brand-kicker {
+        margin-bottom: 20px;
+      }
+
+      .entry-title {
+        max-width: 14ch;
+        margin: 0 auto 14px;
+        font-size: clamp(2.2rem, 9vw, 4.4rem);
+        font-weight: 400;
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .entry-copy {
+        max-width: 520px;
+        margin: 0 auto 28px;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      .easter-egg-card {
+        width: min(480px, 100%);
+        padding: clamp(20px, 5vw, 32px);
+        transform: none;
+      }
+
+      .easter-egg-image {
+        display: block;
+        width: min(399px, 100%);
+        max-height: min(66vh, 501px);
+        margin: 0 auto 22px;
+        background: var(--cloud);
+        object-fit: contain;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+      }
+
+      .choice-grid {
+        display: grid;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .choice-button,
+      .filter-button {
+        border: 1px solid var(--less-light-ink);
+        background: var(--light-sun);
+        color: var(--ink);
+        cursor: pointer;
+      }
+
+      .choice-button {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        min-height: 118px;
+        border-radius: var(--radius);
+        padding: 18px;
+        text-align: left;
+        transition:
+          border-color 150ms ease,
+          background-color 150ms ease,
+          transform 150ms ease;
+      }
+
+      .choice-button:hover {
+        border-color: var(--earth);
+        background: var(--sun);
+        transform: translateY(-1px);
+      }
+
+      .choice-button strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 1.05rem;
+        line-height: 1.16;
+      }
+
+      .choice-button span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .experience {
+        min-height: 100vh;
+        background: var(--cloud);
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--less-light-ink);
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(12px);
+      }
+
+      .topbar-inner,
+      .content {
+        width: min(1160px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 0;
+      }
+
+      .brand {
+        display: grid;
+        gap: 1px;
+      }
+
+      .brand strong {
+        font-size: 1rem;
+      }
+
+      .brand span,
+      .path-label {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .path-tools {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        border: 1px solid rgba(139, 87, 42, 0.14);
+        border-radius: 999px;
+        padding: 6px 10px 6px 12px;
+        background: rgba(255, 210, 42, 0.16);
+      }
+
+      .text-button {
+        border: 0;
+        border-bottom: 2px solid var(--sun);
+        padding: 2px 0;
+        background: transparent;
+        color: var(--ink);
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      .content {
+        display: flex;
+        min-height: calc(100vh - var(--sticky-offset));
+        flex-direction: column;
+        padding: clamp(28px, 6vw, 64px) 0 52px;
+      }
+
+      .path-hero {
+        display: grid;
+        gap: 24px;
+        align-items: center;
+      }
+
+      .intro {
+        max-width: 680px;
+      }
+
+      .intro h1 {
+        margin-bottom: 18px;
+        font-size: clamp(2.1rem, 7vw, 4rem);
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      .intro p {
+        max-width: 650px;
+        margin-bottom: 24px;
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+
+      .path-options-anchor {
+        margin-top: 16px;
+        width: 100%;
+      }
+
+      .path-options-panel {
+        position: relative;
+        z-index: 8;
+        display: grid;
+        width: 100%;
+        gap: 10px;
+        border: 1px solid rgba(139, 87, 42, 0.14);
+        border-radius: var(--radius);
+        padding: 12px 14px;
+        background: var(--light-sun);
+        box-shadow: none;
+      }
+
+      .path-options-panel p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-align: left;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 8px;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--ink);
+        border-radius: 4px;
+        padding: 0.45rem 1.1rem;
+        background: var(--sun);
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .path-option-button {
+        width: auto;
+        max-width: 240px;
+        min-height: 38px;
+        border-color: var(--less-light-ink);
+        border-radius: 999px;
+        background: var(--cloud);
+        padding: 0.32rem 0.85rem;
+        font-size: 0.84rem;
+        line-height: 1.2;
+        text-align: center;
+      }
+
+      .path-option-button[aria-pressed="true"] {
+        border-color: var(--ink);
+        background: var(--sun);
+      }
+
+      .button.secondary {
+        border-color: var(--less-light-ink);
+        background: var(--cloud);
+      }
+
+      .sangha-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .button.full {
+        width: 100%;
+      }
+
+      .path-hero-media {
+        aspect-ratio: 4 / 3;
+        min-height: 280px;
+        margin: 0;
+        overflow: hidden;
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        background: var(--light-sun);
+      }
+
+      .path-hero-media img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        object-position: var(--image-position, center);
+      }
+
+      .section {
+        margin-top: 34px;
+      }
+
+      .section-heading {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .section-heading h2 {
+        margin-bottom: 0;
+        font-size: 1.35rem;
+        font-weight: 500;
+      }
+
+      .section-heading p {
+        max-width: 620px;
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .card-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .step-card,
+      .resource-link,
+      .info-card,
+      .sangha-card {
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        padding: 16px;
+        background: var(--cloud);
+      }
+
+      .placeholder-card {
+        min-height: 128px;
+        border-style: dashed;
+        background: var(--light-sun);
+      }
+
+      .step-number {
+        display: inline-grid;
+        width: 28px;
+        height: 28px;
+        place-items: center;
+        margin-bottom: 12px;
+        border-radius: 50%;
+        background: var(--sun);
+        color: var(--ink);
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+
+      .step-card h3,
+      .resource-link h3,
+      .info-card h3,
+      .sangha-card h3 {
+        margin-bottom: 6px;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+
+      .step-card p,
+      .resource-link p,
+      .info-card p,
+      .sangha-card p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .resource-link {
+        text-decoration: none;
+      }
+
+      .linked-card {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .card-action {
+        display: inline-flex;
+        margin-top: 12px;
+        color: var(--earth);
+        font-size: 0.84rem;
+        font-weight: 700;
+      }
+
+      button.linked-card {
+        width: 100%;
+        -webkit-appearance: none;
+        appearance: none;
+        cursor: pointer;
+        font: inherit;
+        text-align: left;
+      }
+
+      .resource-link:hover,
+      .linked-card:hover,
+      .sangha-card:hover {
+        border-color: var(--earth);
+        background: var(--light-sun);
+      }
+
+      .sangha-card {
+        transition:
+          border-color 160ms ease,
+          background-color 160ms ease,
+          box-shadow 160ms ease;
+      }
+
+      .sangha-card[data-has-map="true"] {
+        cursor: pointer;
+      }
+
+      .sangha-card.is-active {
+        border-color: var(--earth);
+        background: var(--light-sun);
+        box-shadow: 0 0 0 3px rgba(139, 87, 42, 0.14);
+      }
+
+      .list {
+        display: grid;
+        gap: 8px;
+        margin: 12px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .list li {
+        border-top: 1px solid var(--less-light-ink);
+        padding-top: 8px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .list li:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .inner-page {
+        display: grid;
+        gap: 18px;
+      }
+
+      .inner-page-intro {
+        max-width: 760px;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      .inner-page-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .inner-page-block {
+        border-top: 1px solid var(--less-light-ink);
+        padding-top: 14px;
+      }
+
+      .inner-page-block h3 {
+        margin-bottom: 6px;
+        font-size: 1rem;
+      }
+
+      .inner-page-block p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .inner-page-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .finder {
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        background: var(--cloud);
+      }
+
+      .finder-header,
+      .detail-panel-header {
+        display: grid;
+        gap: 16px;
+      }
+
+      .finder-header {
+        border-bottom: 1px solid var(--less-light-ink);
+        padding: 14px 16px;
+      }
+
+      .finder-heading {
+        display: grid;
+        align-content: start;
+        gap: 8px;
+      }
+
+      .detail-panel {
+        background: var(--cloud);
+      }
+
+      .detail-panel-header {
+        padding-bottom: 14px;
+      }
+
+      .panel-heading {
+        margin: 0;
+        color: var(--earth);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .filter-group {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 12px;
+      }
+
+      .finder-controls {
+        display: grid;
+        gap: 8px;
+        border: 1px solid rgba(139, 87, 42, 0.14);
+        border-radius: var(--radius);
+        padding: 10px;
+        background: rgba(254, 251, 243, 0.72);
+      }
+
+      .filter-set {
+        display: flex;
+        flex: 0 1 auto;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .filter-label {
+        flex: 0 0 auto;
+        color: var(--earth);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .filter-button {
+        min-height: 30px;
+        border-radius: 999px;
+        padding: 0 10px;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .filter-button[aria-pressed="true"] {
+        border-color: var(--ink);
+        background: var(--sun);
+      }
+
+      .finder-layout,
+      .detail-panel-body {
+        display: grid;
+        gap: 18px;
+      }
+
+      .finder-layout {
+        padding: 18px;
+      }
+
+      .sangha-list {
+        display: grid;
+        align-content: start;
+        gap: 12px;
+      }
+
+      .finder-guidance {
+        max-width: 58ch;
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.84rem;
+        line-height: 1.45;
+      }
+
+      .sangha-card {
+        display: grid;
+        gap: 12px;
+      }
+
+      .info-card .button {
+        margin-top: 12px;
+      }
+
+      .sangha-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .pill {
+        border: 1px solid var(--less-light-ink);
+        border-radius: 999px;
+        padding: 3px 8px;
+        background: var(--light-ink);
+        color: var(--dark-ink);
+        font-size: 0.74rem;
+        font-weight: 700;
+      }
+
+      .pill.sun {
+        border-color: var(--sun);
+        background: var(--sun);
+      }
+
+      .finder-visual {
+        display: grid;
+        gap: 12px;
+      }
+
+      .map-panel,
+      .calendar-panel {
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        background: var(--light-sun);
+      }
+
+      .map-panel {
+        min-height: 420px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .map-canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        min-height: 420px;
+        background: #e8eee6;
+      }
+
+      .calendar-panel {
+        padding: 14px;
+      }
+
+      .calendar-panel h3 {
+        margin-bottom: 10px;
+        font-size: 1rem;
+      }
+
+      .calendar-preview {
+        overflow: hidden;
+        border: 1px solid var(--less-light-ink);
+        border-radius: 4px;
+        background: var(--cloud);
+      }
+
+      .calendar-embed {
+        display: block;
+        width: 100%;
+        height: 360px;
+        border: 0;
+      }
+
+      .empty-state {
+        display: grid;
+        align-self: start;
+        justify-items: center;
+        gap: 12px;
+        border: 1px dashed var(--less-light-ink);
+        border-radius: var(--radius);
+        padding: 18px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .empty-state p {
+        margin: 0;
+      }
+
+      .footer-note {
+        margin-top: auto;
+        border-top: 1px solid var(--less-light-ink);
+        padding-top: 18px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        text-align: center;
+      }
+
+      .footer-note a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .footer-note a:hover {
+        color: var(--ink);
+        text-decoration: underline;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      @media (min-width: 740px) {
+        html {
+          font-size: 18px;
+        }
+
+        .choice-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .path-hero {
+          grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.75fr);
+        }
+
+        .path-options-anchor {
+          width: min(100%, var(--path-title-measure, 100%));
+        }
+
+        .path-option-button {
+          min-width: 0;
+          max-width: 220px;
+          flex: 0 1 auto;
+        }
+
+        .card-grid.steps,
+        .card-grid.three {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .card-grid.resources,
+        .card-grid.four {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .finder-layout {
+          grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr);
+        }
+
+        .sangha-list {
+          max-height: min(860px, calc(100vh - 138px));
+          overflow: auto;
+          padding-right: 4px;
+        }
+
+        .finder-visual {
+          position: sticky;
+          top: var(--sticky-offset);
+          align-self: start;
+        }
+
+        .finder-header {
+          grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
+          align-items: start;
+        }
+      }
+
+      @media (max-width: 739px) {
+        .finder-header {
+          gap: 10px;
+          padding: 12px;
+        }
+
+        .filter-group {
+          align-items: stretch;
+          gap: 6px;
+        }
+
+        .filter-set {
+          display: grid;
+          width: 100%;
+          grid-template-columns: 58px minmax(0, 1fr);
+          align-items: center;
+        }
+
+        .filter-row {
+          gap: 4px;
+        }
+
+        .filter-button {
+          min-height: 28px;
+          padding: 0 8px;
+          font-size: 0.76rem;
+        }
+      }
+
+      @media (min-width: 980px) {
+        .entry-screen {
+          place-items: center;
+        }
+
+        .entry-card:not(.easter-egg-card) {
+          transform: translateX(clamp(-160px, -11vw, -72px));
+        }
+      }
+
+       .path-hero-media { min-width: 0; max-width: 100%; }
+      .path-hero-media img { min-width: 0; max-width: 100%; }
+      /* Feedback 2: allow the full community name and subtitle to wrap. */
+      .brand { min-width: 0; flex: 1 1 380px; }
+      .brand strong, .brand span { white-space: normal; overflow-wrap: anywhere; }
+      .brand span { display: block; }
+      .topbar-inner { gap: 16px; flex-wrap: wrap; }
+      .header-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; max-width: 100%; }
+      .path-tools { flex-shrink: 0; }
+      .email-recipient { overflow-wrap: anywhere; user-select: text; }
+      .email-details { margin-top: 14px; }
+      .copy-status { display: block; font-size: .9rem; }
+      .resource-group { margin-top: 28px; }
+      .simple-intro { max-width: 70ch; margin: 32px 0; }
+      @media (max-width: 680px) { .brand { flex-basis: 100%; } }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <section
+        class="entry-screen"
+        id="entry-screen"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="entry-title"
+        hidden
+      >
+        <div class="entry-card easter-egg-card">
+          <h1 class="sr-only" id="entry-title">Are you sure?</h1>
+          <img
+            class="easter-egg-image"
+            src="assets/test-site-easter-egg-hero.jpg"
+            alt="Hand-painted calligraphy asking, Are you sure?"
+            width="399"
+            height="501"
+          />
+          <button class="text-button" type="button" id="return-to-beginner">
+            Back to Beginner's Mind
+          </button>
+        </div>
+      </section>
+
+      <section class="experience" id="experience" hidden>
+        <header class="topbar">
+          <div class="topbar-inner">
+            <div class="brand" aria-label="MCGB homepage">
+              <strong>Mindfulness Communities of Greater Boston</strong>
+              <span>Engaged Buddhism in the Plum Village tradition of Thích Nhất Hạnh</span>
+            </div>
+            <div class="header-actions">
+              <a class="button" href="find-a-sangha-feedback-2.html">Find a group</a>
+            <div class="path-tools">
+              <span class="path-label" id="selected-path-label"></span>
+              <button class="text-button" type="button" id="change-path">
+                Change path
+              </button>
+            </div>
+            </div>
+          </div>
+        </header>
+
+        <main class="content">
+          <section class="path-hero" aria-labelledby="path-title">
+            <div class="intro">
+              <p class="eyebrow" id="path-eyebrow"></p>
+              <h1 id="path-title"></h1>
+              <div class="path-options-anchor" id="path-options-anchor">
+                <div
+                  class="path-options-panel"
+                  id="path-options-panel"
+                  aria-label="Choose information to view"
+                >
+                  <p id="path-summary"></p>
+                  <div class="hero-actions" id="hero-actions"></div>
+                </div>
+              </div>
+            </div>
+
+            <figure class="path-hero-media">
+              <img
+                id="path-hero-image"
+                src="assets/beginners-mind-page-title-hero.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+          </section>
+
+          <section class="section" id="primary-section"></section>
+
+          <section
+            class="section"
+            id="finder-section"
+            aria-labelledby="finder-title"
+            hidden
+          >
+            <div class="finder">
+              <div class="finder-header">
+                <div class="finder-heading">
+                  <h2 class="panel-heading" id="finder-title">Find a sangha</h2>
+                  <p class="finder-guidance">
+                    Sanghas are practice communities that offer support for beginners
+                    and experienced practitioners alike. In Greater Boston, you can
+                    filter virtual, hybrid, and in-person options by day and time.
+                  </p>
+                </div>
+                <div class="finder-controls">
+                  <div class="filter-group" aria-label="Sangha filters">
+                    <div class="filter-set">
+                      <span class="filter-label">Format</span>
+                      <div class="filter-row" id="modality-filters"></div>
+                    </div>
+                    <div class="filter-set">
+                      <span class="filter-label">Days</span>
+                      <div class="filter-row" id="day-filters"></div>
+                    </div>
+                    <div class="filter-set">
+                      <span class="filter-label">Time</span>
+                      <div class="filter-row" id="time-filters"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="finder-layout">
+                <div class="sangha-list" id="sangha-list"></div>
+                <aside class="finder-visual" aria-label="Map and calendar">
+                  <div class="map-panel">
+                    <iframe
+                      class="map-canvas"
+                      title="Mindfulness Communities of Greater Boston map"
+                      src="https://www.google.com/maps/d/embed?mid=1TBbpA9rWK7PatKg8S-NV2kAVLRAaE_c&ehbc=2E312F"
+                      loading="lazy"
+                      allowfullscreen
+                      referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                  </div>
+                  <div class="calendar-panel">
+                    <h3>Schedule</h3>
+                    <div class="calendar-preview">
+                      <iframe
+                        class="calendar-embed"
+                        title="Mindfulness Communities of Greater Boston calendar"
+                        src="https://calendar.google.com/calendar/u/0/newembed?src=cGx1bXZpbGxhZ2Vib3N0b25AZ21haWwuY29t&color=%23039be5&mode=AGENDA"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                      ></iframe>
+                    </div>
+                  </div>
+                </aside>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" id="secondary-section"></section>
+          <div id="extra-sections"></div>
+
+          <p class="footer-note">
+            <a href="#">Terms and Conditions</a> |
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Press &amp; Media</a> |
+            <a href="#">Contact Us</a>
+          </p>
+        </main>
+      </section>
+    </div>
+
+    <script>
+      function emailDetails(url) {
+        if (!url || !url.startsWith("mailto:")) return "";
+        const [recipient, query = ""] = url.slice(7).split("?");
+        const cc = new URLSearchParams(query).get("cc");
+        return `<div class="email-details"><p>Using email in your browser? Compose a message with these recipients.</p>${[["To", decodeURIComponent(recipient)], ...(cc ? [["Cc", cc]] : [])].map(([label, address]) => `<p class="email-recipient"><strong>${label}:</strong> <span>${escapeHtml(address)}</span> <button type="button" class="text-button" data-copy-email="${escapeHtml(address)}">Copy ${label.toLowerCase()} address</button><span class="copy-status" role="status"></span></p>`).join("")}</div>`;
+      }
+
+      const storageKey = "mcgb-prototype-feedback-2-persona";
+
+      const sanghas = [
+        {
+          id: "dandelions-of-the-heart-sangha",
+          name: "Dandelions of the Heart Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "hybrid",
+          day: "Mon-Fri",
+          time: "6:30-7:30 AM",
+          days: ["monday","tuesday","wednesday","thursday","friday"],
+          timeBand: "morning",
+          location: "Brookline",
+          latLng: [42.3331519, -71.1181054],
+          address: "Boston Center for Contemplative Practice, 11 Kent Street, Brookline, MA 02445",
+          access: "Boston Center for Contemplative Practice, 11 Kent Street, Brookline, MA 02445",
+          description: "This is a mostly silent sit with a closing dharma reflection except on Thursday and Friday. Feel to drop in and sit for any part of that time.",
+          registerUrl: "mailto:info@yenkuei.org",
+        },
+        {
+          id: "peaceful-garden-sangha",
+          name: "Peaceful Garden Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "in-person",
+          day: "Tuesday",
+          time: "7:00-8:30 PM",
+          days: ["tuesday"],
+          timeBand: "evening",
+          location: "Brookline",
+          latLng: [42.340198, -71.1214634],
+          address: "United Parish Church, 210 Harvard Street, Brookline, MA",
+          access: "Use the Marion Street entrance (up the stairs to the Parlor on the left). Green C line or Bus 66. Or ample free parking on side streets.",
+          description: "We are a community of friends brand new and others with an established practice. We are open to everyone on a walk-in basis. We're peer-led and rotate facilitation. Each evening we share a reading and talk about what comes up for us. Together, we discover the power of being and practicing in community.",
+          registerUrl: "mailto:sanghamatters@gmail.com",
+        },
+        {
+          id: "peaceful-songbird-sangha",
+          name: "Peaceful Songbird Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "hybrid",
+          day: "Saturday",
+          time: "9:30-11:30 AM",
+          days: ["saturday"],
+          timeBand: "morning",
+          location: "Roslindale",
+          latLng: [42.2912093, -71.1244966],
+          address: "Chua Vietnam, Roslindale, MA",
+          access: "For in-person, there's street parking and lot parking behind the temple.",
+          description: "We meditate, check-in with one another, share a reading from a teacher of the dharma, and follow with dharma discussion, metta practice and a final meditation. We practice in the Plum Village tradition of Thích Nhất Hạnh, with its emphasis on engaged Buddhism and the art of mindful living. We began meeting at Chua Vietnam, a beautiful Vietnamese temple in Roslindale, MA. We have been practicing online via zoom since March of 2020. Once a month we meet in person, dates depending on the schedule of the temple.All are welcome to join us.",
+          registerUrl: "mailto:PeacefulSongbird+owner@BostonOldPath.groups.io",
+          approximate: true,
+        },
+        {
+          id: "wake-up-boston",
+          name: "Wake Up Boston",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "in-person",
+          day: "2nd and 4th Wednesday",
+          time: "Evening",
+          days: ["wednesday"],
+          timeBand: "evening",
+          location: "Cambridge",
+          latLng: [42.3666402, -71.1053125],
+          address: "763 Massachusetts Ave, Cambridge, MA 02139",
+          access: "Conveniently off the red line, with limited metered street parking.",
+          description: "A mindfulness meditation community for 18-35-ish year olds practicing in the tradition of Plum Village Buddhism / Zen Master Thích Nhất Hạnh. In a typical evening gathering, we'll enjoy a guided sitting meditation, walking meditation, dharma reading, and dharma sharing about our experiences and practice in everyday life. We welcome people of all backgrounds regardless of faith or meditation experience.",
+          registerUrl: "https://bostonwakeup.substack.com/about",
+        },
+        {
+          id: "joyful-lotus-sangha",
+          name: "Joyful Lotus Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "in-person",
+          day: "First Wednesday of the month",
+          time: "5:00-6:30 PM",
+          days: ["wednesday"],
+          timeBand: "evening",
+          location: "Cambridge Zen Center",
+          latLng: [42.364369, -71.1060039],
+          address: "Cambridge Zen Center, 199 Auburn Street, Cambridge, MA",
+          access: "Conveniently off the red line, with limited metered street parking.",
+          description: "The Black, Indigenous and People of Color (BIPOC) Sangha is a monthly gathering of self-identifying BIPOC practitioners that provides a safe place to meditate and explore contemplative practices. This sangha cultivates an environment that welcomes diverse voices and builds community. In a typical practice group, we enjoy a mix of walking meditation, sitting meditation, chanting, readings, and dharma sharing about our experiences and practice in everyday life.",
+          registerUrl: "mailto:kfoo@wpi.edu",
+        },
+        {
+          id: "tree-house-sangha",
+          name: "Tree House Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "hybrid",
+          day: "1st and 3rd Monday",
+          time: "8:30-10:00 AM",
+          days: ["monday"],
+          timeBand: "morning",
+          location: "Bedford",
+          latLng: [42.5041811, -71.30135],
+          address: "Carlisle Rd, Bedford, MA",
+          access: "Street parking available.",
+          description: "A morning practice gathering in the Bedford area.",
+          registerUrl: "mailto:Fbigdapeyton@gmail.com",
+          approximate: true,
+        },
+        {
+          id: "mountain-bell-sangha",
+          name: "Mountain Bell Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "hybrid",
+          day: "2nd and 4th Sunday",
+          time: "7:00-9:00 PM",
+          days: ["sunday"],
+          timeBand: "evening",
+          location: "Belmont",
+          latLng: [42.4065684, -71.1964366],
+          address: "366 Marsh St, Belmont, MA",
+          access: "Street parking available.",
+          description: "A Belmont-area sangha with in-person and online practice options.",
+          registerUrl: "mailto:email1@gmail.com?cc=email2@gmail.com",
+        },
+        {
+          id: "green-fields-sangha",
+          name: "Green Fields Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "hybrid",
+          day: "Tuesday",
+          time: "4:00-5:30 PM",
+          days: ["tuesday"],
+          timeBand: "afternoon",
+          location: "Lincoln",
+          latLng: [42.4263662, -71.3037098],
+          address: "First Parish Church, 4 Bedford Rd, Lincoln, MA",
+          access: "Street parking available.",
+          description: "A Lincoln-area hybrid sangha.",
+          registerUrl: "mailto:selenejck@gmail.com",
+        },
+        {
+          id: "sangha-of-the-seven-hills",
+          name: "Sangha of the Seven Hills",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "in-person",
+          day: "Friday",
+          time: "1:00-2:00 PM",
+          days: ["friday"],
+          timeBand: "afternoon",
+          location: "Worcester",
+          latLng: [42.2530938, -71.8319824],
+          address: "Assumption Center, 16 Vineyard St, Worcester, MA",
+          access: "Free parking in the lot available.",
+          description: "A Worcester sangha in the Plum Village tradition, hosted at Assumption Center. Our format: 20 min sitting, 10 min walking, a short reading, dharma sharing. Welcoming to, new or experienced practitioners. Drop in anytime, no advance notice needed, free to participate.",
+          registerUrl: "mailto:ellenzanino@yahoo.com",
+        },
+        {
+          id: "mindful-lunch",
+          name: "Mindful Lunch",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "virtual",
+          day: "Wednesday",
+          time: "12:00-12:45 PM",
+          days: ["wednesday"],
+          timeBand: "afternoon",
+          location: "Online",
+          access: "Contact the organizer for the Zoom Link.",
+          description: "A brief mid-day eating practice for pausing, arriving, and practicing mindfulness during lunch.",
+          registerUrl: "mailto:info@yenkuei.org",
+        },
+        {
+          id: "peaceful-heart-sangha",
+          name: "Peaceful Heart Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "virtual",
+          day: "Friday",
+          time: "8:30-10:00 AM",
+          days: ["friday"],
+          timeBand: "morning",
+          location: "Online",
+          access: "Contact the organizer for the Zoom Link.",
+          description: "We meet weekly over zoom. All are welcome and no previous meditation experience is necessary. We rotate facilitation by volunteer who chooses a reading. We practice sitting, walking and dharma sharing in a welcoming, non judgmental confidential setting.",
+          registerUrl: "mailto:nancypar@gmail.com",
+        },
+        {
+          id: "living-the-14-sangha",
+          name: "Living the 14 Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "virtual",
+          day: "Wednesday",
+          time: "7:30-9:00 PM",
+          days: ["wednesday"],
+          timeBand: "evening",
+          location: "Online",
+          access: "Contact the organizer for the Zoom Link.",
+          description: "The 14 Mindfulness Trainings are the foundation of the Order of Interbeing and we are strengthening our commitment to them by looking deeply at a single training each week. We are open to OI members, OI Aspirants and pre-Aspirants. \"Pre-Aspirants\" includes anyone who would like to learn more about Thay's teachings. Each week is a study in itself. You are welcome anytime, week to week.",
+          registerUrl: "mailto:donald.leka@gmail.com",
+        },
+        {
+          id: "lotus-pond-sangha",
+          name: "Lotus Pond Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "virtual",
+          day: "Thursday",
+          time: "7:15-9:00 PM",
+          days: ["thursday"],
+          timeBand: "evening",
+          location: "Online",
+          access: "Contact the organizer for the Zoom Link.",
+          description: "We meet every other week on Zoom to practice sitting and walking meditation, followed by dharma sharing. We often read a short text to start dharma sharing to help us gather the mind and open the heart. We welcome everyone.",
+          registerUrl: "mailto:m.romang@rcn.com",
+        },
+      ];
+
+      const modalityOptions = [
+        ["all", "All"],
+        ["virtual", "Virtual"],
+        ["hybrid", "Hybrid"],
+        ["in-person", "In-person"],
+      ];
+
+      const dayOptions = [
+        ["monday", "Mon"],
+        ["tuesday", "Tue"],
+        ["wednesday", "Wed"],
+        ["thursday", "Thu"],
+        ["friday", "Fri"],
+        ["saturday", "Sat"],
+        ["sunday", "Sun"],
+      ];
+
+      const timeOptions = [
+        ["morning", "Morning"],
+        ["afternoon", "Afternoon"],
+        ["evening", "Evening"],
+      ];
+
+      const bopsFinderGuidance =
+        "A sangha is a practice community. A sangha is the best way to practice meditation, as it offers deep support and wisdom for beginners and seasoned community members alike. In Greater Boston, there are virtual, hybrid, and in-person options for mornings, afternoons, evenings, and days of mindfulness practice.";
+
+      const publicationCards = [
+        {
+          title: "Join our mailing list",
+          copy: "Receive sitting updates, day-of-mindfulness notes, retreat information, and community announcements.",
+          action: "Join our mailing list",
+          url: "https://bostonoldpath.org/about/community/",
+        },
+        {
+          title: "Browse Recent Newsletters",
+          copy: "Scan recent community updates, announcements, and practice opportunities.",
+          action: "Browse newsletters",
+          url: "https://bostonoldpath.org/newsletters/",
+        },
+        {
+          title: "Join Plumline mailing list",
+          copy: "Receive broader Plumline updates for sangha discovery and community-building resources.",
+          action: "Join Plumline",
+          url: "https://www.plumline.org/building",
+        },
+        {
+          title: "The Way Out Is In Podcast",
+          copy: "Listen to conversations on mindfulness, engaged practice, and daily life in the Plum Village tradition.",
+          action: "Listen to podcast",
+          url: "https://plumvillage.org/podcasts/the-way-out-is-in",
+        },
+        {
+          title: "Key Books",
+          copy: "Browse foundational books from Thích Nhất Hạnh for study, reflection, and practice.",
+          action: "Browse books",
+          url: "https://plumvillage.org/about/thich-nhat-hanh/key-books",
+        },
+        {
+          title: "Letters from Thích Nhất Hạnh",
+          copy: "Read letters and teachings from Thay for personal practice and community reflection.",
+          action: "Read letters",
+          url: "https://plumvillage.org/about/thich-nhat-hanh/letters",
+        },
+        {"title": "Meditations", "copy": "Guided meditations and simple practices for everyday life.", "action": "Explore meditations", "url": "https://web.plumvillage.app/meditations"},
+        {"title": "Dharma Talks", "copy": "Listen to teachings from Thích Nhất Hạnh and teachers in the Plum Village tradition.", "action": "Listen to talks", "url": "https://web.plumvillage.app/talks"},
+        {"title": "Living Gems", "copy": "Explore the searchable archive of Thích Nhất Hạnh’s talks and teaching collections.", "action": "Explore Living Gems", "url": "https://plumvillage.org/gems/"},
+        {"title": "Meditation Timer", "copy": "Make time for a quiet sitting with the sound of a bell.", "action": "Open timer", "url": "https://web.plumvillage.app/meditation-timer"},
+        {
+          title: "New England Buddhist Poetry Exchange",
+          copy: "Read community poetry, reflections, and Buddhist practice writing from New England community members.",
+          action: "Read poetry",
+          url: "https://buddhistpoetryexchange.blogspot.com",
+        },
+        { placeholder: true },
+      ];
+
+      publicationCards.sort((a, b) => Number(!["Meditations", "Dharma Talks", "Living Gems", "Meditation Timer"].includes(a.title)) - Number(!["Meditations", "Dharma Talks", "Living Gems", "Meditation Timer"].includes(b.title)));
+
+      const additionalActivityCards = [
+        {
+          title: "Affinity Groups",
+          copy: "Practice with people who share a life context, identity, or care focus.",
+        },
+        {
+          title: "Education / Dharma study",
+          copy: "Study groups, talks, readings, and learning paths from local and Plum Village resources.",
+        },
+        {
+          title: "Days of Mindfulness",
+          copy: "A daylong opportunity to pause, practice, listen, and renew community connection.",
+        },
+        {
+          title: "Retreats",
+          copy: "Longer practice periods for rest, silence, teachings, and deepening mindfulness in community.",
+        },
+        {
+          title: "Retreat Centers",
+          copy: "Connect with Plum Village practice centers and regional retreat opportunities.",
+        },
+        {
+          title: "Contribute to our community",
+          copy: "Find working groups and volunteer roles that match your capacity.",
+        },
+        { placeholder: true },
+        { placeholder: true },
+        { placeholder: true },
+      ];
+
+      const pathContent = {
+        beginner: {
+          label: "Beginner's Mind",
+          eyebrow: "Beginner's Mind",
+          title: "A deep bow to you, dear friend.",
+          summary: "Welcome. Explore practice and community at your own pace.",
+          image: "assets/beginners-mind-page-title-hero.jpg",
+          imageAlt:
+            "A sunlit green landscape with a pond and purple wildflowers.",
+          imagePosition: "center 58%",
+          hasFinder: true,
+          finderTitle: "Find a sangha",
+          sectionParents: {
+            "finder-section": "practice-events",
+            "our-community-page": "learn-belong",
+            "our-practice-page": "learn-belong",
+          },
+          summaryItems: [
+            ["#learn-belong", "Practice & Community"],
+            ["#practice-events", "Get Involved"],
+            ["#stay-connected", "Newsletter & Mailing List"],
+          ],
+          primary: {
+            id: "learn-belong",
+            title: "Practice & Community",
+            intro:
+              "A plain-language starting point for practice, community, and essential orientation.",
+            cards: [
+              {
+                title: "Our Practice",
+                copy: "An intro to mindfulness & mindful living, Thích Nhất Hạnh, and the Plum Village tradition.",
+                url: "our-practice-feedback-2.html",
+              },
+              {
+                title: "Our Community",
+                copy: "Meet our community and discover how we practice together.",
+                url: "our-community-feedback-2.html",
+              },
+              {
+                title: "Resources",
+                copy: "Find foundational readings, talks, songs, practice links, and beginner-friendly resources.",
+                url: "resources-feedback-2.html",
+              },
+            ],
+          },
+          secondary: null,
+          extraSections: [
+            {
+              id: "practice-events",
+              eyebrow: "Practice",
+              title: "Get Involved",
+              intro:
+                "Find a practice group or join an upcoming gathering.",
+              cards: [
+                {
+                  title: "Find a Sangha",
+                  copy: "Explore Greater Boston sangha opportunities and online practice groups.",
+                  url: "find-a-sangha-feedback-2.html",
+                },
+                {
+                  title: "Upcoming Events",
+                  copy: "Open our community calendar for sits, gatherings, days of mindfulness, and community events.",
+                  action: "Open calendar",
+                  url: "https://calendar.google.com/calendar/u/0/newembed?color=%23fa573c&src=boston.kindness@gmail.com",
+                },
+                {
+                  title: "Togetherness",
+                  copy: "Explore Togetherness for more ways to connect and get involved.",
+                  url: "https://togethernessma.vercel.app/",
+                },
+              ],
+            },
+            {
+              id: "our-practice-page",
+              type: "inner-page",
+              eyebrow: "Practice & Community",
+              title: "Our Practice",
+              parentSection: "learn-belong",
+              intro:
+                "A beginner-friendly overview of mindfulness as present-moment awareness practiced in daily life, supported by sangha and rooted in the Plum Village tradition.",
+              blocks: [
+                {
+                  title: "Mindfulness in daily life",
+                  copy:
+                    "Practice is not limited to formal meditation. It includes bringing body and mind together while washing dishes, driving, walking, eating, and meeting ordinary moments with care.",
+                },
+                {
+                  title: "Practicing with sangha",
+                  copy:
+                    "Community practice makes mindfulness steadier and more joyful. Sangha members support one another as reminders to return to peace, clarity, and compassion.",
+                },
+                {
+                  title: "Core practices",
+                  copy:
+                    "We practice sitting and walking meditation, mindful meals, dharma study, and singing together.",
+                },
+              ],
+            },
+            {
+              id: "our-community-page",
+              type: "inner-page",
+              eyebrow: "Practice & Community",
+              title: "Our Community",
+              parentSection: "learn-belong",
+              intro:
+                "An introduction to the Greater Boston mindfulness practice community, its Plum Village roots, and the ways people gather across local sanghas.",
+              blocks: [
+                {
+                  title: "Greater Boston practice community",
+                  copy:
+                    "The community is made up of mindfulness practitioners around Greater Boston practicing in the Plum Village tradition of Zen master Thích Nhất Hạnh.",
+                },
+                {
+                  title: "Plum Village emphasis",
+                  copy:
+                    "The tradition emphasizes applying mindfulness to everyday activities as a joyful, communal, and continuous practice.",
+                },
+                {
+                  title: "How people gather",
+                  copy:
+                    "Practitioners meet through local sanghas in homes, rented spaces, outdoor spaces, and online, with periodic shared events across the community.",
+                },
+              ],
+            },
+            {
+              id: "stay-connected",
+              eyebrow: "Join",
+              title: "Newsletter & Mailing List",
+              intro:
+                "Stay connected with community news and opportunities to practice.",
+              cards: [
+                {
+                  title: "Join our Mailing List",
+                  copy: "Receive sitting updates, retreat information, and community announcements.",
+                  action: "Join mailing list",
+                  url: "join-mailing-list-feedback-2.html",
+                },
+                {
+                  title: "Follow Our Newsletter",
+                  copy: "Read recent community updates and stay connected with ongoing practice opportunities.",
+                  action: "Browse newsletters",
+                  url: "newsletters-feedback-2.html",
+                },
+              ],
+            },
+          ],
+        },
+        practitioner: {
+          label: "Community Member",
+          eyebrow: "Community Member",
+          title: "Present moment, wonderful moment.",
+          summary: "Welcome. Explore practice and community at your own pace.",
+          image: "assets/practitioner-page-title-hero.jpg",
+          imageAlt: "A close view of a large seated Buddha statue.",
+          imagePosition: "center 34%",
+          hasFinder: true,
+          finderTitle: "Find a sangha",
+          finderFirst: true,
+          summaryItems: [
+            ["#finder-section", "Find a sangha"],
+            ["#additional-activities", "Additional activities"],
+            ["#five-mindfulness-trainings", "5 Mindfulness Trainings"],
+            ["#order-of-interbeing", "Order of Interbeing"],
+            ["#community-builders", "Engaged Buddhism"],
+            ["#practitioner-publications", "Publications"],
+          ],
+          primary: {
+            id: "additional-activities",
+            title: "Additional activities",
+            intro:
+              "Explore opportunities to deepen your practice with others.",
+            cards: additionalActivityCards,
+          },
+          secondary: null,
+          extraSections: [
+            {
+              id: "five-mindfulness-trainings",
+              eyebrow: "Trainings",
+              title: "5 Mindfulness Trainings",
+              intro:
+                "Explore the Five Mindfulness Trainings in daily life.",
+              cards: [
+                {
+                  title: "Description",
+                  copy: "A concise overview of the 5 Mindfulness Trainings as a practical ethical foundation for daily life.",
+                },
+                {
+                  title: "Transmission",
+                  copy: "Preparation and local/global opportunities for formally receiving the 5 Mindfulness Trainings.",
+                },
+                {
+                  title: "Recitations",
+                  copy: "Regular recitation opportunities for renewing understanding and practicing with the trainings in community.",
+                },
+              ],
+            },
+            {
+              id: "order-of-interbeing",
+              eyebrow: "Community",
+              title: "Order of Interbeing",
+              intro:
+                "Learn about aspiration, mentorship, and the Fourteen Mindfulness Trainings.",
+              cards: [
+                {
+                  title: "Order of Interbeing (OI)",
+                  copy: "An introduction to the Order of Interbeing and the 14 Mindfulness Trainings.",
+                },
+                {
+                  title: "Becoming Order of Interbeing (OI)",
+                  copy: "A path for learning about aspiration, mentorship, and community support.",
+                },
+              ],
+            },
+            {
+              id: "community-builders",
+              eyebrow: "Community",
+              title: "Community Builders",
+              intro:
+                "Share your time and care in sustaining our community.",
+              cards: [
+                {
+                  title: "Community Builders",
+                  copy: "Our collaboration process, working groups, and mailing list for people who help sustain our community.",
+                },
+                {
+                  title: "Activism",
+                  copy: "Practice engaged Buddhism through compassionate action, skillful participation, and community care.",
+                },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+              ],
+            },
+            {
+              id: "practitioner-publications",
+              eyebrow: "Practice",
+              title: "Publications",
+              intro:
+                "Find teachings, practice resources, and community news.",
+              cards: publicationCards,
+            },
+          ],
+        },
+        facilitator: {
+          label: "Community Builder",
+          eyebrow: "Community Builder",
+          title: "Tend to the three jewels.",
+          summary: "Welcome. Explore practice and community at your own pace.",
+          image: "assets/facilitator-page-title-hero.jpg",
+          imageAlt: "Tea being poured into a cup in a quiet indoor setting.",
+          imagePosition: "center 58%",
+          hasFinder: false,
+          summaryItems: [
+            ["#dharma-sharing-structure", "Sangha Resources"],
+            ["#additional-activities", "Additional activities"],
+            ["#song-sheets-printables", "Join Builder Sangha"],
+            ["#builder-mentorship", "Become a mentor"],
+            ["#keep-sangha-details-current", "Update sangha details"],
+          ],
+          primary: {
+            id: "dharma-sharing-structure",
+            title: "Sangha Resources",
+            intro:
+              "Give community builders practical structure while preserving the warmth and care of dharma sharing.",
+            cards: [
+              {
+                title: "Dharma sharing guides",
+                copy: "Structure, deep listening norms, facilitation prompts, and group agreements.",
+              },
+              {
+                title: "Sangha Facilitation",
+                copy: "Guidance for facilitating Plum Village sangha practice with care, clarity, and inclusion.",
+                action: "View facilitation guide",
+                url: "https://www.plumline.org/facilitation",
+              },
+              {
+                title: "Songbook",
+                copy: "Songs and shared practice materials for Plum Village gatherings and local sangha use.",
+                action: "View songbook",
+                url: "https://www.plumline.org/songbook",
+              },
+              {
+                title: "New Sangha Practice Book",
+                copy: "A practical guide for new and existing sanghas from the Thích Nhất Hạnh Foundation.",
+                action: "View practice book",
+                url: "https://thichnhathanhfoundation.app.box.com/s/kkw4prrlwhrsxza5vf9hof1ec6ljbkso",
+              },
+              {
+                title: "OI Directory",
+                copy: "A placeholder for connecting with Order of Interbeing members and aspirant support.",
+              },
+              {
+                title: "Care Taking Council (CTC)",
+                copy: "A placeholder for care-taking roles, coordination, and sangha stewardship practices.",
+              },
+              {
+                title: "Host Recitation",
+                copy: "A placeholder for hosting recitations, preparing materials, and supporting shared practice.",
+              },
+              { placeholder: true },
+              { placeholder: true },
+            ],
+          },
+          secondary: null,
+          extraSections: [
+            {
+              id: "additional-activities",
+              eyebrow: "Practice",
+              title: "Additional activities",
+              intro:
+                "Explore opportunities to practice together.",
+              cards: [
+                ...additionalActivityCards,
+                {
+                  title: "Order of Interbeing Members Map",
+                  copy: "Find registered Order of Interbeing members and Dharma Teachers by location.",
+                  url: "https://brownjackets.org/",
+                },
+              ],
+            },
+            {
+              id: "song-sheets-printables",
+              eyebrow: "Community Builder",
+              title: "Join Builder Sangha",
+              intro:
+                "Find materials for your next gathering.",
+              cards: [
+              {
+                title: "Songs and printables",
+                copy: "Printable singing sheet, Plum Village song links, and local handouts.",
+              },
+              ],
+            },
+            {
+              id: "builder-mentorship",
+              eyebrow: "Community Builder",
+              title: "Become a mentor",
+              intro:
+                "Give community builders a clear way to compare practices and ask for help.",
+              cards: [
+              {
+                title: "Builder mentoring",
+                copy: "A way to ask questions, compare practices, and receive support from other community builders.",
+              },
+              {
+                title: "Coordinate",
+                copy: "Our collaboration process, mailing list, and mentorship options for community builders.",
+              },
+              ],
+            },
+            {
+              id: "keep-sangha-details-current",
+              eyebrow: "Community Builder",
+              title: "Update sangha details",
+              intro:
+                "Help keep community information current.",
+              cards: [
+              {
+                title: "Maintain resources",
+                copy: "Update listing details, share current access notes, and join working groups when details change.",
+              },
+            ],
+            },
+          ],
+        },
+      };
+
+      const entryScreen = document.querySelector("#entry-screen");
+      const experience = document.querySelector("#experience");
+      const topbar = document.querySelector(".topbar");
+      const contentRoot = document.querySelector(".content");
+      const changePathButton = document.querySelector("#change-path");
+      const returnToBeginnerButton = document.querySelector(
+        "#return-to-beginner",
+      );
+      const pathLabel = document.querySelector("#selected-path-label");
+      const pathEyebrow = document.querySelector("#path-eyebrow");
+      const pathTitle = document.querySelector("#path-title");
+      const pathOptionsAnchor = document.querySelector("#path-options-anchor");
+      const pathOptionsPanel = document.querySelector("#path-options-panel");
+      const pathSummary = document.querySelector("#path-summary");
+      const heroActions = document.querySelector("#hero-actions");
+      const pathHeroImage = document.querySelector("#path-hero-image");
+      const finderSection = document.querySelector("#finder-section");
+      const finderTitle = document.querySelector("#finder-title");
+      const modalityFilters = document.querySelector("#modality-filters");
+      const dayFilters = document.querySelector("#day-filters");
+      const timeFilters = document.querySelector("#time-filters");
+      const sanghaList = document.querySelector("#sangha-list");
+      const primarySection = document.querySelector("#primary-section");
+      const secondarySection = document.querySelector("#secondary-section");
+      const extraSections = document.querySelector("#extra-sections");
+      const footerNote = document.querySelector(".footer-note");
+      let selectedPersona = null;
+      let finderModality = "all";
+      const selectedDays = new Set();
+      const selectedTimeBands = new Set();
+      let activeSectionId = null;
+      let selectedSanghaId = null;
+
+      function updateStickyOffset() {
+        if (!topbar) return;
+        document.documentElement.style.setProperty(
+          "--sticky-offset",
+          `${topbar.offsetHeight + 10}px`,
+        );
+      }
+
+      function updatePathTitleMeasure() {
+        if (!pathTitle || !pathOptionsAnchor) return;
+
+        const titleBox = pathTitle.getBoundingClientRect();
+        if (titleBox.width <= 0) return;
+
+        let titleMeasure = titleBox.width;
+
+        if (pathTitle.textContent.trim()) {
+          const range = document.createRange();
+          range.selectNodeContents(pathTitle);
+          const lineRects = Array.from(range.getClientRects()).filter(
+            (rect) => rect.width > 0 && rect.height > 0,
+          );
+
+          if (lineRects.length > 0) {
+            titleMeasure = Math.max(
+              ...lineRects.map((rect) => rect.right - titleBox.left),
+            );
+          }
+
+          range.detach();
+        }
+
+        const clampedMeasure = Math.min(
+          Math.ceil(titleMeasure),
+          Math.ceil(titleBox.width),
+        );
+        if (!Number.isFinite(clampedMeasure) || clampedMeasure <= 0) return;
+
+        pathOptionsAnchor.style.setProperty(
+          "--path-title-measure",
+          `${clampedMeasure}px`,
+        );
+      }
+
+      function resetPathOptionsPanel() {
+        if (!pathOptionsAnchor) return;
+        pathOptionsAnchor.style.height = "auto";
+      }
+
+      function refreshPathOptionsPosition() {
+        updateStickyOffset();
+        updatePathTitleMeasure();
+      }
+
+      function getStoredPersona() {
+        try {
+          return window.localStorage.getItem(storageKey);
+        } catch {
+          return null;
+        }
+      }
+
+      function setStoredPersona(persona) {
+        try {
+          window.localStorage.setItem(storageKey, persona);
+        } catch {
+          // Browsers can block storage for local file previews.
+        }
+      }
+
+      function clearStoredPersona() {
+        try {
+          window.localStorage.removeItem(storageKey);
+        } catch {
+          // Browsers can block storage for local file previews.
+        }
+      }
+
+      function showEasterEgg() {
+        resetPathOptionsPanel();
+        entryScreen.hidden = false;
+        experience.hidden = true;
+        returnToBeginnerButton.focus({ preventScroll: true });
+      }
+
+      function renderFilterButtons(container, options, selected, type) {
+        const isSelected = (value) =>
+          selected instanceof Set ? selected.has(value) : value === selected;
+        container.innerHTML = options
+          .map(
+            ([value, label]) => `
+              <button
+                class="filter-button"
+                type="button"
+                data-filter-type="${type}"
+                data-filter-value="${value}"
+                aria-pressed="${String(isSelected(value))}"
+              >
+                ${label}
+              </button>
+            `,
+          )
+          .join("");
+      }
+
+      function getFilteredSanghas() {
+        return sanghas.filter((sangha) => {
+          const modalityMatch =
+            finderModality === "all" || sangha.modality === finderModality;
+          const dayMatch =
+            selectedDays.size === 0 ||
+            sangha.days.some((day) => selectedDays.has(day));
+          const timeMatch =
+            selectedTimeBands.size === 0 ||
+            selectedTimeBands.has(sangha.timeBand);
+          return modalityMatch && dayMatch && timeMatch;
+        });
+      }
+
+      function formatModality(value) {
+        if (value === "in-person") return "In-person";
+        return value.charAt(0).toUpperCase() + value.slice(1);
+      }
+
+      function linkAttributes(url) {
+        const href = url || "#";
+        const opensNewTab = /^https?:\/\//.test(href);
+        return `href="${href}"${opensNewTab ? ' target="_blank" rel="noopener noreferrer"' : ""}`;
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? "").replace(/[&<>"']/g, (char) => {
+          const entities = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+          };
+          return entities[char];
+        });
+      }
+
+      function getDirectionsUrl(sangha) {
+        const destination =
+          sangha.directionsQuery || sangha.address || sangha.access || "";
+        if (!destination || sangha.modality === "virtual") return "";
+        return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
+      }
+
+      function syncSanghaCardSelection(options = {}) {
+        const cards = Array.from(sanghaList.querySelectorAll("[data-sangha-id]"));
+        cards.forEach((card) => {
+          const isActive = card.dataset.sanghaId === selectedSanghaId;
+          card.classList.toggle("is-active", isActive);
+          card.setAttribute("aria-selected", String(isActive));
+          if (isActive && options.scrollIntoView) {
+            card.scrollIntoView({ block: "nearest", behavior: "smooth" });
+          }
+        });
+      }
+
+      function selectSangha(sanghaId, options = {}) {
+        selectedSanghaId = sanghaId;
+        syncSanghaCardSelection({
+          scrollIntoView: options.scrollIntoView === true,
+        });
+      }
+
+      function renderFinder() {
+        renderFilterButtons(
+          modalityFilters,
+          modalityOptions,
+          finderModality,
+          "modality",
+        );
+        renderFilterButtons(dayFilters, dayOptions, selectedDays, "day");
+        renderFilterButtons(timeFilters, timeOptions, selectedTimeBands, "time");
+
+        const filtered = getFilteredSanghas();
+        if (selectedSanghaId && !filtered.some((sangha) => sangha.id === selectedSanghaId)) {
+          selectedSanghaId = null;
+        }
+
+        sanghaList.innerHTML =
+          (filtered.length > 0
+            ? filtered
+                .map(
+                  (sangha) => {
+                    const directionsUrl = getDirectionsUrl(sangha);
+                    const hasMap = Array.isArray(sangha.latLng);
+                    return `
+                    <article
+                      class="sangha-card${sangha.id === selectedSanghaId ? " is-active" : ""}"
+                      data-sangha-id="${sangha.id}"
+                      data-has-map="${String(hasMap)}"
+                      ${hasMap ? 'tabindex="0" role="button"' : ""}
+                      aria-selected="${String(sangha.id === selectedSanghaId)}"
+                    >
+                      <div>
+                        <div class="sangha-meta">
+                          <span class="pill sun">${formatModality(sangha.modality)}</span>
+                          <span class="pill">${escapeHtml(sangha.area || "Greater Boston")}</span>
+                          <span class="pill">${escapeHtml(sangha.location)}</span>
+                          <span class="pill">${escapeHtml(sangha.day)}</span>
+                          <span class="pill">${escapeHtml(sangha.time)}</span>
+                          ${
+                            sangha.approximate
+                              ? '<span class="pill">Approximate pin</span>'
+                              : ""
+                          }
+                        </div>
+                        <h3>${escapeHtml(sangha.name)}</h3>
+                        <p>${escapeHtml(sangha.description)}</p>
+                      </div>
+                      <div>
+                        <p><strong>Location:</strong> ${escapeHtml(sangha.address || sangha.location)}</p>${emailDetails(sangha.registerUrl)}
+                        ${
+                          sangha.access
+                            ? `<p><strong>Access:</strong> ${escapeHtml(sangha.access)}</p>`
+                            : ""
+                        }
+                        <div class="sangha-actions">
+                          ${
+                            sangha.registerUrl
+                              ? `<a class="button secondary" ${linkAttributes(sangha.registerUrl)}>Contact Organizer</a>`
+                              : ""
+                          }
+                          ${
+                            directionsUrl
+                              ? `<a class="button" ${linkAttributes(directionsUrl)}>Get directions</a>`
+                              : ""
+                          }
+                        </div>
+                      </div>
+                    </article>
+                  `;
+                  },
+                )
+                .join("")
+            : `<div class="empty-state">
+                <p role="status">No sanghas match this filter combination.</p>
+                <button class="button secondary" type="button" data-clear-filters>
+                  Clear filters
+                </button>
+              </div>`);
+      }
+
+      function renderInfoCard(card) {
+        if (card.placeholder) {
+          return '<article class="info-card placeholder-card" aria-hidden="true"></article>';
+        }
+
+        if (card.targetSection) {
+          return `
+            <button class="info-card linked-card" type="button" data-card-section="${card.targetSection}" aria-controls="${card.targetSection}">
+              <h3>${card.title}</h3>
+              <p>${card.copy}</p>
+              ${card.action ? `<span class="card-action">${card.action}</span>` : ""}
+            </button>
+          `;
+        }
+
+        if (card.url) {
+          return `
+            <a class="info-card linked-card" ${linkAttributes(card.url)}>
+              <h3>${card.title}</h3>
+              <p>${card.copy}</p>
+            </a>
+          `;
+        }
+
+        return `
+          <article class="info-card">
+            <h3>${card.title}</h3>
+            <p>${card.copy}</p>
+            ${card.action ? `<a class="button secondary" href="${card.url || "#"}">${card.action}</a>` : ""}
+          </article>
+        `;
+      }
+
+      function getControlledSectionIds(content) {
+        const sectionIds = new Set(
+          content.summaryItems.map(([href]) => href.replace("#", "")),
+        );
+
+        if (content.primary) {
+          sectionIds.add(content.primary.id);
+        }
+        if (content.secondary) {
+          sectionIds.add(content.secondary.id);
+        }
+        if (content.hasFinder) {
+          sectionIds.add("finder-section");
+        }
+        (content.extraSections || []).forEach((section) => {
+          sectionIds.add(section.id);
+        });
+
+        return Array.from(sectionIds);
+      }
+
+      function getActiveButtonSectionId(content) {
+        return content.sectionParents?.[activeSectionId] || activeSectionId;
+      }
+
+      function getSectionLabel(content, sectionId) {
+        const match = content.summaryItems.find(
+          ([href]) => href.replace("#", "") === sectionId,
+        );
+        return match ? match[1] : "";
+      }
+
+      function renderDetailPanel(label, cards) {
+        if (cards === publicationCards) {
+          const practical = ["Meditations", "Dharma Talks", "Living Gems", "Meditation Timer"];
+          const connections = ["Join our mailing list", "Browse Recent Newsletters", "Join Plumline mailing list", "New England Buddhist Poetry Exchange"];
+          return [["Practice now", cards.filter(c => practical.includes(c.title))], ["Explore the tradition", cards.filter(c => !c.placeholder && !practical.includes(c.title) && !connections.includes(c.title))], ["Community connections", cards.filter(c => connections.includes(c.title))]].map(([heading, items]) => renderDetailPanel(heading, items)).join("");
+        }
+
+        return `
+          <div class="detail-panel">
+            <div class="detail-panel-header">
+              <h2 class="panel-heading">${label}</h2>
+            </div>
+            <div class="detail-panel-body">
+              <div class="card-grid three">
+                ${cards.map((card) => renderInfoCard(card)).join("")}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderInnerPageSection(section) {
+        const hasCards = Array.isArray(section.cards);
+        const hasBlocks = Array.isArray(section.blocks);
+
+        return `
+          <div class="detail-panel inner-page">
+            <div class="detail-panel-header">
+              <p class="panel-heading">${section.eyebrow || "Practice & Community"}</p>
+              <h2>${section.title}</h2>
+              <p class="inner-page-intro">${section.intro}</p>
+            </div>
+            ${
+              hasCards
+                ? `<div class="card-grid three">
+                    ${section.cards.map((card) => renderInfoCard(card)).join("")}
+                  </div>`
+                : ""
+            }
+            ${
+              hasBlocks
+                ? `<div class="inner-page-grid">
+                    ${section.blocks
+                      .map(
+                        (block) => `
+                          <article class="inner-page-block">
+                            <h3>${block.title}</h3>
+                            <p>${block.copy}</p>
+                          </article>
+                        `,
+                      )
+                      .join("")}
+                  </div>`
+                : ""
+            }
+            <div class="inner-page-actions">
+              <button class="button secondary" type="button" data-card-section="${section.parentSection || "learn-belong"}">
+                Back to Practice &amp; Community
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderPrimarySection(content) {
+        primarySection.hidden = false;
+        primarySection.id = content.primary.id;
+        primarySection.innerHTML = renderDetailPanel(
+          getSectionLabel(content, content.primary.id) || content.primary.title,
+          content.primary.cards,
+        );
+      }
+
+      function renderSecondarySection(content) {
+        if (!content.secondary) {
+          secondarySection.hidden = true;
+          secondarySection.id = "secondary-section";
+          secondarySection.innerHTML = "";
+          return;
+        }
+
+        secondarySection.hidden = false;
+        secondarySection.id = content.secondary.id;
+        secondarySection.innerHTML = `
+          <div class="detail-panel">
+            <div class="detail-panel-header">
+              <h2 class="panel-heading">
+                ${getSectionLabel(content, content.secondary.id) || content.secondary.title}
+              </h2>
+            </div>
+            <div class="detail-panel-body">
+              <div class="card-grid three">
+                ${content.secondary.groups
+                  .map(
+                    (group) => `
+                      <article class="info-card">
+                        <h3>${group.title}</h3>
+                        <ul class="list">
+                          ${group.items.map((item) => `<li>${item}</li>`).join("")}
+                        </ul>
+                      </article>
+                    `,
+                  )
+                  .join("")}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderExtraSections(content) {
+        extraSections.innerHTML = (content.extraSections || [])
+          .map(
+            (section) => `
+              <section class="section" id="${section.id}">
+                ${
+                  section.type === "inner-page"
+                    ? renderInnerPageSection(section)
+                    : renderDetailPanel(
+                        getSectionLabel(content, section.id) || section.title,
+                        section.cards,
+                      )
+                }
+              </section>
+            `,
+          )
+          .join("");
+      }
+
+      function renderHeroActions(content) {
+        const activeButtonSectionId = getActiveButtonSectionId(content);
+
+        heroActions.innerHTML = content.summaryItems
+          .map(
+            ([href, label]) => {
+              const sectionId = href.replace("#", "");
+              return `
+              <button
+                class="button path-option-button"
+                type="button"
+                data-path-section="${sectionId}"
+                aria-controls="${sectionId}"
+                aria-pressed="${String(sectionId === activeButtonSectionId)}"
+              >
+                ${label}
+              </button>
+            `;
+            },
+          )
+          .join("");
+      }
+
+      function setActivePathSection(content, sectionId) {
+        activeSectionId = sectionId;
+
+        getControlledSectionIds(content).forEach((controlledSectionId) => {
+          const section = document.getElementById(controlledSectionId);
+          if (section) {
+            section.hidden = section.id !== activeSectionId;
+          }
+        });
+
+        const activeButtonSectionId = getActiveButtonSectionId(content);
+        Array.from(heroActions.querySelectorAll("[data-path-section]")).forEach(
+          (button) => {
+            button.setAttribute(
+              "aria-pressed",
+              String(button.dataset.pathSection === activeButtonSectionId),
+            );
+          },
+        );
+      }
+
+      function arrangeSections(content) {
+        if (content.finderFirst) {
+          contentRoot.insertBefore(finderSection, primarySection);
+        } else {
+          contentRoot.insertBefore(primarySection, finderSection);
+        }
+
+        contentRoot.insertBefore(secondarySection, extraSections);
+        contentRoot.insertBefore(extraSections, footerNote);
+      }
+
+      function showExperience(persona, options = {}) {
+        const content = pathContent[persona] || pathContent.beginner;
+        selectedPersona = persona;
+        setStoredPersona(persona);
+
+        pathLabel.textContent = content.label;
+        pathEyebrow.textContent = content.eyebrow;
+        pathTitle.textContent = content.title;
+        pathSummary.textContent = content.summary;
+        pathHeroImage.src = content.image;
+        pathHeroImage.alt = content.imageAlt;
+        pathHeroImage.style.setProperty(
+          "--image-position",
+          content.imagePosition,
+        );
+        renderHeroActions(content);
+        const requestedSectionId = options.sectionId;
+        const controlledSectionIds = getControlledSectionIds(content);
+        activeSectionId =
+          requestedSectionId && controlledSectionIds.includes(requestedSectionId)
+            ? requestedSectionId
+            : content.summaryItems[0][0].replace("#", "");
+
+        finderSection.hidden = !content.hasFinder;
+        if (content.hasFinder) {
+          finderTitle.textContent =
+            content.finderTitle ||
+            getSectionLabel(content, "finder-section") ||
+            "Find a sangha";
+          finderModality = "all";
+          selectedDays.clear();
+          selectedTimeBands.clear();
+          selectedSanghaId = null;
+          renderFinder();
+        }
+
+        renderPrimarySection(content);
+        renderSecondarySection(content);
+        renderExtraSections(content);
+        arrangeSections(content);
+        setActivePathSection(content, activeSectionId);
+
+        entryScreen.hidden = true;
+        experience.hidden = false;
+        resetPathOptionsPanel();
+        window.scrollTo({ top: 0, behavior: "auto" });
+        window.requestAnimationFrame(refreshPathOptionsPosition);
+      }
+
+      heroActions.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-path-section]");
+        if (!button || !selectedPersona) return;
+        const content = pathContent[selectedPersona] || pathContent.beginner;
+        setActivePathSection(content, button.dataset.pathSection);
+      });
+
+      contentRoot.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-card-section]");
+        if (!button || !selectedPersona) return;
+
+        const content = pathContent[selectedPersona] || pathContent.beginner;
+        const sectionId = button.dataset.cardSection;
+        setActivePathSection(content, sectionId);
+
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+          window.requestAnimationFrame(refreshPathOptionsPosition);
+        }
+      });
+
+      document.addEventListener("click", (event) => {
+        const clearFiltersButton = event.target.closest("[data-clear-filters]");
+        if (clearFiltersButton) {
+          finderModality = "all";
+          selectedDays.clear();
+          selectedTimeBands.clear();
+          selectedSanghaId = null;
+          renderFinder();
+          return;
+        }
+
+        const target = event.target.closest("[data-filter-type]");
+        if (!target) return;
+
+        if (target.dataset.filterType === "modality") {
+          finderModality = target.dataset.filterValue;
+        }
+        if (target.dataset.filterType === "day") {
+          const day = target.dataset.filterValue;
+          selectedDays.has(day) ? selectedDays.delete(day) : selectedDays.add(day);
+        }
+        if (target.dataset.filterType === "time") {
+          const timeBand = target.dataset.filterValue;
+          selectedTimeBands.has(timeBand)
+            ? selectedTimeBands.delete(timeBand)
+            : selectedTimeBands.add(timeBand);
+        }
+        renderFinder();
+      });
+
+      sanghaList.addEventListener("click", (event) => {
+        if (event.target.closest("a, button")) return;
+        const card = event.target.closest('[data-sangha-id][data-has-map="true"]');
+        if (!card) return;
+        selectSangha(card.dataset.sanghaId, {
+          pan: true,
+          openPopup: true,
+        });
+      });
+
+      sanghaList.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        const card = event.target.closest('[data-sangha-id][data-has-map="true"]');
+        if (!card) return;
+        event.preventDefault();
+        selectSangha(card.dataset.sanghaId, {
+          pan: true,
+          openPopup: true,
+        });
+      });
+
+      changePathButton.addEventListener("click", () => {
+        showEasterEgg();
+      });
+
+      returnToBeginnerButton.addEventListener("click", () => {
+        showExperience("beginner");
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape" || entryScreen.hidden) return;
+        event.preventDefault();
+        showExperience("beginner");
+      });
+
+      window.addEventListener("resize", () => {
+        resetPathOptionsPanel();
+        refreshPathOptionsPosition();
+      });
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(refreshPathOptionsPosition).catch(() => {});
+      }
+
+      function getInitialRouteFromQuery() {
+        const params = new URLSearchParams(window.location.search);
+        const sectionId = params.get("section");
+        const controlledSectionIds = getControlledSectionIds(
+          pathContent.beginner,
+        );
+        return {
+          showEasterEgg: params.get("easterEgg") === "1",
+          sectionId: controlledSectionIds.includes(sectionId)
+            ? sectionId
+            : undefined,
+        };
+      }
+
+      function clearInitialQuery() {
+        if (!window.location.search || !window.history?.replaceState) return;
+        window.history.replaceState(
+          {},
+          "",
+          `${window.location.pathname}${window.location.hash}`,
+        );
+      }
+
+      const initialRoute = getInitialRouteFromQuery();
+      showExperience("beginner", {
+        sectionId: initialRoute.sectionId,
+      });
+      clearInitialQuery();
+      if (initialRoute.showEasterEgg) {
+        showEasterEgg();
+      }
+    </script>
+
+    <script>
+      document.addEventListener("click", async (event) => {
+        const button = event.target.closest("[data-copy-email]");
+        if (!button) return;
+        const status = button.parentElement.querySelector(".copy-status");
+        try {
+          await navigator.clipboard.writeText(button.dataset.copyEmail);
+          status.textContent = "Address copied.";
+        } catch {
+          status.textContent = "Copy unavailable. Select the address above and copy it manually.";
+        }
+      });
+    </script>
+  </body>
+</html>
