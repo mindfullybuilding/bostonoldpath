@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Resources | Mindfulness Communities of Greater Boston</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --sun: #ffd22a;
+        --light-sun: #fefbf3;
+        --ink: #222;
+        --dark-ink: #272727;
+        --earth: #8b572a;
+        --cloud: #fff;
+        --less-light-ink: #eaeaea;
+        --muted: #6d6a62;
+        --focus: #8b572a;
+        --radius: 8px;
+        --shadow: 0 18px 60px rgba(34, 34, 34, 0.08);
+        --font-sans:
+          "PV Sans Serif", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Arial, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-height: 100%;
+        background: var(--light-sun);
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: var(--light-sun);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      a:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      .page {
+        min-height: 100vh;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--less-light-ink);
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(12px);
+      }
+
+      .topbar-inner,
+      .content {
+        width: min(1160px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 0;
+      }
+
+      .brand {
+        display: grid;
+        gap: 1px;
+      }
+
+      .brand strong {
+        font-size: 1rem;
+      }
+
+      .brand span,
+      .path-label {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .path-tools {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        border: 1px solid rgba(139, 87, 42, 0.14);
+        border-radius: 999px;
+        padding: 6px 10px 6px 12px;
+        background: rgba(255, 210, 42, 0.16);
+      }
+
+      .text-button {
+        border-bottom: 2px solid var(--sun);
+        padding: 2px 0;
+        color: var(--ink);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .content {
+        display: flex;
+        min-height: calc(100vh - 73px);
+        flex-direction: column;
+        padding: clamp(28px, 4vw, 44px) 0 52px;
+      }
+
+      .context-nav {
+        margin-bottom: 14px;
+      }
+
+      .context-nav .text-button {
+        font-size: 0.88rem;
+      }
+
+      .resource-shell {
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        background: var(--cloud);
+      }
+
+      .resource-header {
+        display: grid;
+        gap: 8px;
+        border-bottom: 1px solid var(--less-light-ink);
+        padding: clamp(18px, 3vw, 28px);
+      }
+
+      .eyebrow {
+        margin: 0;
+        color: var(--earth);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin-bottom: 0;
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 720px;
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .resource-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .resource-card {
+        display: grid;
+        align-content: space-between;
+        gap: 12px;
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        padding: 14px;
+        background: var(--cloud);
+        color: inherit;
+        text-decoration: none;
+        transition:
+          border-color 160ms ease,
+          background-color 160ms ease,
+          transform 160ms ease;
+      }
+
+      .resource-card:hover {
+        border-color: var(--earth);
+        background: var(--light-sun);
+        transform: translateY(-2px);
+      }
+
+      .resource-card h3 {
+        margin-bottom: 6px;
+        font-size: 1.05rem;
+      }
+
+      .resource-card p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .footer-note {
+        margin-top: auto;
+        padding-top: 34px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        text-align: center;
+      }
+
+      .footer-note a {
+        text-decoration: none;
+      }
+
+      .footer-note a:hover {
+        color: var(--ink);
+        text-decoration: underline;
+      }
+
+      @media (min-width: 660px) {
+        .resource-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (min-width: 980px) {
+        .resource-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 620px) {
+        .topbar-inner {
+          align-items: flex-start;
+        }
+
+        .brand span {
+          display: none;
+        }
+
+        .path-tools {
+          border-radius: var(--radius);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .resource-card {
+          transition: none;
+        }
+      }
+
+      /* Feedback 2: allow the full community name and subtitle to wrap. */
+      .brand {
+        min-width: 0;
+        flex: 1 1 380px;
+      }
+      .brand strong,
+      .brand span {
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+      .brand span {
+        display: block;
+      }
+      .topbar-inner {
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .path-tools {
+        flex-shrink: 0;
+      }
+      .email-recipient {
+        overflow-wrap: anywhere;
+        user-select: text;
+      }
+      .email-details {
+        margin-top: 14px;
+      }
+      .copy-status {
+        display: block;
+        font-size: 0.9rem;
+      }
+      #resource-grid {
+        padding: clamp(18px, 3vw, 28px);
+      }
+      .resource-group + .resource-group {
+        margin-top: 20px;
+      }
+      .resource-group > h2 {
+        margin: 0 0 12px;
+      }
+      .simple-intro {
+        max-width: 70ch;
+        margin: 32px 0;
+      }
+      @media (max-width: 680px) {
+        .brand {
+          flex-basis: 100%;
+        }
+      }
+      .resource-jumps {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 22px;
+        padding: 18px 0;
+        border-block: 1px solid var(--less-light-ink);
+      }
+      .resource-jumps a {
+        text-underline-offset: 4px;
+      }
+      .resource-group {
+        scroll-margin-top: var(--sticky-offset, 140px);
+      }
+      .resource-grid {
+        align-items: start;
+      }
+      .expandable-resource {
+        display: block;
+      }
+      .expandable-resource summary {
+        cursor: pointer;
+      }
+      .expandable-resource summary::marker {
+        color: var(--earth);
+      }
+      .expandable-resource summary h3 {
+        display: inline;
+      }
+      .expandable-resource summary p {
+        margin: 12px 0;
+      }
+      .resource-action {
+        color: var(--earth);
+        font-weight: 650;
+      }
+      .resource-detail {
+        margin-top: 20px;
+        border-top: 1px solid var(--less-light-ink);
+        padding-top: 18px;
+        overflow-wrap: anywhere;
+      }
+      .resource-detail h4 {
+        margin: 20px 0 8px;
+      }
+      .draft-note {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      summary:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="brand" aria-label="MCGB homepage">
+            <strong>Mindfulness Communities of Greater Boston</strong>
+            <span>Engaged Buddhism in the Plum Village tradition of Thích Nhất Hạnh</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <nav class="context-nav" aria-label="Section navigation">
+          <a
+            class="text-button"
+            href="mcgb-homepage-wireframe-feedback-3.html?section=learn-belong"
+          >
+            Back to Practice &amp; Community
+          </a>
+        </nav>
+
+        <section class="resource-shell" aria-labelledby="resources-title">
+          <header class="resource-header">
+            <p class="eyebrow">Practice &amp; Community / Resources</p>
+            <h1 id="resources-title">Practice resources</h1>
+            <p class="lede">
+              Plum Village teachings and tools for practice, with links to our wider community.
+            </p>
+          </header>
+          <div class="resource-grid" id="resource-grid"></div>
+        </section>
+
+        <p class="footer-note">
+          <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a> |
+          <a href="#">Press &amp; Media</a> |
+          <a href="#">Contact Us</a>
+        </p>
+      </main>
+    </div>
+
+    <script>
+      const resources = [
+        {
+          title: "Thích Nhất Hạnh",
+          copy: "Learn about Thích Nhất Hạnh (Thay), his teachings, and the Plum Village tradition.",
+          url: "https://plumvillage.org/about/thich-nhat-hanh",
+        },
+        {
+          title: "Plum Village",
+          copy: "Learn about the Plum Village tradition, practice centers, and global community.",
+          url: "https://plumvillage.org/about/plum-village",
+        },
+        {
+          title: "Join Plumline mailing list",
+          copy: "Receive broader Plumline updates for sangha discovery and community-building resources.",
+          url: "https://www.plumline.org/building",
+        },
+        {
+          title: "The Way Out Is In Podcast",
+          copy: "Listen to conversations on mindfulness, engaged practice, and daily life in the Plum Village tradition.",
+          url: "https://plumvillage.org/podcasts/the-way-out-is-in",
+        },
+        {
+          title: "Key Books",
+          copy: "Browse foundational books from Thích Nhất Hạnh for study, reflection, and practice.",
+          url: "https://plumvillage.org/about/thich-nhat-hanh/key-books",
+        },
+        {
+          title: "Letters from Thích Nhất Hạnh",
+          copy: "Read letters and teachings from Thay for personal practice and community reflection.",
+          url: "https://plumvillage.org/about/thich-nhat-hanh/letters",
+        },
+        {
+          title: "Meditations",
+          copy: "Guided meditations and simple practices for everyday life.",
+          action: "Explore meditations",
+          url: "https://web.plumvillage.app/meditations",
+        },
+        {
+          title: "Dharma Talks",
+          copy: "Listen to teachings from Thích Nhất Hạnh and teachers in the Plum Village tradition.",
+          action: "Listen to talks",
+          url: "https://web.plumvillage.app/talks",
+        },
+        {
+          title: "Living Gems",
+          copy: "Explore the searchable archive of Thích Nhất Hạnh’s talks and teaching collections.",
+          action: "Explore Living Gems",
+          url: "https://plumvillage.org/gems/",
+        },
+        {
+          title: "Meditation Timer",
+          copy: "Make time for a quiet sitting with the sound of a bell.",
+          action: "Open timer",
+          url: "https://web.plumvillage.app/meditation-timer",
+        },
+        {
+          title: "New England Buddhist Poetry Exchange",
+          copy: "Read community poetry, reflections, and Buddhist practice writing from New England community members.",
+          url: "https://buddhistpoetryexchange.blogspot.com",
+        },
+      ];
+
+      const practiceTitles = ["Meditations", "Dharma Talks", "Living Gems", "Meditation Timer"];
+      const byTitle = (title) => resources.find((item) => item.title === title);
+      const tile = (title, copy, content) => ({ title, copy, content });
+      const paragraph = (text) => `<p>${text}</p>`;
+      const draft =
+        '<p class="draft-note">Local arrangements and contact details are not yet available.</p>';
+      const link = (title, url) =>
+        `<p><a href="${url}" target="_blank" rel="noopener noreferrer">${title}</a></p>`;
+      const groups = [
+        ["practice-now", "Practice now", practiceTitles.map(byTitle)],
+        [
+          "explore-tradition",
+          "Explore the tradition",
+          resources.filter(
+            (item) =>
+              !practiceTitles.includes(item.title) &&
+              ![
+                "Letters from Thích Nhất Hạnh",
+                "New England Buddhist Poetry Exchange",
+                "Join Plumline mailing list",
+              ].includes(item.title),
+          ),
+        ],
+        [
+          "art-song",
+          "Art & Song",
+          [
+            byTitle("New England Buddhist Poetry Exchange"),
+            byTitle("Letters from Thích Nhất Hạnh"),
+            {
+              title: "Poems",
+              copy: "Poetry for reflection and practice.",
+              url: "https://web.plumvillage.app/resources/poems",
+            },
+            {
+              title: "Chanting",
+              copy: "Chants from the Plum Village community.",
+              url: "https://web.plumvillage.app/resources/albums",
+            },
+            {
+              title: "Practice Songs",
+              copy: "Songs to nourish our shared practice.",
+              url: "https://web.plumvillage.app/resources/practice-songs",
+            },
+          ],
+        ],
+        [
+          "community-members",
+          "Community Members",
+          [
+            tile(
+              "5 Mindfulness Trainings",
+              "An ethical foundation for daily life.",
+              paragraph(
+                "The Five Mindfulness Trainings offer a practical ethical foundation for daily life.",
+              ) +
+                "<h4>Transmission</h4>" +
+                paragraph(
+                  "Preparation and local or global opportunities for formally receiving the Five Mindfulness Trainings.",
+                ) +
+                "<h4>Recitations</h4>" +
+                paragraph(
+                  "Regular recitation renews our understanding and supports our practice together.",
+                ) +
+                draft,
+            ),
+            tile(
+              "Order of Interbeing",
+              "Explore commitment, aspiration, and community support.",
+              paragraph(
+                "An introduction to the Order of Interbeing and the Fourteen Mindfulness Trainings.",
+              ) +
+                "<h4>Becoming a member</h4>" +
+                paragraph(
+                  "A path for learning about aspiration, mentorship, and community support.",
+                ) +
+                draft,
+            ),
+            tile(
+              "Retreats",
+              "Time for rest, silence, and practice together.",
+              paragraph(
+                "Longer practice periods offer rest, silence, teachings, and opportunities to deepen mindfulness in community.",
+              ) + draft,
+            ),
+          ],
+        ],
+        [
+          "community-builders",
+          "Community Builders",
+          [
+            tile(
+              "Sangha Resources",
+              "Guides and materials for tending a practice community.",
+              "<h4>Dharma sharing guides</h4>" +
+                paragraph(
+                  "Structure, deep listening, facilitation prompts, and group agreements support our shared practice.",
+                ) +
+                link("Sangha Facilitation", "https://www.plumline.org/facilitation") +
+                link("Songbook", "https://www.plumline.org/songbook") +
+                link(
+                  "New Sangha Practice Book",
+                  "https://thichnhathanhfoundation.app.box.com/s/kkw4prrlwhrsxza5vf9hof1ec6ljbkso",
+                ) +
+                "<h4>Care Taking Council</h4>" +
+                paragraph("Care-taking roles, coordination, and sangha stewardship.") +
+                "<h4>Host a recitation</h4>" +
+                paragraph("Preparing materials and supporting shared practice.") +
+                draft,
+            ),
+            tile(
+              "Join Builder Sangha",
+              "Connect with others who help sustain sangha life.",
+              '<p class="draft-note">Draft: the June wireframe contains songs and printables here. Builder Sangha enrollment information has not yet been provided.</p>' +
+                paragraph(
+                  "Printable singing sheets, Plum Village song links, and local handouts.",
+                ) +
+                link("Songbook", "https://www.plumline.org/songbook"),
+            ),
+            tile(
+              "Become a mentor",
+              "Share practice and offer support to community builders.",
+              paragraph(
+                "A way to ask questions, compare practices, and receive support from other community builders.",
+              ) +
+                "<h4>Coordinate</h4>" +
+                paragraph(
+                  "Collaboration, mailing lists, and mentorship help us care for our communities.",
+                ) +
+                draft,
+            ),
+            tile(
+              "Update Sangha Details",
+              "Help keep local listings current.",
+              paragraph(
+                "Update listing details, share current access notes, and join working groups when details change.",
+              ) + draft,
+            ),
+            {
+              title: "Order of Interbeing Members Map",
+              copy: "Find Order of Interbeing members around the world.",
+              url: "https://brownjackets.org/",
+            },
+            byTitle("Join Plumline mailing list"),
+          ],
+        ],
+      ];
+      const container = document.querySelector("#resource-grid");
+      container.classList.remove("resource-grid");
+      container.innerHTML =
+        `<nav class="resource-jumps" aria-label="Resource categories">${groups.map(([id, title]) => `<a href="#${id}">${title}</a>`).join("")}</nav>` +
+        groups
+          .map(
+            ([id, title, items]) =>
+              `<section class="resource-group" id="${id}" aria-labelledby="${id}-title"><h2 id="${id}-title">${title}</h2><div class="resource-grid">${items.map((item) => (item.content ? `<details class="resource-card expandable-resource"><summary><h3>${item.title}</h3><p>${item.copy}</p><span class="resource-action">More details</span></summary><div class="resource-detail">${item.content}</div></details>` : `<a class="resource-card" href="${item.url}" target="_blank" rel="noopener noreferrer"><div><h3>${item.title}</h3><p>${item.copy}</p></div></a>`)).join("")}</div></section>`,
+          )
+          .join("");
+      function updateStickyOffset() {
+        document.documentElement.style.setProperty(
+          "--sticky-offset",
+          `${document.querySelector(".topbar").offsetHeight + 24}px`,
+        );
+      }
+      window.addEventListener("resize", updateStickyOffset);
+      updateStickyOffset();
+    </script>
+  </body>
+</html>

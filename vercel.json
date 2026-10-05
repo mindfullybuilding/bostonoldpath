@@ -93,6 +93,22 @@
       "destination": "/client/newsletters-feedback-2.html"
     },
     {
+      "source": "/mcgb-homepage-wireframe-feedback-3.html",
+      "destination": "/client/mcgb-homepage-wireframe-feedback-3.html"
+    },
+    {
+      "source": "/our-community-feedback-3.html",
+      "destination": "/client/our-community-feedback-3.html"
+    },
+    {
+      "source": "/find-a-sangha-feedback-3.html",
+      "destination": "/client/find-a-sangha-feedback-3.html"
+    },
+    {
+      "source": "/resources-feedback-3.html",
+      "destination": "/client/resources-feedback-3.html"
+    },
+    {
       "source": "/",
       "destination": "/client/mcgb-homepage-wireframe-feedback-2.html"
     }

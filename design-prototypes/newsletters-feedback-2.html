@@ -431,5 +431,15 @@
         )
         .join("");
     </script>
+    <script>
+      if (new URLSearchParams(location.search).get('version') === '3') {
+        document.querySelector('.path-tools')?.remove();
+        document.querySelectorAll('a[href]').forEach(link => {
+          const href = link.getAttribute('href');
+          if (href.startsWith('mcgb-homepage-wireframe-feedback-2.html')) link.setAttribute('href', href.replace('feedback-2', 'feedback-3'));
+          else if (/^(newsletters|join-mailing-list)-feedback-2\.html/.test(href)) link.setAttribute('href', href + (href.includes('?') ? '&' : '?') + 'version=3');
+        });
+      }
+    </script>
   </body>
 </html>
