@@ -13,3 +13,5 @@ Newsletter and mailing-list pages retain their default feedback-2 behavior. The 
 Public copies include Vercel analytics; design-prototype copies omit it. The existing untracked working-group PDF is excluded from the change and deployment.
 
 Navigation correction: Resources has an explicit Browse resources category navigation, hash-linked subtile views, and return focus/scroll restoration. Brown Jackets retains its original map destination. Plumline now appears third under Newsletter & Mailing List. Get Involved is ordered Find a Sangha, Togetherness, Events Calendar. Finder uses a separate filter sidebar so expanded filters do not displace desktop results. The Community attribution line has been removed.
+
+Mobile revision applies only below 740px across the six-page feedback-3 journey. Shared newsletter and mailing-list styling requires `version=3`. Desktop layouts remain unchanged; only the requested Community wording changes on desktop. Mobile finder uses a filter sheet and List/Map/Schedule views, restoring the existing sidebar and embeds at desktop widths.

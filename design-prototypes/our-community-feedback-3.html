@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-mcgb-mobile>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -328,6 +328,125 @@
       html {
         scroll-behavior: auto;
       }
+
+      @media (max-width: 739px) {
+        html[data-mcgb-mobile] {
+          font-size: 16px;
+          scroll-behavior: auto;
+        }
+        html[data-mcgb-mobile] body {
+          padding-top: env(safe-area-inset-top);
+          padding-bottom: env(safe-area-inset-bottom);
+          -webkit-text-size-adjust: 100%;
+        }
+        html[data-mcgb-mobile] .topbar {
+          position: static;
+          backdrop-filter: none;
+        }
+        html[data-mcgb-mobile] .topbar-inner,
+        html[data-mcgb-mobile] .content {
+          width: auto;
+          margin-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+        }
+        html[data-mcgb-mobile] .topbar-inner {
+          padding: 16px 0;
+          gap: 12px;
+        }
+        html[data-mcgb-mobile] .brand {
+          flex-basis: auto;
+          width: 100%;
+          min-width: 0;
+        }
+        html[data-mcgb-mobile] .brand strong {
+          font-size: 1rem;
+          line-height: 1.35;
+        }
+        html[data-mcgb-mobile] .brand span {
+          display: block;
+          font-size: 0.85rem;
+          line-height: 1.45;
+          margin-top: 4px;
+        }
+        html[data-mcgb-mobile] .content {
+          padding-top: 20px;
+          padding-bottom: 24px;
+          min-height: auto;
+        }
+        html[data-mcgb-mobile] .context-nav {
+          margin-bottom: 16px;
+        }
+        html[data-mcgb-mobile] .context-nav a,
+        html[data-mcgb-mobile] .text-button,
+        html[data-mcgb-mobile] .button,
+        html[data-mcgb-mobile] .resource-back {
+          min-height: 44px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1rem;
+        }
+        html[data-mcgb-mobile] .context-nav a {
+          justify-content: flex-start;
+          text-align: left;
+        }
+        html[data-mcgb-mobile] h1 {
+          font-size: clamp(1.75rem, 7vw, 2rem);
+          line-height: 1.2;
+        }
+        html[data-mcgb-mobile] .footer-note {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0 10px;
+          justify-content: center;
+          margin-top: 24px;
+          font-size: 0;
+          padding-top: 16px;
+        }
+        html[data-mcgb-mobile] .footer-note a {
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
+          font-size: 0.85rem;
+        }
+        html[data-mcgb-mobile] a,
+        html[data-mcgb-mobile] button,
+        html[data-mcgb-mobile] summary {
+          touch-action: manipulation;
+        }
+        html[data-mcgb-mobile] .email-recipient,
+        html[data-mcgb-mobile] .email-address {
+          overflow-wrap: anywhere;
+        }
+      }
+      @media (max-width: 739px) and (prefers-reduced-motion: reduce) {
+        html[data-mcgb-mobile] *,
+        html[data-mcgb-mobile] *::before,
+        html[data-mcgb-mobile] *::after {
+          transition: none !important;
+          animation: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+      @media (max-width: 739px) {
+        .community-reading {
+          margin: 8px 0 24px;
+          max-width: none;
+        }
+        .community-reading h1 {
+          font-size: 1.9rem;
+          line-height: 1.2;
+          margin-top: 10px;
+        }
+        .community-reading h2 {
+          font-size: 1.25rem;
+          margin-top: 28px;
+        }
+        .community-reading p {
+          line-height: 1.65;
+          font-size: 1rem;
+          margin-bottom: 18px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -356,9 +475,9 @@
           <h1 id="community-title">Many local circles, one mahasangha.</h1>
           <h2>Our mission</h2>
           <p>
-            The mission of Boston Old Path Sangha (BOPS) is to nurture compassion and understanding
-            within the sangha and throughout the larger society. Relieving the suffering of all
-            beings is an integral part of our practice.
+            The mission of Mindfulness Communities of Greater Boston (MCGB) is to nurture compassion
+            and understanding within the sangha and throughout the larger society. Relieving the
+            suffering of all beings is an integral part of our practice.
           </p>
           <p>
             We come together regularly to meditate and deepen our practice. Through dharma
@@ -368,13 +487,13 @@
           </p>
           <h2>Our roots</h2>
           <p>
-            The Boston sangha began sitting together in 1989. Boston Old Path Sangha is a lay
-            Buddhist community inspired by the teachings of Vietnamese Zen monk, peace activist, and
-            author Thích Nhất Hạnh, as well as by teachers within and outside the Buddhist
-            tradition.
+            The Boston sangha began sitting together in 1989. Mindfulness Communities of Greater
+            Boston is a lay Buddhist community inspired by the teachings of Vietnamese Zen monk,
+            peace activist, and author Thích Nhất Hạnh, as well as by teachers within and outside
+            the Buddhist tradition.
           </p>
           <p>
-            BOPS is part of the Community of Mindful Living, an international fellowship of Buddhist
+            MCGB is part of the Community of Mindful Living, an international fellowship of Buddhist
             practitioners and social activists. At its heart is the Order of Interbeing, a community
             of lay practitioners and monastics founded by Thích Nhất Hạnh in the 1960s, during the
             American–Vietnamese War.

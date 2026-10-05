@@ -312,6 +312,40 @@
       .resource-group { margin-top: 28px; }
       .simple-intro { max-width: 70ch; margin: 32px 0; }
       @media (max-width: 680px) { .brand { flex-basis: 100%; } }
+
+      @media (max-width: 739px) {
+        html[data-mcgb-mobile] { font-size: 16px; scroll-behavior: auto; }
+        html[data-mcgb-mobile] body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); -webkit-text-size-adjust: 100%; }
+        html[data-mcgb-mobile] .topbar { position: static; backdrop-filter: none; }
+        html[data-mcgb-mobile] .topbar-inner, html[data-mcgb-mobile] .content { width: auto; margin-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right)); }
+        html[data-mcgb-mobile] .topbar-inner { padding: 16px 0; gap: 12px; }
+        html[data-mcgb-mobile] .brand { flex-basis: auto; width: 100%; min-width: 0; }
+        html[data-mcgb-mobile] .brand strong { font-size: 1rem; line-height: 1.35; }
+        html[data-mcgb-mobile] .brand span { display: block; font-size: .85rem; line-height: 1.45; margin-top: 4px; }
+        html[data-mcgb-mobile] .content { padding-top: 20px; padding-bottom: 24px; min-height: auto; }
+        html[data-mcgb-mobile] .context-nav { margin-bottom: 16px; }
+        html[data-mcgb-mobile] .context-nav a, html[data-mcgb-mobile] .text-button, html[data-mcgb-mobile] .button, html[data-mcgb-mobile] .resource-back { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; font-size: 1rem; }
+        html[data-mcgb-mobile] .context-nav a { justify-content: flex-start; text-align: left; }
+        html[data-mcgb-mobile] h1 { font-size: clamp(1.75rem, 7vw, 2rem); line-height: 1.2; }
+        html[data-mcgb-mobile] .footer-note { display: flex; flex-wrap: wrap; gap: 0 10px; justify-content: center; margin-top: 24px; font-size: 0; padding-top: 16px; }
+        html[data-mcgb-mobile] .footer-note a { display: inline-flex; align-items: center; min-height: 44px; font-size: .85rem; }
+        html[data-mcgb-mobile] a, html[data-mcgb-mobile] button, html[data-mcgb-mobile] summary { touch-action: manipulation; }
+        html[data-mcgb-mobile] .email-recipient, html[data-mcgb-mobile] .email-address { overflow-wrap: anywhere; }
+      }
+      @media (max-width: 739px) and (prefers-reduced-motion: reduce) {
+        html[data-mcgb-mobile] *, html[data-mcgb-mobile] *::before, html[data-mcgb-mobile] *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+      }
+      @media (max-width: 739px) {
+        html[data-mcgb-mobile] .archive-header { gap: 12px; margin-bottom: 24px; }
+        html[data-mcgb-mobile] .issue-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+        html[data-mcgb-mobile] .issue-card { grid-template-columns: 76px minmax(0, 1fr); gap: 14px; align-items: center; padding: 14px; border: 1px solid var(--less-light-ink); border-radius: var(--radius); background: var(--cloud); }
+        html[data-mcgb-mobile] .issue-preview { width: 76px; margin: 0; padding: 3px; box-shadow: none; }
+        html[data-mcgb-mobile] .issue-meta { min-width: 0; }
+        html[data-mcgb-mobile] .issue-meta h3 { font-size: 1.05rem; line-height: 1.35; }
+        html[data-mcgb-mobile] .issue-type { font-size: .9rem; }
+        html[data-mcgb-mobile] .year-group { margin-bottom: 24px; }
+        html[data-mcgb-mobile] .issue-card:hover .issue-preview { transform: none; box-shadow: none; }
+      }
     </style>
   </head>
   <body>
@@ -431,9 +465,9 @@
         )
         .join("");
     </script>
-    <script defer src="/_vercel/insights/script.js"></script>
     <script>
       if (new URLSearchParams(location.search).get('version') === '3') {
+        document.documentElement.setAttribute('data-mcgb-mobile', '');
         document.querySelector('.path-tools')?.remove();
         document.querySelectorAll('a[href]').forEach(link => {
           const href = link.getAttribute('href');
@@ -442,5 +476,6 @@
         });
       }
     </script>
+    <script defer src="/_vercel/insights/script.js"></script>
   </body>
 </html>

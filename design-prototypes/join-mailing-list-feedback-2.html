@@ -354,6 +354,45 @@
       .resource-group { margin-top: 28px; }
       .simple-intro { max-width: 70ch; margin: 32px 0; }
       @media (max-width: 680px) { .brand { flex-basis: 100%; } }
+
+      @media (max-width: 739px) {
+        html[data-mcgb-mobile] { font-size: 16px; scroll-behavior: auto; }
+        html[data-mcgb-mobile] body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); -webkit-text-size-adjust: 100%; }
+        html[data-mcgb-mobile] .topbar { position: static; backdrop-filter: none; }
+        html[data-mcgb-mobile] .topbar-inner, html[data-mcgb-mobile] .content { width: auto; margin-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right)); }
+        html[data-mcgb-mobile] .topbar-inner { padding: 16px 0; gap: 12px; }
+        html[data-mcgb-mobile] .brand { flex-basis: auto; width: 100%; min-width: 0; }
+        html[data-mcgb-mobile] .brand strong { font-size: 1rem; line-height: 1.35; }
+        html[data-mcgb-mobile] .brand span { display: block; font-size: .85rem; line-height: 1.45; margin-top: 4px; }
+        html[data-mcgb-mobile] .content { padding-top: 20px; padding-bottom: 24px; min-height: auto; }
+        html[data-mcgb-mobile] .context-nav { margin-bottom: 16px; }
+        html[data-mcgb-mobile] .context-nav a, html[data-mcgb-mobile] .text-button, html[data-mcgb-mobile] .button, html[data-mcgb-mobile] .resource-back { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; font-size: 1rem; }
+        html[data-mcgb-mobile] .context-nav a { justify-content: flex-start; text-align: left; }
+        html[data-mcgb-mobile] h1 { font-size: clamp(1.75rem, 7vw, 2rem); line-height: 1.2; }
+        html[data-mcgb-mobile] .footer-note { display: flex; flex-wrap: wrap; gap: 0 10px; justify-content: center; margin-top: 24px; font-size: 0; padding-top: 16px; }
+        html[data-mcgb-mobile] .footer-note a { display: inline-flex; align-items: center; min-height: 44px; font-size: .85rem; }
+        html[data-mcgb-mobile] a, html[data-mcgb-mobile] button, html[data-mcgb-mobile] summary { touch-action: manipulation; }
+        html[data-mcgb-mobile] .email-recipient, html[data-mcgb-mobile] .email-address { overflow-wrap: anywhere; }
+      }
+      @media (max-width: 739px) and (prefers-reduced-motion: reduce) {
+        html[data-mcgb-mobile] *, html[data-mcgb-mobile] *::before, html[data-mcgb-mobile] *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+      }
+      @media (max-width: 739px) {
+        html[data-mcgb-mobile] .tool-header, html[data-mcgb-mobile] .tool-body { padding: 16px; }
+        html[data-mcgb-mobile] .tool-header { gap: 12px; }
+        html[data-mcgb-mobile] .tool-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+        html[data-mcgb-mobile] .list-options { min-width: 0; grid-template-columns: minmax(0, 1fr); }
+        html[data-mcgb-mobile] .list-option { grid-template-columns: 22px minmax(0, 1fr); padding: 16px; gap: 12px; min-height: 44px; }
+        html[data-mcgb-mobile] .list-option input { width: 20px; height: 20px; }
+        html[data-mcgb-mobile] .list-option p { font-size: 1rem; line-height: 1.55; }
+        html[data-mcgb-mobile] .email-address { font-size: .9rem; }
+        html[data-mcgb-mobile] .subscription-actions, html[data-mcgb-mobile] .steps { display: grid; grid-template-columns: minmax(0, 1fr); }
+        html[data-mcgb-mobile] .subscription-actions > div { min-width: 0; }
+        html[data-mcgb-mobile] .subscription-actions .button, html[data-mcgb-mobile] [data-copy-email] { width: 100%; padding: 12px; text-align: center; white-space: normal; }
+        html[data-mcgb-mobile] [data-copy-email] { background: white; border: 1px solid var(--less-light-ink); border-radius: var(--radius); color: var(--ink); margin-top: 8px; }
+        html[data-mcgb-mobile] .selection-summary { line-height: 1.5; }
+        html[data-mcgb-mobile] .steps { gap: 16px; }
+      }
     </style>
   </head>
   <body>
@@ -524,6 +563,7 @@
     </script>
     <script>
       if (new URLSearchParams(location.search).get('version') === '3') {
+        document.documentElement.setAttribute('data-mcgb-mobile', '');
         document.querySelector('.path-tools')?.remove();
         document.querySelectorAll('a[href]').forEach(link => {
           const href = link.getAttribute('href');

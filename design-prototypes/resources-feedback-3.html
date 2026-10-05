@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-mcgb-mobile>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -388,6 +388,161 @@
         outline: 3px solid var(--focus);
         outline-offset: 4px;
       }
+
+      @media (max-width: 739px) {
+        html[data-mcgb-mobile] {
+          font-size: 16px;
+          scroll-behavior: auto;
+        }
+        html[data-mcgb-mobile] body {
+          padding-top: env(safe-area-inset-top);
+          padding-bottom: env(safe-area-inset-bottom);
+          -webkit-text-size-adjust: 100%;
+        }
+        html[data-mcgb-mobile] .topbar {
+          position: static;
+          backdrop-filter: none;
+        }
+        html[data-mcgb-mobile] .topbar-inner,
+        html[data-mcgb-mobile] .content {
+          width: auto;
+          margin-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+        }
+        html[data-mcgb-mobile] .topbar-inner {
+          padding: 16px 0;
+          gap: 12px;
+        }
+        html[data-mcgb-mobile] .brand {
+          flex-basis: auto;
+          width: 100%;
+          min-width: 0;
+        }
+        html[data-mcgb-mobile] .brand strong {
+          font-size: 1rem;
+          line-height: 1.35;
+        }
+        html[data-mcgb-mobile] .brand span {
+          display: block;
+          font-size: 0.85rem;
+          line-height: 1.45;
+          margin-top: 4px;
+        }
+        html[data-mcgb-mobile] .content {
+          padding-top: 20px;
+          padding-bottom: 24px;
+          min-height: auto;
+        }
+        html[data-mcgb-mobile] .context-nav {
+          margin-bottom: 16px;
+        }
+        html[data-mcgb-mobile] .context-nav a,
+        html[data-mcgb-mobile] .text-button,
+        html[data-mcgb-mobile] .button,
+        html[data-mcgb-mobile] .resource-back {
+          min-height: 44px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1rem;
+        }
+        html[data-mcgb-mobile] .context-nav a {
+          justify-content: flex-start;
+          text-align: left;
+        }
+        html[data-mcgb-mobile] h1 {
+          font-size: clamp(1.75rem, 7vw, 2rem);
+          line-height: 1.2;
+        }
+        html[data-mcgb-mobile] .footer-note {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0 10px;
+          justify-content: center;
+          margin-top: 24px;
+          font-size: 0;
+          padding-top: 16px;
+        }
+        html[data-mcgb-mobile] .footer-note a {
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
+          font-size: 0.85rem;
+        }
+        html[data-mcgb-mobile] a,
+        html[data-mcgb-mobile] button,
+        html[data-mcgb-mobile] summary {
+          touch-action: manipulation;
+        }
+        html[data-mcgb-mobile] .email-recipient,
+        html[data-mcgb-mobile] .email-address {
+          overflow-wrap: anywhere;
+        }
+      }
+      @media (max-width: 739px) and (prefers-reduced-motion: reduce) {
+        html[data-mcgb-mobile] *,
+        html[data-mcgb-mobile] *::before,
+        html[data-mcgb-mobile] *::after {
+          transition: none !important;
+          animation: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+      @media (max-width: 739px) {
+        .resource-header,
+        #resource-grid {
+          padding: 16px;
+        }
+        .resource-header {
+          gap: 12px;
+        }
+        .resource-browser {
+          padding: 14px;
+          margin-bottom: 24px;
+        }
+        .resource-jumps {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 8px;
+        }
+        .resource-jumps a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          min-height: 48px;
+          padding: 10px 8px;
+          font-size: 0.95rem;
+        }
+        .resource-grid {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 12px;
+        }
+        .resource-card {
+          padding: 16px;
+          min-width: 0;
+        }
+        .resource-card p {
+          font-size: 1rem;
+          line-height: 1.55;
+        }
+        .resource-card h3 {
+          font-size: 1.1rem;
+        }
+        .resource-group > h2 {
+          font-size: 1.3rem;
+        }
+        .resource-detail-view h2 {
+          font-size: 1.65rem;
+        }
+        .resource-card .draft-note {
+          font-size: 0.9rem;
+        }
+        .resource-card a {
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -770,7 +925,7 @@
       function updateStickyOffset() {
         document.documentElement.style.setProperty(
           "--sticky-offset",
-          `${document.querySelector(".topbar").offsetHeight + 24}px`,
+          `${window.matchMedia("(max-width: 739px)").matches ? 16 : document.querySelector(".topbar").offsetHeight + 24}px`,
         );
       }
       window.addEventListener("resize", updateStickyOffset);

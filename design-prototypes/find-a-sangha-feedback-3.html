@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-mcgb-mobile>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -725,6 +725,264 @@
           padding-bottom: 18px;
         }
       }
+
+      @media (max-width: 739px) {
+        html[data-mcgb-mobile] {
+          font-size: 16px;
+          scroll-behavior: auto;
+        }
+        html[data-mcgb-mobile] body {
+          padding-top: env(safe-area-inset-top);
+          padding-bottom: env(safe-area-inset-bottom);
+          -webkit-text-size-adjust: 100%;
+        }
+        html[data-mcgb-mobile] .topbar {
+          position: static;
+          backdrop-filter: none;
+        }
+        html[data-mcgb-mobile] .topbar-inner,
+        html[data-mcgb-mobile] .content {
+          width: auto;
+          margin-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+        }
+        html[data-mcgb-mobile] .topbar-inner {
+          padding: 16px 0;
+          gap: 12px;
+        }
+        html[data-mcgb-mobile] .brand {
+          flex-basis: auto;
+          width: 100%;
+          min-width: 0;
+        }
+        html[data-mcgb-mobile] .brand strong {
+          font-size: 1rem;
+          line-height: 1.35;
+        }
+        html[data-mcgb-mobile] .brand span {
+          display: block;
+          font-size: 0.85rem;
+          line-height: 1.45;
+          margin-top: 4px;
+        }
+        html[data-mcgb-mobile] .content {
+          padding-top: 20px;
+          padding-bottom: 24px;
+          min-height: auto;
+        }
+        html[data-mcgb-mobile] .context-nav {
+          margin-bottom: 16px;
+        }
+        html[data-mcgb-mobile] .context-nav a,
+        html[data-mcgb-mobile] .text-button,
+        html[data-mcgb-mobile] .button,
+        html[data-mcgb-mobile] .resource-back {
+          min-height: 44px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1rem;
+        }
+        html[data-mcgb-mobile] .context-nav a {
+          justify-content: flex-start;
+          text-align: left;
+        }
+        html[data-mcgb-mobile] h1 {
+          font-size: clamp(1.75rem, 7vw, 2rem);
+          line-height: 1.2;
+        }
+        html[data-mcgb-mobile] .footer-note {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0 10px;
+          justify-content: center;
+          margin-top: 24px;
+          font-size: 0;
+          padding-top: 16px;
+        }
+        html[data-mcgb-mobile] .footer-note a {
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
+          font-size: 0.85rem;
+        }
+        html[data-mcgb-mobile] a,
+        html[data-mcgb-mobile] button,
+        html[data-mcgb-mobile] summary {
+          touch-action: manipulation;
+        }
+        html[data-mcgb-mobile] .email-recipient,
+        html[data-mcgb-mobile] .email-address {
+          overflow-wrap: anywhere;
+        }
+      }
+      @media (max-width: 739px) and (prefers-reduced-motion: reduce) {
+        html[data-mcgb-mobile] *,
+        html[data-mcgb-mobile] *::before,
+        html[data-mcgb-mobile] *::after {
+          transition: none !important;
+          animation: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+      .mobile-finder-tools {
+        display: none;
+      }
+      .filter-sheet:not([open]) {
+        display: none;
+      }
+      @media (max-width: 739px) {
+        .finder-intro,
+        .finder-workspace {
+          padding: 16px;
+        }
+        .finder-sidebar {
+          display: none;
+        }
+        .finder-workspace {
+          display: block;
+        }
+        .mobile-finder-tools {
+          display: grid;
+          gap: 12px;
+          margin-bottom: 16px;
+        }
+        .mobile-finder-tools > button {
+          justify-self: start;
+        }
+        .finder-view-controls {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 6px;
+        }
+        .finder-view-controls button {
+          min-height: 44px;
+          padding: 10px 6px;
+          border: 1px solid var(--less-light-ink);
+          border-radius: var(--radius);
+          font: inherit;
+          font-weight: 650;
+          background: var(--cloud);
+          cursor: pointer;
+        }
+        .finder-view-controls button[aria-pressed="true"] {
+          background: var(--sun);
+          border-color: var(--ink);
+        }
+        .finder-layout {
+          display: block;
+        }
+        .finder-results[data-mobile-view="list"] .finder-visual {
+          display: none;
+        }
+        .finder-results[data-mobile-view="map"] .sangha-list,
+        .finder-results[data-mobile-view="schedule"] .sangha-list {
+          display: none;
+        }
+        .finder-results[data-mobile-view="map"] .calendar-panel,
+        .finder-results[data-mobile-view="schedule"] .map-panel {
+          display: none;
+        }
+        .finder-visual {
+          position: static;
+        }
+        .map-panel {
+          min-height: 360px;
+          height: min(65dvh, 480px);
+        }
+        .calendar-preview {
+          height: min(65dvh, 520px);
+        }
+        .sangha-card {
+          padding: 16px;
+        }
+        .sangha-actions {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .sangha-actions .button {
+          width: 100%;
+        }
+        .results-toolbar {
+          gap: 10px;
+        }
+        .sangha-dialog {
+          max-height: calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+          width: calc(100% - 24px);
+          padding: 16px;
+        }
+        .sangha-dialog .button,
+        .sangha-dialog [data-copy-email] {
+          width: 100%;
+        }
+        .dialog-close {
+          position: sticky;
+          top: -16px;
+          background: var(--light-sun);
+          z-index: 1;
+          padding: 8px;
+        }
+        .filter-sheet {
+          inset: auto 0 0;
+          margin: 0 auto;
+          width: 100%;
+          max-width: 739px;
+          height: min(640px, calc(100dvh - 12px - env(safe-area-inset-top)));
+          max-height: none;
+          padding: 0;
+          border: 1px solid var(--less-light-ink);
+          border-radius: 16px 16px 0 0;
+          color: var(--ink);
+          background: var(--light-sun);
+          overflow: hidden;
+        }
+        .filter-sheet[open] {
+          display: grid;
+          grid-template-rows: auto minmax(0, 1fr) auto;
+        }
+        .filter-sheet::backdrop {
+          background: rgba(34, 34, 34, 0.48);
+        }
+        .filter-sheet-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          padding: 12px 16px;
+          border-bottom: 1px solid var(--less-light-ink);
+        }
+        .filter-sheet-header h2 {
+          margin: 0;
+          font-size: 1.25rem;
+        }
+        .filter-sheet-body {
+          overflow: auto;
+          padding: 16px;
+          overscroll-behavior: contain;
+        }
+        .filter-sheet-footer {
+          display: grid;
+          gap: 10px;
+          padding: 12px 16px max(16px, env(safe-area-inset-bottom));
+          border-top: 1px solid var(--less-light-ink);
+        }
+        .filter-sheet-footer .button {
+          width: 100%;
+        }
+        .filter-options label {
+          min-height: 44px;
+          gap: 12px;
+        }
+        .filter-options input {
+          width: 20px;
+          height: 20px;
+        }
+        .filter-disclosure summary {
+          min-height: 48px;
+        }
+        body:has(dialog[open]) {
+          overflow: hidden;
+        }
+      }
     </style>
   </head>
   <body>
@@ -772,7 +1030,44 @@
                   </details>
                 </div>
               </aside>
-              <div class="finder-results">
+              <div class="finder-results" data-mobile-view="list">
+                <div class="mobile-finder-tools">
+                  <button
+                    class="button secondary"
+                    type="button"
+                    id="open-mobile-filters"
+                    aria-haspopup="dialog"
+                    aria-controls="mobile-filter-sheet"
+                  >
+                    Filters (0)
+                  </button>
+                  <div class="finder-view-controls" role="group" aria-label="Sangha finder view">
+                    <button
+                      type="button"
+                      data-finder-view="list"
+                      aria-pressed="true"
+                      aria-controls="sangha-list"
+                    >
+                      List
+                    </button>
+                    <button
+                      type="button"
+                      data-finder-view="map"
+                      aria-pressed="false"
+                      aria-controls="finder-map"
+                    >
+                      Map
+                    </button>
+                    <button
+                      type="button"
+                      data-finder-view="schedule"
+                      aria-pressed="false"
+                      aria-controls="finder-schedule"
+                    >
+                      Schedule
+                    </button>
+                  </div>
+                </div>
                 <div class="results-toolbar">
                   <p id="result-count" role="status"></p>
                   <button class="text-button" type="button" data-clear-filters>
@@ -782,7 +1077,7 @@
                 <div class="finder-layout">
                   <div class="sangha-list" id="sangha-list"></div>
                   <aside class="finder-visual" aria-label="Map and calendar">
-                    <div class="map-panel">
+                    <div class="map-panel" id="finder-map">
                       <iframe
                         class="map-canvas"
                         title="Mindfulness Communities of Greater Boston map"
@@ -792,7 +1087,7 @@
                         referrerpolicy="no-referrer-when-downgrade"
                       ></iframe>
                     </div>
-                    <div class="calendar-panel">
+                    <div class="calendar-panel" id="finder-schedule">
                       <h3>Schedule</h3>
                       <div class="calendar-preview">
                         <iframe
@@ -819,6 +1114,17 @@
       </main>
     </div>
 
+    <dialog class="filter-sheet" id="mobile-filter-sheet" aria-labelledby="mobile-filter-title">
+      <header class="filter-sheet-header">
+        <h2 id="mobile-filter-title">Filter sanghas</h2>
+        <button class="text-button" type="button" id="close-mobile-filters" autofocus>Close</button>
+      </header>
+      <div class="filter-sheet-body"></div>
+      <footer class="filter-sheet-footer">
+        <button class="text-button" type="button" data-clear-filters>Clear filters</button
+        ><button class="button" type="button" id="show-mobile-results">Show 13 sanghas</button>
+      </footer>
+    </dialog>
     <dialog class="sangha-dialog" id="sangha-dialog" aria-labelledby="dialog-title">
       <button class="text-button dialog-close" type="button" id="close-dialog" autofocus>
         Close
@@ -1101,7 +1407,7 @@
         if (!topbar) return;
         document.documentElement.style.setProperty(
           "--sticky-offset",
-          `${topbar.offsetHeight + 10}px`,
+          `${window.matchMedia("(max-width: 739px)").matches ? 10 : topbar.offsetHeight + 10}px`,
         );
       }
 
@@ -1181,6 +1487,11 @@
         renderFilterButtons(timeFilters, timeOptions, selectedTimeBands, "time");
 
         const filtered = getFilteredSanghas();
+        const selectionCount =
+          Number(finderModality !== "all") + selectedDays.size + selectedTimeBands.size;
+        document.querySelector("#open-mobile-filters").textContent = `Filters (${selectionCount})`;
+        document.querySelector("#show-mobile-results").textContent =
+          `Show ${filtered.length} ${filtered.length === 1 ? "sangha" : "sanghas"}`;
 
         if (selectedSanghaId && !filtered.some((sangha) => sangha.id === selectedSanghaId)) {
           selectedSanghaId = null;
@@ -1266,6 +1577,60 @@
           .focus();
       });
 
+      const mobileBreakpoint = window.matchMedia("(max-width: 739px)");
+      const filterSheet = document.querySelector("#mobile-filter-sheet");
+      const filterGroup = document.querySelector(".filter-group");
+      const filterSidebar = document.querySelector(".finder-sidebar");
+      const filterTrigger = document.querySelector("#open-mobile-filters");
+      function arrangeMobileFilters() {
+        if (mobileBreakpoint.matches)
+          filterSheet.querySelector(".filter-sheet-body").append(filterGroup);
+        else {
+          if (filterSheet.open) filterSheet.close();
+          filterSidebar.append(filterGroup);
+          if (document.activeElement === filterTrigger)
+            filterGroup.querySelector("summary")?.focus();
+        }
+        updateStickyOffset();
+      }
+      filterTrigger.addEventListener("click", () => {
+        if (mobileBreakpoint.matches) filterSheet.showModal();
+      });
+      document
+        .querySelector("#close-mobile-filters")
+        .addEventListener("click", () => filterSheet.close());
+      document
+        .querySelector("#show-mobile-results")
+        .addEventListener("click", () => filterSheet.close());
+      filterSheet.addEventListener("close", () => {
+        if (mobileBreakpoint.matches) filterTrigger.focus();
+        else filterGroup.querySelector("summary")?.focus();
+      });
+      filterSheet.addEventListener("keydown", (event) => {
+        if (event.key !== "Tab") return;
+        const controls = [...filterSheet.querySelectorAll("button, input, summary")].filter(
+          (el) => el.getClientRects().length,
+        );
+        const first = controls[0],
+          last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      });
+      document.querySelectorAll("[data-finder-view]").forEach((button) =>
+        button.addEventListener("click", () => {
+          document.querySelector(".finder-results").dataset.mobileView = button.dataset.finderView;
+          document
+            .querySelectorAll("[data-finder-view]")
+            .forEach((control) => control.setAttribute("aria-pressed", String(control === button)));
+        }),
+      );
+      mobileBreakpoint.addEventListener("change", arrangeMobileFilters);
+      arrangeMobileFilters();
       window.addEventListener("resize", updateStickyOffset);
       updateStickyOffset();
       renderFinder();
