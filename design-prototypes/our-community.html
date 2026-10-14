@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-mcgb-mobile>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Our Community | Boston Old Path Sangha</title>
+    <link rel="canonical" href="https://bostonmindfulness.vercel.app/our-community.html" />
+    <title>Our Community | Mindfulness Communities of Greater Boston</title>
     <style>
       :root {
         color-scheme: light;
@@ -13,19 +14,14 @@
         --dark-ink: #272727;
         --earth: #8b572a;
         --cloud: #fff;
-        --light-ink: #f3f3f3;
         --less-light-ink: #eaeaea;
         --muted: #6d6a62;
         --focus: #8b572a;
-        --moss: #4f6f52;
-        --river: #386f77;
-        --clay: #b45f3a;
-        --rose: #f7e1d6;
         --radius: 8px;
         --shadow: 0 18px 60px rgba(34, 34, 34, 0.08);
-        --deep-shadow: 0 30px 90px rgba(34, 34, 34, 0.16);
-        --font-sans: "PV Sans Serif", ui-sans-serif, system-ui, -apple-system,
-          BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        --font-sans:
+          "PV Sans Serif", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Arial, sans-serif;
       }
 
       * {
@@ -33,14 +29,11 @@
       }
 
       html {
-        overflow-x: hidden;
         min-height: 100%;
         background: var(--light-sun);
-        scroll-behavior: smooth;
       }
 
       body {
-        overflow-x: hidden;
         min-height: 100vh;
         margin: 0;
         background: var(--light-sun);
@@ -54,8 +47,7 @@
         color: inherit;
       }
 
-      a:focus-visible,
-      button:focus-visible {
+      a:focus-visible {
         outline: 3px solid var(--focus);
         outline-offset: 3px;
       }
@@ -67,22 +59,14 @@
         margin-top: 0;
       }
 
-      img {
-        display: block;
-        max-width: 100%;
-      }
-
       .page {
         min-height: 100vh;
-        background:
-          linear-gradient(180deg, rgba(255, 210, 42, 0.08), transparent 460px),
-          var(--light-sun);
       }
 
       .topbar {
         position: sticky;
         top: 0;
-        z-index: 20;
+        z-index: 10;
         border-bottom: 1px solid var(--less-light-ink);
         background: rgba(255, 255, 255, 0.94);
         backdrop-filter: blur(12px);
@@ -130,364 +114,110 @@
       }
 
       .text-button {
-        border: 0;
         border-bottom: 2px solid var(--sun);
         padding: 2px 0;
-        background: transparent;
         color: var(--ink);
-        cursor: pointer;
         font-weight: 700;
         text-decoration: none;
       }
 
       .content {
-        padding: 38px 0 52px;
+        display: flex;
+        min-height: calc(100vh - 73px);
+        flex-direction: column;
+        padding: clamp(28px, 4vw, 44px) 0 52px;
       }
 
       .context-nav {
-        margin-bottom: 16px;
+        margin-bottom: 14px;
       }
 
       .context-nav .text-button {
         font-size: 0.88rem;
       }
 
-      .community-hero {
-        display: grid;
-        gap: 26px;
-        align-items: stretch;
-        margin-bottom: 42px;
+      .resource-shell {
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        background: var(--cloud);
       }
 
-      .hero-copy {
+      .resource-header {
         display: grid;
-        align-content: center;
-        gap: 18px;
-        min-height: 560px;
-        padding: 18px 0;
+        gap: 8px;
+        border-bottom: 1px solid var(--less-light-ink);
+        padding: clamp(18px, 3vw, 28px);
       }
 
       .eyebrow {
-        margin-bottom: 0;
+        margin: 0;
         color: var(--earth);
-        font-size: 0.78rem;
-        font-weight: 800;
-        letter-spacing: 0;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
         text-transform: uppercase;
       }
 
-      .hero-title {
-        max-width: 760px;
+      h1 {
         margin-bottom: 0;
-        color: var(--dark-ink);
-        font-size: 2.75rem;
-        line-height: 0.98;
-        letter-spacing: 0;
-      }
-
-      .hero-lede {
-        max-width: 690px;
-        margin-bottom: 0;
-        color: var(--muted);
-        font-size: 1.08rem;
-      }
-
-      .community-chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin: 8px 0 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .community-chips li {
-        border: 1px solid rgba(139, 87, 42, 0.18);
-        border-radius: 999px;
-        padding: 8px 12px;
-        background: rgba(255, 255, 255, 0.72);
-        color: var(--dark-ink);
-        font-size: 0.9rem;
-        font-weight: 800;
-        box-shadow: 0 10px 30px rgba(34, 34, 34, 0.05);
-      }
-
-      .hero-panel {
-        display: grid;
-        gap: 14px;
-        align-content: end;
-        min-height: 560px;
-        overflow: hidden;
-        border: 1px solid rgba(139, 87, 42, 0.14);
-        border-radius: var(--radius);
-        padding: 18px;
-        background:
-          linear-gradient(180deg, rgba(34, 34, 34, 0.02), rgba(34, 34, 34, 0.52)),
-          url("assets/practitioner-page-title-hero.jpg") center / cover;
-        box-shadow: var(--deep-shadow);
-      }
-
-      .hero-card {
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        border-radius: var(--radius);
-        padding: 18px;
-        background: rgba(255, 255, 255, 0.88);
-        backdrop-filter: blur(12px);
-      }
-
-      .hero-card h2 {
-        margin-bottom: 8px;
-        font-size: 1.05rem;
-        line-height: 1.2;
-      }
-
-      .hero-card p {
-        margin-bottom: 0;
-        color: var(--muted);
-        font-size: 0.95rem;
-      }
-
-      .community-pillars {
-        display: grid;
-        gap: 12px;
-        margin-bottom: 64px;
-      }
-
-      .pillar-card {
-        border: 1px solid rgba(34, 34, 34, 0.08);
-        border-radius: var(--radius);
-        padding: 22px;
-        background: var(--cloud);
-        box-shadow: var(--shadow);
-      }
-
-      .pillar-card h3 {
-        margin-bottom: 8px;
-        font-size: 1.1rem;
-        line-height: 1.2;
-      }
-
-      .pillar-card p {
-        margin-bottom: 0;
-        color: var(--muted);
-      }
-
-      .section-heading {
-        display: grid;
-        gap: 8px;
-        max-width: 760px;
-        margin-bottom: 24px;
-      }
-
-      .section-heading h2 {
-        margin-bottom: 0;
-        color: var(--dark-ink);
-        font-size: 2rem;
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
         line-height: 1.05;
         letter-spacing: 0;
       }
 
-      .section-heading p {
+      .lede {
+        max-width: 720px;
         margin-bottom: 0;
         color: var(--muted);
-        font-size: 1rem;
       }
 
-      .timeline-section,
-      .history-section {
-        margin-bottom: 72px;
-      }
-
-      .timeline-wrap {
-        overflow-x: auto;
-        padding: 8px 2px 18px;
-        scrollbar-color: rgba(139, 87, 42, 0.45) rgba(139, 87, 42, 0.1);
-      }
-
-      .timeline-track {
-        position: relative;
+      .resource-grid {
         display: grid;
-        grid-template-columns: repeat(11, minmax(155px, 1fr));
-        gap: 16px;
-        min-width: 1420px;
-        min-height: 410px;
-        padding: 28px 0 8px;
+        gap: 12px;
       }
 
-      .timeline-track::before {
-        position: absolute;
-        top: 106px;
-        right: 34px;
-        left: 34px;
-        height: 3px;
-        border-radius: 999px;
-        background: linear-gradient(
-          90deg,
-          var(--earth),
-          var(--moss),
-          var(--river),
-          var(--clay)
-        );
-        content: "";
-      }
-
-      .timeline-event {
-        position: relative;
+      .resource-card {
         display: grid;
-        grid-template-rows: 52px 28px auto;
-        gap: 10px;
-        min-width: 0;
-      }
-
-      .timeline-date {
-        align-self: end;
-        color: var(--earth);
-        font-size: 1.24rem;
-        font-weight: 900;
-        line-height: 1;
-      }
-
-      .timeline-dot {
-        position: relative;
-        width: 18px;
-        height: 18px;
-        margin-top: 6px;
-        border: 4px solid var(--cloud);
-        border-radius: 50%;
-        background: var(--earth);
-        box-shadow: 0 0 0 2px rgba(139, 87, 42, 0.2);
-      }
-
-      .timeline-event:nth-child(3n + 2) .timeline-dot {
-        background: var(--moss);
-      }
-
-      .timeline-event:nth-child(3n) .timeline-dot {
-        background: var(--river);
-      }
-
-      .timeline-card {
-        min-height: 190px;
-        border: 1px solid rgba(34, 34, 34, 0.08);
+        align-content: space-between;
+        gap: 12px;
+        border: 1px solid var(--less-light-ink);
         border-radius: var(--radius);
-        padding: 16px;
-        background: rgba(255, 255, 255, 0.9);
-        box-shadow: var(--shadow);
-      }
-
-      .timeline-card h3 {
-        margin-bottom: 8px;
-        font-size: 1rem;
-        line-height: 1.2;
-      }
-
-      .timeline-card p {
-        margin-bottom: 0;
-        color: var(--muted);
-        font-size: 0.9rem;
-      }
-
-      .timeline-event:nth-child(even) .timeline-card {
-        margin-top: 54px;
-      }
-
-      .history-grid {
-        display: grid;
-        gap: 22px;
-        align-items: start;
-      }
-
-      .history-copy {
-        display: grid;
-        gap: 14px;
-      }
-
-      .history-story {
-        border: 1px solid rgba(34, 34, 34, 0.08);
-        border-radius: var(--radius);
-        padding: 22px;
+        padding: 14px;
         background: var(--cloud);
-        box-shadow: var(--shadow);
+        color: inherit;
+        text-decoration: none;
+        transition:
+          border-color 160ms ease,
+          background-color 160ms ease,
+          transform 160ms ease;
       }
 
-      .history-story h3 {
-        margin-bottom: 8px;
-        font-size: 1.1rem;
-        line-height: 1.2;
+      .resource-card:hover {
+        border-color: var(--earth);
+        background: var(--light-sun);
+        transform: translateY(-2px);
       }
 
-      .history-story p {
-        margin-bottom: 0;
-        color: var(--muted);
-      }
-
-      .history-media {
-        position: sticky;
-        top: 92px;
-        overflow: hidden;
-        border: 1px solid rgba(139, 87, 42, 0.14);
-        border-radius: var(--radius);
-        background: var(--cloud);
-        box-shadow: var(--deep-shadow);
-      }
-
-      .history-media img {
-        width: 100%;
-        height: 420px;
-        object-fit: cover;
-        object-position: center;
-      }
-
-      .history-caption {
-        padding: 20px;
-        background: var(--dark-ink);
-        color: var(--cloud);
-      }
-
-      .history-caption p {
-        margin-bottom: 0;
-        color: rgba(255, 255, 255, 0.82);
-      }
-
-      .history-caption strong {
-        display: block;
+      .resource-card h3 {
         margin-bottom: 6px;
-        color: var(--sun);
+        font-size: 1.05rem;
       }
 
-      .closing-band {
-        display: grid;
-        gap: 16px;
-        align-items: center;
-        margin-bottom: 46px;
-        border: 1px solid rgba(139, 87, 42, 0.16);
-        border-radius: var(--radius);
-        padding: 24px;
-        background: linear-gradient(135deg, var(--cloud), var(--rose));
-        box-shadow: var(--shadow);
-      }
-
-      .closing-band h2 {
-        margin-bottom: 0;
-        font-size: 1.65rem;
-        line-height: 1.08;
-      }
-
-      .closing-band p {
+      .resource-card p {
         margin-bottom: 0;
         color: var(--muted);
+        font-size: 0.92rem;
       }
 
       .footer-note {
-        border-top: 1px solid var(--less-light-ink);
-        padding-top: 18px;
+        margin-top: auto;
+        padding-top: 34px;
         color: var(--muted);
         font-size: 0.88rem;
         text-align: center;
       }
 
       .footer-note a {
-        color: inherit;
         text-decoration: none;
       }
 
@@ -496,195 +226,226 @@
         text-decoration: underline;
       }
 
-      [data-hero] {
-        opacity: 0;
-        transform: translateY(18px);
-        animation: hero-rise 900ms cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
-      }
-
-      [data-hero="2"] {
-        animation-delay: 120ms;
-      }
-
-      [data-hero="3"] {
-        animation-delay: 240ms;
-      }
-
-      [data-hero="4"] {
-        animation-delay: 360ms;
-      }
-
-      [data-hero="panel"] {
-        transform: translateX(24px);
-        animation-delay: 260ms;
-      }
-
-      [data-reveal] {
-        opacity: 0;
-        transform: translateY(26px);
-        transition:
-          opacity 700ms ease,
-          transform 700ms ease;
-      }
-
-      [data-reveal="slide-left"] {
-        transform: translateX(-34px);
-      }
-
-      [data-reveal="slide-right"] {
-        transform: translateX(34px);
-      }
-
-      [data-reveal].is-visible {
-        opacity: 1;
-        transform: translate(0, 0);
-      }
-
-      @keyframes hero-rise {
-        to {
-          opacity: 1;
-          transform: translate(0, 0);
+      @media (min-width: 660px) {
+        .resource-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
 
-      @media (min-width: 740px) {
-        html {
-          font-size: 18px;
-        }
-
-        .community-hero {
-          grid-template-columns: minmax(0, 1.04fr) minmax(330px, 0.86fr);
-        }
-
-        .community-pillars {
+      @media (min-width: 980px) {
+        .resource-grid {
           grid-template-columns: repeat(3, minmax(0, 1fr));
         }
-
-        .section-heading h2 {
-          font-size: 2.45rem;
-        }
-
-        .history-grid {
-          grid-template-columns: minmax(0, 0.92fr) minmax(330px, 0.78fr);
-        }
-
-        .closing-band {
-          grid-template-columns: minmax(0, 0.8fr) minmax(260px, 0.55fr);
-          padding: 28px;
-        }
       }
 
-      @media (min-width: 1000px) {
-        .hero-title {
-          font-size: 4.15rem;
-        }
-
-        .hero-lede {
-          font-size: 1.18rem;
-        }
-      }
-
-      @media (max-width: 739px) {
+      @media (max-width: 620px) {
         .topbar-inner {
           align-items: flex-start;
-          flex-direction: column;
+        }
+
+        .brand span {
+          display: none;
         }
 
         .path-tools {
-          width: 100%;
-          justify-content: space-between;
-        }
-
-        .content {
-          padding-top: 28px;
-        }
-
-        .hero-copy,
-        .hero-panel {
-          min-height: auto;
-        }
-
-        .hero-panel {
-          min-height: 430px;
-        }
-
-        .hero-title {
-          font-size: 2.38rem;
-        }
-
-        .timeline-wrap {
-          overflow: visible;
-        }
-
-        .timeline-track {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 14px;
-          min-width: 0;
-          min-height: 0;
-          padding-left: 28px;
-        }
-
-        .timeline-track::before {
-          top: 18px;
-          bottom: 18px;
-          left: 8px;
-          width: 3px;
-          height: auto;
-          background: linear-gradient(180deg, var(--earth), var(--moss), var(--river));
-        }
-
-        .timeline-event {
-          grid-template-columns: auto 1fr;
-          grid-template-rows: auto auto;
-          gap: 8px 12px;
-        }
-
-        .timeline-date {
-          grid-column: 2;
-          font-size: 1.05rem;
-        }
-
-        .timeline-dot {
-          grid-row: 1 / span 2;
-          margin-top: 5px;
-          margin-left: -28px;
-        }
-
-        .timeline-card,
-        .timeline-event:nth-child(even) .timeline-card {
-          grid-column: 2;
-          min-height: auto;
-          margin-top: 0;
-        }
-
-        .history-media {
-          position: static;
-        }
-
-        .history-media img {
-          height: 320px;
+          border-radius: var(--radius);
         }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        html {
+        .resource-card {
+          transition: none;
+        }
+      }
+
+      /* Feedback 2: allow the full community name and subtitle to wrap. */
+      .brand {
+        min-width: 0;
+        flex: 1 1 380px;
+      }
+      .brand strong,
+      .brand span {
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+      .brand span {
+        display: block;
+      }
+      .topbar-inner {
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .path-tools {
+        flex-shrink: 0;
+      }
+      .email-recipient {
+        overflow-wrap: anywhere;
+        user-select: text;
+      }
+      .email-details {
+        margin-top: 14px;
+      }
+      .copy-status {
+        display: block;
+        font-size: 0.9rem;
+      }
+      #resource-grid {
+        padding: clamp(18px, 3vw, 28px);
+      }
+      .resource-group + .resource-group {
+        margin-top: 20px;
+      }
+      .resource-group > h2 {
+        margin: 0 0 12px;
+      }
+      .simple-intro {
+        max-width: 70ch;
+        margin: 32px 0;
+      }
+      @media (max-width: 680px) {
+        .brand {
+          flex-basis: 100%;
+        }
+      }
+      .community-reading {
+        max-width: 70ch;
+        margin: 36px auto 64px;
+      }
+      .community-reading h1 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 1.15;
+      }
+      .community-reading h2 {
+        margin-top: 32px;
+        font-size: 1.35rem;
+      }
+      .community-reading p {
+        line-height: 1.8;
+      }
+      .source-note {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      html {
+        scroll-behavior: auto;
+      }
+
+      @media (max-width: 739px) {
+        html[data-mcgb-mobile] {
+          font-size: 16px;
           scroll-behavior: auto;
         }
-
-        *,
-        *::before,
-        *::after {
-          animation-duration: 1ms !important;
-          animation-iteration-count: 1 !important;
-          scroll-behavior: auto !important;
-          transition-duration: 1ms !important;
+        html[data-mcgb-mobile] body {
+          padding-top: env(safe-area-inset-top);
+          padding-bottom: env(safe-area-inset-bottom);
+          -webkit-text-size-adjust: 100%;
         }
-
-        [data-hero],
-        [data-reveal] {
-          opacity: 1;
-          transform: none;
+        html[data-mcgb-mobile] .topbar {
+          position: static;
+          backdrop-filter: none;
+        }
+        html[data-mcgb-mobile] .topbar-inner,
+        html[data-mcgb-mobile] .content {
+          width: auto;
+          margin-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+        }
+        html[data-mcgb-mobile] .topbar-inner {
+          padding: 16px 0;
+          gap: 12px;
+        }
+        html[data-mcgb-mobile] .brand {
+          flex-basis: auto;
+          width: 100%;
+          min-width: 0;
+        }
+        html[data-mcgb-mobile] .brand strong {
+          font-size: 1rem;
+          line-height: 1.35;
+        }
+        html[data-mcgb-mobile] .brand span {
+          display: block;
+          font-size: 0.85rem;
+          line-height: 1.45;
+          margin-top: 4px;
+        }
+        html[data-mcgb-mobile] .content {
+          padding-top: 20px;
+          padding-bottom: 24px;
+          min-height: auto;
+        }
+        html[data-mcgb-mobile] .context-nav {
+          margin-bottom: 16px;
+        }
+        html[data-mcgb-mobile] .context-nav a,
+        html[data-mcgb-mobile] .text-button,
+        html[data-mcgb-mobile] .button,
+        html[data-mcgb-mobile] .resource-back {
+          min-height: 44px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1rem;
+        }
+        html[data-mcgb-mobile] .context-nav a {
+          justify-content: flex-start;
+          text-align: left;
+        }
+        html[data-mcgb-mobile] h1 {
+          font-size: clamp(1.75rem, 7vw, 2rem);
+          line-height: 1.2;
+        }
+        html[data-mcgb-mobile] .footer-note {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0 10px;
+          justify-content: center;
+          margin-top: 24px;
+          font-size: 0;
+          padding-top: 16px;
+        }
+        html[data-mcgb-mobile] .footer-note a {
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
+          font-size: 0.85rem;
+        }
+        html[data-mcgb-mobile] a,
+        html[data-mcgb-mobile] button,
+        html[data-mcgb-mobile] summary {
+          touch-action: manipulation;
+        }
+        html[data-mcgb-mobile] .email-recipient,
+        html[data-mcgb-mobile] .email-address {
+          overflow-wrap: anywhere;
+        }
+      }
+      @media (max-width: 739px) and (prefers-reduced-motion: reduce) {
+        html[data-mcgb-mobile] *,
+        html[data-mcgb-mobile] *::before,
+        html[data-mcgb-mobile] *::after {
+          transition: none !important;
+          animation: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+      @media (max-width: 739px) {
+        .community-reading {
+          margin: 8px 0 24px;
+          max-width: none;
+        }
+        .community-reading h1 {
+          font-size: 1.9rem;
+          line-height: 1.2;
+          margin-top: 10px;
+        }
+        .community-reading h2 {
+          font-size: 1.25rem;
+          margin-top: 28px;
+        }
+        .community-reading p {
+          line-height: 1.65;
+          font-size: 1rem;
+          margin-bottom: 18px;
         }
       }
     </style>
@@ -693,328 +454,55 @@
     <div class="page">
       <header class="topbar">
         <div class="topbar-inner">
-          <div class="brand" aria-label="BOPS homepage">
-            <strong>Boston Old Path Sangha</strong>
-            <span>Mindfulness in Boston and everywhere...</span>
-          </div>
-          <div class="path-tools">
-            <span class="path-label">Beginner's Mind</span>
-            <a class="text-button" href="bops-homepage-wireframe-6.15.26.html?reset=1">
-              Change path
-            </a>
+          <div class="brand" aria-label="MCGB homepage">
+            <strong>Mindfulness Communities of Greater Boston</strong>
+            <span>Engaged Buddhism in the Plum Village tradition of Thích Nhất Hạnh</span>
           </div>
         </div>
       </header>
 
       <main class="content">
         <nav class="context-nav" aria-label="Section navigation">
-          <a class="text-button" href="bops-homepage-wireframe-6.15.26.html?path=beginner&section=learn-belong">
-            Back to Learn
+          <a class="text-button" href="/?section=learn-belong">
+            Back to Practice &amp; Community
           </a>
         </nav>
 
-        <section class="community-hero" aria-labelledby="community-title">
-          <div class="hero-copy">
-            <p class="eyebrow" data-hero="1">Learn / Our Community</p>
-            <h1 class="hero-title" id="community-title" data-hero="2">
-              A sangha rooted in everyday mindfulness.
-            </h1>
-            <p class="hero-lede" data-hero="3">
-              The source page introduces a Greater Boston community of
-              mindfulness practitioners in the Plum Village tradition of Zen
-              master Thich Nhat Hanh. This mock-up turns that orientation into a
-              polished community story.
-            </p>
-            <ul class="community-chips" data-hero="4" aria-label="Community themes">
-              <li>Greater Boston</li>
-              <li>Plum Village</li>
-              <li>G-BOPS</li>
-              <li>Local sanghas</li>
-              <li>Shared events</li>
-            </ul>
-          </div>
-
-          <aside class="hero-panel" data-hero="panel" aria-label="Community focus">
-            <div class="hero-card">
-              <h2>Many doors into one community</h2>
-              <p>
-                Practitioners sit with different sanghas that may meet in homes,
-                rented rooms, outdoor spaces, or online.
-              </p>
-            </div>
-            <div class="hero-card">
-              <h2>Affectionately G-BOPS</h2>
-              <p>
-                The source page describes this as one of the older mindfulness
-                practice communities in the United States, affectionately called
-                G-BOPS.
-              </p>
-            </div>
-          </aside>
-        </section>
-
-        <section
-          class="community-pillars"
-          aria-label="Community principles"
-          data-reveal
-        >
-          <article class="pillar-card">
-            <h3>Plum Village roots</h3>
-            <p>
-              The community practices in a tradition that brings mindfulness
-              into daily activities as a joyful, communal, continuous path.
-            </p>
-          </article>
-          <article class="pillar-card">
-            <h3>Different sanghas</h3>
-            <p>
-              Local groups create smaller circles of practice across formats,
-              neighborhoods, homes, rented spaces, and online rooms.
-            </p>
-          </article>
-          <article class="pillar-card">
-            <h3>Shared presence</h3>
-            <p>
-              Periodic events across sanghas create room to practice together
-              and enjoy each other's presence.
-            </p>
-          </article>
-        </section>
-
-        <section class="timeline-section" aria-labelledby="timeline-title">
-          <div class="section-heading" data-reveal="slide-left">
-            <p class="eyebrow">A hypothetical timeline</p>
-            <h2 id="timeline-title">From small circles to a regional sangha.</h2>
-            <p>
-              This mock timeline sketches how a Greater Boston mindfulness
-              community might grow while keeping local sanghas at the center.
-            </p>
-          </div>
-
-          <div class="timeline-wrap" aria-label="Community history timeline">
-            <div class="timeline-track">
-              <article class="timeline-event" data-reveal>
-                <div class="timeline-date">1990</div>
-                <div class="timeline-dot" aria-hidden="true"></div>
-                <div class="timeline-card">
-                  <h3>First shared sits</h3>
-                  <p>
-                    A small circle of practitioners begins gathering around
-                    sitting, walking, mindful speech, and tea.
-                  </p>
-                </div>
-              </article>
-              <article class="timeline-event" data-reveal>
-                <div class="timeline-date">1994</div>
-                <div class="timeline-dot" aria-hidden="true"></div>
-                <div class="timeline-card">
-                  <h3>Home sanghas</h3>
-                  <p>
-                    Practice finds a steady rhythm in living rooms, kitchens,
-                    and neighborhood spaces across Greater Boston.
-                  </p>
-                </div>
-              </article>
-              <article class="timeline-event" data-reveal>
-                <div class="timeline-date">1998</div>
-                <div class="timeline-dot" aria-hidden="true"></div>
-                <div class="timeline-card">
-                  <h3>G-BOPS identity</h3>
-                  <p>
-                    The affectionate G-BOPS name gives the wider community a
-                    memorable shorthand and shared sense of belonging.
-                  </p>
-                </div>
-              </article>
-              <article class="timeline-event" data-reveal>
-                <div class="timeline-date">2001</div>
-                <div class="timeline-dot" aria-hidden="true"></div>
-                <div class="timeline-card">
-                  <h3>More local doors</h3>
-                  <p>
-                    Additional sanghas make it easier for newcomers to find a
-                    practice group close to their daily lives.
-                  </p>
-                </div>
-              </article>
-              <article class="timeline-event" data-reveal>
-                <div class="timeline-date">2005</div>
-                <div class="timeline-dot" aria-hidden="true"></div>
-                <div class="timeline-card">
-                  <h3>Regional calendar</h3>
-                  <p>
-                    Sanghas begin coordinating shared events, days of
-                    mindfulness, study circles, and seasonal gatherings.
-                  </p>
-                </div>
-              </article>
-              <article class="timeline-event" data-reveal>
-                <div class="timeline-date">2009</div>
-                <div class="timeline-dot" aria-hidden="true"></div>
-                <div class="timeline-card">
-                  <h3>Outdoor practice</h3>
-                  <p>
-                    Walking meditation and informal outdoor gatherings add a
-                    spacious way to practice together.
-                  </p>
-                </div>
-              </article>
-              <article class="timeline-event" data-reveal>
-                <div class="timeline-date">2013</div>
-                <div class="timeline-dot" aria-hidden="true"></div>
-                <div class="timeline-card">
-                  <h3>Community builders</h3>
-                  <p>
-                    Facilitators and volunteers clarify how to welcome people,
-                    host rooms, and keep the wider network connected.
-                  </p>
-                </div>
-              </article>
-              <article class="timeline-event" data-reveal>
-                <div class="timeline-date">2017</div>
-                <div class="timeline-dot" aria-hidden="true"></div>
-                <div class="timeline-card">
-                  <h3>Shared teachings</h3>
-                  <p>
-                    Study and reflection across sanghas strengthen the community
-                    around Plum Village practice in daily life.
-                  </p>
-                </div>
-              </article>
-              <article class="timeline-event" data-reveal>
-                <div class="timeline-date">2020</div>
-                <div class="timeline-dot" aria-hidden="true"></div>
-                <div class="timeline-card">
-                  <h3>Online sangha</h3>
-                  <p>
-                    Online meetings keep practice accessible and make the
-                    community easier to reach from different places.
-                  </p>
-                </div>
-              </article>
-              <article class="timeline-event" data-reveal>
-                <div class="timeline-date">2026</div>
-                <div class="timeline-dot" aria-hidden="true"></div>
-                <div class="timeline-card">
-                  <h3>Temple gathering</h3>
-                  <p>
-                    A Day of Mindfulness at Chua Viet Nam temple in Roslindale
-                    models a warm cross-sangha gathering.
-                  </p>
-                </div>
-              </article>
-              <article class="timeline-event" data-reveal>
-                <div class="timeline-date">Now</div>
-                <div class="timeline-dot" aria-hidden="true"></div>
-                <div class="timeline-card">
-                  <h3>Belonging made visible</h3>
-                  <p>
-                    The next chapter makes the map, calendar, and pathways into
-                    community easier for new practitioners to understand.
-                  </p>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section class="history-section" aria-labelledby="history-title">
-          <div class="section-heading" data-reveal="slide-left">
-            <p class="eyebrow">Our history</p>
-            <h2 id="history-title">A community held by many local circles.</h2>
-            <p>
-              This mocked history section can later be replaced with verified
-              dates, sangha stories, archive photos, and member voices.
-            </p>
-          </div>
-
-          <div class="history-grid">
-            <div class="history-copy">
-              <article class="history-story" data-reveal="slide-left">
-                <h3>Built around practice</h3>
-                <p>
-                  The community story is not only institutional. It is carried
-                  through repeated acts of sitting together, walking together,
-                  listening deeply, and returning to daily life.
-                </p>
-              </article>
-              <article class="history-story" data-reveal="slide-left">
-                <h3>Held across places</h3>
-                <p>
-                  Homes, rented spaces, outdoor practice, online rooms, and
-                  occasional temple gatherings each become part of one larger
-                  regional community.
-                </p>
-              </article>
-              <article class="history-story" data-reveal="slide-left">
-                <h3>Welcoming the next person</h3>
-                <p>
-                  The final page can make the beginner path clear: learn the
-                  tradition, find a sangha, attend an event, and begin with the
-                  community that fits your life.
-                </p>
-              </article>
-            </div>
-
-            <aside class="history-media" data-reveal="slide-right">
-              <img
-                src="assets/practitioner-page-title-hero.jpg"
-                alt="Large Buddha statue used as a calm community practice image"
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="history-caption">
-                <strong>Mock content direction</strong>
-                <p>
-                  The production version could pair this structure with a real
-                  map of sanghas, event photos, and the May 2026 temple
-                  gathering mentioned on the source page.
-                </p>
-              </div>
-            </aside>
-          </div>
-        </section>
-
-        <section class="closing-band" data-reveal>
-          <h2>Community begins with practicing together.</h2>
+        <section class="community-reading" aria-labelledby="community-title">
+          <p class="eyebrow">Practice &amp; Community / Our Community</p>
+          <h1 id="community-title">Many local circles, one mahasangha.</h1>
           <p>
-            The finished page can move from source orientation, to community
-            history, to practical next steps for finding a sangha or event.
+            Mindfulness Communities of Greater Boston (MCGB) represents a large number of
+            <a href="find-a-sangha.html">Sanghas</a> that practice in the tradition of
+            <a href="https://plumvillage.org/about/plum-village">Plum Village</a> (founded by Thich
+            Nhat Hanh). This includes
+            <a href="resources.html#explore-tradition">reading the Dharma</a>, gathering as Sangha,
+            and engaging with our inner Buddha to find presence of mind, and compassion for all
+            beings.
+          </p>
+          <p>
+            The many Sanghas practice both individually and collectively, with independent Sanghas
+            meeting regularly and practicing in a way fitting their members, and collectively
+            gathering for <a href="/?section=practice-events">events</a> such as peaceful walks,
+            ceremonies such as the
+            <a href="resources.html#resource-five-mindfulness-trainings">5 Mindfulness Trainings</a>
+            transmission, Days of Mindfulness, and groups such as the book club.
+          </p>
+          <p>
+            While Mindful Communities of Greater Boston is a newer initiative, the community of
+            practice in the Boston region has a great history, including many visits from Thich Nhat
+            Hanh and many members of the
+            <a href="resources.html#resource-order-of-interbeing">Order of Interbeing</a> (an order
+            of ordained lay individuals). Learn more under <a href="resources.html">Resources</a>.
           </p>
         </section>
 
         <p class="footer-note">
-          <a href="#">Terms and Conditions</a> |
-          <a href="#">Privacy Policy</a> |
+          <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a> |
           <a href="#">Press &amp; Media</a> |
           <a href="#">Contact Us</a>
         </p>
       </main>
     </div>
-
-    <script>
-      const revealItems = document.querySelectorAll("[data-reveal]");
-
-      if ("IntersectionObserver" in window) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("is-visible");
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { rootMargin: "0px 0px -12% 0px", threshold: 0.14 },
-        );
-
-        revealItems.forEach((item, index) => {
-          item.style.transitionDelay = `${Math.min(index * 45, 360)}ms`;
-          observer.observe(item);
-        });
-      } else {
-        revealItems.forEach((item) => item.classList.add("is-visible"));
-      }
-    </script>
   </body>
 </html>

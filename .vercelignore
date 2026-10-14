@@ -1,2 +1,11 @@
 # Working-group feedback is a local reference, not a website asset.
 public/assets/GBCOM Website Working Group.pdf
+
+# Keep local sources, duplicate prototypes, and generated artifacts out of deployment
+Photos/
+outputs/
+design-prototypes/
+node_modules/
+.git/
+.vercel/
+dist/

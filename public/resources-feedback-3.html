@@ -668,6 +668,11 @@
           "Art & Song",
           [
             byTitle("New England Buddhist Poetry Exchange"),
+            linked(
+              "The Present Moment",
+              "Read the Newsletter of Mindfulness Communities of Greater Boston, after New England Buddhist Poetry Exchange.",
+              "newsletters.html",
+            ),
             byTitle("Letters from Thích Nhất Hạnh"),
             {
               title: "Poems",
@@ -750,14 +755,30 @@
               "Sangha Resources",
               "Guides and materials for tending a practice community.",
               [
-                local(
-                  "Dharma sharing guides",
-                  "Structure, deep listening, facilitation prompts, and group agreements support our shared practice.",
+                linked(
+                  "Overview",
+                  "An introduction to sangha facilitation, welcoming newcomers, and Dharma sharing.",
+                  "sangha-overview.html",
+                ),
+                linked(
+                  "Minding the Bell",
+                  "Invite the bell with mindfulness, steadiness, and care for the sangha.",
+                  "minding-the-bell.html",
                 ),
                 linked(
                   "Sangha Facilitation",
                   "Guidance for facilitating Plum Village sangha practice with care, clarity, and inclusion.",
-                  "https://www.plumline.org/facilitation",
+                  "sangha-facilitation.html",
+                ),
+                linked(
+                  "Dharma sharing guidelines",
+                  "Deep listening, mindful speech, and shared agreements for a safe practice space.",
+                  "dharma-sharing-guidelines.html",
+                ),
+                linked(
+                  "Meeting and Bell Minding Flow",
+                  "An example of the flow, timing, and bell cadences of a Sangha meeting.",
+                  "meeting-and-bell-minding-flow.html",
                 ),
                 linked(
                   "Songbook",
@@ -846,7 +867,7 @@
         if (item.subtiles)
           return `<button class="resource-card" type="button" data-resource-detail="${item.id}">${body}</button>`;
         if (item.url)
-          return `<a class="resource-card" href="${item.url}" target="_blank" rel="noopener noreferrer">${body}</a>`;
+          return `<a class="resource-card" href="${item.url}" ${/^https?:\/\//i.test(item.url) ? 'target="_blank" rel="noopener noreferrer"' : ""}>${body}</a>`;
         return `<article class="resource-card">${body}</article>`;
       }
       function renderOverview() {

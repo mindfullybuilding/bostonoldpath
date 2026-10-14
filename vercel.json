@@ -1,116 +1,175 @@
 {
-  "rewrites": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "installCommand": "npm ci",
+  "outputDirectory": "dist/client",
+  "redirects": [
     {
-      "source": "/assets/:path*",
-      "destination": "/client/assets/:path*"
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "bostonoldpath.vercel.app"
+        }
+      ],
+      "destination": "https://bostonmindfulness.vercel.app/:path*",
+      "permanent": true
     },
     {
-      "source": "/bops-homepage-wireframe-6.15.26.html",
-      "destination": "/client/bops-homepage-wireframe-6.15.26.html"
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "mcgb-feedback-2.vercel.app"
+        }
+      ],
+      "destination": "https://bostonmindfulness.vercel.app/:path*",
+      "permanent": true
     },
     {
-      "source": "/bops-homepage-wireframe-feedback-1.html",
-      "destination": "/client/bops-homepage-wireframe-feedback-1.html"
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "bostonoldpath-mindfullybuildings-projects.vercel.app"
+        }
+      ],
+      "destination": "https://bostonmindfulness.vercel.app/:path*",
+      "permanent": true
     },
     {
-      "source": "/bops-homepage-wireframe.html",
-      "destination": "/client/bops-homepage-wireframe.html"
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "bostonoldpath-git-main-mindfullybuildings-projects.vercel.app"
+        }
+      ],
+      "destination": "https://bostonmindfulness.vercel.app/:path*",
+      "permanent": true
     },
     {
-      "source": "/our-practice.html",
-      "destination": "/client/our-practice.html"
-    },
-    {
-      "source": "/our-community.html",
-      "destination": "/client/our-community.html"
-    },
-    {
-      "source": "/find-a-sangha.html",
-      "destination": "/client/find-a-sangha.html"
-    },
-    {
-      "source": "/resources.html",
-      "destination": "/client/resources.html"
-    },
-    {
-      "source": "/join-mailing-list.html",
-      "destination": "/client/join-mailing-list.html"
-    },
-    {
-      "source": "/newsletters.html",
-      "destination": "/client/newsletters.html"
-    },
-    {
-      "source": "/our-practice-feedback-1.html",
-      "destination": "/client/our-practice-feedback-1.html"
-    },
-    {
-      "source": "/our-community-feedback-1.html",
-      "destination": "/client/our-community-feedback-1.html"
-    },
-    {
-      "source": "/resources-feedback-1.html",
-      "destination": "/client/resources-feedback-1.html"
-    },
-    {
-      "source": "/find-a-sangha-feedback-1.html",
-      "destination": "/client/find-a-sangha-feedback-1.html"
-    },
-    {
-      "source": "/join-mailing-list-feedback-1.html",
-      "destination": "/client/join-mailing-list-feedback-1.html"
-    },
-    {
-      "source": "/newsletters-feedback-1.html",
-      "destination": "/client/newsletters-feedback-1.html"
-    },
-    {
-      "source": "/mcgb-homepage-wireframe-feedback-2.html",
-      "destination": "/client/mcgb-homepage-wireframe-feedback-2.html"
-    },
-    {
-      "source": "/our-practice-feedback-2.html",
-      "destination": "/client/our-practice-feedback-2.html"
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "bostonoldpath-mindfullybuilding-mindfullybuildings-projects.vercel.app"
+        }
+      ],
+      "destination": "https://bostonmindfulness.vercel.app/:path*",
+      "permanent": true
     },
     {
       "source": "/our-community-feedback-2.html",
-      "destination": "/client/our-community-feedback-2.html"
+      "destination": "/our-community.html",
+      "permanent": true
     },
     {
       "source": "/resources-feedback-2.html",
-      "destination": "/client/resources-feedback-2.html"
+      "destination": "/resources.html",
+      "permanent": true
+    },
+    {
+      "source": "/our-practice-feedback-1.html",
+      "destination": "/our-practice.html",
+      "permanent": true
     },
     {
       "source": "/find-a-sangha-feedback-2.html",
-      "destination": "/client/find-a-sangha-feedback-2.html"
-    },
-    {
-      "source": "/join-mailing-list-feedback-2.html",
-      "destination": "/client/join-mailing-list-feedback-2.html"
-    },
-    {
-      "source": "/newsletters-feedback-2.html",
-      "destination": "/client/newsletters-feedback-2.html"
-    },
-    {
-      "source": "/mcgb-homepage-wireframe-feedback-3.html",
-      "destination": "/client/mcgb-homepage-wireframe-feedback-3.html"
-    },
-    {
-      "source": "/our-community-feedback-3.html",
-      "destination": "/client/our-community-feedback-3.html"
+      "destination": "/find-a-sangha.html",
+      "permanent": true
     },
     {
       "source": "/find-a-sangha-feedback-3.html",
-      "destination": "/client/find-a-sangha-feedback-3.html"
+      "destination": "/find-a-sangha.html",
+      "permanent": true
     },
     {
       "source": "/resources-feedback-3.html",
-      "destination": "/client/resources-feedback-3.html"
+      "destination": "/resources.html",
+      "permanent": true
     },
     {
+      "source": "/our-community-feedback-3.html",
+      "destination": "/our-community.html",
+      "permanent": true
+    },
+    {
+      "source": "/mcgb-homepage-wireframe-feedback-3.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/bops-homepage-wireframe-feedback-1.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/newsletters-feedback-2.html",
+      "destination": "/newsletters.html",
+      "permanent": true
+    },
+    {
+      "source": "/bops-homepage-wireframe-6.15.26.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mcgb-homepage-wireframe-feedback-2.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/join-mailing-list-feedback-2.html",
+      "destination": "/join-mailing-list.html",
+      "permanent": true
+    },
+    {
+      "source": "/join-mailing-list-feedback-1.html",
+      "destination": "/join-mailing-list.html",
+      "permanent": true
+    },
+    {
+      "source": "/newsletters-feedback-1.html",
+      "destination": "/newsletters.html",
+      "permanent": true
+    },
+    {
+      "source": "/bops-homepage-wireframe.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/find-a-sangha-feedback-1.html",
+      "destination": "/find-a-sangha.html",
+      "permanent": true
+    },
+    {
+      "source": "/our-community-feedback-1.html",
+      "destination": "/our-community.html",
+      "permanent": true
+    },
+    {
+      "source": "/resources-feedback-1.html",
+      "destination": "/resources.html",
+      "permanent": true
+    },
+    {
+      "source": "/our-practice-feedback-2.html",
+      "destination": "/our-practice.html",
+      "permanent": true
+    },
+    {
+      "source": "/home.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
       "source": "/",
-      "destination": "/client/mcgb-homepage-wireframe-feedback-2.html"
+      "destination": "/home.html"
     }
   ]
 }

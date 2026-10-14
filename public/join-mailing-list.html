@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Join Our Mailing Lists | Boston Old Path Sangha</title>
+    <link rel="canonical" href="https://bostonmindfulness.vercel.app/join-mailing-list.html" />
+    <title>Join Our Mailing Lists | Mindfulness Communities of Greater Boston</title>
     <style>
       :root {
         color-scheme: light;
@@ -18,8 +19,9 @@
         --focus: #8b572a;
         --radius: 8px;
         --shadow: 0 18px 60px rgba(34, 34, 34, 0.08);
-        --font-sans: "PV Sans Serif", ui-sans-serif, system-ui, -apple-system,
-          BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        --font-sans:
+          "PV Sans Serif", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Arial, sans-serif;
       }
 
       * {
@@ -341,28 +343,228 @@
           width: 100%;
         }
       }
+
+      /* Feedback 2: allow the full community name and subtitle to wrap. */
+      .brand {
+        min-width: 0;
+        flex: 1 1 380px;
+      }
+      .brand strong,
+      .brand span {
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+      .brand span {
+        display: block;
+      }
+      .topbar-inner {
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .path-tools {
+        flex-shrink: 0;
+      }
+      .email-recipient {
+        overflow-wrap: anywhere;
+        user-select: text;
+      }
+      .email-details {
+        margin-top: 14px;
+      }
+      .copy-status {
+        display: block;
+        font-size: 0.9rem;
+      }
+      .resource-group {
+        margin-top: 28px;
+      }
+      .simple-intro {
+        max-width: 70ch;
+        margin: 32px 0;
+      }
+      @media (max-width: 680px) {
+        .brand {
+          flex-basis: 100%;
+        }
+      }
+
+      @media (max-width: 739px) {
+        html[data-mcgb-mobile] {
+          font-size: 16px;
+          scroll-behavior: auto;
+        }
+        html[data-mcgb-mobile] body {
+          padding-top: env(safe-area-inset-top);
+          padding-bottom: env(safe-area-inset-bottom);
+          -webkit-text-size-adjust: 100%;
+        }
+        html[data-mcgb-mobile] .topbar {
+          position: static;
+          backdrop-filter: none;
+        }
+        html[data-mcgb-mobile] .topbar-inner,
+        html[data-mcgb-mobile] .content {
+          width: auto;
+          margin-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+        }
+        html[data-mcgb-mobile] .topbar-inner {
+          padding: 16px 0;
+          gap: 12px;
+        }
+        html[data-mcgb-mobile] .brand {
+          flex-basis: auto;
+          width: 100%;
+          min-width: 0;
+        }
+        html[data-mcgb-mobile] .brand strong {
+          font-size: 1rem;
+          line-height: 1.35;
+        }
+        html[data-mcgb-mobile] .brand span {
+          display: block;
+          font-size: 0.85rem;
+          line-height: 1.45;
+          margin-top: 4px;
+        }
+        html[data-mcgb-mobile] .content {
+          padding-top: 20px;
+          padding-bottom: 24px;
+          min-height: auto;
+        }
+        html[data-mcgb-mobile] .context-nav {
+          margin-bottom: 16px;
+        }
+        html[data-mcgb-mobile] .context-nav a,
+        html[data-mcgb-mobile] .text-button,
+        html[data-mcgb-mobile] .button,
+        html[data-mcgb-mobile] .resource-back {
+          min-height: 44px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1rem;
+        }
+        html[data-mcgb-mobile] .context-nav a {
+          justify-content: flex-start;
+          text-align: left;
+        }
+        html[data-mcgb-mobile] h1 {
+          font-size: clamp(1.75rem, 7vw, 2rem);
+          line-height: 1.2;
+        }
+        html[data-mcgb-mobile] .footer-note {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0 10px;
+          justify-content: center;
+          margin-top: 24px;
+          font-size: 0;
+          padding-top: 16px;
+        }
+        html[data-mcgb-mobile] .footer-note a {
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
+          font-size: 0.85rem;
+        }
+        html[data-mcgb-mobile] a,
+        html[data-mcgb-mobile] button,
+        html[data-mcgb-mobile] summary {
+          touch-action: manipulation;
+        }
+        html[data-mcgb-mobile] .email-recipient,
+        html[data-mcgb-mobile] .email-address {
+          overflow-wrap: anywhere;
+        }
+      }
+      @media (max-width: 739px) and (prefers-reduced-motion: reduce) {
+        html[data-mcgb-mobile] *,
+        html[data-mcgb-mobile] *::before,
+        html[data-mcgb-mobile] *::after {
+          transition: none !important;
+          animation: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+      @media (max-width: 739px) {
+        html[data-mcgb-mobile] .tool-header,
+        html[data-mcgb-mobile] .tool-body {
+          padding: 16px;
+        }
+        html[data-mcgb-mobile] .tool-header {
+          gap: 12px;
+        }
+        html[data-mcgb-mobile] .tool-body {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+          gap: 18px;
+        }
+        html[data-mcgb-mobile] .list-options {
+          min-width: 0;
+          grid-template-columns: minmax(0, 1fr);
+        }
+        html[data-mcgb-mobile] .list-option {
+          grid-template-columns: 22px minmax(0, 1fr);
+          padding: 16px;
+          gap: 12px;
+          min-height: 44px;
+        }
+        html[data-mcgb-mobile] .list-option input {
+          width: 20px;
+          height: 20px;
+        }
+        html[data-mcgb-mobile] .list-option p {
+          font-size: 1rem;
+          line-height: 1.55;
+        }
+        html[data-mcgb-mobile] .email-address {
+          font-size: 0.9rem;
+        }
+        html[data-mcgb-mobile] .subscription-actions,
+        html[data-mcgb-mobile] .steps {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+        }
+        html[data-mcgb-mobile] .subscription-actions > div {
+          min-width: 0;
+        }
+        html[data-mcgb-mobile] .subscription-actions .button,
+        html[data-mcgb-mobile] [data-copy-email] {
+          width: 100%;
+          padding: 12px;
+          text-align: center;
+          white-space: normal;
+        }
+        html[data-mcgb-mobile] [data-copy-email] {
+          background: white;
+          border: 1px solid var(--less-light-ink);
+          border-radius: var(--radius);
+          color: var(--ink);
+          margin-top: 8px;
+        }
+        html[data-mcgb-mobile] .selection-summary {
+          line-height: 1.5;
+        }
+        html[data-mcgb-mobile] .steps {
+          gap: 16px;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="page">
       <header class="topbar">
         <div class="topbar-inner">
-          <div class="brand" aria-label="BOPS homepage">
-            <strong>Boston Old Path Sangha</strong>
-            <span>Mindfulness in Boston and everywhere...</span>
-          </div>
-          <div class="path-tools">
-            <span class="path-label">Beginner's Mind</span>
-            <a class="text-button" href="bops-homepage-wireframe-6.15.26.html?reset=1">
-              Change path
-            </a>
+          <div class="brand" aria-label="MCGB homepage">
+            <strong>Mindfulness Communities of Greater Boston</strong>
+            <span>Engaged Buddhism in the Plum Village tradition of Thích Nhất Hạnh</span>
           </div>
         </div>
       </header>
 
       <main class="content">
         <nav class="context-nav" aria-label="Section navigation">
-          <a class="text-button" href="bops-homepage-wireframe-6.15.26.html?path=beginner&section=stay-connected">
+          <a class="text-button" href="/?section=stay-connected">
             Back to Newsletter &amp; Mailing List
           </a>
         </nav>
@@ -372,8 +574,8 @@
             <p class="eyebrow">Newsletter &amp; Mailing List</p>
             <h1 id="mailing-title">Choose the updates you want</h1>
             <p class="lede">
-              Select one or both lists. Your email app will open a blank message
-              for each subscription you choose.
+              Select one or both lists. Send a blank email for each subscription, using your email
+              app or email in your browser.
             </p>
           </header>
 
@@ -381,17 +583,11 @@
             <fieldset class="list-options">
               <legend>Mailing lists</legend>
               <label class="list-option">
-                <input
-                  type="checkbox"
-                  value="practice"
-                  data-list-option
-                  checked
-                />
+                <input type="checkbox" value="practice" data-list-option checked />
                 <span>
-                  <strong>BOPS practice emails</strong>
+                  <strong>Community practice emails</strong>
                   <p>
-                    Sitting updates, days of mindfulness, retreats, and community
-                    announcements.
+                    Sitting updates, days of mindfulness, retreats, and community announcements.
                   </p>
                   <span class="email-address">oldpath+subscribe@BostonOldPath.groups.io</span>
                 </span>
@@ -400,15 +596,16 @@
                 <input type="checkbox" value="sharing" data-list-option />
                 <span>
                   <strong>Member sharing</strong>
-                  <p>
-                    News, events, and items of interest shared with community
-                    members.
-                  </p>
+                  <p>News, events, and items of interest shared with community members.</p>
                   <span class="email-address">membersharing+subscribe@BostonOldPath.groups.io</span>
                 </span>
               </label>
             </fieldset>
 
+            <p>
+              Our lists use Groups.io, so joining takes an email and a confirmation step. An email
+              app is optional.
+            </p>
             <div class="action-panel">
               <p class="selection-summary" id="selection-summary" aria-live="polite"></p>
               <div class="subscription-actions" id="subscription-actions"></div>
@@ -421,19 +618,21 @@
               </li>
               <li>
                 <strong>2. Send</strong>
-                Send the blank email your email app creates.
+                Send a blank email to each selected address. In browser-based email, compose a new
+                message and paste the copied address into To. Use the email account where you want
+                to receive updates.
               </li>
               <li>
                 <strong>3. Confirm</strong>
-                Reply to the confirmation request from Groups.io.
+                Follow the confirmation instructions sent by Groups.io. Check your spam folder if
+                the message does not arrive.
               </li>
             </ol>
           </div>
         </section>
 
         <p class="footer-note">
-          <a href="#">Terms and Conditions</a> |
-          <a href="#">Privacy Policy</a> |
+          <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a> |
           <a href="#">Press &amp; Media</a> |
           <a href="#">Contact Us</a>
         </p>
@@ -443,7 +642,7 @@
     <script>
       const lists = {
         practice: {
-          name: "BOPS practice emails",
+          name: "Community practice emails",
           shortName: "Practice Mailing List",
           address: "oldpath+subscribe@BostonOldPath.groups.io",
         },
@@ -454,9 +653,7 @@
         },
       };
 
-      const optionInputs = Array.from(
-        document.querySelectorAll("[data-list-option]"),
-      );
+      const optionInputs = Array.from(document.querySelectorAll("[data-list-option]"));
       const actions = document.querySelector("#subscription-actions");
       const summary = document.querySelector("#selection-summary");
 
@@ -479,12 +676,12 @@
         actions.innerHTML = selected
           .map(
             (list, index) => `
-              <a
+              <div><p class="email-recipient"><strong>To:</strong> ${list.address} <button type="button" class="text-button" data-copy-email="${list.address}">Copy address</button><span class="copy-status" role="status"></span></p><a
                 class="button${index > 0 ? " secondary" : ""}"
                 href="mailto:${list.address}"
               >
-                Join ${list.shortName}
-              </a>
+                Open email app for ${list.shortName}
+              </a></div>
             `,
           )
           .join("");
@@ -495,6 +692,23 @@
       });
 
       renderSubscriptionActions();
+    </script>
+
+    <script>
+      document.addEventListener("click", async (event) => {
+        const button = event.target.closest("[data-copy-email]");
+        if (!button) return;
+        const status = button.parentElement.querySelector(".copy-status");
+        try {
+          await navigator.clipboard.writeText(button.dataset.copyEmail);
+          status.textContent = "Address copied.";
+        } catch {
+          status.textContent = "Copy unavailable. Select the address above and copy it manually.";
+        }
+      });
+    </script>
+    <script>
+      document.documentElement.setAttribute("data-mcgb-mobile", "");
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
   </body>

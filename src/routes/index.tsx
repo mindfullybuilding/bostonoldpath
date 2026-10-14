@@ -7,8 +7,8 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <iframe
-      src="/mcgb-homepage-wireframe-feedback-2.html"
-      title="MCGB Beginner's Mind Feedback"
+      src="/home.html"
+      title="Mindfulness Communities of Greater Boston"
       className="block h-screen w-screen border-0"
     />
   );

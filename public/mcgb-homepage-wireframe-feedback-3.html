@@ -1155,6 +1155,53 @@
           line-height: 1.55;
         }
       }
+
+      /* Welcome copy, photograph, and navigation share one clear reading order. */
+      .content {
+        padding-top: clamp(24px, 3.5vw, 44px);
+      }
+      .path-hero {
+        align-items: start;
+        gap: 24px 40px;
+      }
+      .intro h1 {
+        margin-bottom: 20px;
+      }
+      .intro .home-intro {
+        margin: 0;
+        max-width: 65ch;
+        font-size: 1rem;
+        line-height: 1.7;
+      }
+      .path-options-anchor {
+        grid-column: 1 / -1;
+        width: 100%;
+        margin-top: 0;
+      }
+      .path-hero-media {
+        align-self: stretch;
+        min-height: 320px;
+      }
+      .path-hero-media img {
+        height: 100%;
+      }
+      @media (max-width: 739px) {
+        .path-hero {
+          gap: 20px;
+        }
+        .intro .home-intro {
+          font-size: 1rem;
+          line-height: 1.65;
+        }
+        .path-hero-media {
+          min-height: 0;
+          height: 180px;
+        }
+        .path-hero-media img {
+          height: 180px;
+          max-height: 180px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1175,18 +1222,16 @@
         <main class="content">
           <section class="path-hero" aria-labelledby="path-title">
             <div class="intro">
-              <p class="eyebrow" id="path-eyebrow"></p>
+              <p class="eyebrow" id="path-eyebrow" hidden></p>
               <h1 id="path-title"></h1>
-              <div class="path-options-anchor" id="path-options-anchor">
-                <div
-                  class="path-options-panel"
-                  id="path-options-panel"
-                  aria-label="Choose information to view"
-                >
-                  <p id="path-summary"></p>
-                  <div class="hero-actions" id="hero-actions"></div>
-                </div>
-              </div>
+              <p class="home-intro">
+                The Mindfulness Communities of Greater Boston is an interfaith collective that seeks
+                to learn and practice mindfulness taught by Thích Nhất Hạnh (“Thầy”) a Vietnamese
+                Buddhist monk, author and activist. We explore ways to bring mindfulness into our
+                lives, families, work, and society. We try to practice mindfulness throughout every
+                day, not just during meditation, but also in the kitchen, in the car, at work, on
+                the phone and while walking from one place to another.
+              </p>
             </div>
 
             <figure class="path-hero-media">
@@ -1198,6 +1243,16 @@
                 decoding="async"
               />
             </figure>
+            <div class="path-options-anchor" id="path-options-anchor">
+              <div
+                class="path-options-panel"
+                id="path-options-panel"
+                aria-label="Choose information to view"
+              >
+                <p id="path-summary"></p>
+                <div class="hero-actions" id="hero-actions"></div>
+              </div>
+            </div>
           </section>
 
           <section class="section" id="primary-section"></section>
@@ -1648,8 +1703,8 @@
 
       const pathContent = {
         beginner: {
-          label: "Beginner's Mind",
-          eyebrow: "Beginner's Mind",
+          label: "Welcome",
+          eyebrow: "",
           title: "A deep bow to you, dear friend.",
           summary: "Welcome. Explore practice and community at your own pace.",
           image: "assets/beginners-mind-page-title-hero.jpg",
@@ -1676,7 +1731,7 @@
               },
               {
                 title: "Our Community",
-                copy: "Meet our community and discover how we practice together.",
+                copy: "Meet MCGB and discover how we practice together.",
                 url: "our-community-feedback-3.html",
               },
               {

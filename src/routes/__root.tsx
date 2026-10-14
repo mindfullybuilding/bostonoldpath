@@ -33,7 +33,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
   console.error(error);
   const router = useRouter();
 
@@ -73,20 +73,20 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Boston Old Path Sangha" },
+      { title: "Mindfulness Communities of Greater Boston" },
       {
         name: "description",
         content: "Mindfulness in Boston and everywhere.",
       },
-      { name: "author", content: "Boston Old Path Sangha" },
-      { property: "og:title", content: "Boston Old Path Sangha" },
+      { name: "author", content: "Mindfulness Communities of Greater Boston" },
+      { property: "og:title", content: "Mindfulness Communities of Greater Boston" },
       {
         property: "og:description",
         content: "Mindfulness in Boston and everywhere.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Boston Old Path Sangha" },
+      { name: "twitter:title", content: "Mindfulness Communities of Greater Boston" },
       { name: "description", content: "Mindfulness in Boston and everywhere..." },
       { property: "og:description", content: "Mindfulness in Boston and everywhere..." },
       { name: "twitter:description", content: "Mindfulness in Boston and everywhere..." },
@@ -102,6 +102,7 @@ export const Route = createRootRoute({
       },
     ],
     links: [
+      { rel: "canonical", href: "https://bostonmindfulness.vercel.app/" },
       {
         rel: "stylesheet",
         href: appCss,

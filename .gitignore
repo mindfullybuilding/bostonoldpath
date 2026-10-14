@@ -41,3 +41,8 @@ test-results/
 *.sln
 *.sw?
 .vercel
+
+# Local photo sources and transcription review archive
+/Photos/
+/outputs/photos-transcription/
+/public/assets/GBCOM Website Working Group.pdf

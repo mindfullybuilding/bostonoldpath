@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en" data-mcgb-mobile>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://bostonmindfulness.vercel.app/sangha-overview.html" />
+    <title>Overview | Mindfulness Communities of Greater Boston</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --sun: #ffd22a;
+        --light-sun: #fefbf3;
+        --ink: #222;
+        --dark-ink: #272727;
+        --earth: #8b572a;
+        --cloud: #fff;
+        --less-light-ink: #eaeaea;
+        --muted: #6d6a62;
+        --focus: #8b572a;
+        --radius: 8px;
+        --shadow: 0 18px 60px rgba(34, 34, 34, 0.08);
+        --font-sans:
+          "PV Sans Serif", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Arial, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-height: 100%;
+        background: var(--light-sun);
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: var(--light-sun);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      a:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      .page {
+        min-height: 100vh;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--less-light-ink);
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(12px);
+      }
+
+      .topbar-inner,
+      .content {
+        width: min(1160px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 0;
+      }
+
+      .brand {
+        display: grid;
+        gap: 1px;
+      }
+
+      .brand strong {
+        font-size: 1rem;
+      }
+
+      .brand span,
+      .path-label {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .path-tools {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        border: 1px solid rgba(139, 87, 42, 0.14);
+        border-radius: 999px;
+        padding: 6px 10px 6px 12px;
+        background: rgba(255, 210, 42, 0.16);
+      }
+
+      .text-button {
+        border-bottom: 2px solid var(--sun);
+        padding: 2px 0;
+        color: var(--ink);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .content {
+        display: flex;
+        min-height: calc(100vh - 73px);
+        flex-direction: column;
+        padding: clamp(28px, 4vw, 44px) 0 52px;
+      }
+
+      .context-nav {
+        margin-bottom: 14px;
+      }
+
+      .context-nav .text-button {
+        font-size: 0.88rem;
+      }
+
+      .resource-shell {
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        background: var(--cloud);
+      }
+
+      .resource-header {
+        display: grid;
+        gap: 8px;
+        border-bottom: 1px solid var(--less-light-ink);
+        padding: clamp(18px, 3vw, 28px);
+      }
+
+      .eyebrow {
+        margin: 0;
+        color: var(--earth);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin-bottom: 0;
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 720px;
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .resource-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .resource-card {
+        display: grid;
+        align-content: space-between;
+        gap: 12px;
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        padding: 14px;
+        background: var(--cloud);
+        color: inherit;
+        text-decoration: none;
+        transition:
+          border-color 160ms ease,
+          background-color 160ms ease,
+          transform 160ms ease;
+      }
+
+      .resource-card:hover {
+        border-color: var(--earth);
+        background: var(--light-sun);
+        transform: translateY(-2px);
+      }
+
+      .resource-card h3 {
+        margin-bottom: 6px;
+        font-size: 1.05rem;
+      }
+
+      .resource-card p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .footer-note {
+        margin-top: auto;
+        padding-top: 34px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        text-align: center;
+      }
+
+      .footer-note a {
+        text-decoration: none;
+      }
+
+      .footer-note a:hover {
+        color: var(--ink);
+        text-decoration: underline;
+      }
+
+      @media (min-width: 660px) {
+        .resource-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (min-width: 980px) {
+        .resource-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 620px) {
+        .topbar-inner {
+          align-items: flex-start;
+        }
+
+        .brand span {
+          display: none;
+        }
+
+        .path-tools {
+          border-radius: var(--radius);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .resource-card {
+          transition: none;
+        }
+      }
+
+      /* Feedback 2: allow the full community name and subtitle to wrap. */
+      .brand {
+        min-width: 0;
+        flex: 1 1 380px;
+      }
+      .brand strong,
+      .brand span {
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+      .brand span {
+        display: block;
+      }
+      .topbar-inner {
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .path-tools {
+        flex-shrink: 0;
+      }
+      .email-recipient {
+        overflow-wrap: anywhere;
+        user-select: text;
+      }
+      .email-details {
+        margin-top: 14px;
+      }
+      .copy-status {
+        display: block;
+        font-size: 0.9rem;
+      }
+      #resource-grid {
+        padding: clamp(18px, 3vw, 28px);
+      }
+      .resource-group + .resource-group {
+        margin-top: 20px;
+      }
+      .resource-group > h2 {
+        margin: 0 0 12px;
+      }
+      .simple-intro {
+        max-width: 70ch;
+        margin: 32px 0;
+      }
+      @media (max-width: 680px) {
+        .brand {
+          flex-basis: 100%;
+        }
+      }
+      .community-reading {
+        max-width: 70ch;
+        margin: 36px auto 64px;
+      }
+      .community-reading h1 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 1.15;
+      }
+      .community-reading h2 {
+        margin-top: 32px;
+        font-size: 1.35rem;
+      }
+      .community-reading p {
+        line-height: 1.8;
+      }
+      .source-note {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      html {
+        scroll-behavior: auto;
+      }
+
+      @media (max-width: 739px) {
+        html[data-mcgb-mobile] {
+          font-size: 16px;
+          scroll-behavior: auto;
+        }
+        html[data-mcgb-mobile] body {
+          padding-top: env(safe-area-inset-top);
+          padding-bottom: env(safe-area-inset-bottom);
+          -webkit-text-size-adjust: 100%;
+        }
+        html[data-mcgb-mobile] .topbar {
+          position: static;
+          backdrop-filter: none;
+        }
+        html[data-mcgb-mobile] .topbar-inner,
+        html[data-mcgb-mobile] .content {
+          width: auto;
+          margin-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+        }
+        html[data-mcgb-mobile] .topbar-inner {
+          padding: 16px 0;
+          gap: 12px;
+        }
+        html[data-mcgb-mobile] .brand {
+          flex-basis: auto;
+          width: 100%;
+          min-width: 0;
+        }
+        html[data-mcgb-mobile] .brand strong {
+          font-size: 1rem;
+          line-height: 1.35;
+        }
+        html[data-mcgb-mobile] .brand span {
+          display: block;
+          font-size: 0.85rem;
+          line-height: 1.45;
+          margin-top: 4px;
+        }
+        html[data-mcgb-mobile] .content {
+          padding-top: 20px;
+          padding-bottom: 24px;
+          min-height: auto;
+        }
+        html[data-mcgb-mobile] .context-nav {
+          margin-bottom: 16px;
+        }
+        html[data-mcgb-mobile] .context-nav a,
+        html[data-mcgb-mobile] .text-button,
+        html[data-mcgb-mobile] .button,
+        html[data-mcgb-mobile] .resource-back {
+          min-height: 44px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1rem;
+        }
+        html[data-mcgb-mobile] .context-nav a {
+          justify-content: flex-start;
+          text-align: left;
+        }
+        html[data-mcgb-mobile] h1 {
+          font-size: clamp(1.75rem, 7vw, 2rem);
+          line-height: 1.2;
+        }
+        html[data-mcgb-mobile] .footer-note {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0 10px;
+          justify-content: center;
+          margin-top: 24px;
+          font-size: 0;
+          padding-top: 16px;
+        }
+        html[data-mcgb-mobile] .footer-note a {
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
+          font-size: 0.85rem;
+        }
+        html[data-mcgb-mobile] a,
+        html[data-mcgb-mobile] button,
+        html[data-mcgb-mobile] summary {
+          touch-action: manipulation;
+        }
+        html[data-mcgb-mobile] .email-recipient,
+        html[data-mcgb-mobile] .email-address {
+          overflow-wrap: anywhere;
+        }
+      }
+      @media (max-width: 739px) and (prefers-reduced-motion: reduce) {
+        html[data-mcgb-mobile] *,
+        html[data-mcgb-mobile] *::before,
+        html[data-mcgb-mobile] *::after {
+          transition: none !important;
+          animation: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+      @media (max-width: 739px) {
+        .community-reading {
+          margin: 8px 0 24px;
+          max-width: none;
+        }
+        .community-reading h1 {
+          font-size: 1.9rem;
+          line-height: 1.2;
+          margin-top: 10px;
+        }
+        .community-reading h2 {
+          font-size: 1.25rem;
+          margin-top: 28px;
+        }
+        .community-reading p {
+          line-height: 1.65;
+          font-size: 1rem;
+          margin-bottom: 18px;
+        }
+      }
+
+      .guide-reading {
+        max-width: 70ch;
+        width: 100%;
+      }
+      .guide-reading h2 {
+        scroll-margin-top: 130px;
+      }
+      .guide-reading .verse {
+        white-space: pre-line;
+        padding-left: 24px;
+      }
+      .guide-reading .timing {
+        color: var(--earth);
+        font-weight: 700;
+        margin-top: 28px;
+      }
+      .guide-reading .source-note {
+        margin-top: 36px;
+        border-top: 1px solid var(--less-light-ink);
+        padding-top: 18px;
+      }
+      .guide-reading a {
+        overflow-wrap: anywhere;
+      }
+      .guide-reading nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 20px;
+        margin-bottom: 28px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="brand" aria-label="MCGB homepage">
+            <strong>Mindfulness Communities of Greater Boston</strong>
+            <span>Engaged Buddhism in the Plum Village tradition of Thích Nhất Hạnh</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <nav class="context-nav" aria-label="Section navigation">
+          <a class="text-button" href="resources.html#resource-sangha-resources">
+            Back to Sangha Resources
+          </a>
+        </nav>
+
+        <section class="community-reading guide-reading" aria-labelledby="guide-title">
+          <p class="eyebrow">Resources / Community Builders / Sangha Resources</p>
+          <h1 id="guide-title">Sangha Facilitation Overview</h1>
+          <p>Guidance for caring for our practice together.</p>
+          <p>
+            Sangha facilitation is an expanding opportunity to deepen our own practice; to practice
+            inclusiveness; and to accept people who are difficult for us, with no expectation that
+            they’ll ever change. It asks us to be patient with our self. When we practice
+            inclusiveness, we can observe our capacity to love expand. While there’s no one way to
+            facilitate, there are definitely things we have learned from our experience and which
+            Thầy and the Plum Village monastics share with us. As facilitators, we try to create a
+            container in which people feel safe to open their heart and to deepen their practice.
+            “If you want to deliver honey to someone,” Thầy has said, “you need a container.” Our
+            form, tradition and rituals are the container.
+          </p>
+          <p>
+            Sangha offers an opportunity to connect authentically with others and to feel safe
+            enough to look at our own suffering in order to change it. We’ve learned “what we don’t
+            transform, we transmit.” We each take in the Dharma through our own filters and,
+            happily, it manifests in each of us differently. Thầy writes we are all different
+            flowers. When we come together and cross pollinate, we each bloom and create a beautiful
+            garden. As we deepen our practice, we develop our skillfulness and support our friends
+            to share what’s true for them.
+          </p>
+          <p>
+            The most important thing for us when we facilitate is to model mindfulness for the
+            sangha. This means being present body and mind together, being calm and relaxed. On the
+            day we facilitate we try to set aside at least a few minutes before sangha opens in
+            order to create ease and joy in our self. Then we are ready to invite the first bell.
+          </p>
+          <h2>Who Can Facilitate?</h2>
+          <p>
+            Almost everyone can facilitate, of course, with training and practice. But generally,
+            facilitators are those who seek to deepen their practice by regular attendance and who
+            participate in other practice opportunities. Many of us have also taken the Five
+            Mindfulness Trainings, and everyone is encouraged to do so. We seek to embody and model
+            the Plum Village Tradition. A facilitator is someone who--
+          </p>
+          <p>~ Is an experienced practitioner, familiar with our tradition</p>
+          <p>
+            ~ Practices regularly with us and is familiar with Peaceful Garden Sangha format and
+            culture
+          </p>
+          <p>~ Takes time to be familiar with the material they will be sharing</p>
+          <p>
+            ~ When sharing a personal experience, focuses on how the practice relates to their
+            personal experience and shares the way the practice helped to transform their suffering.
+          </p>
+          <h2>Introduction to The Evening.</h2>
+          <p>
+            It’s a good practice to notice when there’s a newcomer. We might begin by asking if this
+            is the first time for anyone. If so, it will feel welcoming to offer a brief
+            introduction to meditation and our tradition so they may feel comfortable with us.
+          </p>
+          <p>
+            You might mention that Thich Nhat Hanh has no interest in people labeling themselves
+            “Buddhist” and he advises that if you have a strong connection to a root tradition, not
+            to cut yourself off at the roots from it. Everyone can use the practices we offer to
+            strengthen our connection with our root tradition because teachings in this tradition
+            are complementary to other traditions.
+          </p>
+          <h2>About the Dharma Sharing Guidelines</h2>
+          <p>
+            Thầy’s teaching on how to speak mindfully and how to listen to others are among his
+            great gifts to the Sangha. And beyond. They lie at the heart of our community, creating
+            a calm, receptive environment where everyone can feel safe. Because the guidelines
+            promote safety and trust we often share things in sangha that we don’t share with family
+            or close friends. We learn to be respectful of each other and steer away from our
+            reactivity about what we hear.
+          </p>
+          <p>
+            Dharma Sharing promotes an exploration into the teachings (the Dharma) and the practice.
+            It’s a time to share what we notice in our self with respect to the practice. We may
+            speak about what has moved us or how we apply the teachings in daily life.
+          </p>
+          <p class="source-note">
+            Transcribed from Facilitation in the PV Tradition by Janey Gilman. Source revision: 6.22
+            and 8.26.
+          </p>
+          <nav aria-label="Related Sangha resources">
+            <a href="minding-the-bell.html">Minding the Bell</a
+            ><a href="sangha-facilitation.html">Sangha Facilitation</a
+            ><a href="dharma-sharing-guidelines.html">Dharma sharing guidelines</a
+            ><a href="meeting-and-bell-minding-flow.html">Meeting and Bell Minding Flow</a>
+          </nav>
+        </section>
+
+        <p class="footer-note">
+          <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a> |
+          <a href="#">Press &amp; Media</a> |
+          <a href="#">Contact Us</a>
+        </p>
+      </main>
+    </div>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </body>
+</html>
