@@ -835,7 +835,7 @@
         }
 
         .path-options-anchor {
-          width: min(100%, var(--path-title-measure, 100%));
+          width: min(100%, var(--intro-text-measure, 100%));
         }
 
         .path-option-button {
@@ -1171,12 +1171,16 @@
       .intro .home-intro {
         margin: 0;
         max-width: 65ch;
-        font-size: 1rem;
-        line-height: 1.7;
+        font-size: 0.95rem;
+        line-height: 1.75;
+        text-wrap: pretty;
+      }
+      .home-intro .text-ending {
+        white-space: nowrap;
       }
       .path-options-anchor {
-        grid-column: 1 / -1;
-        width: 100%;
+        grid-column: 1;
+        width: min(100%, var(--intro-text-measure, 100%));
         margin-top: 0;
       }
       .path-hero-media {
@@ -1226,12 +1230,13 @@
               <p class="eyebrow" id="path-eyebrow" hidden></p>
               <h1 id="path-title"></h1>
               <p class="home-intro">
-                The Mindfulness Communities of Greater Boston is an interfaith collective that seeks
-                to learn and practice mindfulness taught by Thích Nhất Hạnh (“Thầy”) a Vietnamese
+                Mindfulness Communities of Greater Boston is an interfaith collective that seeks to
+                learn and practice mindfulness taught by Thích Nhất Hạnh (“Thầy”), a Vietnamese
                 Buddhist monk, author and activist. We explore ways to bring mindfulness into our
                 lives, families, work, and society. We try to practice mindfulness throughout every
                 day, not just during meditation, but also in the kitchen, in the car, at work, on
-                the phone and while walking from one place to another.
+                the phone, and while walking
+                <span class="text-ending">from one place to another.</span>
               </p>
             </div>
 
@@ -1648,12 +1653,6 @@
           url: "https://plumvillage.org/gems/",
         },
         {
-          title: "Meditation Timer",
-          copy: "Make time for a quiet sitting with the sound of a bell.",
-          action: "Open timer",
-          url: "https://web.plumvillage.app/meditation-timer",
-        },
-        {
           title: "New England Buddhist Poetry Exchange",
           copy: "Read community poetry, reflections, and Buddhist practice writing from New England community members.",
           action: "Read poetry",
@@ -1664,12 +1663,8 @@
 
       publicationCards.sort(
         (a, b) =>
-          Number(
-            !["Meditations", "Dharma Talks", "Living Gems", "Meditation Timer"].includes(a.title),
-          ) -
-          Number(
-            !["Meditations", "Dharma Talks", "Living Gems", "Meditation Timer"].includes(b.title),
-          ),
+          Number(!["Meditations", "Dharma Talks", "Living Gems"].includes(a.title)) -
+          Number(!["Meditations", "Dharma Talks", "Living Gems"].includes(b.title)),
       );
 
       const additionalActivityCards = [
@@ -2045,32 +2040,32 @@
         );
       }
 
-      function updatePathTitleMeasure() {
+      function updateIntroTextMeasure() {
         if (!pathTitle || !pathOptionsAnchor) return;
 
-        const titleBox = pathTitle.getBoundingClientRect();
-        if (titleBox.width <= 0) return;
+        const intro = pathTitle.closest(".intro");
+        if (!intro) return;
+        const introBox = intro.getBoundingClientRect();
+        if (introBox.width <= 0) return;
 
-        let titleMeasure = titleBox.width;
-
-        if (pathTitle.textContent.trim()) {
-          const range = document.createRange();
-          range.selectNodeContents(pathTitle);
-          const lineRects = Array.from(range.getClientRects()).filter(
-            (rect) => rect.width > 0 && rect.height > 0,
-          );
-
-          if (lineRects.length > 0) {
-            titleMeasure = Math.max(...lineRects.map((rect) => rect.right - titleBox.left));
-          }
-
-          range.detach();
-        }
-
-        const clampedMeasure = Math.min(Math.ceil(titleMeasure), Math.ceil(titleBox.width));
+        const textRects = Array.from(intro.querySelectorAll("h1, .home-intro")).flatMap(
+          (element) => {
+            const range = document.createRange();
+            range.selectNodeContents(element);
+            const rects = Array.from(range.getClientRects()).filter(
+              (rect) => rect.width > 0 && rect.height > 0,
+            );
+            range.detach();
+            return rects;
+          },
+        );
+        const textMeasure = textRects.length
+          ? Math.max(...textRects.map((rect) => rect.right - introBox.left))
+          : introBox.width;
+        const clampedMeasure = Math.min(Math.ceil(textMeasure), Math.ceil(introBox.width));
         if (!Number.isFinite(clampedMeasure) || clampedMeasure <= 0) return;
 
-        pathOptionsAnchor.style.setProperty("--path-title-measure", `${clampedMeasure}px`);
+        pathOptionsAnchor.style.setProperty("--intro-text-measure", `${clampedMeasure}px`);
       }
 
       function resetPathOptionsPanel() {
@@ -2080,7 +2075,7 @@
 
       function refreshPathOptionsPosition() {
         updateStickyOffset();
-        updatePathTitleMeasure();
+        updateIntroTextMeasure();
       }
 
       function renderFilterButtons(container, options, selected, type) {
@@ -2293,7 +2288,7 @@
 
       function renderDetailPanel(label, cards) {
         if (cards === publicationCards) {
-          const practical = ["Meditations", "Dharma Talks", "Living Gems", "Meditation Timer"];
+          const practical = ["Meditations", "Dharma Talks", "Living Gems"];
           const connections = [
             "Join our mailing list",
             "Browse Recent Newsletters",

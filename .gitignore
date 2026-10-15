@@ -46,3 +46,6 @@ test-results/
 /Photos/
 /outputs/photos-transcription/
 /public/assets/GBCOM Website Working Group.pdf
+
+# Local production and responsive layout verification
+/outputs/site-verification/

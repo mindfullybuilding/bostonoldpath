@@ -629,19 +629,13 @@
           url: "https://plumvillage.org/gems/",
         },
         {
-          title: "Meditation Timer",
-          copy: "Make time for a quiet sitting with the sound of a bell.",
-          action: "Open timer",
-          url: "https://web.plumvillage.app/meditation-timer",
-        },
-        {
           title: "New England Buddhist Poetry Exchange",
           copy: "Read community poetry, reflections, and Buddhist practice writing from New England community members.",
           url: "https://buddhistpoetryexchange.blogspot.com",
         },
       ];
 
-      const practiceTitles = ["Meditations", "Dharma Talks", "Living Gems", "Meditation Timer"];
+      const practiceTitles = ["Meditations", "Dharma Talks", "Living Gems"];
       const byTitle = (title) => resources.find((item) => item.title === title);
       const local = (title, copy) => ({ title, copy, unavailable: true });
       const linked = (title, copy, url) => ({ title, copy, url });
