@@ -329,6 +329,16 @@
         gap: 8px;
       }
 
+      .hero-actions.is-stacked {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-actions.is-stacked .path-option-button {
+        width: 100%;
+        justify-content: flex-start;
+        text-align: left;
+      }
+
       .button {
         display: inline-flex;
         min-height: 44px;
@@ -347,7 +357,9 @@
 
       .path-option-button {
         width: auto;
-        max-width: 240px;
+        max-width: none;
+        flex: 0 0 auto;
+        white-space: nowrap;
         min-height: 38px;
         border-color: var(--less-light-ink);
         border-radius: 999px;
@@ -481,7 +493,9 @@
       }
 
       .linked-card {
-        display: block;
+        display: grid;
+        align-content: start;
+        min-width: 0;
         color: inherit;
         text-decoration: none;
       }
@@ -840,8 +854,8 @@
 
         .path-option-button {
           min-width: 0;
-          max-width: 220px;
-          flex: 0 1 auto;
+          max-width: none;
+          flex: 0 0 auto;
         }
 
         .card-grid.steps,
@@ -1116,7 +1130,7 @@
           border-radius: var(--radius);
           justify-content: flex-start;
           text-align: left;
-          white-space: normal;
+          white-space: nowrap;
         }
         .path-option-button[aria-pressed="true"] {
           background: var(--sun);
@@ -2068,6 +2082,34 @@
         pathOptionsAnchor.style.setProperty("--intro-text-measure", `${clampedMeasure}px`);
       }
 
+      function updatePathButtonLayout() {
+        if (!heroActions) return;
+        const buttons = Array.from(heroActions.querySelectorAll(".path-option-button"));
+        if (!buttons.length) return;
+
+        const gap = parseFloat(getComputedStyle(heroActions).columnGap) || 0;
+        const requiredWidth = buttons.reduce(
+          (total, button) => {
+            const range = document.createRange();
+            range.selectNodeContents(button);
+            const textWidth = range.getBoundingClientRect().width;
+            range.detach();
+            const style = getComputedStyle(button);
+            return (
+              total +
+              textWidth +
+              parseFloat(style.paddingLeft) +
+              parseFloat(style.paddingRight) +
+              parseFloat(style.borderLeftWidth) +
+              parseFloat(style.borderRightWidth)
+            );
+          },
+          gap * (buttons.length - 1),
+        );
+
+        heroActions.classList.toggle("is-stacked", requiredWidth > heroActions.clientWidth);
+      }
+
       function resetPathOptionsPanel() {
         if (!pathOptionsAnchor) return;
         pathOptionsAnchor.style.height = "auto";
@@ -2076,6 +2118,7 @@
       function refreshPathOptionsPosition() {
         updateStickyOffset();
         updateIntroTextMeasure();
+        updatePathButtonLayout();
       }
 
       function renderFilterButtons(container, options, selected, type) {
