@@ -7,13 +7,16 @@ for (const [engineName, engine] of [
   ["Chromium", chromium],
   ["WebKit", webkit],
 ]) {
+  console.log("Checking navigation: " + engineName);
   const browser = await engine.launch();
   const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   await context.route("https://www.google.com/maps/**", (r) => r.abort());
   const p = await context.newPage();
   const go = async (group, name) => {
     const trigger = p.locator(".desktop-nav").getByRole("button", { name: group, exact: true });
-    await trigger.press("Enter");
+    await p.waitForLoadState("load");
+    if ((await trigger.getAttribute("aria-expanded")) !== "true") await trigger.press("Enter");
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
     await p.locator(".desktop-nav").getByRole("link", { name, exact: true }).click();
   };
   await p.goto(base);
