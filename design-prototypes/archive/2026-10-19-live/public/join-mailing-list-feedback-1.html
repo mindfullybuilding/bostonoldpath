@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Join Our Mailing Lists | Boston Old Path Sangha</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --sun: #ffd22a;
+        --light-sun: #fefbf3;
+        --ink: #222;
+        --dark-ink: #272727;
+        --earth: #8b572a;
+        --cloud: #fff;
+        --less-light-ink: #eaeaea;
+        --muted: #6d6a62;
+        --focus: #8b572a;
+        --radius: 8px;
+        --shadow: 0 18px 60px rgba(34, 34, 34, 0.08);
+        --font-sans: "PV Sans Serif", ui-sans-serif, system-ui, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-height: 100%;
+        background: var(--light-sun);
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: var(--light-sun);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      a:focus-visible,
+      input:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      .page {
+        min-height: 100vh;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--less-light-ink);
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(12px);
+      }
+
+      .topbar-inner,
+      .content {
+        width: min(960px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 0;
+      }
+
+      .brand {
+        display: grid;
+        gap: 1px;
+      }
+
+      .brand strong {
+        font-size: 1rem;
+      }
+
+      .brand span,
+      .path-label {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .path-tools {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        border: 1px solid rgba(139, 87, 42, 0.14);
+        border-radius: 999px;
+        padding: 6px 10px 6px 12px;
+        background: rgba(255, 210, 42, 0.16);
+      }
+
+      .text-button {
+        border-bottom: 2px solid var(--sun);
+        padding: 2px 0;
+        color: var(--ink);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .content {
+        display: flex;
+        min-height: calc(100vh - 73px);
+        flex-direction: column;
+        padding: clamp(28px, 4vw, 44px) 0 52px;
+      }
+
+      .context-nav {
+        margin-bottom: 14px;
+      }
+
+      .context-nav .text-button {
+        font-size: 0.88rem;
+      }
+
+      .subscription-tool {
+        overflow: hidden;
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        background: var(--cloud);
+        box-shadow: var(--shadow);
+      }
+
+      .tool-header {
+        display: grid;
+        gap: 8px;
+        border-bottom: 1px solid var(--less-light-ink);
+        padding: clamp(18px, 3vw, 28px);
+      }
+
+      .eyebrow {
+        margin: 0;
+        color: var(--earth);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin-bottom: 0;
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 700px;
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .tool-body {
+        display: grid;
+        gap: 20px;
+        padding: clamp(18px, 3vw, 28px);
+      }
+
+      .list-options {
+        display: grid;
+        gap: 10px;
+        border: 0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .list-options legend {
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .list-option {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 12px;
+        align-items: start;
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        padding: 15px;
+        background: var(--light-sun);
+        cursor: pointer;
+      }
+
+      .list-option:has(input:checked) {
+        border-color: var(--earth);
+        background: rgba(255, 210, 42, 0.16);
+        box-shadow: 0 0 0 3px rgba(139, 87, 42, 0.08);
+      }
+
+      .list-option input {
+        width: 20px;
+        height: 20px;
+        margin: 2px 0 0;
+        accent-color: var(--earth);
+      }
+
+      .list-option strong {
+        display: block;
+        margin-bottom: 3px;
+      }
+
+      .list-option p {
+        margin-bottom: 6px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .email-address {
+        overflow-wrap: anywhere;
+        color: var(--earth);
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+
+      .action-panel {
+        display: grid;
+        gap: 10px;
+        border-top: 1px solid var(--less-light-ink);
+        padding-top: 18px;
+      }
+
+      .selection-summary {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .subscription-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--ink);
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        background: var(--sun);
+        color: var(--ink);
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        border-color: var(--less-light-ink);
+        background: var(--cloud);
+      }
+
+      .steps {
+        display: grid;
+        gap: 12px;
+        padding: 0;
+        list-style: none;
+      }
+
+      .steps li {
+        border-top: 1px solid var(--less-light-ink);
+        padding-top: 12px;
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .steps strong {
+        display: block;
+        margin-bottom: 2px;
+        color: var(--ink);
+      }
+
+      .footer-note {
+        margin-top: auto;
+        padding-top: 34px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        text-align: center;
+      }
+
+      .footer-note a {
+        text-decoration: none;
+      }
+
+      .footer-note a:hover {
+        color: var(--ink);
+        text-decoration: underline;
+      }
+
+      @media (min-width: 720px) {
+        .list-options {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .list-options legend {
+          grid-column: 1 / -1;
+        }
+
+        .steps {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 620px) {
+        .topbar-inner {
+          align-items: flex-start;
+        }
+
+        .brand span {
+          display: none;
+        }
+
+        .path-tools {
+          border-radius: var(--radius);
+        }
+
+        .subscription-actions .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="brand" aria-label="BOPS homepage">
+            <strong>Boston Old Path Sangha</strong>
+            <span>Mindfulness in Boston and everywhere...</span>
+          </div>
+          <div class="path-tools">
+            <span class="path-label">Beginner's Mind</span>
+            <a class="text-button" href="bops-homepage-wireframe-feedback-1.html?easterEgg=1">
+              Change path
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <nav class="context-nav" aria-label="Section navigation">
+          <a class="text-button" href="bops-homepage-wireframe-feedback-1.html?section=stay-connected">
+            Back to Newsletter &amp; Mailing List
+          </a>
+        </nav>
+
+        <section class="subscription-tool" aria-labelledby="mailing-title">
+          <header class="tool-header">
+            <p class="eyebrow">Newsletter &amp; Mailing List</p>
+            <h1 id="mailing-title">Choose the updates you want</h1>
+            <p class="lede">
+              Select one or both lists. Your email app will open a blank message
+              for each subscription you choose.
+            </p>
+          </header>
+
+          <div class="tool-body">
+            <fieldset class="list-options">
+              <legend>Mailing lists</legend>
+              <label class="list-option">
+                <input
+                  type="checkbox"
+                  value="practice"
+                  data-list-option
+                  checked
+                />
+                <span>
+                  <strong>BOPS practice emails</strong>
+                  <p>
+                    Sitting updates, days of mindfulness, retreats, and community
+                    announcements.
+                  </p>
+                  <span class="email-address">oldpath+subscribe@BostonOldPath.groups.io</span>
+                </span>
+              </label>
+              <label class="list-option">
+                <input type="checkbox" value="sharing" data-list-option />
+                <span>
+                  <strong>Member sharing</strong>
+                  <p>
+                    News, events, and items of interest shared with community
+                    members.
+                  </p>
+                  <span class="email-address">membersharing+subscribe@BostonOldPath.groups.io</span>
+                </span>
+              </label>
+            </fieldset>
+
+            <div class="action-panel">
+              <p class="selection-summary" id="selection-summary" aria-live="polite"></p>
+              <div class="subscription-actions" id="subscription-actions"></div>
+            </div>
+
+            <ol class="steps" aria-label="Subscription steps">
+              <li>
+                <strong>1. Choose</strong>
+                Select the list or lists that fit what you want to receive.
+              </li>
+              <li>
+                <strong>2. Send</strong>
+                Send the blank email your email app creates.
+              </li>
+              <li>
+                <strong>3. Confirm</strong>
+                Reply to the confirmation request from Groups.io.
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <p class="footer-note">
+          <a href="#">Terms and Conditions</a> |
+          <a href="#">Privacy Policy</a> |
+          <a href="#">Press &amp; Media</a> |
+          <a href="#">Contact Us</a>
+        </p>
+      </main>
+    </div>
+
+    <script>
+      const lists = {
+        practice: {
+          name: "BOPS practice emails",
+          shortName: "Practice Mailing List",
+          address: "oldpath+subscribe@BostonOldPath.groups.io",
+        },
+        sharing: {
+          name: "Member sharing",
+          shortName: "Member Sharing List",
+          address: "membersharing+subscribe@BostonOldPath.groups.io",
+        },
+      };
+
+      const optionInputs = Array.from(
+        document.querySelectorAll("[data-list-option]"),
+      );
+      const actions = document.querySelector("#subscription-actions");
+      const summary = document.querySelector("#selection-summary");
+
+      function renderSubscriptionActions() {
+        const selected = optionInputs
+          .filter((input) => input.checked)
+          .map((input) => lists[input.value]);
+
+        if (selected.length === 0) {
+          summary.textContent = "Choose at least one list to continue.";
+          actions.innerHTML = "";
+          return;
+        }
+
+        summary.textContent =
+          selected.length === 1
+            ? `One subscription selected: ${selected[0].name}.`
+            : "Two subscriptions selected. Send both blank emails to join both lists.";
+
+        actions.innerHTML = selected
+          .map(
+            (list, index) => `
+              <a
+                class="button${index > 0 ? " secondary" : ""}"
+                href="mailto:${list.address}"
+              >
+                Join ${list.shortName}
+              </a>
+            `,
+          )
+          .join("");
+      }
+
+      optionInputs.forEach((input) => {
+        input.addEventListener("change", renderSubscriptionActions);
+      });
+
+      renderSubscriptionActions();
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+Criterion,Name,Verification status — not certification,Evidence / limitation
+1.1.1,Non-text Content,"Checked, limited",Image alternatives and iframe titles checked; historical PDFs and external content excluded.
+1.2.1,Audio-only and Video-only (Prerecorded),Not applicable,No first-party prerecorded media.
+1.2.2,Captions (Prerecorded),Not applicable,No first-party video.
+1.2.3,Audio Description or Media Alternative,Not applicable,No first-party video.
+1.2.4,Captions (Live),Not applicable,No first-party live media.
+1.2.5,Audio Description (Prerecorded),Not applicable,No first-party video.
+1.3.1,Info and Relationships,"Checked, limited",Semantic headings landmarks labels fieldsets and native disclosures; real screen reader not verified.
+1.3.2,Meaningful Sequence,"Checked, limited",DOM and visual reading order reviewed; spoken output not verified.
+1.3.3,Sensory Characteristics,Checked,Instructions use labels and text rather than only position/color.
+1.3.4,Orientation,Checked,Responsive and short landscape checks; no orientation restriction.
+1.3.5,Identify Input Purpose,Not applicable,No first-party personal-information collection form.
+1.4.1,Use of Color,Checked,Native check states labels underlines and count/status text.
+1.4.2,Audio Control,Not applicable,No autoplay audio.
+1.4.3,Contrast (Minimum),"Checked, limited",axe page/state scans and palette checks; external content and PDFs excluded.
+1.4.4,Resize Text,Checked,All page text doubled at 390 and 1440 CSS px without horizontal page overflow.
+1.4.5,Images of Text,"Checked, limited",Essential new information is HTML; historical PDF/cover-image content not fully evaluated.
+1.4.10,Reflow,"Checked, limited",All pages at 320 CSS px; actual browser zoom UI not independently operated.
+1.4.11,Non-text Contrast,"Checked, limited",Control boundaries focus and native controls; platform/forced-colors review incomplete.
+1.4.12,Text Spacing,"Checked, limited",Specified spacing overrides checked on homepage; full all-page manual review pending.
+1.4.13,Content on Hover or Focus,Checked,No hover-only essential content; click disclosures Escape and focus dismissal.
+2.1.1,Keyboard,"Checked, limited",Core first-party keyboard journeys in Chromium and WebKit; external end-to-end processes excluded.
+2.1.2,No Keyboard Trap,Checked,Drawer focus wraps Escape closes and restores; dropdown Escape works.
+2.1.4,Character Key Shortcuts,Not applicable,No single-character global shortcuts.
+2.2.1,Timing Adjustable,Not applicable,No user-task time limits.
+2.2.2,Pause Stop Hide,Not applicable,No autoplay moving/blinking/scrolling content.
+2.3.1,Three Flashes or Below Threshold,Not applicable,No flashing content.
+2.4.1,Bypass Blocks,Checked,Keyboard skip link focuses main; semantic landmarks.
+2.4.2,Page Titled,Checked,Unique first-party page titles.
+2.4.3,Focus Order,"Checked, limited",Keyboard order and resize focus checked; native screen-reader traversal unverified.
+2.4.4,Link Purpose (In Context),Checked,Descriptive destinations and PDF labels; all local links checked.
+2.4.5,Multiple Ways,Checked,Shared navigation contextual links homepage routes and footer.
+2.4.6,Headings and Labels,Checked,One H1 per page; descriptive headings and control names.
+2.4.7,Focus Visible,Checked,Shared focus outlines and footer exception.
+2.4.11,Focus Not Obscured (Minimum),"Checked, limited",Header offset follows size; short windows non-sticky; representative keyboard journeys checked.
+2.5.1,Pointer Gestures,Not applicable,No multipoint/path gestures required.
+2.5.2,Pointer Cancellation,Checked,Native controls activate on click/release; no custom pointer-down actions.
+2.5.3,Label in Name,Checked,Visible control labels match names; icon menu has Open menu name.
+2.5.4,Motion Actuation,Not applicable,No device-motion input.
+2.5.7,Dragging Movements,Not applicable,No first-party dragging required.
+2.5.8,Target Size (Minimum),"Checked, limited",44px controls 48px dropdowns 56px drawer rows; inline-link exceptions; full pointer measurement audit not claimed.
+3.1.1,Language of Page,Checked,HTML lang=en on all pages.
+3.1.2,Language of Parts,"Checked, limited",Names and established practice terms occur in English prose; historic documents not evaluated.
+3.2.1,On Focus,Checked,No unexpected navigation on focus.
+3.2.2,On Input,Checked,Filters update labeled result count without navigation.
+3.2.3,Consistent Navigation,Checked,Generated shared order across release pages.
+3.2.4,Consistent Identification,Checked,Shared component labels and targets.
+3.2.6,Consistent Help,Checked,Contact and accessibility feedback appear consistently in footer.
+3.3.1,Error Identification,"Checked, limited",Feed/clipboard/no-results errors identified in text; external forms not fully evaluated.
+3.3.2,Labels or Instructions,Checked,Search checkbox groups subscription URL and instructions labeled.
+3.3.3,Error Suggestion,"Checked, limited",Retry/reset/manual copy alternatives provided; external form errors untested.
+3.3.4,Error Prevention (Legal Financial Data),Not applicable,No first-party legal financial or saved user-data submission.
+3.3.7,Redundant Entry,Not applicable,No first-party multi-step information-entry process.
+3.3.8,Accessible Authentication (Minimum),Not applicable to first-party,No first-party authentication. Optional Google sign-in and external processes unverified.
+4.1.2,Name Role Value,"Checked, limited",axe and browser accessibility output; native screen reader not verified.
+4.1.3,Status Messages,"Checked, limited",Native role=status for counts calendar and copy feedback; spoken announcements unverified.

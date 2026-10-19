@@ -49,3 +49,8 @@ test-results/
 
 # Local production and responsive layout verification
 /outputs/site-verification/
+
+# Local audit images, browser evidence, and machine-specific generated output
+/outputs/
+# Meeting reference remains local even inside the source preservation snapshot.
+/design-prototypes/archive/**/public/assets/GBCOM Website Working Group.pdf

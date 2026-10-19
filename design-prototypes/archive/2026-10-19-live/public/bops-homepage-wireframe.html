@@ -1,0 +1,2128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BOPS Homepage Wireframe</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --sun: #ffd22a;
+        --light-sun: #fefbf3;
+        --ink: #222;
+        --dark-ink: #272727;
+        --earth: #8b572a;
+        --cloud: #fff;
+        --light-ink: #f3f3f3;
+        --less-light-ink: #eaeaea;
+        --stamp: #ea4334;
+        --muted: #6d6a62;
+        --focus: #8b572a;
+        --radius: 8px;
+        --shadow: 0 18px 60px rgba(34, 34, 34, 0.08);
+        --sticky-offset: 82px;
+        --font-sans: "PV Sans Serif", ui-sans-serif, system-ui, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-height: 100%;
+        background: var(--light-sun);
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: var(--light-sun);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      a:focus-visible,
+      button:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      .page {
+        min-height: 100vh;
+      }
+
+      .entry-screen {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        padding: 24px;
+        background:
+          linear-gradient(
+            rgba(34, 34, 34, 0.34),
+            rgba(139, 87, 42, 0.2)
+          ),
+          url("assets/intro-page-hero.jpg") center center / cover no-repeat;
+        background-color: var(--earth);
+      }
+
+      .entry-card {
+        width: min(720px, 100%);
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        border-radius: var(--radius);
+        padding: clamp(28px, 7vw, 62px);
+        background: rgba(254, 251, 243, 0.94);
+        box-shadow: 0 24px 80px rgba(34, 34, 34, 0.26);
+        text-align: center;
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+      }
+
+      .brand-kicker,
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--earth);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .brand-kicker {
+        margin-bottom: 20px;
+      }
+
+      .entry-title {
+        max-width: 14ch;
+        margin: 0 auto 14px;
+        font-size: clamp(2.2rem, 9vw, 4.4rem);
+        font-weight: 400;
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .entry-copy {
+        max-width: 520px;
+        margin: 0 auto 28px;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      .choice-grid {
+        display: grid;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .choice-button,
+      .filter-button {
+        border: 1px solid var(--less-light-ink);
+        background: var(--light-sun);
+        color: var(--ink);
+        cursor: pointer;
+      }
+
+      .choice-button {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        min-height: 104px;
+        border-radius: var(--radius);
+        padding: 18px;
+        text-align: left;
+        transition:
+          border-color 150ms ease,
+          background-color 150ms ease,
+          transform 150ms ease;
+      }
+
+      .choice-button:hover {
+        border-color: var(--earth);
+        background: var(--sun);
+        transform: translateY(-1px);
+      }
+
+      .choice-button strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 1.05rem;
+      }
+
+      .choice-button span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .experience {
+        min-height: 100vh;
+        background: var(--cloud);
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--less-light-ink);
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(12px);
+      }
+
+      .topbar-inner,
+      .content {
+        width: min(1160px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 0;
+      }
+
+      .brand {
+        display: grid;
+        gap: 1px;
+      }
+
+      .brand strong {
+        font-size: 1rem;
+      }
+
+      .brand span,
+      .path-label {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .path-tools {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        border: 1px solid rgba(139, 87, 42, 0.14);
+        border-radius: 999px;
+        padding: 6px 10px 6px 12px;
+        background: rgba(255, 210, 42, 0.16);
+      }
+
+      .text-button {
+        border: 0;
+        border-bottom: 2px solid var(--sun);
+        padding: 2px 0;
+        background: transparent;
+        color: var(--ink);
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      .content {
+        display: flex;
+        min-height: calc(100vh - var(--sticky-offset));
+        flex-direction: column;
+        padding: clamp(28px, 6vw, 64px) 0 52px;
+      }
+
+      .path-hero {
+        display: grid;
+        gap: 24px;
+        align-items: center;
+      }
+
+      .intro {
+        max-width: 680px;
+      }
+
+      .intro h1 {
+        margin-bottom: 18px;
+        font-size: clamp(2.1rem, 7vw, 4rem);
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      .intro p {
+        max-width: 650px;
+        margin-bottom: 24px;
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+
+      .path-options-anchor {
+        margin-top: 16px;
+        width: 100%;
+      }
+
+      .path-options-panel {
+        position: relative;
+        z-index: 8;
+        display: grid;
+        width: 100%;
+        gap: 10px;
+        border: 1px solid rgba(139, 87, 42, 0.14);
+        border-radius: var(--radius);
+        padding: 12px 14px;
+        background: var(--light-sun);
+        box-shadow: none;
+      }
+
+      .path-options-panel p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-align: left;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 8px;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--ink);
+        border-radius: 4px;
+        padding: 0.45rem 1.1rem;
+        background: var(--sun);
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .path-option-button {
+        width: auto;
+        max-width: 210px;
+        min-height: 38px;
+        border-color: var(--less-light-ink);
+        border-radius: 999px;
+        background: var(--cloud);
+        padding: 0.32rem 0.85rem;
+        font-size: 0.84rem;
+        line-height: 1.2;
+        text-align: center;
+      }
+
+      .path-option-button[aria-pressed="true"] {
+        border-color: var(--ink);
+        background: var(--sun);
+      }
+
+      .button.secondary {
+        border-color: var(--less-light-ink);
+        background: var(--cloud);
+      }
+
+      .sangha-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .button.full {
+        width: 100%;
+      }
+
+      .path-hero-media {
+        aspect-ratio: 4 / 3;
+        min-height: 280px;
+        margin: 0;
+        overflow: hidden;
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        background: var(--light-sun);
+      }
+
+      .path-hero-media img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        object-position: var(--image-position, center);
+      }
+
+      .section {
+        margin-top: 34px;
+      }
+
+      .section-heading {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .section-heading h2 {
+        margin-bottom: 0;
+        font-size: 1.35rem;
+        font-weight: 500;
+      }
+
+      .section-heading p {
+        max-width: 620px;
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .card-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .step-card,
+      .resource-link,
+      .info-card,
+      .sangha-card {
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        padding: 16px;
+        background: var(--cloud);
+      }
+
+      .placeholder-card {
+        min-height: 128px;
+        border-style: dashed;
+        background: var(--light-sun);
+      }
+
+      .step-number {
+        display: inline-grid;
+        width: 28px;
+        height: 28px;
+        place-items: center;
+        margin-bottom: 12px;
+        border-radius: 50%;
+        background: var(--sun);
+        color: var(--ink);
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+
+      .step-card h3,
+      .resource-link h3,
+      .info-card h3,
+      .sangha-card h3 {
+        margin-bottom: 6px;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+
+      .step-card p,
+      .resource-link p,
+      .info-card p,
+      .sangha-card p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .resource-link {
+        text-decoration: none;
+      }
+
+      .linked-card {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .resource-link:hover,
+      .linked-card:hover,
+      .sangha-card:hover {
+        border-color: var(--earth);
+        background: var(--light-sun);
+      }
+
+      .list {
+        display: grid;
+        gap: 8px;
+        margin: 12px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .list li {
+        border-top: 1px solid var(--less-light-ink);
+        padding-top: 8px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .list li:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .finder {
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        background: var(--cloud);
+      }
+
+      .finder-header,
+      .detail-panel-header {
+        display: grid;
+        gap: 16px;
+      }
+
+      .finder-header {
+        border-bottom: 1px solid var(--less-light-ink);
+        padding: 18px;
+      }
+
+      .detail-panel {
+        background: var(--cloud);
+      }
+
+      .detail-panel-header {
+        padding-bottom: 14px;
+      }
+
+      .panel-heading {
+        margin: 0;
+        color: var(--earth);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .filter-group {
+        display: grid;
+        gap: 8px;
+      }
+
+      .filter-label {
+        color: var(--earth);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .filter-button {
+        min-height: 36px;
+        border-radius: 999px;
+        padding: 0 13px;
+        font-size: 0.86rem;
+        font-weight: 700;
+      }
+
+      .filter-button[aria-pressed="true"] {
+        border-color: var(--ink);
+        background: var(--sun);
+      }
+
+      .finder-layout,
+      .detail-panel-body {
+        display: grid;
+        gap: 18px;
+      }
+
+      .finder-layout {
+        padding: 18px;
+      }
+
+      .sangha-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .finder-guidance {
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        padding: 14px;
+        background: var(--light-sun);
+      }
+
+      .finder-guidance h3 {
+        margin-bottom: 8px;
+        font-size: 0.98rem;
+      }
+
+      .guidance-copy {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .guidance-list {
+        display: grid;
+        gap: 6px;
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .guidance-list li::marker {
+        color: var(--earth);
+      }
+
+      .sangha-card {
+        display: grid;
+        gap: 12px;
+      }
+
+      .info-card .button {
+        margin-top: 12px;
+      }
+
+      .sangha-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .pill {
+        border: 1px solid var(--less-light-ink);
+        border-radius: 999px;
+        padding: 3px 8px;
+        background: var(--light-ink);
+        color: var(--dark-ink);
+        font-size: 0.74rem;
+        font-weight: 700;
+      }
+
+      .pill.sun {
+        border-color: var(--sun);
+        background: var(--sun);
+      }
+
+      .finder-visual {
+        display: grid;
+        gap: 12px;
+      }
+
+      .map-panel,
+      .calendar-panel {
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        background: var(--light-sun);
+      }
+
+      .map-panel {
+        min-height: 290px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .map-grid {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, rgba(139, 87, 42, 0.08) 1px, transparent 1px),
+          linear-gradient(rgba(139, 87, 42, 0.08) 1px, transparent 1px);
+        background-size: 48px 48px;
+      }
+
+      .map-label {
+        position: absolute;
+        left: 16px;
+        top: 14px;
+        z-index: 2;
+        color: var(--earth);
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .map-marker {
+        position: absolute;
+        z-index: 3;
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border: 2px solid var(--ink);
+        border-radius: 50%;
+        background: var(--sun);
+        color: var(--ink);
+        font-size: 0.72rem;
+        font-weight: 800;
+        transform: translate(-50%, -50%);
+      }
+
+      .map-caption {
+        position: absolute;
+        right: 14px;
+        bottom: 14px;
+        left: 14px;
+        z-index: 2;
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.88);
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
+      .calendar-panel {
+        padding: 14px;
+      }
+
+      .calendar-panel h3 {
+        margin-bottom: 10px;
+        font-size: 1rem;
+      }
+
+      .calendar-preview {
+        display: grid;
+        gap: 8px;
+      }
+
+      .calendar-row {
+        display: grid;
+        grid-template-columns: 54px 1fr;
+        gap: 10px;
+        align-items: center;
+        border-top: 1px solid var(--less-light-ink);
+        padding-top: 8px;
+      }
+
+      .calendar-row:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .date-chip {
+        display: grid;
+        min-height: 48px;
+        place-items: center;
+        border: 1px solid var(--less-light-ink);
+        border-radius: 4px;
+        background: var(--cloud);
+        color: var(--earth);
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .calendar-row strong {
+        display: block;
+        font-size: 0.9rem;
+      }
+
+      .calendar-row span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .empty-state {
+        border: 1px dashed var(--less-light-ink);
+        border-radius: var(--radius);
+        padding: 18px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .footer-note {
+        margin-top: auto;
+        border-top: 1px solid var(--less-light-ink);
+        padding-top: 18px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        text-align: center;
+      }
+
+      .footer-note a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .footer-note a:hover {
+        color: var(--ink);
+        text-decoration: underline;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      @media (min-width: 740px) {
+        html {
+          font-size: 18px;
+        }
+
+        .choice-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .path-hero {
+          grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.75fr);
+        }
+
+        .path-options-anchor {
+          width: min(100%, var(--path-title-measure, 100%));
+        }
+
+        .path-option-button {
+          min-width: 0;
+          max-width: 220px;
+          flex: 0 1 auto;
+        }
+
+        .card-grid.steps,
+        .card-grid.three {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .card-grid.resources,
+        .card-grid.four {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .finder-layout {
+          grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr);
+        }
+
+        .finder-header {
+          grid-template-columns: minmax(0, 1fr) minmax(360px, 0.9fr);
+          align-items: start;
+        }
+      }
+
+      @media (min-width: 980px) {
+        .entry-screen {
+          place-items: center;
+        }
+
+        .entry-card {
+          transform: translateX(clamp(-160px, -11vw, -72px));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <section
+        class="entry-screen"
+        id="entry-screen"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="entry-title"
+        aria-describedby="entry-copy"
+      >
+        <div class="entry-card">
+          <p class="brand-kicker">Boston Old Path Sangha</p>
+          <h1 class="entry-title" id="entry-title">
+            I have arrived, I am home...
+          </h1>
+          <p class="entry-copy" id="entry-copy">
+            Choose a Path based on where your practice is today. You can change
+            at any time.
+          </p>
+
+          <div class="choice-grid" aria-label="Choose a visitor path">
+            <button class="choice-button" type="button" data-persona="beginner">
+              <strong>Beginner's Mind</strong>
+              <span
+                >Learn about the Plum Village Tradition, and find sangha to
+                support your practice.</span
+              >
+            </button>
+            <button
+              class="choice-button"
+              type="button"
+              data-persona="practitioner"
+            >
+              <strong>Practitioner</strong>
+              <span
+                >Deepen your practice with affinity groups, study, retreats, and
+                mentorship.</span
+              >
+            </button>
+            <button
+              class="choice-button"
+              type="button"
+              data-persona="facilitator"
+            >
+              <strong>Facilitator</strong>
+              <span>Cultivate sangha, mentorship, and a deep practice.</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="experience" id="experience" hidden>
+        <header class="topbar">
+          <div class="topbar-inner">
+            <div class="brand" aria-label="BOPS homepage">
+              <strong>Boston Old Path Sangha</strong>
+              <span>Mindfulness in Boston and everywhere...</span>
+            </div>
+            <div class="path-tools">
+              <span class="path-label" id="selected-path-label"></span>
+              <button class="text-button" type="button" id="change-path">
+                Change path
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <main class="content">
+          <section class="path-hero" aria-labelledby="path-title">
+            <div class="intro">
+              <p class="eyebrow" id="path-eyebrow"></p>
+              <h1 id="path-title"></h1>
+              <div class="path-options-anchor" id="path-options-anchor">
+                <div
+                  class="path-options-panel"
+                  id="path-options-panel"
+                  aria-label="Choose information to view"
+                >
+                  <p id="path-summary"></p>
+                  <div class="hero-actions" id="hero-actions"></div>
+                </div>
+              </div>
+            </div>
+
+            <figure class="path-hero-media">
+              <img
+                id="path-hero-image"
+                src="assets/beginners-mind-page-title-hero.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+          </section>
+
+          <section class="section" id="primary-section"></section>
+
+          <section
+            class="section"
+            id="finder-section"
+            aria-labelledby="finder-title"
+            hidden
+          >
+            <div class="finder">
+              <div class="finder-header">
+                <h2 class="panel-heading" id="finder-title">Find a sangha</h2>
+                <div class="filter-group" aria-label="Sangha filters">
+                  <div>
+                    <span class="filter-label">Region</span>
+                    <div class="filter-row" id="region-filters"></div>
+                  </div>
+                  <div>
+                    <span class="filter-label">Format</span>
+                    <div class="filter-row" id="modality-filters"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="finder-layout">
+                <div class="sangha-list" id="sangha-list"></div>
+                <aside class="finder-visual" aria-label="Map and calendar mockup">
+                  <div class="map-panel">
+                    <div class="map-grid" aria-hidden="true"></div>
+                    <div class="map-label" id="map-label">Greater Boston</div>
+                    <div id="map-markers"></div>
+                    <div class="map-caption" id="map-caption"></div>
+                  </div>
+                  <div class="calendar-panel">
+                    <h3>Calendar preview</h3>
+                    <div class="calendar-preview" id="calendar-preview"></div>
+                  </div>
+                </aside>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" id="secondary-section"></section>
+          <div id="extra-sections"></div>
+
+          <p class="footer-note">
+            <a href="#">Terms and Conditions</a> |
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Press &amp; Media</a> |
+            <a href="#">Contact Us</a>
+          </p>
+        </main>
+      </section>
+    </div>
+
+    <script>
+      const storageKey = "bops-prototype-v7-persona";
+      const weeklySittingsUrl =
+        "https://bostonoldpath.org/practice-with-us/weekly-sittings/";
+
+      const sanghas = [
+        {
+          id: "dandelions-heart",
+          name: "Dandelions of the Heart Sangha",
+          region: "boston",
+          modality: "virtual",
+          day: "Mon-Fri",
+          time: "6:30-7:30 AM",
+          location: "Newton",
+          access: "Zoom link by organizer contact",
+          description:
+            "A mostly silent morning sit with closing dharma reflection except Thursday and Friday. Visitors may drop in for any part.",
+          learnUrl: weeklySittingsUrl,
+          registerUrl: weeklySittingsUrl,
+          marker: ["B1", 39, 49],
+        },
+        {
+          id: "peaceful-garden",
+          name: "Peaceful Garden Sangha",
+          region: "boston",
+          modality: "in-person",
+          day: "Tuesday",
+          time: "7:00-8:30 PM",
+          location: "Brookline",
+          access: "United Parish Church, 210 Harvard Street",
+          description:
+            "An open walk-in, peer-led evening sitting with reading and discussion. Side-street parking and transit access are available.",
+          learnUrl: weeklySittingsUrl,
+          registerUrl: weeklySittingsUrl,
+          marker: ["B2", 48, 52],
+        },
+        {
+          id: "mindful-lunch",
+          name: "Mindful Lunch",
+          region: "boston",
+          modality: "virtual",
+          day: "Wednesday",
+          time: "12:00-12:45 PM",
+          location: "Online",
+          access: "Zoom link by organizer contact",
+          description:
+            "A brief mid-day eating practice for pausing, arriving, and practicing mindfulness during lunch.",
+          learnUrl: weeklySittingsUrl,
+          registerUrl: weeklySittingsUrl,
+          marker: ["B3", 64, 44],
+        },
+        {
+          id: "peaceful-songbird",
+          name: "Peaceful Songbird Sangha",
+          region: "boston",
+          modality: "hybrid",
+          day: "Saturday",
+          time: "9:30-11:30 AM",
+          location: "Roslindale",
+          access: "Zoom and occasional in-person temple practice",
+          description:
+            "Saturday practice with meditation, check-in, reading, dharma discussion, metta practice, and closing meditation.",
+          learnUrl: weeklySittingsUrl,
+          registerUrl: "mailto:PeacefulSongbird+owner@BostonOldPath.groups.io",
+          marker: ["B4", 45, 67],
+        },
+        {
+          id: "peaceful-heart",
+          name: "Peaceful Heart Sangha",
+          region: "boston",
+          modality: "virtual",
+          day: "Friday",
+          time: "8:30-10:00 AM",
+          location: "Online",
+          access: "Zoom",
+          description:
+            "A welcoming weekly online sangha with sitting, walking, dharma sharing, rotating facilitation, and confidentiality.",
+          learnUrl: weeklySittingsUrl,
+          registerUrl: weeklySittingsUrl,
+          marker: ["B5", 57, 41],
+        },
+        {
+          id: "wake-up-boston",
+          name: "Wake Up Boston",
+          region: "boston",
+          modality: "in-person",
+          day: "2nd and 4th Wednesday",
+          time: "Evening",
+          location: "Cambridge Central Square",
+          description:
+            "A young adult sangha for 18-35-ish practitioners with guided sitting, walking, dharma reading, and dharma sharing.",
+          learnUrl: "https://bostonwakeup.substack.com/about",
+          registerUrl: "https://bostonwakeup.substack.com/about",
+          marker: ["B6", 55, 35],
+        },
+        {
+          id: "living-the-14",
+          name: "Living the 14 Sangha",
+          region: "boston",
+          modality: "virtual",
+          day: "Wednesday",
+          time: "7:30-9:00 PM",
+          location: "Online study group",
+          description:
+            "A weekly study group grounded in the 14 Mindfulness Trainings for Order of Interbeing members, aspirants, and pre-aspirants.",
+          learnUrl: weeklySittingsUrl,
+          registerUrl: weeklySittingsUrl,
+          marker: ["B7", 69, 56],
+        },
+        {
+          id: "joyful-lotus",
+          name: "Joyful Lotus Sangha",
+          region: "boston",
+          modality: "in-person",
+          day: "First Wednesday of the month",
+          time: "5:00-6:30 PM",
+          location: "Cambridge Zen Center",
+          description:
+            "A monthly BIPOC gathering for meditation and exploration of contemplative practices in a safe community space.",
+          learnUrl: "https://cambridgezen.org/weekly-announcements",
+          registerUrl: "mailto:kfoo@wpi.edu",
+          marker: ["B8", 60, 32],
+        },
+        {
+          id: "true-love",
+          name: "Global placeholder / True Love Sangha",
+          region: "global",
+          modality: "virtual",
+          day: "Tuesday",
+          time: "12:00 PM ET",
+          location: "Online",
+          description:
+            "An international online sangha in the Plum Village tradition with weekly live practice.",
+          learnUrl: "https://www.plumline.org/",
+          registerUrl: "https://www.plumline.org/",
+          marker: ["G1", 47, 44],
+        },
+        {
+          id: "joyful-mountain",
+          name: "Global placeholder / Joyful Mountain Sangha",
+          region: "global",
+          modality: "virtual",
+          day: "Saturday",
+          time: "9:00 AM PT",
+          location: "Online",
+          description:
+            "A trauma-informed online Plum Village sangha with sitting, reading, sharing, and song.",
+          learnUrl: "https://www.plumline.org/",
+          registerUrl: "https://www.plumline.org/",
+          marker: ["G2", 30, 50],
+        },
+        {
+          id: "plumline-hybrid",
+          name: "Global placeholder / Plumline Directory Example",
+          region: "global",
+          modality: "hybrid",
+          day: "Varies",
+          time: "Local time",
+          location: "Global directory",
+          description:
+            "A placeholder for Plumline listings that combine online access with local practice.",
+          learnUrl: "https://www.plumline.org/",
+          registerUrl: "https://www.plumline.org/",
+          marker: ["G3", 62, 38],
+        },
+        {
+          id: "blue-cliff",
+          name: "Global placeholder / Blue Cliff Practice Center",
+          region: "global",
+          modality: "in-person",
+          day: "Retreat calendar",
+          time: "Varies",
+          location: "Pine Bush, NY",
+          description:
+            "A regional monastic practice center for retreats, days of mindfulness, and deeper practice.",
+          learnUrl: "https://www.plumvillage.org/practice-centre/blue-cliff-monastery/",
+          registerUrl: "https://www.plumvillage.org/practice-centre/blue-cliff-monastery/",
+          marker: ["G4", 74, 60],
+        },
+      ];
+
+      const regionOptions = [
+        ["boston", "Greater Boston Sanghas"],
+        ["global", "Global Sanghas"],
+      ];
+
+      const modalityOptions = [
+        ["all", "All"],
+        ["virtual", "Virtual"],
+        ["hybrid", "Hybrid"],
+        ["in-person", "In-person"],
+      ];
+
+      const bopsFinderGuidance =
+        "Sanghas are communities of monastic and/or lay Buddhist practitioners. A sangha is the best way to practice meditation, as it offers deep support and wisdom for beginners and seasoned practitioners alike. In Greater Boston, there are ample virtual, hybrid, and in-person options. Globally, there are thousands of sanghas meeting regularly for mornings, evenings, or days of mindfulness practice.";
+
+      const globalFinderGuidance = [
+        "These are placeholder examples for the prototype.",
+        "A production version should connect to trusted global directory sources.",
+        "Use local contact details to confirm time zones, access, and format.",
+      ];
+
+      const publicationCards = [
+        {
+          title: "Join our mailing list",
+          copy: "Receive sitting updates, day-of-mindfulness notes, retreat information, and community announcements.",
+          action: "Join our mailing list",
+          url: "https://bostonoldpath.org/about/community/",
+        },
+        {
+          title: "Browse Recent Newsletters",
+          copy: "Scan recent community updates, announcements, and practice opportunities.",
+          action: "Browse newsletters",
+          url: "https://bostonoldpath.org/newsletters/",
+        },
+        {
+          title: "Join Plumline mailing list",
+          copy: "Receive broader Plumline updates for sangha discovery and community-building resources.",
+          action: "Join Plumline",
+          url: "https://www.plumline.org/building",
+        },
+        {
+          title: "The Way Out Is In Podcast",
+          copy: "Listen to conversations on mindfulness, engaged practice, and daily life in the Plum Village tradition.",
+          action: "Listen to podcast",
+          url: "https://plumvillage.org/podcasts/the-way-out-is-in",
+        },
+        {
+          title: "Key Books",
+          copy: "Browse foundational books from Thich Nhat Hanh for study, reflection, and practice.",
+          action: "Browse books",
+          url: "https://plumvillage.org/about/thich-nhat-hanh/key-books",
+        },
+        {
+          title: "Letters from Thich Nhat Hanh",
+          copy: "Read letters and teachings from Thay for personal practice and community reflection.",
+          action: "Read letters",
+          url: "https://plumvillage.org/about/thich-nhat-hanh/letters",
+        },
+        {
+          title: "Joanna Macy",
+          copy: "Explore resources on engaged ecological practice, grief, resilience, and the work that reconnects.",
+          action: "Visit resource",
+          url: "https://www.joannamacy.net/main",
+        },
+        {
+          title: "Pema Chodron",
+          copy: "Find teachings and resources on compassion, courage, and working with difficulty.",
+          action: "Visit resource",
+          url: "https://pemachodronfoundation.org/",
+        },
+        {
+          title: "Jack Kornfield",
+          copy: "Explore talks, writings, and practice resources from a Western insight meditation teacher.",
+          action: "Visit resource",
+          url: "https://jackkornfield.com/",
+        },
+        {
+          title: "Bhante Gunaratana",
+          copy: "Browse teachings and books from a Theravada monk known for practical mindfulness instruction.",
+          action: "Visit resource",
+          url: "https://wisdomexperience.org/content-author/bhante-gunaratana/",
+        },
+        {
+          title: "New England Buddhist Poetry Exchange",
+          copy: "Read community poetry, reflections, and Buddhist practice writing from New England practitioners.",
+          action: "Read poetry",
+          url: "https://buddhistpoetryexchange.blogspot.com",
+        },
+        { placeholder: true },
+      ];
+
+      const additionalActivityCards = [
+        {
+          title: "Affinity Groups",
+          copy: "Practice with people who share a life context, identity, or care focus.",
+        },
+        {
+          title: "Education / Dharma study",
+          copy: "Study groups, talks, readings, and learning paths from local and Plum Village resources.",
+        },
+        {
+          title: "Days of Mindfulness",
+          copy: "A daylong opportunity to pause, practice, listen, and renew community connection.",
+        },
+        {
+          title: "Retreats",
+          copy: "Longer practice periods for rest, silence, teachings, and deepening mindfulness in community.",
+        },
+        {
+          title: "Retreat Centers",
+          copy: "Connect with Plum Village practice centers and regional retreat opportunities.",
+        },
+        {
+          title: "Contribute to BOPS",
+          copy: "Find working groups and volunteer roles that match your capacity.",
+        },
+        { placeholder: true },
+        { placeholder: true },
+        { placeholder: true },
+      ];
+
+      const pathContent = {
+        beginner: {
+          label: "Beginner's Mind",
+          eyebrow: "Beginner's Mind",
+          title: "A deep bow to you, dear friend.",
+          summary: "Select an option to see more information:",
+          image: "assets/beginners-mind-page-title-hero.jpg",
+          imageAlt:
+            "A sunlit green landscape with a pond and purple wildflowers.",
+          imagePosition: "center 58%",
+          hasFinder: true,
+          summaryItems: [
+            ["#learning-more", "Learn more"],
+            ["#finder-section", "Find a sangha"],
+            ["#additional-activities", "Additional activities"],
+            ["#join-mailing-list", "Publications"],
+            ["#request-mentorship", "Request mentorship"],
+          ],
+          primary: {
+            id: "learning-more",
+            title: "Learn",
+            intro:
+              "A plain-language starting point before choosing a sitting or asking for support.",
+            cards: [
+              {
+                title: "Start Here",
+                copy: "An intro to mindfulness and mindful living.",
+                action: "Learn more",
+                url: "https://plumvillage.org/mindfulness/mindfulness-practice",
+              },
+              {
+                title: "Thich Nhat Hanh",
+                copy: "Learn about Thich Nhat Hanh (Thay), his teachings, and the Plum Village tradition.",
+                action: "Learn about Thay",
+                url: "https://plumvillage.org/about/thich-nhat-hanh",
+              },
+              {
+                title: "Plum Village",
+                copy: "Learn about the Plum Village tradition, practice centers, and global community.",
+                action: "Learn about Plum Village",
+                url: "https://plumvillage.org/about/plum-village",
+              },
+              {
+                title: "Boston Old Path Sangha",
+                copy: "Learn about local Plum Village practice, community history, and sangha life in Greater Boston.",
+              },
+              {
+                title: "About this Website",
+                copy: "A guide to the paths, resources, and ways this prototype helps visitors find what they need.",
+              },
+              {
+                title: "FAQ",
+                copy: "Common questions about what to expect, how to attend, and how to begin.",
+              },
+              { placeholder: true },
+              {
+                title: "Resources",
+                copy: "Talks, readings, songs, practices, and links for learning between sittings.",
+              },
+              {
+                title: "Dana",
+                copy: "Learn about generosity as a practice of giving and sustaining community.",
+                action: "Learn about dana",
+                url: "https://plumvillage.app/dana-the-practice-of-giving/",
+              },
+            ],
+          },
+          secondary: null,
+          extraSections: [
+            {
+              id: "additional-activities",
+              eyebrow: "Practice",
+              title: "Additional activities",
+              intro:
+                "Make ongoing practice opportunities visible once someone has found a starting point.",
+              cards: additionalActivityCards,
+            },
+            {
+              id: "join-mailing-list",
+              eyebrow: "Join",
+              title: "Publications",
+              intro:
+                "Keep the connection step distinct from learning so newcomers can choose it when they are ready.",
+              cards: publicationCards,
+            },
+            {
+              id: "request-mentorship",
+              eyebrow: "Ask",
+              title: "Ask",
+              intro:
+                "Give new visitors a clear, low-pressure way to ask what to expect before attending.",
+              cards: [
+                {
+                  title: "Request mentorship",
+                  copy: "Ask for help choosing a first sitting, understanding Plum Village practice, or finding a person to talk with.",
+                  action: "Request mentorship",
+                },
+              ],
+            },
+          ],
+        },
+        practitioner: {
+          label: "Practitioner",
+          eyebrow: "Practitioner",
+          title: "Present moment, wonderful moment.",
+          summary: "Select an option to see more information:",
+          image: "assets/practitioner-page-title-hero.jpg",
+          imageAlt: "A close view of a large seated Buddha statue.",
+          imagePosition: "center 34%",
+          hasFinder: true,
+          finderTitle: "Find a sangha",
+          finderFirst: true,
+          summaryItems: [
+            ["#finder-section", "Find a sangha"],
+            ["#additional-activities", "Additional activities"],
+            ["#five-mindfulness-trainings", "5 Mindfulness Trainings"],
+            ["#order-of-interbeing", "Order of Interbeing"],
+            ["#community-builders", "Engaged Buddhism"],
+            ["#practitioner-publications", "Publications"],
+          ],
+          primary: {
+            id: "additional-activities",
+            title: "Additional activities",
+            intro:
+              "Bring the deeper practice opportunities forward without making people search through archived pages.",
+            cards: additionalActivityCards,
+          },
+          secondary: null,
+          extraSections: [
+            {
+              id: "five-mindfulness-trainings",
+              eyebrow: "Trainings",
+              title: "5 Mindfulness Trainings",
+              intro:
+                "Bring ethics and commitment into view without requiring practitioners to search archived pages.",
+              cards: [
+                {
+                  title: "Description",
+                  copy: "A concise overview of the 5 Mindfulness Trainings as a practical ethical foundation for daily life.",
+                },
+                {
+                  title: "Transmission",
+                  copy: "Preparation and local/global opportunities for formally receiving the 5 Mindfulness Trainings.",
+                },
+                {
+                  title: "Recitations",
+                  copy: "Regular recitation opportunities for renewing understanding and practicing with the trainings in community.",
+                },
+              ],
+            },
+            {
+              id: "order-of-interbeing",
+              eyebrow: "Community",
+              title: "Order of Interbeing",
+              intro:
+                "Keep deeper commitment visible for practitioners exploring aspiration, mentorship, and the 14 Mindfulness Trainings.",
+              cards: [
+                {
+                  title: "Order of Interbeing (OI)",
+                  copy: "An introduction to the Order of Interbeing and the 14 Mindfulness Trainings.",
+                },
+                {
+                  title: "Becoming Order of Interbeing (OI)",
+                  copy: "A path for learning about aspiration, mentorship, and community support.",
+                },
+              ],
+            },
+            {
+              id: "community-builders",
+              eyebrow: "Community",
+              title: "Community Builders",
+              intro:
+                "Keep local collaboration visible for practitioners ready to help sustain sangha life.",
+              cards: [
+                {
+                  title: "Community Builders",
+                  copy: "Our collaboration process, working groups, and mailing list for people who help sustain BOPS.",
+                },
+                {
+                  title: "Activism",
+                  copy: "Practice engaged Buddhism through compassionate action, skillful participation, and community care.",
+                },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+                { placeholder: true },
+              ],
+            },
+            {
+              id: "practitioner-publications",
+              eyebrow: "Practice",
+              title: "Publications",
+              intro:
+                "Offer practitioners the same reading, listening, and newsletter resources as the beginner path.",
+              cards: publicationCards,
+            },
+          ],
+        },
+        facilitator: {
+          label: "Facilitator",
+          eyebrow: "Facilitator",
+          title: "Tend to the three jewels.",
+          summary: "Select an option to see more information:",
+          image: "assets/facilitator-page-title-hero.jpg",
+          imageAlt: "Tea being poured into a cup in a quiet indoor setting.",
+          imagePosition: "center 58%",
+          hasFinder: false,
+          summaryItems: [
+            ["#dharma-sharing-structure", "Sangha Resources"],
+            ["#additional-activities", "Additional activities"],
+            ["#song-sheets-printables", "Join Builder Sangha"],
+            ["#builder-mentorship", "Become a mentor"],
+            ["#keep-sangha-details-current", "Update sangha details"],
+          ],
+          primary: {
+            id: "dharma-sharing-structure",
+            title: "Sangha Resources",
+            intro:
+              "Give facilitators practical structure while preserving the warmth and care of dharma sharing.",
+            cards: [
+              {
+                title: "Dharma sharing guides",
+                copy: "Structure, deep listening norms, facilitation prompts, and group agreements.",
+              },
+              {
+                title: "Sangha Facilitation",
+                copy: "Guidance for facilitating Plum Village sangha practice with care, clarity, and inclusion.",
+                action: "View facilitation guide",
+                url: "https://www.plumline.org/facilitation",
+              },
+              {
+                title: "Songbook",
+                copy: "Songs and shared practice materials for Plum Village gatherings and local sangha use.",
+                action: "View songbook",
+                url: "https://www.plumline.org/songbook",
+              },
+              {
+                title: "New Sangha Practice Book",
+                copy: "A practical guide for new and existing sanghas from the Thich Nhat Hanh Foundation.",
+                action: "View practice book",
+                url: "https://thichnhathanhfoundation.app.box.com/s/kkw4prrlwhrsxza5vf9hof1ec6ljbkso",
+              },
+              {
+                title: "OI Directory",
+                copy: "A placeholder for connecting with Order of Interbeing members and aspirant support.",
+              },
+              {
+                title: "Care Taking Council (CTC)",
+                copy: "A placeholder for care-taking roles, coordination, and sangha stewardship practices.",
+              },
+              {
+                title: "Host Recitation",
+                copy: "A placeholder for hosting recitations, preparing materials, and supporting shared practice.",
+              },
+              { placeholder: true },
+              { placeholder: true },
+            ],
+          },
+          secondary: null,
+          extraSections: [
+            {
+              id: "additional-activities",
+              eyebrow: "Practice",
+              title: "Additional activities",
+              intro:
+                "Make broader practice opportunities visible for facilitators and community builders.",
+              cards: additionalActivityCards,
+            },
+            {
+              id: "song-sheets-printables",
+              eyebrow: "Facilitator",
+              title: "Join Builder Sangha",
+              intro:
+                "Keep shared practice materials easy to find before a gathering.",
+              cards: [
+              {
+                title: "Songs and printables",
+                copy: "Printable singing sheet, Plum Village song links, and local handouts.",
+              },
+              ],
+            },
+            {
+              id: "builder-mentorship",
+              eyebrow: "Facilitator",
+              title: "Become a mentor",
+              intro:
+                "Give facilitators a clear way to compare practices and ask for help.",
+              cards: [
+              {
+                title: "Builder mentoring",
+                copy: "A way to ask questions, compare practices, and receive support from other facilitators.",
+              },
+              {
+                title: "Coordinate",
+                copy: "Our collaboration process, mailing list, and mentorship options for community builders.",
+              },
+              ],
+            },
+            {
+              id: "keep-sangha-details-current",
+              eyebrow: "Facilitator",
+              title: "Update sangha details",
+              intro:
+                "Make the maintenance work visible so the public site stays trustworthy.",
+              cards: [
+              {
+                title: "Maintain resources",
+                copy: "Update listing details, share current access notes, and join working groups when details change.",
+              },
+            ],
+            },
+          ],
+        },
+      };
+
+      const entryScreen = document.querySelector("#entry-screen");
+      const experience = document.querySelector("#experience");
+      const topbar = document.querySelector(".topbar");
+      const contentRoot = document.querySelector(".content");
+      const choiceButtons = Array.from(document.querySelectorAll(".choice-button"));
+      const changePathButton = document.querySelector("#change-path");
+      const pathLabel = document.querySelector("#selected-path-label");
+      const pathEyebrow = document.querySelector("#path-eyebrow");
+      const pathTitle = document.querySelector("#path-title");
+      const pathOptionsAnchor = document.querySelector("#path-options-anchor");
+      const pathOptionsPanel = document.querySelector("#path-options-panel");
+      const pathSummary = document.querySelector("#path-summary");
+      const heroActions = document.querySelector("#hero-actions");
+      const pathHeroImage = document.querySelector("#path-hero-image");
+      const finderSection = document.querySelector("#finder-section");
+      const finderTitle = document.querySelector("#finder-title");
+      const regionFilters = document.querySelector("#region-filters");
+      const modalityFilters = document.querySelector("#modality-filters");
+      const sanghaList = document.querySelector("#sangha-list");
+      const mapLabel = document.querySelector("#map-label");
+      const mapMarkers = document.querySelector("#map-markers");
+      const mapCaption = document.querySelector("#map-caption");
+      const calendarPreview = document.querySelector("#calendar-preview");
+      const primarySection = document.querySelector("#primary-section");
+      const secondarySection = document.querySelector("#secondary-section");
+      const extraSections = document.querySelector("#extra-sections");
+      const footerNote = document.querySelector(".footer-note");
+
+      let selectedPersona = null;
+      let finderRegion = "boston";
+      let finderModality = "all";
+      let activeSectionId = null;
+
+      function updateStickyOffset() {
+        if (!topbar) return;
+        document.documentElement.style.setProperty(
+          "--sticky-offset",
+          `${topbar.offsetHeight + 10}px`,
+        );
+      }
+
+      function updatePathTitleMeasure() {
+        if (!pathTitle || !pathOptionsAnchor) return;
+
+        const titleBox = pathTitle.getBoundingClientRect();
+        if (titleBox.width <= 0) return;
+
+        let titleMeasure = titleBox.width;
+
+        if (pathTitle.textContent.trim()) {
+          const range = document.createRange();
+          range.selectNodeContents(pathTitle);
+          const lineRects = Array.from(range.getClientRects()).filter(
+            (rect) => rect.width > 0 && rect.height > 0,
+          );
+
+          if (lineRects.length > 0) {
+            titleMeasure = Math.max(
+              ...lineRects.map((rect) => rect.right - titleBox.left),
+            );
+          }
+
+          range.detach();
+        }
+
+        const clampedMeasure = Math.min(
+          Math.ceil(titleMeasure),
+          Math.ceil(titleBox.width),
+        );
+        if (!Number.isFinite(clampedMeasure) || clampedMeasure <= 0) return;
+
+        pathOptionsAnchor.style.setProperty(
+          "--path-title-measure",
+          `${clampedMeasure}px`,
+        );
+      }
+
+      function resetPathOptionsPanel() {
+        if (!pathOptionsAnchor) return;
+        pathOptionsAnchor.style.height = "auto";
+      }
+
+      function refreshPathOptionsPosition() {
+        updateStickyOffset();
+        updatePathTitleMeasure();
+      }
+
+      function getStoredPersona() {
+        try {
+          return window.localStorage.getItem(storageKey);
+        } catch {
+          return null;
+        }
+      }
+
+      function setStoredPersona(persona) {
+        try {
+          window.localStorage.setItem(storageKey, persona);
+        } catch {
+          // Browsers can block storage for local file previews.
+        }
+      }
+
+      function clearStoredPersona() {
+        try {
+          window.localStorage.removeItem(storageKey);
+        } catch {
+          // Browsers can block storage for local file previews.
+        }
+      }
+
+      function showEntry(options = {}) {
+        if (options.clearStored) {
+          clearStoredPersona();
+        }
+        selectedPersona = null;
+        resetPathOptionsPanel();
+        entryScreen.hidden = false;
+        experience.hidden = true;
+        choiceButtons[0].focus({ preventScroll: true });
+      }
+
+      function renderFilterButtons(container, options, selected, type) {
+        container.innerHTML = options
+          .map(
+            ([value, label]) => `
+              <button
+                class="filter-button"
+                type="button"
+                data-filter-type="${type}"
+                data-filter-value="${value}"
+                aria-pressed="${String(value === selected)}"
+              >
+                ${label}
+              </button>
+            `,
+          )
+          .join("");
+      }
+
+      function getFilteredSanghas() {
+        return sanghas.filter((sangha) => {
+          const regionMatch = sangha.region === finderRegion;
+          const modalityMatch =
+            finderModality === "all" || sangha.modality === finderModality;
+          return regionMatch && modalityMatch;
+        });
+      }
+
+      function formatModality(value) {
+        if (value === "in-person") return "In-person";
+        return value.charAt(0).toUpperCase() + value.slice(1);
+      }
+
+      function linkAttributes(url) {
+        const href = url || "#";
+        const opensNewTab = /^https?:\/\//.test(href);
+        return `href="${href}"${opensNewTab ? ' target="_blank" rel="noopener noreferrer"' : ""}`;
+      }
+
+      function renderFinder() {
+        renderFilterButtons(regionFilters, regionOptions, finderRegion, "region");
+        renderFilterButtons(
+          modalityFilters,
+          modalityOptions,
+          finderModality,
+          "modality",
+        );
+
+        const filtered = getFilteredSanghas();
+        const regionLabel =
+          finderRegion === "boston" ? "Greater Boston" : "Global Sanghas";
+        mapLabel.textContent = regionLabel;
+        mapCaption.textContent =
+          filtered.length > 0
+            ? `${filtered.length} sangha option${filtered.length === 1 ? "" : "s"} shown. Map pins are a visual placeholder for the review prototype.`
+            : "No mock sanghas match these filters yet.";
+
+        const isBostonRegion = finderRegion === "boston";
+        const guidance = isBostonRegion ? bopsFinderGuidance : globalFinderGuidance;
+        const guidanceTitle =
+          isBostonRegion
+            ? "Before attending"
+            : "Global placeholder note";
+        const guidanceMarkup = `
+          <aside class="finder-guidance" aria-label="${guidanceTitle}">
+            <h3>${guidanceTitle}</h3>
+            ${
+              isBostonRegion
+                ? `<p class="guidance-copy">${guidance}</p>`
+                : `<ul class="guidance-list">
+                    ${guidance.map((item) => `<li>${item}</li>`).join("")}
+                  </ul>`
+            }
+          </aside>
+        `;
+
+        sanghaList.innerHTML =
+          guidanceMarkup +
+          (filtered.length > 0
+            ? filtered
+                .map(
+                  (sangha) => `
+                    <article class="sangha-card">
+                      <div>
+                        <div class="sangha-meta">
+                          <span class="pill sun">${formatModality(sangha.modality)}</span>
+                          <span class="pill">${regionLabel}</span>
+                          <span class="pill">${sangha.location}</span>
+                          <span class="pill">${sangha.day}</span>
+                          <span class="pill">${sangha.time}</span>
+                        </div>
+                        <h3>${sangha.name}</h3>
+                        <p>${sangha.description}</p>
+                      </div>
+                      <div>
+                        <p><strong>Location:</strong> ${sangha.location}</p>
+                        ${
+                          sangha.access
+                            ? `<p><strong>Access:</strong> ${sangha.access}</p>`
+                            : ""
+                        }
+                        <div class="sangha-actions">
+                          <a class="button secondary" ${linkAttributes(sangha.learnUrl)}>Learn More</a>
+                          <a class="button" ${linkAttributes(sangha.registerUrl)}>Register</a>
+                        </div>
+                      </div>
+                    </article>
+                  `,
+                )
+                .join("")
+            : '<div class="empty-state">No sanghas match this filter combination.</div>');
+
+        mapMarkers.innerHTML = filtered
+          .map(
+            (sangha) => `
+              <div
+                class="map-marker"
+                style="left: ${sangha.marker[1]}%; top: ${sangha.marker[2]}%;"
+                title="${sangha.name}"
+              >
+                ${sangha.marker[0]}
+              </div>
+            `,
+          )
+          .join("");
+
+        calendarPreview.innerHTML =
+          filtered.length > 0
+            ? filtered
+                .slice(0, 3)
+                .map(
+                  (sangha) => `
+                    <div class="calendar-row">
+                      <div class="date-chip">${sangha.day.slice(0, 3)}</div>
+                      <div>
+                        <strong>${sangha.name}</strong>
+                        <span>${sangha.time} - ${formatModality(sangha.modality)}</span>
+                      </div>
+                    </div>
+                  `,
+                )
+                .join("")
+            : '<div class="empty-state">Calendar preview updates with filters.</div>';
+      }
+
+      function renderInfoCard(card) {
+        if (card.placeholder) {
+          return '<article class="info-card placeholder-card" aria-hidden="true"></article>';
+        }
+
+        if (card.url) {
+          return `
+            <a class="info-card linked-card" ${linkAttributes(card.url)}>
+              <h3>${card.title}</h3>
+              <p>${card.copy}</p>
+            </a>
+          `;
+        }
+
+        return `
+          <article class="info-card">
+            <h3>${card.title}</h3>
+            <p>${card.copy}</p>
+            ${
+              card.action
+                ? `<a class="button secondary" href="${card.url || "#"}">${card.action}</a>`
+                : ""
+            }
+          </article>
+        `;
+      }
+
+      function getSectionLabel(content, sectionId) {
+        const match = content.summaryItems.find(
+          ([href]) => href.replace("#", "") === sectionId,
+        );
+        return match ? match[1] : "";
+      }
+
+      function renderDetailPanel(label, cards) {
+        return `
+          <div class="detail-panel">
+            <div class="detail-panel-header">
+              <h2 class="panel-heading">${label}</h2>
+            </div>
+            <div class="detail-panel-body">
+              <div class="card-grid three">
+                ${cards.map((card) => renderInfoCard(card)).join("")}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderPrimarySection(content) {
+        primarySection.hidden = false;
+        primarySection.id = content.primary.id;
+        primarySection.innerHTML = renderDetailPanel(
+          getSectionLabel(content, content.primary.id) || content.primary.title,
+          content.primary.cards,
+        );
+      }
+
+      function renderSecondarySection(content) {
+        if (!content.secondary) {
+          secondarySection.hidden = true;
+          secondarySection.id = "secondary-section";
+          secondarySection.innerHTML = "";
+          return;
+        }
+
+        secondarySection.hidden = false;
+        secondarySection.id = content.secondary.id;
+        secondarySection.innerHTML = `
+          <div class="detail-panel">
+            <div class="detail-panel-header">
+              <h2 class="panel-heading">
+                ${getSectionLabel(content, content.secondary.id) || content.secondary.title}
+              </h2>
+            </div>
+            <div class="detail-panel-body">
+              <div class="card-grid three">
+                ${content.secondary.groups
+                  .map(
+                    (group) => `
+                      <article class="info-card">
+                        <h3>${group.title}</h3>
+                        <ul class="list">
+                          ${group.items.map((item) => `<li>${item}</li>`).join("")}
+                        </ul>
+                      </article>
+                    `,
+                  )
+                  .join("")}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderExtraSections(content) {
+        extraSections.innerHTML = (content.extraSections || [])
+          .map(
+            (section) => `
+              <section class="section" id="${section.id}">
+                ${renderDetailPanel(
+                  getSectionLabel(content, section.id) || section.title,
+                  section.cards,
+                )}
+              </section>
+            `,
+          )
+          .join("");
+      }
+
+      function renderHeroActions(content) {
+        heroActions.innerHTML = content.summaryItems
+          .map(
+            ([href, label]) => {
+              const sectionId = href.replace("#", "");
+              return `
+              <button
+                class="button path-option-button"
+                type="button"
+                data-path-section="${sectionId}"
+                aria-controls="${sectionId}"
+                aria-pressed="${String(sectionId === activeSectionId)}"
+              >
+                ${label}
+              </button>
+            `;
+            },
+          )
+          .join("");
+      }
+
+      function setActivePathSection(content, sectionId) {
+        activeSectionId = sectionId;
+
+        content.summaryItems.forEach(([href]) => {
+          const section = document.getElementById(href.replace("#", ""));
+          if (section) {
+            section.hidden = section.id !== activeSectionId;
+          }
+        });
+
+        Array.from(heroActions.querySelectorAll("[data-path-section]")).forEach(
+          (button) => {
+            button.setAttribute(
+              "aria-pressed",
+              String(button.dataset.pathSection === activeSectionId),
+            );
+          },
+        );
+      }
+
+      function arrangeSections(content) {
+        if (content.finderFirst) {
+          contentRoot.insertBefore(finderSection, primarySection);
+        } else {
+          contentRoot.insertBefore(primarySection, finderSection);
+        }
+
+        contentRoot.insertBefore(secondarySection, extraSections);
+        contentRoot.insertBefore(extraSections, footerNote);
+      }
+
+      function showExperience(persona) {
+        const content = pathContent[persona] || pathContent.beginner;
+        selectedPersona = persona;
+        setStoredPersona(persona);
+
+        pathLabel.textContent = content.label;
+        pathEyebrow.textContent = content.eyebrow;
+        pathTitle.textContent = content.title;
+        pathSummary.textContent = content.summary;
+        activeSectionId = content.summaryItems[0][0].replace("#", "");
+        pathHeroImage.src = content.image;
+        pathHeroImage.alt = content.imageAlt;
+        pathHeroImage.style.setProperty(
+          "--image-position",
+          content.imagePosition,
+        );
+        renderHeroActions(content);
+
+        finderSection.hidden = !content.hasFinder;
+        if (content.hasFinder) {
+          finderTitle.textContent =
+            content.finderTitle ||
+            getSectionLabel(content, "finder-section") ||
+            "Find a sangha";
+          finderRegion = "boston";
+          finderModality = "all";
+          renderFinder();
+        }
+
+        renderPrimarySection(content);
+        renderSecondarySection(content);
+        renderExtraSections(content);
+        arrangeSections(content);
+        setActivePathSection(content, activeSectionId);
+
+        entryScreen.hidden = true;
+        experience.hidden = false;
+        resetPathOptionsPanel();
+        window.scrollTo({ top: 0, behavior: "auto" });
+        window.requestAnimationFrame(refreshPathOptionsPosition);
+      }
+
+      choiceButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          showExperience(button.dataset.persona);
+        });
+      });
+
+      heroActions.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-path-section]");
+        if (!button || !selectedPersona) return;
+        const content = pathContent[selectedPersona] || pathContent.beginner;
+        setActivePathSection(content, button.dataset.pathSection);
+      });
+
+      document.addEventListener("click", (event) => {
+        const target = event.target.closest("[data-filter-type]");
+        if (!target) return;
+        if (target.dataset.filterType === "region") {
+          finderRegion = target.dataset.filterValue;
+        }
+        if (target.dataset.filterType === "modality") {
+          finderModality = target.dataset.filterValue;
+        }
+        renderFinder();
+      });
+
+      changePathButton.addEventListener("click", () => {
+        showEntry({ clearStored: true });
+      });
+
+      window.addEventListener("resize", () => {
+        resetPathOptionsPanel();
+        refreshPathOptionsPosition();
+      });
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(refreshPathOptionsPosition).catch(() => {});
+      }
+
+      const legacyPathMap = {
+        newcomer: "beginner",
+        builder: "facilitator",
+      };
+      const initialPersona = getStoredPersona();
+      const normalizedPersona = legacyPathMap[initialPersona] || initialPersona;
+      if (normalizedPersona && pathContent[normalizedPersona]) {
+        showExperience(normalizedPersona);
+      } else {
+        showEntry();
+      }
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </body>
+</html>

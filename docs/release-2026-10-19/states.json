@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Resources dropdown",
+    "violations": []
+  },
+  {
+    "name": "Community dropdown",
+    "violations": []
+  },
+  {
+    "name": "Mobile drawer",
+    "violations": []
+  },
+  {
+    "name": "All resource disclosures open",
+    "violations": []
+  },
+  {
+    "name": "No matching groups",
+    "violations": []
+  },
+  {
+    "name": "Group details and organizer contact",
+    "violations": []
+  },
+  {
+    "name": "Subscription guides open and URL copied",
+    "violations": []
+  },
+  {
+    "name": "Feed error state",
+    "violations": []
+  },
+  {
+    "name": "Blocked map and calendar embeds",
+    "alternativeContentAvailable": true
+  }
+]

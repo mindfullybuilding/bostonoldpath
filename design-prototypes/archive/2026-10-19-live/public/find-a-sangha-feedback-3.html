@@ -1,0 +1,1654 @@
+<!doctype html>
+<html lang="en" data-mcgb-mobile>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Find a Sangha | Mindfulness Communities of Greater Boston</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --sun: #ffd22a;
+        --light-sun: #fefbf3;
+        --ink: #222;
+        --dark-ink: #272727;
+        --earth: #8b572a;
+        --cloud: #fff;
+        --light-ink: #f3f3f3;
+        --less-light-ink: #eaeaea;
+        --muted: #6d6a62;
+        --focus: #8b572a;
+        --radius: 8px;
+        --shadow: 0 18px 60px rgba(34, 34, 34, 0.08);
+        --sticky-offset: 82px;
+        --font-sans:
+          "PV Sans Serif", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Arial, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-height: 100%;
+        background: var(--light-sun);
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: var(--light-sun);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      a:focus-visible,
+      button:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      .page {
+        min-height: 100vh;
+        background: var(--light-sun);
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--less-light-ink);
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(12px);
+      }
+
+      .topbar-inner,
+      .content {
+        width: min(1160px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 0;
+      }
+
+      .brand {
+        display: grid;
+        gap: 1px;
+      }
+
+      .brand strong {
+        font-size: 1rem;
+      }
+
+      .brand span,
+      .path-label {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .path-tools {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        border: 1px solid rgba(139, 87, 42, 0.14);
+        border-radius: 999px;
+        padding: 6px 10px 6px 12px;
+        background: rgba(255, 210, 42, 0.16);
+      }
+
+      .text-button {
+        border: 0;
+        border-bottom: 2px solid var(--sun);
+        padding: 2px 0;
+        background: transparent;
+        color: var(--ink);
+        cursor: pointer;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .content {
+        display: flex;
+        min-height: calc(100vh - var(--sticky-offset));
+        flex-direction: column;
+        padding: clamp(28px, 4vw, 44px) 0 52px;
+      }
+
+      .context-nav {
+        margin-bottom: 14px;
+      }
+
+      .context-nav .text-button {
+        font-size: 0.88rem;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--ink);
+        border-radius: 4px;
+        padding: 0.45rem 1.1rem;
+        background: var(--sun);
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        border-color: var(--less-light-ink);
+        background: var(--cloud);
+      }
+
+      .finder {
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        background: var(--cloud);
+      }
+
+      .finder-header {
+        display: grid;
+        gap: 12px;
+        border-bottom: 1px solid var(--less-light-ink);
+        padding: 14px 16px;
+      }
+
+      .finder-heading {
+        display: grid;
+        align-content: start;
+        gap: 8px;
+      }
+
+      .panel-heading {
+        margin: 0;
+        color: var(--earth);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .filter-group {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 12px;
+      }
+
+      .finder-controls {
+        display: grid;
+        gap: 8px;
+        border: 1px solid rgba(139, 87, 42, 0.14);
+        border-radius: var(--radius);
+        padding: 10px;
+        background: rgba(254, 251, 243, 0.72);
+      }
+
+      .filter-set {
+        display: flex;
+        flex: 0 1 auto;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .filter-label {
+        flex: 0 0 auto;
+        color: var(--earth);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .filter-button {
+        min-height: 30px;
+        border: 1px solid var(--less-light-ink);
+        border-radius: 999px;
+        padding: 0 10px;
+        background: var(--light-sun);
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .filter-button[aria-pressed="true"] {
+        border-color: var(--ink);
+        background: var(--sun);
+      }
+
+      .finder-layout {
+        display: grid;
+        gap: 18px;
+        padding: 18px;
+      }
+
+      .sangha-list {
+        display: grid;
+        align-content: start;
+        gap: 12px;
+      }
+
+      .finder-guidance {
+        max-width: 58ch;
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.84rem;
+        line-height: 1.45;
+      }
+
+      .sangha-card {
+        display: grid;
+        gap: 12px;
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        padding: 16px;
+        background: var(--cloud);
+        transition:
+          border-color 160ms ease,
+          background-color 160ms ease,
+          box-shadow 160ms ease;
+      }
+
+      .sangha-card:hover {
+        border-color: var(--earth);
+        background: var(--light-sun);
+      }
+
+      .sangha-card[data-has-map="true"] {
+        cursor: pointer;
+      }
+
+      .sangha-card.is-active {
+        border-color: var(--earth);
+        background: var(--light-sun);
+        box-shadow: 0 0 0 3px rgba(139, 87, 42, 0.14);
+      }
+
+      .sangha-card h3 {
+        margin-bottom: 6px;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+
+      .sangha-card p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .sangha-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .pill {
+        border: 1px solid var(--less-light-ink);
+        border-radius: 999px;
+        padding: 3px 8px;
+        background: var(--light-ink);
+        color: var(--dark-ink);
+        font-size: 0.74rem;
+        font-weight: 700;
+      }
+
+      .pill.sun {
+        border-color: var(--sun);
+        background: var(--sun);
+      }
+
+      .sangha-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .finder-visual {
+        display: grid;
+        gap: 12px;
+      }
+
+      .map-panel,
+      .calendar-panel {
+        border: 1px solid var(--less-light-ink);
+        border-radius: var(--radius);
+        background: var(--light-sun);
+      }
+
+      .map-panel {
+        position: relative;
+        min-height: 420px;
+        overflow: hidden;
+      }
+
+      .map-canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        min-height: 420px;
+        border: 0;
+        background: #e8eee6;
+      }
+
+      .calendar-panel {
+        padding: 14px;
+      }
+
+      .calendar-panel h3 {
+        margin-bottom: 10px;
+        font-size: 1rem;
+      }
+
+      .calendar-preview {
+        overflow: hidden;
+        border: 1px solid var(--less-light-ink);
+        border-radius: 4px;
+        background: var(--cloud);
+      }
+
+      .calendar-embed {
+        display: block;
+        width: 100%;
+        height: 360px;
+        border: 0;
+      }
+
+      .empty-state {
+        display: grid;
+        align-self: start;
+        justify-items: center;
+        gap: 12px;
+        border: 1px dashed var(--less-light-ink);
+        border-radius: var(--radius);
+        padding: 18px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .empty-state p {
+        margin: 0;
+      }
+
+      .footer-note {
+        margin-top: auto;
+        border-top: 1px solid var(--less-light-ink);
+        padding-top: 18px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        text-align: center;
+      }
+
+      .footer-note a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .footer-note a:hover {
+        color: var(--ink);
+        text-decoration: underline;
+      }
+
+      @media (min-width: 740px) {
+        html {
+          font-size: 18px;
+        }
+
+        .finder-layout {
+          grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr);
+        }
+
+        .sangha-list {
+          max-height: min(860px, calc(100vh - 138px));
+          overflow: auto;
+          padding-right: 4px;
+        }
+
+        .finder-visual {
+          position: sticky;
+          top: var(--sticky-offset);
+          align-self: start;
+        }
+
+        .finder-header {
+          grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
+          align-items: start;
+        }
+      }
+
+      @media (max-width: 739px) {
+        .topbar-inner {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .path-tools {
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        .content {
+          padding-top: 24px;
+        }
+
+        .finder-header {
+          gap: 10px;
+          padding: 12px;
+        }
+
+        .filter-group {
+          align-items: stretch;
+          gap: 6px;
+        }
+
+        .filter-set {
+          display: grid;
+          width: 100%;
+          grid-template-columns: 58px minmax(0, 1fr);
+          align-items: center;
+        }
+
+        .filter-row {
+          gap: 4px;
+        }
+
+        .filter-button {
+          min-height: 28px;
+          padding: 0 8px;
+          font-size: 0.76rem;
+        }
+      }
+
+      /* Feedback 2: allow the full community name and subtitle to wrap. */
+      .brand {
+        min-width: 0;
+        flex: 1 1 380px;
+      }
+      .brand strong,
+      .brand span {
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+      .brand span {
+        display: block;
+      }
+      .topbar-inner {
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .path-tools {
+        flex-shrink: 0;
+      }
+      .email-recipient {
+        overflow-wrap: anywhere;
+        user-select: text;
+      }
+      .email-details {
+        margin-top: 14px;
+      }
+      .copy-status {
+        display: block;
+        font-size: 0.9rem;
+      }
+      .resource-group {
+        margin-top: 28px;
+      }
+      .simple-intro {
+        max-width: 70ch;
+        margin: 32px 0;
+      }
+      @media (max-width: 680px) {
+        .brand {
+          flex-basis: 100%;
+        }
+      }
+      .finder-header {
+        align-items: start;
+      }
+      .finder-controls {
+        width: min(100%, 300px);
+      }
+      .filter-group {
+        display: grid;
+        gap: 8px;
+        width: 100%;
+      }
+      .filter-disclosure {
+        border: 1px solid var(--less-light-ink);
+        border-radius: 8px;
+        background: white;
+      }
+      .filter-disclosure summary {
+        cursor: pointer;
+        padding: 12px 16px;
+        font-weight: 650;
+      }
+      .filter-options {
+        display: grid;
+        gap: 8px;
+        padding: 0 16px 14px;
+      }
+      .filter-options label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 36px;
+        cursor: pointer;
+      }
+      input {
+        accent-color: var(--earth);
+      }
+      .sangha-card {
+        display: block;
+        padding: 22px;
+        cursor: default;
+      }
+      .sangha-card h3 {
+        margin: 0 0 14px;
+      }
+      .listing-facts {
+        display: grid;
+        grid-template-columns: 76px minmax(0, 1fr);
+        gap: 6px 12px;
+        margin: 0 0 18px;
+      }
+      .listing-facts dt {
+        font-weight: 650;
+      }
+      .listing-facts dd {
+        margin: 0;
+        overflow-wrap: anywhere;
+      }
+      .sangha-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .sangha-dialog {
+        width: min(640px, calc(100% - 24px));
+        max-height: calc(100dvh - 32px);
+        overflow-y: auto;
+        border: 1px solid var(--less-light-ink);
+        border-radius: 12px;
+        padding: 24px;
+        color: var(--ink);
+        background: var(--light-sun);
+      }
+      .sangha-dialog::backdrop {
+        background: rgba(34, 34, 34, 0.48);
+      }
+      .dialog-close {
+        display: block;
+        margin-left: auto;
+        margin-bottom: 18px;
+      }
+      .sangha-dialog h2 {
+        line-height: 1.25;
+      }
+      .sangha-dialog p {
+        overflow-wrap: anywhere;
+      }
+      @media (max-width: 680px) {
+        .finder-header {
+          display: grid;
+        }
+        .finder-controls {
+          width: 100%;
+        }
+        .sangha-dialog {
+          padding: 18px;
+        }
+      }
+      .finder-intro {
+        padding: 24px 24px 20px;
+        border-bottom: 1px solid var(--less-light-ink);
+      }
+      .finder-intro h1 {
+        font-size: clamp(1.7rem, 3vw, 2.1rem);
+        margin: 0 0 8px;
+        line-height: 1.2;
+      }
+      .finder-intro p {
+        color: var(--muted);
+        margin: 0;
+        font-size: 0.95rem;
+      }
+      .finder-workspace {
+        display: grid;
+        grid-template-columns: 200px minmax(0, 1fr);
+        align-items: start;
+        gap: 24px;
+        padding: 24px;
+      }
+      .finder-sidebar {
+        min-width: 0;
+      }
+      .finder-sidebar h2 {
+        font-size: 1rem;
+        margin: 0 0 14px;
+      }
+      .finder-results {
+        min-width: 0;
+      }
+      .results-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 36px;
+        margin: 0 0 14px;
+      }
+      .results-toolbar p {
+        margin: 0;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+      .finder-layout {
+        padding: 0;
+        gap: 18px;
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+        align-items: start;
+      }
+      .sangha-card {
+        margin: 0;
+        padding: 18px;
+      }
+      .sangha-list {
+        max-height: none;
+        overflow: visible;
+        padding: 0;
+      }
+      .finder-visual {
+        min-width: 0;
+        position: sticky;
+        top: var(--sticky-offset);
+      }
+      @media (max-width: 1099px) {
+        .finder-workspace {
+          grid-template-columns: 180px minmax(0, 1fr);
+          gap: 18px;
+          padding: 18px;
+        }
+        .finder-layout {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .finder-visual {
+          position: static;
+        }
+      }
+      @media (max-width: 739px) {
+        .finder-intro {
+          padding: 18px;
+        }
+        .finder-workspace {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .finder-sidebar {
+          border-bottom: 1px solid var(--less-light-ink);
+          padding-bottom: 18px;
+        }
+      }
+
+      @media (max-width: 739px) {
+        html[data-mcgb-mobile] {
+          font-size: 16px;
+          scroll-behavior: auto;
+        }
+        html[data-mcgb-mobile] body {
+          padding-top: env(safe-area-inset-top);
+          padding-bottom: env(safe-area-inset-bottom);
+          -webkit-text-size-adjust: 100%;
+        }
+        html[data-mcgb-mobile] .topbar {
+          position: static;
+          backdrop-filter: none;
+        }
+        html[data-mcgb-mobile] .topbar-inner,
+        html[data-mcgb-mobile] .content {
+          width: auto;
+          margin-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+        }
+        html[data-mcgb-mobile] .topbar-inner {
+          padding: 16px 0;
+          gap: 12px;
+        }
+        html[data-mcgb-mobile] .brand {
+          flex-basis: auto;
+          width: 100%;
+          min-width: 0;
+        }
+        html[data-mcgb-mobile] .brand strong {
+          font-size: 1rem;
+          line-height: 1.35;
+        }
+        html[data-mcgb-mobile] .brand span {
+          display: block;
+          font-size: 0.85rem;
+          line-height: 1.45;
+          margin-top: 4px;
+        }
+        html[data-mcgb-mobile] .content {
+          padding-top: 20px;
+          padding-bottom: 24px;
+          min-height: auto;
+        }
+        html[data-mcgb-mobile] .context-nav {
+          margin-bottom: 16px;
+        }
+        html[data-mcgb-mobile] .context-nav a,
+        html[data-mcgb-mobile] .text-button,
+        html[data-mcgb-mobile] .button,
+        html[data-mcgb-mobile] .resource-back {
+          min-height: 44px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1rem;
+        }
+        html[data-mcgb-mobile] .context-nav a {
+          justify-content: flex-start;
+          text-align: left;
+        }
+        html[data-mcgb-mobile] h1 {
+          font-size: clamp(1.75rem, 7vw, 2rem);
+          line-height: 1.2;
+        }
+        html[data-mcgb-mobile] .footer-note {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0 10px;
+          justify-content: center;
+          margin-top: 24px;
+          font-size: 0;
+          padding-top: 16px;
+        }
+        html[data-mcgb-mobile] .footer-note a {
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
+          font-size: 0.85rem;
+        }
+        html[data-mcgb-mobile] a,
+        html[data-mcgb-mobile] button,
+        html[data-mcgb-mobile] summary {
+          touch-action: manipulation;
+        }
+        html[data-mcgb-mobile] .email-recipient,
+        html[data-mcgb-mobile] .email-address {
+          overflow-wrap: anywhere;
+        }
+      }
+      @media (max-width: 739px) and (prefers-reduced-motion: reduce) {
+        html[data-mcgb-mobile] *,
+        html[data-mcgb-mobile] *::before,
+        html[data-mcgb-mobile] *::after {
+          transition: none !important;
+          animation: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+      .mobile-finder-tools {
+        display: none;
+      }
+      .filter-sheet:not([open]) {
+        display: none;
+      }
+      @media (max-width: 739px) {
+        .finder-intro,
+        .finder-workspace {
+          padding: 16px;
+        }
+        .finder-sidebar {
+          display: none;
+        }
+        .finder-workspace {
+          display: block;
+        }
+        .mobile-finder-tools {
+          display: grid;
+          gap: 12px;
+          margin-bottom: 16px;
+        }
+        .mobile-finder-tools > button {
+          justify-self: start;
+        }
+        .finder-view-controls {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 6px;
+        }
+        .finder-view-controls button {
+          min-height: 44px;
+          padding: 10px 6px;
+          border: 1px solid var(--less-light-ink);
+          border-radius: var(--radius);
+          font: inherit;
+          font-weight: 650;
+          background: var(--cloud);
+          cursor: pointer;
+        }
+        .finder-view-controls button[aria-pressed="true"] {
+          background: var(--sun);
+          border-color: var(--ink);
+        }
+        .finder-layout {
+          display: block;
+        }
+        .finder-results[data-mobile-view="list"] .finder-visual {
+          display: none;
+        }
+        .finder-results[data-mobile-view="map"] .sangha-list,
+        .finder-results[data-mobile-view="schedule"] .sangha-list {
+          display: none;
+        }
+        .finder-results[data-mobile-view="map"] .calendar-panel,
+        .finder-results[data-mobile-view="schedule"] .map-panel {
+          display: none;
+        }
+        .finder-visual {
+          position: static;
+        }
+        .map-panel {
+          min-height: 360px;
+          height: min(65dvh, 480px);
+        }
+        .calendar-preview {
+          height: min(65dvh, 520px);
+        }
+        .sangha-card {
+          padding: 16px;
+        }
+        .sangha-actions {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .sangha-actions .button {
+          width: 100%;
+        }
+        .results-toolbar {
+          gap: 10px;
+        }
+        .sangha-dialog {
+          max-height: calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+          width: calc(100% - 24px);
+          padding: 16px;
+        }
+        .sangha-dialog .button,
+        .sangha-dialog [data-copy-email] {
+          width: 100%;
+        }
+        .dialog-close {
+          position: sticky;
+          top: -16px;
+          background: var(--light-sun);
+          z-index: 1;
+          padding: 8px;
+        }
+        .filter-sheet {
+          inset: auto 0 0;
+          margin: 0 auto;
+          width: 100%;
+          max-width: 739px;
+          height: min(640px, calc(100dvh - 12px - env(safe-area-inset-top)));
+          max-height: none;
+          padding: 0;
+          border: 1px solid var(--less-light-ink);
+          border-radius: 16px 16px 0 0;
+          color: var(--ink);
+          background: var(--light-sun);
+          overflow: hidden;
+        }
+        .filter-sheet[open] {
+          display: grid;
+          grid-template-rows: auto minmax(0, 1fr) auto;
+        }
+        .filter-sheet::backdrop {
+          background: rgba(34, 34, 34, 0.48);
+        }
+        .filter-sheet-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          padding: 12px 16px;
+          border-bottom: 1px solid var(--less-light-ink);
+        }
+        .filter-sheet-header h2 {
+          margin: 0;
+          font-size: 1.25rem;
+        }
+        .filter-sheet-body {
+          overflow: auto;
+          padding: 16px;
+          overscroll-behavior: contain;
+        }
+        .filter-sheet-footer {
+          display: grid;
+          gap: 10px;
+          padding: 12px 16px max(16px, env(safe-area-inset-bottom));
+          border-top: 1px solid var(--less-light-ink);
+        }
+        .filter-sheet-footer .button {
+          width: 100%;
+        }
+        .filter-options label {
+          min-height: 44px;
+          gap: 12px;
+        }
+        .filter-options input {
+          width: 20px;
+          height: 20px;
+        }
+        .filter-disclosure summary {
+          min-height: 48px;
+        }
+        body:has(dialog[open]) {
+          overflow: hidden;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <div class="brand" aria-label="MCGB homepage">
+            <strong>Mindfulness Communities of Greater Boston</strong>
+            <span>Engaged Buddhism in the Plum Village tradition of Thích Nhất Hạnh</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <nav class="context-nav" aria-label="Section navigation">
+          <a
+            class="text-button"
+            href="mcgb-homepage-wireframe-feedback-3.html?section=practice-events"
+          >
+            Back to Get Involved
+          </a>
+        </nav>
+
+        <section class="finder-section" aria-labelledby="finder-title">
+          <div class="finder">
+            <header class="finder-intro">
+              <h1 id="finder-title">Find a sangha</h1>
+              <p>Find a practice community in Greater Boston by format, day, and time.</p>
+            </header>
+            <div class="finder-workspace">
+              <aside class="finder-sidebar" aria-labelledby="filter-title">
+                <h2 id="filter-title">Filter sanghas</h2>
+                <div class="filter-group" aria-label="Sangha filters">
+                  <details class="filter-disclosure">
+                    <summary>Format</summary>
+                    <div class="filter-options" id="modality-filters"></div>
+                  </details>
+                  <details class="filter-disclosure">
+                    <summary>Days</summary>
+                    <div class="filter-options" id="day-filters"></div>
+                  </details>
+                  <details class="filter-disclosure">
+                    <summary>Time</summary>
+                    <div class="filter-options" id="time-filters"></div>
+                  </details>
+                </div>
+              </aside>
+              <div class="finder-results" data-mobile-view="list">
+                <div class="mobile-finder-tools">
+                  <button
+                    class="button secondary"
+                    type="button"
+                    id="open-mobile-filters"
+                    aria-haspopup="dialog"
+                    aria-controls="mobile-filter-sheet"
+                  >
+                    Filters (0)
+                  </button>
+                  <div class="finder-view-controls" role="group" aria-label="Sangha finder view">
+                    <button
+                      type="button"
+                      data-finder-view="list"
+                      aria-pressed="true"
+                      aria-controls="sangha-list"
+                    >
+                      List
+                    </button>
+                    <button
+                      type="button"
+                      data-finder-view="map"
+                      aria-pressed="false"
+                      aria-controls="finder-map"
+                    >
+                      Map
+                    </button>
+                    <button
+                      type="button"
+                      data-finder-view="schedule"
+                      aria-pressed="false"
+                      aria-controls="finder-schedule"
+                    >
+                      Schedule
+                    </button>
+                  </div>
+                </div>
+                <div class="results-toolbar">
+                  <p id="result-count" role="status"></p>
+                  <button class="text-button" type="button" data-clear-filters>
+                    Clear filters
+                  </button>
+                </div>
+                <div class="finder-layout">
+                  <div class="sangha-list" id="sangha-list"></div>
+                  <aside class="finder-visual" aria-label="Map and calendar">
+                    <div class="map-panel" id="finder-map">
+                      <iframe
+                        class="map-canvas"
+                        title="Mindfulness Communities of Greater Boston map"
+                        src="https://www.google.com/maps/d/embed?mid=1TBbpA9rWK7PatKg8S-NV2kAVLRAaE_c&ehbc=2E312F"
+                        loading="lazy"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade"
+                      ></iframe>
+                    </div>
+                    <div class="calendar-panel" id="finder-schedule">
+                      <h3>Schedule</h3>
+                      <div class="calendar-preview">
+                        <iframe
+                          class="calendar-embed"
+                          title="Mindfulness Communities of Greater Boston calendar"
+                          src="https://calendar.google.com/calendar/u/0/newembed?src=cGx1bXZpbGxhZ2Vib3N0b25AZ21haWwuY29t&color=%23039be5&mode=AGENDA"
+                          loading="lazy"
+                          referrerpolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                      </div>
+                    </div>
+                  </aside>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <p class="footer-note">
+          <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a> |
+          <a href="#">Press &amp; Media</a> |
+          <a href="#">Contact Us</a>
+        </p>
+      </main>
+    </div>
+
+    <dialog class="filter-sheet" id="mobile-filter-sheet" aria-labelledby="mobile-filter-title">
+      <header class="filter-sheet-header">
+        <h2 id="mobile-filter-title">Filter sanghas</h2>
+        <button class="text-button" type="button" id="close-mobile-filters" autofocus>Close</button>
+      </header>
+      <div class="filter-sheet-body"></div>
+      <footer class="filter-sheet-footer">
+        <button class="text-button" type="button" data-clear-filters>Clear filters</button
+        ><button class="button" type="button" id="show-mobile-results">Show 13 sanghas</button>
+      </footer>
+    </dialog>
+    <dialog class="sangha-dialog" id="sangha-dialog" aria-labelledby="dialog-title">
+      <button class="text-button dialog-close" type="button" id="close-dialog" autofocus>
+        Close
+      </button>
+      <div id="dialog-content"></div>
+    </dialog>
+    <script>
+      function emailDetails(url) {
+        if (!url || !url.startsWith("mailto:")) return "";
+        const [recipient, query = ""] = url.slice(7).split("?");
+        const cc = new URLSearchParams(query).get("cc");
+        return `<div class="email-details"><p>Using email in your browser? Compose a message with these recipients.</p>${[["To", decodeURIComponent(recipient)], ...(cc ? [["Cc", cc]] : [])].map(([label, address]) => `<p class="email-recipient"><strong>${label}:</strong> <span>${escapeHtml(address)}</span> <button type="button" class="text-button" data-copy-email="${escapeHtml(address)}">Copy email address</button><span class="copy-status" role="status"></span></p>`).join("")}</div>`;
+      }
+
+      const sanghas = [
+        {
+          id: "dandelions-of-the-heart-sangha",
+          name: "Dandelions of the Heart Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "hybrid",
+          day: "Mon-Fri",
+          time: "6:30-7:30 AM",
+          days: ["monday", "tuesday", "wednesday", "thursday", "friday"],
+          timeBand: "morning",
+          location: "Brookline",
+          latLng: [42.3331519, -71.1181054],
+          address: "Boston Center for Contemplative Practice, 11 Kent Street, Brookline, MA 02445",
+          access: "Boston Center for Contemplative Practice, 11 Kent Street, Brookline, MA 02445",
+          description:
+            "This is a mostly silent sit with a closing dharma reflection except on Thursday and Friday. Feel to drop in and sit for any part of that time.",
+          registerUrl: "mailto:info@yenkuei.org",
+        },
+        {
+          id: "peaceful-garden-sangha",
+          name: "Peaceful Garden Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "in-person",
+          day: "Tuesday",
+          time: "7:00-8:30 PM",
+          days: ["tuesday"],
+          timeBand: "evening",
+          location: "Brookline",
+          latLng: [42.340198, -71.1214634],
+          address: "United Parish Church, 210 Harvard Street, Brookline, MA",
+          access:
+            "Use the Marion Street entrance (up the stairs to the Parlor on the left). Green C line or Bus 66. Or ample free parking on side streets.",
+          description:
+            "We are a community of friends brand new and others with an established practice. We are open to everyone on a walk-in basis. We're peer-led and rotate facilitation. Each evening we share a reading and talk about what comes up for us. Together, we discover the power of being and practicing in community.",
+          registerUrl: "mailto:sanghamatters@gmail.com",
+        },
+        {
+          id: "peaceful-songbird-sangha",
+          name: "Peaceful Songbird Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "hybrid",
+          day: "Saturday",
+          time: "9:30-11:30 AM",
+          days: ["saturday"],
+          timeBand: "morning",
+          location: "Roslindale",
+          latLng: [42.2912093, -71.1244966],
+          address: "Chua Vietnam, Roslindale, MA",
+          access: "For in-person, there's street parking and lot parking behind the temple.",
+          description:
+            "We meditate, check-in with one another, share a reading from a teacher of the dharma, and follow with dharma discussion, metta practice and a final meditation. We practice in the Plum Village tradition of Thích Nhất Hạnh, with its emphasis on engaged Buddhism and the art of mindful living. We began meeting at Chua Vietnam, a beautiful Vietnamese temple in Roslindale, MA. We have been practicing online via zoom since March of 2020. Once a month we meet in person, dates depending on the schedule of the temple.All are welcome to join us.",
+          registerUrl: "mailto:PeacefulSongbird+owner@BostonOldPath.groups.io",
+          approximate: true,
+        },
+        {
+          id: "wake-up-boston",
+          name: "Wake Up Boston",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "in-person",
+          day: "2nd and 4th Wednesday",
+          time: "Evening",
+          days: ["wednesday"],
+          timeBand: "evening",
+          location: "Cambridge",
+          latLng: [42.3666402, -71.1053125],
+          address: "763 Massachusetts Ave, Cambridge, MA 02139",
+          access: "Conveniently off the red line, with limited metered street parking.",
+          description:
+            "A mindfulness meditation community for 18-35-ish year olds practicing in the tradition of Plum Village Buddhism / Zen Master Thích Nhất Hạnh. In a typical evening gathering, we'll enjoy a guided sitting meditation, walking meditation, dharma reading, and dharma sharing about our experiences and practice in everyday life. We welcome people of all backgrounds regardless of faith or meditation experience.",
+          registerUrl: "https://bostonwakeup.substack.com/about",
+        },
+        {
+          id: "joyful-lotus-sangha",
+          name: "Joyful Lotus Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "in-person",
+          day: "First Wednesday of the month",
+          time: "5:00-6:30 PM",
+          days: ["wednesday"],
+          timeBand: "evening",
+          location: "Cambridge Zen Center",
+          latLng: [42.364369, -71.1060039],
+          address: "Cambridge Zen Center, 199 Auburn Street, Cambridge, MA",
+          access: "Conveniently off the red line, with limited metered street parking.",
+          description:
+            "The Black, Indigenous and People of Color (BIPOC) Sangha is a monthly gathering of self-identifying BIPOC practitioners that provides a safe place to meditate and explore contemplative practices. This sangha cultivates an environment that welcomes diverse voices and builds community. In a typical practice group, we enjoy a mix of walking meditation, sitting meditation, chanting, readings, and dharma sharing about our experiences and practice in everyday life.",
+          registerUrl: "mailto:kfoo@wpi.edu",
+        },
+        {
+          id: "tree-house-sangha",
+          name: "Tree House Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "hybrid",
+          day: "1st and 3rd Monday",
+          time: "8:30-10:00 AM",
+          days: ["monday"],
+          timeBand: "morning",
+          location: "Bedford",
+          latLng: [42.5041811, -71.30135],
+          address: "Carlisle Rd, Bedford, MA",
+          access: "Street parking available.",
+          description: "A morning practice gathering in the Bedford area.",
+          registerUrl: "mailto:Fbigdapeyton@gmail.com",
+          approximate: true,
+        },
+        {
+          id: "mountain-bell-sangha",
+          name: "Mountain Bell Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "hybrid",
+          day: "2nd and 4th Sunday",
+          time: "7:00-9:00 PM",
+          days: ["sunday"],
+          timeBand: "evening",
+          location: "Belmont",
+          latLng: [42.4065684, -71.1964366],
+          address: "366 Marsh St, Belmont, MA",
+          access: "Street parking available.",
+          description: "A Belmont-area sangha with in-person and online practice options.",
+          registerUrl: "mailto:email1@gmail.com?cc=email2@gmail.com",
+        },
+        {
+          id: "green-fields-sangha",
+          name: "Green Fields Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "hybrid",
+          day: "Tuesday",
+          time: "4:00-5:30 PM",
+          days: ["tuesday"],
+          timeBand: "afternoon",
+          location: "Lincoln",
+          latLng: [42.4263662, -71.3037098],
+          address: "First Parish Church, 4 Bedford Rd, Lincoln, MA",
+          access: "Street parking available.",
+          description: "A Lincoln-area hybrid sangha.",
+          registerUrl: "mailto:selenejck@gmail.com",
+        },
+        {
+          id: "sangha-of-the-seven-hills",
+          name: "Sangha of the Seven Hills",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "in-person",
+          day: "Friday",
+          time: "1:00-2:00 PM",
+          days: ["friday"],
+          timeBand: "afternoon",
+          location: "Worcester",
+          latLng: [42.2530938, -71.8319824],
+          address: "Assumption Center, 16 Vineyard St, Worcester, MA",
+          access: "Free parking in the lot available.",
+          description:
+            "A Worcester sangha in the Plum Village tradition, hosted at Assumption Center. Our format: 20 min sitting, 10 min walking, a short reading, dharma sharing. Welcoming to, new or experienced practitioners. Drop in anytime, no advance notice needed, free to participate.",
+          registerUrl: "mailto:ellenzanino@yahoo.com",
+        },
+        {
+          id: "mindful-lunch",
+          name: "Mindful Lunch",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "virtual",
+          day: "Wednesday",
+          time: "12:00-12:45 PM",
+          days: ["wednesday"],
+          timeBand: "afternoon",
+          location: "Online",
+          access: "Contact the organizer for the Zoom Link.",
+          description:
+            "A brief mid-day eating practice for pausing, arriving, and practicing mindfulness during lunch.",
+          registerUrl: "mailto:info@yenkuei.org",
+        },
+        {
+          id: "peaceful-heart-sangha",
+          name: "Peaceful Heart Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "virtual",
+          day: "Friday",
+          time: "8:30-10:00 AM",
+          days: ["friday"],
+          timeBand: "morning",
+          location: "Online",
+          access: "Contact the organizer for the Zoom Link.",
+          description:
+            "We meet weekly over zoom. All are welcome and no previous meditation experience is necessary. We rotate facilitation by volunteer who chooses a reading. We practice sitting, walking and dharma sharing in a welcoming, non judgmental confidential setting.",
+          registerUrl: "mailto:nancypar@gmail.com",
+        },
+        {
+          id: "living-the-14-sangha",
+          name: "Living the 14 Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "virtual",
+          day: "Wednesday",
+          time: "7:30-9:00 PM",
+          days: ["wednesday"],
+          timeBand: "evening",
+          location: "Online",
+          access: "Contact the organizer for the Zoom Link.",
+          description:
+            'The 14 Mindfulness Trainings are the foundation of the Order of Interbeing and we are strengthening our commitment to them by looking deeply at a single training each week. We are open to OI members, OI Aspirants and pre-Aspirants. "Pre-Aspirants" includes anyone who would like to learn more about Thay\'s teachings. Each week is a study in itself. You are welcome anytime, week to week.',
+          registerUrl: "mailto:donald.leka@gmail.com",
+        },
+        {
+          id: "lotus-pond-sangha",
+          name: "Lotus Pond Sangha",
+          region: "boston",
+          area: "Greater Boston",
+          modality: "virtual",
+          day: "Thursday",
+          time: "7:15-9:00 PM",
+          days: ["thursday"],
+          timeBand: "evening",
+          location: "Online",
+          access: "Contact the organizer for the Zoom Link.",
+          description:
+            "We meet every other week on Zoom to practice sitting and walking meditation, followed by dharma sharing. We often read a short text to start dharma sharing to help us gather the mind and open the heart. We welcome everyone.",
+          registerUrl: "mailto:m.romang@rcn.com",
+        },
+      ];
+
+      const modalityOptions = [
+        ["all", "All"],
+        ["virtual", "Virtual"],
+        ["hybrid", "Hybrid"],
+        ["in-person", "In-person"],
+      ];
+
+      const dayOptions = [
+        ["monday", "Mon"],
+        ["tuesday", "Tue"],
+        ["wednesday", "Wed"],
+        ["thursday", "Thu"],
+        ["friday", "Fri"],
+        ["saturday", "Sat"],
+        ["sunday", "Sun"],
+      ];
+
+      const timeOptions = [
+        ["morning", "Morning"],
+        ["afternoon", "Afternoon"],
+        ["evening", "Evening"],
+      ];
+
+      const bopsFinderGuidance =
+        "A sangha is a practice community. A sangha is the best way to practice meditation, as it offers deep support and wisdom for beginners and seasoned community members alike. In Greater Boston, there are virtual, hybrid, and in-person options for mornings, afternoons, evenings, and days of mindfulness practice.";
+      const modalityFilters = document.querySelector("#modality-filters");
+      const dayFilters = document.querySelector("#day-filters");
+      const timeFilters = document.querySelector("#time-filters");
+      const sanghaList = document.querySelector("#sangha-list");
+      const topbar = document.querySelector(".topbar");
+      let finderModality = "all";
+      const selectedDays = new Set();
+      const selectedTimeBands = new Set();
+      let selectedSanghaId = null;
+
+      function updateStickyOffset() {
+        if (!topbar) return;
+        document.documentElement.style.setProperty(
+          "--sticky-offset",
+          `${window.matchMedia("(max-width: 739px)").matches ? 10 : topbar.offsetHeight + 10}px`,
+        );
+      }
+
+      function renderFilterButtons(container, options, selected, type) {
+        const isSelected = (value) =>
+          selected instanceof Set ? selected.has(value) : value === selected;
+        container.innerHTML = options
+          .map(
+            ([value, label]) =>
+              `<label><input type="${type === "modality" ? "radio" : "checkbox"}" name="${type}" data-filter-type="${type}" data-filter-value="${value}" ${isSelected(value) ? "checked" : ""}>${label}</label>`,
+          )
+          .join("");
+      }
+
+      function getFilteredSanghas() {
+        return sanghas.filter((sangha) => {
+          const modalityMatch = finderModality === "all" || sangha.modality === finderModality;
+          const dayMatch =
+            selectedDays.size === 0 || sangha.days.some((day) => selectedDays.has(day));
+          const timeMatch = selectedTimeBands.size === 0 || selectedTimeBands.has(sangha.timeBand);
+          return modalityMatch && dayMatch && timeMatch;
+        });
+      }
+
+      function formatModality(value) {
+        if (value === "in-person") return "In-person";
+        return value.charAt(0).toUpperCase() + value.slice(1);
+      }
+
+      function linkAttributes(url) {
+        const href = url || "#";
+        const opensNewTab = /^https?:\/\//.test(href);
+        return `href="${href}"${opensNewTab ? ' target="_blank" rel="noopener noreferrer"' : ""}`;
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? "").replace(/[&<>"']/g, (char) => {
+          const entities = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+          };
+          return entities[char];
+        });
+      }
+
+      function getDirectionsUrl(sangha) {
+        const destination = sangha.directionsQuery || sangha.address || sangha.access || "";
+        if (!destination || sangha.modality === "virtual") return "";
+        return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
+      }
+
+      function syncSanghaCardSelection(options = {}) {
+        const cards = Array.from(sanghaList.querySelectorAll("[data-sangha-id]"));
+        cards.forEach((card) => {
+          const isActive = card.dataset.sanghaId === selectedSanghaId;
+          card.classList.toggle("is-active", isActive);
+          card.setAttribute("aria-selected", String(isActive));
+          if (isActive && options.scrollIntoView) {
+            card.scrollIntoView({ block: "nearest", behavior: "smooth" });
+          }
+        });
+      }
+
+      function selectSangha(sanghaId, options = {}) {
+        selectedSanghaId = sanghaId;
+        syncSanghaCardSelection({
+          scrollIntoView: options.scrollIntoView === true,
+        });
+      }
+
+      function renderFinder() {
+        renderFilterButtons(modalityFilters, modalityOptions, finderModality, "modality");
+        renderFilterButtons(dayFilters, dayOptions, selectedDays, "day");
+        renderFilterButtons(timeFilters, timeOptions, selectedTimeBands, "time");
+
+        const filtered = getFilteredSanghas();
+        const selectionCount =
+          Number(finderModality !== "all") + selectedDays.size + selectedTimeBands.size;
+        document.querySelector("#open-mobile-filters").textContent = `Filters (${selectionCount})`;
+        document.querySelector("#show-mobile-results").textContent =
+          `Show ${filtered.length} ${filtered.length === 1 ? "sangha" : "sanghas"}`;
+
+        if (selectedSanghaId && !filtered.some((sangha) => sangha.id === selectedSanghaId)) {
+          selectedSanghaId = null;
+        }
+
+        document.querySelector("#result-count").textContent =
+          `${filtered.length} ${filtered.length === 1 ? "sangha" : "sanghas"}`;
+        sanghaList.innerHTML = filtered.length
+          ? filtered
+              .map(
+                (sangha) => `<article class="sangha-card" data-sangha-id="${sangha.id}">
+          <h3>${escapeHtml(sangha.name)}</h3>
+          <dl class="listing-facts"><dt>Day</dt><dd>${escapeHtml(sangha.day)}</dd><dt>Time</dt><dd>${escapeHtml(sangha.time)}</dd><dt>Location</dt><dd>${escapeHtml(sangha.location)}</dd></dl>
+          <div class="sangha-actions"><button class="button secondary" type="button" data-details="${sangha.id}">More details</button>${sangha.registerUrl ? (sangha.registerUrl.startsWith("mailto:") ? `<button class="button" type="button" data-contact="${sangha.id}">Contact organizer</button>` : `<a class="button" ${linkAttributes(sangha.registerUrl)}>Contact organizer</a>`) : ""}</div>
+        </article>`,
+              )
+              .join("")
+          : `<div class="empty-state"><p>No sanghas match this filter combination.</p><button class="button secondary" type="button" data-clear-filters>Clear filters</button></div>`;
+      }
+
+      const dialog = document.querySelector("#sangha-dialog");
+      const dialogContent = document.querySelector("#dialog-content");
+      let dialogTrigger = null;
+      function openSanghaDialog(sangha, contact, trigger) {
+        dialogTrigger = trigger;
+        const directions = getDirectionsUrl(sangha);
+        dialogContent.innerHTML =
+          `<h2 id="dialog-title">${contact ? "Contact " : ""}${escapeHtml(sangha.name)}</h2>` +
+          (contact
+            ? `${emailDetails(sangha.registerUrl)}<a class="button" ${linkAttributes(sangha.registerUrl)}>Open email</a>`
+            : `<p>${escapeHtml(sangha.description)}</p><dl class="listing-facts"><dt>Day</dt><dd>${escapeHtml(sangha.day)}</dd><dt>Time</dt><dd>${escapeHtml(sangha.time)}</dd><dt>Location</dt><dd>${escapeHtml(sangha.address || sangha.location)}</dd><dt>Format</dt><dd>${escapeHtml(formatModality(sangha.modality))}</dd><dt>Area</dt><dd>${escapeHtml(sangha.area || "Greater Boston")}</dd></dl>${sangha.access ? `<p><strong>Access:</strong> ${escapeHtml(sangha.access)}</p>` : ""}${sangha.approximate ? "<p>Map pin shows an approximate location.</p>" : ""}${directions ? `<a class="button secondary" ${linkAttributes(directions)}>Get directions</a>` : ""}`);
+        dialog.showModal();
+        dialog.scrollTop = 0;
+      }
+      document.querySelector("#close-dialog").addEventListener("click", () => dialog.close());
+      dialog.addEventListener("close", () => {
+        dialogTrigger?.focus();
+      });
+      dialog.addEventListener("keydown", (event) => {
+        if (event.key !== "Tab") return;
+        const controls = [...dialog.querySelectorAll("button, a[href], input")];
+        const first = controls[0],
+          last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      });
+      sanghaList.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-details], [data-contact]");
+        if (!button) return;
+        const sangha = sanghas.find(
+          (item) => item.id === (button.dataset.details || button.dataset.contact),
+        );
+        openSanghaDialog(sangha, Boolean(button.dataset.contact), button);
+      });
+
+      document.addEventListener("click", (event) => {
+        const clearFiltersButton = event.target.closest("[data-clear-filters]");
+        if (clearFiltersButton) {
+          finderModality = "all";
+          selectedDays.clear();
+          selectedTimeBands.clear();
+          selectedSanghaId = null;
+          renderFinder();
+          return;
+        }
+      });
+      document.addEventListener("change", (event) => {
+        const target = event.target.closest("[data-filter-type]");
+        if (!target) return;
+        const type = target.dataset.filterType,
+          value = target.dataset.filterValue;
+        if (type === "modality") finderModality = value;
+        const selected = type === "day" ? selectedDays : selectedTimeBands;
+        if (type !== "modality") target.checked ? selected.add(value) : selected.delete(value);
+        renderFinder();
+        document
+          .querySelector(`[data-filter-type="${type}"][data-filter-value="${value}"]`)
+          .focus();
+      });
+
+      const mobileBreakpoint = window.matchMedia("(max-width: 739px)");
+      const filterSheet = document.querySelector("#mobile-filter-sheet");
+      const filterGroup = document.querySelector(".filter-group");
+      const filterSidebar = document.querySelector(".finder-sidebar");
+      const filterTrigger = document.querySelector("#open-mobile-filters");
+      function arrangeMobileFilters() {
+        if (mobileBreakpoint.matches)
+          filterSheet.querySelector(".filter-sheet-body").append(filterGroup);
+        else {
+          if (filterSheet.open) filterSheet.close();
+          filterSidebar.append(filterGroup);
+          if (document.activeElement === filterTrigger)
+            filterGroup.querySelector("summary")?.focus();
+        }
+        updateStickyOffset();
+      }
+      filterTrigger.addEventListener("click", () => {
+        if (mobileBreakpoint.matches) filterSheet.showModal();
+      });
+      document
+        .querySelector("#close-mobile-filters")
+        .addEventListener("click", () => filterSheet.close());
+      document
+        .querySelector("#show-mobile-results")
+        .addEventListener("click", () => filterSheet.close());
+      filterSheet.addEventListener("close", () => {
+        if (mobileBreakpoint.matches) filterTrigger.focus();
+        else filterGroup.querySelector("summary")?.focus();
+      });
+      filterSheet.addEventListener("keydown", (event) => {
+        if (event.key !== "Tab") return;
+        const controls = [...filterSheet.querySelectorAll("button, input, summary")].filter(
+          (el) => el.getClientRects().length,
+        );
+        const first = controls[0],
+          last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      });
+      document.querySelectorAll("[data-finder-view]").forEach((button) =>
+        button.addEventListener("click", () => {
+          document.querySelector(".finder-results").dataset.mobileView = button.dataset.finderView;
+          document
+            .querySelectorAll("[data-finder-view]")
+            .forEach((control) => control.setAttribute("aria-pressed", String(control === button)));
+        }),
+      );
+      mobileBreakpoint.addEventListener("change", arrangeMobileFilters);
+      arrangeMobileFilters();
+      window.addEventListener("resize", updateStickyOffset);
+      updateStickyOffset();
+      renderFinder();
+    </script>
+
+    <script>
+      document.addEventListener("click", async (event) => {
+        const button = event.target.closest("[data-copy-email]");
+        if (!button) return;
+        const status = button.parentElement.querySelector(".copy-status");
+        try {
+          await navigator.clipboard.writeText(button.dataset.copyEmail);
+          status.textContent = "Address copied.";
+        } catch {
+          status.textContent = "Copy unavailable. Select the address above and copy it manually.";
+        }
+      });
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </body>
+</html>

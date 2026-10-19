@@ -1,0 +1,261 @@
+[
+  [
+    "practice-now",
+    "Practice now",
+    [
+      {
+        "title": "Meditations",
+        "copy": "Guided meditations and simple practices for everyday life.",
+        "action": "Explore meditations",
+        "url": "https://web.plumvillage.app/meditations"
+      },
+      {
+        "title": "Dharma Talks",
+        "copy": "Listen to teachings from Thích Nhất Hạnh and teachers in the Plum Village tradition.",
+        "action": "Listen to talks",
+        "url": "https://web.plumvillage.app/talks"
+      },
+      {
+        "title": "Living Gems",
+        "copy": "Explore the searchable archive of Thích Nhất Hạnh’s talks and teaching collections.",
+        "action": "Explore Living Gems",
+        "url": "https://plumvillage.org/gems/"
+      }
+    ]
+  ],
+  [
+    "explore-tradition",
+    "Explore the tradition",
+    [
+      {
+        "title": "Thích Nhất Hạnh",
+        "copy": "Learn about Thích Nhất Hạnh (Thay), his teachings, and the Plum Village tradition.",
+        "url": "https://plumvillage.org/about/thich-nhat-hanh"
+      },
+      {
+        "title": "Plum Village",
+        "copy": "Learn about the Plum Village tradition, practice centers, and global community.",
+        "url": "https://plumvillage.org/about/plum-village"
+      },
+      {
+        "title": "The Way Out Is In Podcast",
+        "copy": "Listen to conversations on mindfulness, engaged practice, and daily life in the Plum Village tradition.",
+        "url": "https://plumvillage.org/podcasts/the-way-out-is-in"
+      },
+      {
+        "title": "Key Books",
+        "copy": "Browse foundational books from Thích Nhất Hạnh for study, reflection, and practice.",
+        "url": "https://plumvillage.org/about/thich-nhat-hanh/key-books"
+      }
+    ]
+  ],
+  [
+    "art-song",
+    "Art & Song",
+    [
+      {
+        "title": "New England Buddhist Poetry Exchange",
+        "copy": "Read community poetry, reflections, and Buddhist practice writing from New England community members.",
+        "url": "https://buddhistpoetryexchange.blogspot.com"
+      },
+      {
+        "title": "The Present Moment",
+        "copy": "Read the Newsletter of Mindfulness Communities of Greater Boston, after New England Buddhist Poetry Exchange.",
+        "url": "newsletters.html"
+      },
+      {
+        "title": "Letters from Thích Nhất Hạnh",
+        "copy": "Read letters and teachings from Thay for personal practice and community reflection.",
+        "url": "https://plumvillage.org/about/thich-nhat-hanh/letters"
+      },
+      {
+        "title": "Poems",
+        "copy": "Poetry for reflection and practice.",
+        "url": "https://web.plumvillage.app/resources/poems"
+      },
+      {
+        "title": "Chanting",
+        "copy": "Chants from the Plum Village community.",
+        "url": "https://web.plumvillage.app/resources/albums"
+      },
+      {
+        "title": "Practice Songs",
+        "copy": "Songs to nourish our shared practice.",
+        "url": "https://web.plumvillage.app/resources/practice-songs"
+      }
+    ]
+  ],
+  [
+    "community-members",
+    "Community Members",
+    [
+      {
+        "id": "five-mindfulness-trainings",
+        "title": "5 Mindfulness Trainings",
+        "copy": "An ethical foundation for daily life.",
+        "subtiles": [
+          {
+            "title": "Introduction",
+            "copy": "The Five Mindfulness Trainings offer a practical ethical foundation for daily life.",
+            "url": "https://plumvillage.org/mindfulness/the-5-mindfulness-trainings"
+          },
+          {
+            "title": "Recitations",
+            "copy": "Regular recitation renews our understanding and supports our practice together.",
+            "unavailable": true
+          }
+        ]
+      },
+      {
+        "id": "order-of-interbeing",
+        "title": "Order of Interbeing",
+        "copy": "Explore commitment, aspiration, and community support.",
+        "subtiles": [
+          {
+            "title": "Introduction",
+            "copy": "An introduction to the Order of Interbeing and the Fourteen Mindfulness Trainings.",
+            "url": "https://plumvillage.org/community/order-of-interbeing"
+          },
+          {
+            "title": "Fourteen Mindfulness Trainings",
+            "copy": "The guiding practices of the Order of Interbeing.",
+            "url": "https://plumvillage.org/mindfulness/the-14-mindfulness-trainings"
+          },
+          {
+            "title": "Becoming a member",
+            "copy": "A path for learning about aspiration, mentorship, and community support.",
+            "unavailable": true
+          }
+        ]
+      },
+      {
+        "id": "retreats",
+        "title": "Retreats",
+        "copy": "Time for rest, silence, and practice together.",
+        "subtiles": [
+          {
+            "title": "Retreats",
+            "copy": "Longer practice periods offer rest, silence, teachings, and opportunities to deepen mindfulness in community.",
+            "url": "https://plumvillage.org/retreats/retreats-calendar?centres=deer-park-monastery"
+          },
+          {
+            "title": "Practice Centers",
+            "copy": "Connect with Plum Village practice centers and regional retreat opportunities.",
+            "url": "https://plumvillage.org/community/monastic-practice-centres"
+          }
+        ]
+      }
+    ]
+  ],
+  [
+    "community-builders",
+    "Community Builders",
+    [
+      {
+        "id": "sangha-resources",
+        "title": "Sangha Resources",
+        "copy": "Guides and materials for tending a practice community.",
+        "subtiles": [
+          {
+            "title": "Overview",
+            "copy": "An introduction to sangha facilitation, welcoming newcomers, and Dharma sharing.",
+            "url": "sangha-overview.html"
+          },
+          {
+            "title": "Minding the Bell",
+            "copy": "Invite the bell with mindfulness, steadiness, and care for the sangha.",
+            "url": "minding-the-bell.html"
+          },
+          {
+            "title": "Sangha Facilitation",
+            "copy": "Guidance for facilitating Plum Village sangha practice with care, clarity, and inclusion.",
+            "url": "sangha-facilitation.html"
+          },
+          {
+            "title": "Dharma sharing guidelines",
+            "copy": "Deep listening, mindful speech, and shared agreements for a safe practice space.",
+            "url": "dharma-sharing-guidelines.html"
+          },
+          {
+            "title": "Meeting and Bell Minding Flow",
+            "copy": "An example of the flow, timing, and bell cadences of a Sangha meeting.",
+            "url": "meeting-and-bell-minding-flow.html"
+          },
+          {
+            "title": "Songbook",
+            "copy": "Songs and shared practice materials for local gatherings.",
+            "url": "https://www.plumline.org/songbook"
+          },
+          {
+            "title": "New Sangha Practice Book",
+            "copy": "A practical guide for new and existing sanghas.",
+            "url": "https://thichnhathanhfoundation.app.box.com/s/kkw4prrlwhrsxza5vf9hof1ec6ljbkso"
+          },
+          {
+            "title": "OI Directory",
+            "copy": "Find Order of Interbeing members around the world.",
+            "url": "https://brownjackets.org/"
+          },
+          {
+            "title": "Care Taking Council",
+            "copy": "Care-taking roles, coordination, and sangha stewardship.",
+            "unavailable": true
+          },
+          {
+            "title": "Host Recitation",
+            "copy": "Preparing materials and supporting shared practice.",
+            "unavailable": true
+          }
+        ]
+      },
+      {
+        "id": "join-builder-sangha",
+        "title": "Join Builder Sangha",
+        "copy": "Connect with others who help sustain sangha life.",
+        "subtiles": [
+          {
+            "title": "Songs and printables",
+            "copy": "Printable singing sheets, Plum Village song links, and local handouts.",
+            "draft": "Draft material from the June wireframe. Builder Sangha enrollment information has not yet been provided.",
+            "relatedUrl": "https://www.plumline.org/songbook",
+            "relatedLabel": "View songbook"
+          }
+        ]
+      },
+      {
+        "id": "become-a-mentor",
+        "title": "Become a mentor",
+        "copy": "Share practice and offer support to community builders.",
+        "subtiles": [
+          {
+            "title": "Builder mentoring",
+            "copy": "A way to ask questions, compare practices, and receive support from other community builders.",
+            "unavailable": true
+          },
+          {
+            "title": "Coordinate",
+            "copy": "Collaboration, mailing lists, and mentorship help us care for our communities.",
+            "unavailable": true
+          }
+        ]
+      },
+      {
+        "id": "update-sangha-details",
+        "title": "Update Sangha Details",
+        "copy": "Help keep local listings current.",
+        "subtiles": [
+          {
+            "title": "Maintain resources",
+            "copy": "Update listing details, share current access notes, and join working groups when details change.",
+            "unavailable": true
+          }
+        ]
+      },
+      {
+        "title": "Brown Jackets",
+        "copy": "Find Order of Interbeing members around the world.",
+        "url": "https://brownjackets.org/"
+      }
+    ]
+  ]
+]

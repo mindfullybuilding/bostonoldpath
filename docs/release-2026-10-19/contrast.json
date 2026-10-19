@@ -1,0 +1,50 @@
+[
+  {
+    "name": "ink/ivory",
+    "foreground": "#222222",
+    "background": "#fefbf3",
+    "ratio": 15.39
+  },
+  {
+    "name": "ink/sun",
+    "foreground": "#222222",
+    "background": "#ffd22a",
+    "ratio": 10.99
+  },
+  {
+    "name": "ink/butter",
+    "foreground": "#222222",
+    "background": "#f4df92",
+    "ratio": 11.98
+  },
+  {
+    "name": "earth/butter",
+    "foreground": "#8b572a",
+    "background": "#f4df92",
+    "ratio": 4.53
+  },
+  {
+    "name": "earth/ivory",
+    "foreground": "#8b572a",
+    "background": "#fefbf3",
+    "ratio": 5.81
+  },
+  {
+    "name": "muted/band",
+    "foreground": "#625f58",
+    "background": "#efe9dd",
+    "ratio": 5.27
+  },
+  {
+    "name": "moss/white",
+    "foreground": "#4f6f52",
+    "background": "#ffffff",
+    "ratio": 5.63
+  },
+  {
+    "name": "footer focus/ink",
+    "foreground": "#ffd22a",
+    "background": "#222222",
+    "ratio": 10.99
+  }
+]
