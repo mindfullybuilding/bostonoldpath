@@ -204,7 +204,11 @@ function eventTime(event) {
     end.setUTCDate(end.getUTCDate() - 1);
     return dateFmt.format(date) + (end > date ? ` – ${dateFmt.format(end)}` : "") + " · All day";
   }
-  return `${dateFmt.format(new Date(event.start))} · ${timeFmt.format(new Date(event.start))}${event.end ? " – " + timeFmt.format(new Date(event.end)) : ""}`;
+  const start = new Date(event.start);
+  const end = event.end ? new Date(event.end) : null;
+  const endDate =
+    end && dateFmt.format(end) !== dateFmt.format(start) ? dateFmt.format(end) + " · " : "";
+  return `${dateFmt.format(start)} · ${timeFmt.format(start)}${end ? " – " + endDate + timeFmt.format(end) : ""}`;
 }
 for (const root of $$("[data-agenda]")) {
   let events = [],

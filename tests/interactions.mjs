@@ -110,6 +110,8 @@ for (const [name, engine] of [
     url: "javascript:alert(1)",
     allDay: false,
   }));
+  events[1].end = "2026-11-04T16:00:00Z";
+  events[2] = { ...events[2], start: "2026-11-02", end: "2026-11-04", allDay: true };
   await p.unroute("**/api/events");
   await p.route("**/api/events", (r) =>
     r.fulfill({
@@ -121,6 +123,8 @@ for (const [name, engine] of [
   await p.locator("[data-retry]").click();
   await expect(p.locator(".agenda-item")).toHaveCount(10);
   await expect(p.locator(".agenda-item img")).toHaveCount(0);
+  await expect(p.locator(".agenda-item").nth(1)).toContainText("Wed, Nov 4, 2026");
+  await expect(p.locator(".agenda-item").nth(2)).toContainText("Tue, Nov 3, 2026 · All day");
   await p.locator("[data-more]").click();
   await expect(p.locator(".agenda-item")).toHaveCount(12);
   await p.unroute("**/api/events");
