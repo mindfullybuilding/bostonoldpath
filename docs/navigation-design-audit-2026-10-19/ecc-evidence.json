@@ -1,0 +1,53 @@
+{
+  "contract": "DESIGN.md and REPORT.md: MCGB factual community site; direct navigation; original directory composition; source-backed copy.",
+  "targetViewports": [
+    "1440x900",
+    "390x844"
+  ],
+  "accessibility": {
+    "status": "pass",
+    "evidence": "First-party keyboard tasks, axe scans, contrast, enlargement, reflow and error states passed. External map defects recorded in third-party.json; real screen readers untested. This scope does not claim full-page WCAG conformance."
+  },
+  "responsive": {
+    "status": "pass",
+    "evidence": "17 pages at eight widths plus doubled text sizes, spacing overrides and short drawer windows; no document overflow."
+  },
+  "contentStates": {
+    "loading": {
+      "status": "pass",
+      "evidence": "Agenda announces Loading upcoming events and disables refresh while fetching; observed in current-run browser AX state."
+    },
+    "empty": {
+      "status": "pass",
+      "evidence": "Actual source has no upcoming events; useful calendar subscription route remains. No-match filter state tested."
+    },
+    "error": {
+      "status": "pass",
+      "evidence": "Failed feed, failed clipboard and blocked external embeds tested with usable alternatives."
+    },
+    "partial": {
+      "status": "pass",
+      "evidence": "Refresh failure retains previously loaded events; verified in Chromium and WebKit."
+    },
+    "success": {
+      "status": "pass",
+      "evidence": "Directory filters, organizer links, copy, resource-to-guide paths, PDF and form handoffs passed."
+    },
+    "permission": {
+      "status": "pass",
+      "evidence": "Google Calendar view is explicitly optional/sign-in dependent and closed. Public agenda remains primary. No account access attempted."
+    }
+  },
+  "renderedEvidence": [
+    {
+      "viewport": "1440x900",
+      "artifact": "screenshots/after-home.png",
+      "observation": "Current-run desktop homepage with blue banner, direct navigation and top-aligned sections."
+    },
+    {
+      "viewport": "390x844",
+      "artifact": "screenshots/after-phone.png",
+      "observation": "Current-run phone homepage with visible library menu icon and stacked source-backed content."
+    }
+  ]
+}

@@ -10,7 +10,7 @@ for (const path of ["/", "/find-a-sangha.html", "/resources.html", "/community-v
     await expect(p.locator("[data-group]")).toHaveCount(13);
     await p.locator("[data-group] summary").first().click();
     await expect(
-      p.locator("[data-group]").first().getByRole("link", { name: "Email the organizer" }),
+      p.locator("[data-group]").first().getByRole("link", { name: "Contact organizer" }),
     ).toBeVisible();
   }
   if (path.includes("resources")) {

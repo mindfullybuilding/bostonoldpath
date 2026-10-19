@@ -1,0 +1,16 @@
+[
+  {
+    "engine": "Chromium",
+    "version": "148.0.7778.96",
+    "passed": true,
+    "pageErrors": [],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "engine": "WebKit",
+    "version": "26.4",
+    "passed": true,
+    "pageErrors": [],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  }
+]

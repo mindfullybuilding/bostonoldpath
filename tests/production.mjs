@@ -53,16 +53,20 @@ await p.setViewportSize({ width: 1440, height: 1000 });
 await p.goto(base);
 await expect(p.locator("h1")).toHaveText("A deep bow to you, dear friend.");
 expect(await p.locator(".site-header").evaluate((e) => getComputedStyle(e).backgroundColor)).toBe(
-  "rgb(223, 188, 30)",
+  "rgb(50, 118, 194)",
 );
 expect(
   await p
     .locator(".site-header .button.primary")
     .evaluate((e) => getComputedStyle(e).backgroundColor),
 ).toBe("rgb(255, 255, 255)");
-await p.locator(".nav-disclosure button").first().click();
-await expect(p.locator("#resources-menu")).toBeVisible();
-await p.keyboard.press("Escape");
+await p.locator('.desktop-nav a[href="/our-community.html"]').click();
+await p
+  .getByRole("navigation", { name: "Our community", exact: true })
+  .getByRole("link", { name: "Community Voices", exact: true })
+  .click();
+await expect(p.locator("h1")).toHaveText("Community Voices");
+await p.goto(base);
 await p.locator("h1").click();
 await p.screenshot({ path: "outputs/release-verification/live-desktop.png" });
 await p.setViewportSize({ width: 390, height: 844 });
@@ -76,7 +80,7 @@ await p.locator("#group-search").fill("Brookline");
 await expect(p.locator("[data-group]:visible")).toHaveCount(2);
 await p.locator("[data-group]:visible").first().locator("summary").click();
 await expect(
-  p.locator("[data-group]:visible").first().getByRole("link", { name: "Email the organizer" }),
+  p.locator("[data-group]:visible").first().getByRole("link", { name: "Contact organizer" }),
 ).toBeVisible();
 await p.locator('a[href="#subscribe-calendar"]').first().click();
 await p.locator("[data-copy]").click();
@@ -97,7 +101,7 @@ const report = {
     timeZone: api.timeZone,
   },
   privateReferenceStatus: missing.status(),
-  desktopHeader: "Boston flag gold with white primary action",
+  desktopHeader: "Accessible Continental Blue companion with white primary action",
   greetingVerified: true,
   mobileDrawerVerified: true,
   directoryVerified: true,

@@ -9,3 +9,7 @@ node_modules/
 .git/
 .vercel/
 dist/
+
+# Audit evidence and test code are versioned but not needed for production builds
+docs/
+tests/

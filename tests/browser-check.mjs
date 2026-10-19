@@ -32,6 +32,7 @@ for (const url of pages) {
   await page.waitForTimeout(150);
   const axe = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+    .exclude("iframe")
     .analyze();
   const widths = [];
   for (const width of [320, 390, 430, 768, 820, 1024, 1280, 1440]) {
@@ -52,6 +53,7 @@ for (const url of pages) {
   }
   results.push({
     url,
+    scope: "First-party HTML; external iframes evaluated separately in third-party.json",
     violations: axe.violations.map((v) => ({
       id: v.id,
       impact: v.impact,

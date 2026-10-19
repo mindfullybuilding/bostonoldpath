@@ -9,20 +9,18 @@ const results = [];
 const scan = async (name) => {
   const r = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+    .exclude("iframe")
     .analyze();
   results.push({
     name,
+    scope: "First-party HTML; external iframes evaluated separately in third-party.json",
     violations: r.violations.map((v) => ({ id: v.id, targets: v.nodes.map((n) => n.target) })),
   });
   expect(r.violations).toEqual([]);
 };
 await page.setViewportSize({ width: 1440, height: 900 });
 await page.goto(base + "/");
-for (const [i, name] of ["Resources dropdown", "Community dropdown"].entries()) {
-  await page.locator(".nav-disclosure button").nth(i).click();
-  await scan(name);
-  await page.keyboard.press("Escape");
-}
+await scan("Direct desktop navigation");
 await page.screenshot({
   path: "outputs/release-verification/final-home-desktop.png",
   fullPage: true,

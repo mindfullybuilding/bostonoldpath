@@ -1,0 +1,801 @@
+[
+  {
+    "url": "/",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/new-here.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/our-practice.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/our-community.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/find-a-sangha.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/resources.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/community-voices.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/newsletters.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/join-mailing-list.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/sangha-overview.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/sangha-facilitation.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/minding-the-bell.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/meeting-and-bell-minding-flow.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/dharma-sharing-guidelines.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/accessibility.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/photo-credits.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "url": "/privacy.html",
+    "violations": [],
+    "widths": [
+      {
+        "width": 320,
+        "scroll": 320,
+        "offenders": []
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "offenders": []
+      },
+      {
+        "width": 430,
+        "scroll": 430,
+        "offenders": []
+      },
+      {
+        "width": 768,
+        "scroll": 768,
+        "offenders": []
+      },
+      {
+        "width": 820,
+        "scroll": 820,
+        "offenders": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1024,
+        "offenders": []
+      },
+      {
+        "width": 1280,
+        "scroll": 1280,
+        "offenders": []
+      },
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "offenders": []
+      }
+    ],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  }
+]

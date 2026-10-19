@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Direct desktop navigation",
+    "violations": [],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "name": "Mobile drawer",
+    "violations": [],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "name": "All resource disclosures open",
+    "violations": [],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "name": "No matching groups",
+    "violations": [],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "name": "Group details and organizer contact",
+    "violations": [],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "name": "Subscription guides open and URL copied",
+    "violations": [],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "name": "Feed error state",
+    "violations": [],
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  },
+  {
+    "name": "Blocked map and calendar embeds",
+    "alternativeContentAvailable": true,
+    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+  }
+]

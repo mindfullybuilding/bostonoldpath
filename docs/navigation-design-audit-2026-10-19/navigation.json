@@ -1,0 +1,30 @@
+[
+  {
+    "engine": "Chromium",
+    "version": "148.0.7778.96",
+    "navigation": "direct, consistent desktop/mobile destinations",
+    "journeys": [
+      "practice → newcomer → directory → visible organizer contact",
+      "Events → correct calendar anchor → subscription guide",
+      "community → Voices → archive → actual PDF",
+      "mailing lists → two original subscription addresses",
+      "Resources → each of five standalone guides → parent resource anchor",
+      "phone drawer → community → Voices"
+    ],
+    "status": "pass"
+  },
+  {
+    "engine": "WebKit",
+    "version": "26.4",
+    "navigation": "direct, consistent desktop/mobile destinations",
+    "journeys": [
+      "practice → newcomer → directory → visible organizer contact",
+      "Events → correct calendar anchor → subscription guide",
+      "community → Voices → archive → actual PDF",
+      "mailing lists → two original subscription addresses",
+      "Resources → each of five standalone guides → parent resource anchor",
+      "phone drawer → community → Voices"
+    ],
+    "status": "pass"
+  }
+]

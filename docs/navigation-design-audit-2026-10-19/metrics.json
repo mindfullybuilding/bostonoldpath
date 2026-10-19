@@ -1,0 +1,32 @@
+{
+  "before": {
+    "bodyColor": "rgb(29, 53, 109)",
+    "headerColor": "rgb(223, 188, 30)",
+    "headerHeight": 81,
+    "height": 3722,
+    "sections": 6,
+    "topLinks": [
+      "New here",
+      "Events",
+      "Resources ⌄",
+      "Our community ⌄",
+      "Mailing list"
+    ],
+    "width": 1440
+  },
+  "after": {
+    "bodyColor": "rgb(0, 0, 0)",
+    "headerColor": "rgb(50, 118, 194)",
+    "headerHeight": 88,
+    "height": 1757,
+    "sections": 4,
+    "topLinks": [
+      "Our practice",
+      "Our community",
+      "Events",
+      "Resources",
+      "Mailing lists"
+    ],
+    "width": 1440
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "checkedAt": "2026-10-19T19:36:38.328Z",
+  "base": "http://127.0.0.1:4173",
+  "scope": "Full finder including anonymously loaded Google map; Google sign-in calendar kept closed.",
+  "violations": [
+    {
+      "id": "aria-command-name",
+      "impact": "serious",
+      "nodes": [
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            "div[title=\"\"][role=\"button\"]:nth-child(3)"
+          ],
+          "html": "<div title=\"\" role=\"button\" tabindex=\"0\" style=\"width: 32px; height: 32px; overflow: hidden; position: absolute; cursor: pointer; touch-action: none; left: 47px; top: -21px; z-index: 0;\">",
+          "summary": "Fix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has an empty title attribute"
+        },
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            "div[title=\"\"][role=\"button\"]:nth-child(4)"
+          ],
+          "html": "<div title=\"\" role=\"button\" tabindex=\"-1\" style=\"width: 32px; height: 32px; overflow: hidden; position: absolute; cursor: pointer; touch-action: none; left: 47px; top: -22px; z-index: 1;\">",
+          "summary": "Fix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has an empty title attribute"
+        },
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            "div[title=\"\"][role=\"button\"]:nth-child(5)"
+          ],
+          "html": "<div title=\"\" role=\"button\" tabindex=\"-1\" style=\"width: 32px; height: 32px; overflow: hidden; position: absolute; cursor: pointer; touch-action: none; left: 46px; top: -10px; z-index: 2;\">",
+          "summary": "Fix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has an empty title attribute"
+        },
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            "div[title=\"\"][role=\"button\"]:nth-child(6)"
+          ],
+          "html": "<div title=\"\" role=\"button\" tabindex=\"-1\" style=\"width: 32px; height: 32px; overflow: hidden; position: absolute; cursor: pointer; touch-action: none; left: 50px; top: -29px; z-index: 3;\">",
+          "summary": "Fix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has an empty title attribute"
+        },
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            "div[title=\"\"][role=\"button\"]:nth-child(7)"
+          ],
+          "html": "<div title=\"\" role=\"button\" tabindex=\"-1\" style=\"width: 32px; height: 32px; overflow: hidden; position: absolute; cursor: pointer; touch-action: none; left: 50px; top: -28px; z-index: 4;\">",
+          "summary": "Fix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has an empty title attribute"
+        },
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            "div[title=\"\"][role=\"button\"]:nth-child(8)"
+          ],
+          "html": "<div title=\"\" role=\"button\" tabindex=\"-1\" style=\"width: 32px; height: 32px; overflow: hidden; position: absolute; cursor: pointer; touch-action: none; left: 14px; top: -63px; z-index: 5;\">",
+          "summary": "Fix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has an empty title attribute"
+        },
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            "div[title=\"\"][role=\"button\"]:nth-child(9)"
+          ],
+          "html": "<div title=\"\" role=\"button\" tabindex=\"-1\" style=\"width: 32px; height: 32px; overflow: hidden; position: absolute; cursor: pointer; touch-action: none; left: 33px; top: -39px; z-index: 6;\">",
+          "summary": "Fix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has an empty title attribute"
+        },
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            "div[title=\"\"][role=\"button\"]:nth-child(10)"
+          ],
+          "html": "<div title=\"\" role=\"button\" tabindex=\"-1\" style=\"width: 32px; height: 32px; overflow: hidden; position: absolute; cursor: pointer; touch-action: none; left: 14px; top: -44px; z-index: 7;\">",
+          "summary": "Fix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has an empty title attribute"
+        },
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            "div[title=\"\"][role=\"button\"]:nth-child(11)"
+          ],
+          "html": "<div title=\"\" role=\"button\" tabindex=\"-1\" style=\"width: 32px; height: 32px; overflow: hidden; position: absolute; cursor: pointer; touch-action: none; left: -83px; top: -1px; z-index: 8;\">",
+          "summary": "Fix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has an empty title attribute"
+        },
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            ".pzNkMb-euCgFf-LgbsSe"
+          ],
+          "html": "<div role=\"button\" class=\"U26fgb JRtysb ZDSs1 ...\" jscontroller=\"iSvg6e\" jsaction=\"click:cOuCgd; moused...\" jsshadow=\"\" aria-disabled=\"false\" tabindex=\"0\" aria-haspopup=\"true\" aria-expanded=\"false\" data-aligntop=\"true\">",
+          "summary": "Fix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+        }
+      ]
+    },
+    {
+      "id": "aria-prohibited-attr",
+      "impact": "serious",
+      "nodes": [
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            ".i4ewOd-pzNkMb-xl07Ob-haAclf"
+          ],
+          "html": "<div class=\"i4ewOd-pzNkMb-xl07Ob-haAclf i4ewOd-pzNkMb-bMcfAe\" data-tooltip=\"Share\" aria-label=\"Share\">",
+          "summary": "Fix all of the following:\n  aria-label attribute cannot be used on \"div\" elements with no valid role attribute."
+        },
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            ".i4ewOd-pzNkMb-n9oEIb"
+          ],
+          "html": "<div class=\"i4ewOd-pzNkMb-n9oEIb i4ewOd-pzNkMb-bMcfAe\" data-tooltip=\"View larger map\" aria-label=\"View larger map\"><div class=\"i4ewOd-pzNkMb-LgbsSe\"></div></div>",
+          "summary": "Fix all of the following:\n  aria-label attribute cannot be used on \"div\" elements with no valid role attribute."
+        },
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            ".nJjxad-bEDTcc-LgbsSe"
+          ],
+          "html": "<div class=\"nJjxad-LgbsSe nJjxad-bEDTcc-LgbsSe\" data-tooltip=\"Zoom in\" aria-label=\"Zoom in\"></div>",
+          "summary": "Fix all of the following:\n  aria-label attribute cannot be used on \"div\" elements with no valid role attribute."
+        },
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            ".nJjxad-m9bMae-LgbsSe"
+          ],
+          "html": "<div class=\"nJjxad-LgbsSe nJjxad-m9bMae-LgbsSe\" data-tooltip=\"Zoom out\" aria-label=\"Zoom out\"></div>",
+          "summary": "Fix all of the following:\n  aria-label attribute cannot be used on \"div\" elements with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "nodes": [
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            ".fO2voc-ZtqPWe-V67aGc"
+          ],
+          "html": "<span class=\"fO2voc-ZtqPWe-V67aGc\">20 mi</span>",
+          "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.39 (foreground color: #777777, background color: #fdfdfc, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+        }
+      ]
+    },
+    {
+      "id": "target-size",
+      "impact": "serious",
+      "nodes": [
+        {
+          "target": [
+            "iframe[width=\"100%\"]",
+            "div:nth-child(2) > button[aria-label=\"Keyboard shortcuts\"][title=\"Keyboard shortcuts\"]"
+          ],
+          "html": "<button draggable=\"false\" aria-label=\"Keyboard shortcuts\" title=\"Keyboard shortcuts\" type=\"button\" style=\"background: none; di...\">",
+          "summary": "Fix any of the following:\n  Target has insufficient size (86.8px by 14px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 0px instead of at least 24px."
+        }
+      ]
+    }
+  ],
+  "limitation": "External map controls are not controlled by MCGB. The full directory, schedules and organizer contacts remain usable independently. This report does not certify full-page WCAG conformance."
+}

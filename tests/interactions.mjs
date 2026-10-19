@@ -11,6 +11,9 @@ for (const [name, engine] of [
   const tabKey = name === "WebKit" ? "Alt+Tab" : "Tab";
   const browser = await engine.launch();
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+  // First-party behavior is isolated from Google Maps’ separate external runtime.
+  // The anonymous embedded-map scan and its findings live in third-party.json.
+  await ctx.route("https://www.google.com/maps/**", (route) => route.abort());
   const p = await ctx.newPage();
   const errors = [];
   p.on("pageerror", (e) => errors.push(e.message));
@@ -19,15 +22,12 @@ for (const [name, engine] of [
   await expect(p.locator(".skip-link")).toBeFocused();
   await p.keyboard.press("Enter");
   await expect(p.locator("#main")).toBeFocused();
-  const resources = p.locator(".nav-disclosure").first().locator("button");
+  const resources = p.locator('.desktop-nav a[href="/resources.html"]');
   await resources.focus();
   await p.keyboard.press("Enter");
-  await expect(resources).toHaveAttribute("aria-expanded", "true");
-  await p.keyboard.press(tabKey);
-  await expect(p.locator("#resources-menu a").first()).toBeFocused();
-  await p.keyboard.press("Escape");
-  await expect(resources).toBeFocused();
-  await expect(p.locator("#resources-menu")).toBeHidden();
+  await expect(p).toHaveURL(base + "/resources.html");
+  await expect(p.locator("h1")).toHaveText("Practice resources");
+  await p.goto(base + "/");
   await p.setViewportSize({ width: 390, height: 844 });
   const opener = p.locator("[data-open-drawer]");
   await opener.focus();
@@ -35,6 +35,7 @@ for (const [name, engine] of [
   await expect(p.locator("#mobile-menu")).toBeVisible();
   let stateScan = await new AxeBuilder({ page: p })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+    .exclude("iframe")
     .analyze();
   expect(stateScan.violations).toEqual([]);
   for (let i = 0; i < 20; i++) {
@@ -49,7 +50,7 @@ for (const [name, engine] of [
   await p.setViewportSize({ width: 1280, height: 500 });
   await expect(p.locator("#mobile-menu")).not.toBeVisible();
   await expect(p.locator(".brand")).toBeFocused();
-  await resources.focus();
+  await p.locator('.desktop-nav a[href="/resources.html"]').focus();
   await p.setViewportSize({ width: 390, height: 844 });
   await expect(opener).toBeFocused();
   await p.setViewportSize({ width: 1280, height: 900 });
@@ -66,15 +67,17 @@ for (const [name, engine] of [
   await expect(p.locator("#no-groups")).toBeVisible();
   await p.locator("[data-clear-filters]").click();
   await expect(p.locator("[data-group]:visible")).toHaveCount(13);
+  await p.locator(".filters summary").first().click();
   await p.getByLabel("Online", { exact: true }).check();
   await expect(p.locator("[data-group]:visible")).toHaveCount(4);
   await p.locator("[data-group]:visible").first().locator("summary").focus();
   await p.keyboard.press("Enter");
   await expect(
-    p.locator("[data-group]:visible").first().getByRole("link", { name: "Email the organizer" }),
+    p.locator("[data-group]:visible").first().getByRole("link", { name: "Contact organizer" }),
   ).toBeVisible();
   stateScan = await new AxeBuilder({ page: p })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+    .exclude("iframe")
     .analyze();
   expect(stateScan.violations).toEqual([]);
   await p.goto(base + "/resources.html#resource-sangha-resources");
@@ -153,7 +156,13 @@ for (const [name, engine] of [
   await p.locator(".drawer a").last().scrollIntoViewIfNeeded();
   await expect(p.locator(".drawer a").last()).toBeInViewport();
   await p.keyboard.press("Escape");
-  results.push({ engine: name, version: browser.version(), passed: true, pageErrors: errors });
+  results.push({
+    engine: name,
+    version: browser.version(),
+    passed: true,
+    pageErrors: errors,
+    externalMapBlocked: true,
+  });
   expect(errors).toEqual([]);
   await browser.close();
 }

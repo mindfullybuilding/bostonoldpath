@@ -51,39 +51,8 @@ desktop.addEventListener("change", (e) => {
     if (focusWasInCompactNav) $(".brand")?.focus();
   } else {
     const focusWasInDesktopNav = focusBeforeReflow()?.closest(".desktop-nav");
-    closeMenus();
     if (focusWasInDesktopNav) $("[data-open-drawer]")?.focus();
   }
-});
-const disclosures = $$(".nav-disclosure");
-function closeMenus(except) {
-  for (const el of disclosures) {
-    if (el === except) continue;
-    $("button", el).setAttribute("aria-expanded", "false");
-    $(".nav-panel", el).hidden = true;
-  }
-}
-for (const el of disclosures) {
-  const b = $("button", el),
-    panel = $(".nav-panel", el);
-  b.addEventListener("click", () => {
-    const open = b.getAttribute("aria-expanded") !== "true";
-    closeMenus(el);
-    b.setAttribute("aria-expanded", String(open));
-    panel.hidden = !open;
-  });
-  el.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closeMenus();
-      b.focus();
-    }
-  });
-  el.addEventListener("focusout", (e) => {
-    if (!el.contains(e.relatedTarget)) closeMenus();
-  });
-}
-document.addEventListener("click", (e) => {
-  if (!e.target.closest(".nav-disclosure")) closeMenus();
 });
 function openHash() {
   let el;
@@ -141,6 +110,7 @@ if (filters) {
   toggle?.addEventListener("click", () => {
     const open = toggle.getAttribute("aria-expanded") !== "true";
     toggle.setAttribute("aria-expanded", String(open));
+    toggle.textContent = open ? "Hide filters" : "Filter groups";
     filters.classList.toggle("is-open", open);
     if (open) $("#group-search").focus();
   });
@@ -171,7 +141,7 @@ if (filters) {
         $(`[data-group="${s.id}"]`).hidden = !match;
         if (match) count++;
       }
-      $("#group-count").textContent = `${count} ${count === 1 ? "group" : "groups"}`;
+      $("#group-count").textContent = `${count} ${count === 1 ? "sangha" : "sanghas"}`;
       $("#no-groups").hidden = count !== 0;
     } catch {
       $("#group-count").textContent = "Filters are unavailable. All groups are shown below.";
@@ -271,7 +241,7 @@ for (const root of $$("[data-agenda]")) {
       render();
       status.textContent = events.length
         ? `${events.length} upcoming ${events.length === 1 ? "event" : "events"}. Updated ${timeFmt.format(new Date(data.retrievedAt))}.`
-        : "No upcoming community events are currently listed. Explore regular group schedules or subscribe for future updates.";
+        : "No upcoming community events are currently listed.";
     } catch {
       status.textContent = hasLoaded
         ? "The calendar could not refresh. Previously loaded events remain below; retry or use Google Calendar and the subscription guide."
