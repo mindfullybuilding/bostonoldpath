@@ -53,7 +53,7 @@ await p.setViewportSize({ width: 1440, height: 1000 });
 await p.goto(base);
 await expect(p.locator("h1")).toHaveText("A deep bow to you, dear friend.");
 expect(await p.locator(".site-header").evaluate((e) => getComputedStyle(e).backgroundColor)).toBe(
-  "rgb(244, 223, 146)",
+  "rgb(223, 188, 30)",
 );
 expect(
   await p
@@ -97,7 +97,7 @@ const report = {
     timeZone: api.timeZone,
   },
   privateReferenceStatus: missing.status(),
-  desktopHeader: "butter yellow with white primary action",
+  desktopHeader: "Boston flag gold with white primary action",
   greetingVerified: true,
   mobileDrawerVerified: true,
   directoryVerified: true,

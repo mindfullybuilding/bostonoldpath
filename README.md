@@ -19,7 +19,7 @@ Run `npm ci`, `npm run dev`, and open http://127.0.0.1:4173. Run `npm run build`
 
 Run `npm run lint` and `npm test`. With the preview server running, run `npm run test:browser`, `node tests/states.mjs`, `node tests/enlargement.mjs`, and `node tests/links.mjs`. Browser checks use installed Playwright browsers. `TEST_BASE` can target production for the read-only browser checks. Test fixtures never publish invented calendar events.
 
-Release evidence and limitations: `docs/release-2026-10-19/`. Accessibility verification is not independent certification. Native Safari/VoiceOver testing could not be performed because computer-use access to Safari was denied; WebKit testing is separately identified and is not a substitute for VoiceOver.
+Release evidence and limitations: `docs/release-2026-10-19/`. The subsequent background-hero and Boston palette refinement is documented in `docs/hero-refinement-2026-10-19/`. Accessibility verification is not independent certification. Native Safari/VoiceOver testing could not be performed because computer-use access to Safari was denied; WebKit testing is separately identified and is not a substitute for VoiceOver.
 
 ## Calendar
 

@@ -8,7 +8,7 @@ Welcome people into Greater Boston practice communities in the Plum Village trad
 
 ## Tokens
 
-Colors: ivory #fefbf3, white #ffffff, ink #222222, sun #ffd22a, butter #f4df92, earth #8b572a, moss #4f6f52, muted #625f58. Text uses ink on ivory/white; yellow controls use ink. Earth is the focus/interactive color. Never use pale borders as the only control boundary or yellow as text on white.
+Colors: Continental Blue #367BCA for large headings and accents; medium blue #355C96 for links, controls, and supporting surfaces; dark blue #1D356D for body text and focus on gold; gold #DFBC1E for the header and primary page actions; white #FFFFFF for content and the header action. Decorative borders may use transparent medium blue; the light blue hover state #EDF3FA is a defined companion state. Do not introduce butter yellow, earth, moss, or additional brand hues. The legacy ivory variable aliases white.
 
 Typography: Georgia editorial headings; system sans serif body/controls. Body 18px desktop, 16px below 900px, line-height 1.6. H1 fluid 36–64px; H2 32–44px; H3 22–28px. Navigation and controls stay at least 16px. Secondary text stays at least 14px. Reading measure 65ch.
 
@@ -19,7 +19,7 @@ Spacing: 4, 8, 12, 16, 24, 32, 48, 64, 80px. Content max 1160px. Gutters 24px, r
 - Header: 80px desktop; 72px compact. Full navigation starts at 1200px. Dropdown links have 48px minimum rows, left alignment, explicit disclosure buttons, overview links, and Escape/outside dismissal.
 - Mobile drawer: the compact header uses the traditional hamburger glyph (☰), with accessible name “Open menu”, instead of visible “Menu” text. Right aligned, maximum 384px/full viewport on narrow phones; 24px padding, 56px link rows, visible close button, native modal background isolation, focus restoration. Close safely when switching to desktop.
 - Primary controls: at least 44px high. One yellow primary action per action group; secondary actions are outlined or underlined. Text links are underlined in prose. Selected filters include native checked state and text, not color alone.
-- Homepage: text and image columns above 900px; stacked below. Hero is content-driven, never a fixed viewport with clipped overflow. Welcome, participation, community voices, events, resources, connection remain visible in document flow.
+- Homepage: a decorative full-width background photograph sits behind a centered greeting, readable introduction (62ch maximum), and actions. The photograph has no separate column or stacked image block. Hero height follows content with 80px desktop, 64px tablet, and 48px phone vertical padding, never a fixed viewport with clipped overflow. Welcome, participation, community voices, events, resources, connection remain visible in document flow.
 - Directory: native form controls and readable metadata; filter results announce counts. Details include contact and directions. A map is supplementary, clearly a regional overview independent of filters.
 - Calendar: independent of directory filters. Accessible agenda is always present. Google embed is supplementary and requires sign-in; it is disclosed on request at every width. The verified public website agenda is primary. Loading, empty, error and refresh-failure states must be distinct.
 - Reading pages: 65ch body, open sections and rules rather than repeated nested cards. Existing practice-history and facilitator structures may use compact subsection spacing (32px), never bespoke body sizes.
@@ -39,7 +39,7 @@ All internal pages have one H1, a skip link, main landmark, consistent navigatio
 
 ## Named exceptions
 
-The compact header retains 16px control text at every width; its brand is MCGB. Footer focus uses sun on ink. Directory cards use 24px padding and 16px metadata. Calendar auxiliary labels use 16px. Photo credits and archival provenance may use 14px. A native filter disclosure replaces the desktop sidebar below 900px. Phone drawer padding reduces to 16px below 600px.
+The compact header retains 16px control text at every width; its brand is MCGB. Footer focus uses gold on medium blue. Directory cards use 24px padding and 16px metadata. Calendar auxiliary labels use 16px. Photo credits and archival provenance may use 14px. A native filter disclosure replaces the desktop sidebar below 900px. Phone drawer padding reduces to 16px below 600px.
 
 ## Editorial rules: no generic AI filler
 
@@ -49,8 +49,18 @@ Use factual labels such as “Upcoming community events”, “Join our mailing 
 
 ## Header color treatment
 
-The shared top bar uses butter yellow (#f4df92), with ink text and a white Find a group button. The primary action remains yellow on ivory/white page surfaces. Mobile and desktop share this treatment. Do not use yellow text on white.
+The shared top bar uses flag gold (#DFBC1E), with dark blue text and a white Find a group button. Primary page actions also use flag gold. Mobile and desktop share this treatment. Do not use yellow text on white.
 
 ## Boston color reference
 
-The user supplied [Boston flag colors](https://www.flagcolorcodes.com/boston) as a reference. That source lists gold #DFBC1E and dark blue #1D356D. The implemented header follows the requested softer butter yellow #F4DF92, with white buttons. The source is a third-party flag-color reference, not a claim that this website implements an official City of Boston brand standard.
+The user supplied [Boston flag colors](https://www.flagcolorcodes.com/boston) as a reference. That source lists gold #DFBC1E and dark blue #1D356D. The implemented header uses the listed gold #DFBC1E, with a white button. Continental Blue is the main blue accent; the listed medium blue #355C96 provides stronger small-text contrast. The source is a third-party flag-color reference, not a claim that this website implements an official City of Boston brand standard.
+
+## Homepage background-photo exception
+
+The greeting can use the full content width; the paragraph remains capped at 62ch. The landscape is decorative CSS imagery, unchanged from the retained asset. A uniform rgba(0,0,0,.64) overlay guarantees text contrast even over white image pixels; evaluate that worst-case composite as well as the actual image. Use white heading and introduction text, a gold primary action, and a white outlined secondary action. Focus uses yellow against the dark backdrop. Preserve a solid dark fallback when the photo fails and use ink on white in print. There is no fixed/minimum viewport height, text over a bare photo, separate phone image block, or parallax. Copy remains unchanged.
+
+## Boston palette contrast rules
+
+Continental Blue (#367BCA) against white is 4.34:1: use it for large headings and decorative accents, not ordinary-size white-on-blue navigation or small blue body links. Medium blue (#355C96) is the existing palette companion for small links and controls. Dark blue is reserved for text and focus on gold, rather than a large navy header. Footer links stay white on medium blue; gold focus outlines meet the non-text threshold, but gold is not a small footer-link text color. The homepage photo scrim is a functional neutral transparency, not a new brand hue. The gold header, white action, and larger blue accents distinguish MCGB from CZC’s navy treatment.
+
+In forced-colors mode, remove the decorative hero background and use Canvas/CanvasText/LinkText system colors.
