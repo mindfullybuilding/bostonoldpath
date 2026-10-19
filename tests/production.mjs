@@ -63,6 +63,7 @@ expect(
 await p.locator(".nav-disclosure button").first().click();
 await expect(p.locator("#resources-menu")).toBeVisible();
 await p.keyboard.press("Escape");
+await p.locator("h1").click();
 await p.screenshot({ path: "outputs/release-verification/live-desktop.png" });
 await p.setViewportSize({ width: 390, height: 844 });
 await p.screenshot({ path: "outputs/release-verification/live-mobile.png" });

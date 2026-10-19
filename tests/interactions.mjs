@@ -49,7 +49,17 @@ for (const [name, engine] of [
   await p.setViewportSize({ width: 1280, height: 500 });
   await expect(p.locator("#mobile-menu")).not.toBeVisible();
   await expect(p.locator(".brand")).toBeFocused();
+  await resources.focus();
+  await p.setViewportSize({ width: 390, height: 844 });
+  await expect(opener).toBeFocused();
+  await p.setViewportSize({ width: 1280, height: 900 });
+  await expect(p.locator(".brand")).toBeFocused();
   await p.goto(base + "/find-a-sangha.html");
+  await p.locator("#group-search").focus();
+  await p.setViewportSize({ width: 390, height: 844 });
+  await expect(p.locator("[data-filter-toggle]")).toBeFocused();
+  await p.setViewportSize({ width: 1280, height: 900 });
+  await expect(p.locator("#group-search")).toBeFocused();
   await p.locator("#group-search").fill("Brookline");
   await expect(p.locator("[data-group]:visible")).toHaveCount(2);
   await p.locator("#group-search").fill("impossible-search-qzx");

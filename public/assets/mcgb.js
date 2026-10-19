@@ -1,5 +1,16 @@
 const $ = (s, root = document) => root.querySelector(s);
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+// Browsers can blur a control before a breakpoint event fires. Remember its origin
+// so focus can move to the equivalent visible control after reflow.
+let focusOrigin = document.activeElement;
+document.addEventListener("focusin", (e) => {
+  focusOrigin = e.target;
+});
+document.addEventListener("pointerdown", (e) => {
+  focusOrigin = e.target;
+});
+const focusBeforeReflow = () =>
+  document.activeElement === document.body ? focusOrigin : document.activeElement;
 const drawer = $("#mobile-menu");
 let drawerOpener;
 $("[data-open-drawer]")?.addEventListener("click", (e) => {
@@ -34,9 +45,14 @@ drawer?.addEventListener("keydown", (e) => {
 });
 const desktop = matchMedia("(min-width:1200px)");
 desktop.addEventListener("change", (e) => {
-  if (e.matches && drawer?.open) {
-    drawer.close();
-    $(".brand")?.focus();
+  if (e.matches) {
+    const focusWasInCompactNav = drawer?.open || focusBeforeReflow() === $("[data-open-drawer]");
+    if (drawer?.open) drawer.close();
+    if (focusWasInCompactNav) $(".brand")?.focus();
+  } else {
+    const focusWasInDesktopNav = focusBeforeReflow()?.closest(".desktop-nav");
+    closeMenus();
+    if (focusWasInDesktopNav) $("[data-open-drawer]")?.focus();
   }
 });
 const disclosures = $$(".nav-disclosure");
@@ -113,6 +129,15 @@ if (filters) {
       return r.json();
     }));
   const toggle = $("[data-filter-toggle]");
+  matchMedia("(max-width:899px)").addEventListener("change", (e) => {
+    if (
+      e.matches &&
+      !filters.classList.contains("is-open") &&
+      filters.contains(focusBeforeReflow())
+    )
+      toggle?.focus();
+    if (!e.matches && focusBeforeReflow() === toggle) $("#group-search").focus();
+  });
   toggle?.addEventListener("click", () => {
     const open = toggle.getAttribute("aria-expanded") !== "true";
     toggle.setAttribute("aria-expanded", String(open));

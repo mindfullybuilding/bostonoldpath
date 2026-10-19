@@ -32,7 +32,8 @@ Findings corrected and retested:
 4. Enlarged text overflowed long email links/grid items: allowed wrapping and set content grid children to min-width:0; header height follows content and short windows use a non-sticky header.
 5. Footer focus needed stronger contrast on ink: changed the footer focus outline to yellow.
 6. Google calendar was viewable only in an existing signed-in session. Anonymous testing redirected to sign-in; its read-only imported-calendar settings had no public-sharing control. User chose a public first-party agenda with optional signed-in Google view. The Google account was subsequently signed out at the user’s request. No account information is saved in the site or report.
-7. The inherited Mountain Bell record contained placeholder organizer addresses. The original record remains preserved in source; the visible action routes to MCGB’s confirmed public contact for current organizer information.
+7. Responsive breakpoint changes could blur a desktop navigation or filter control before the resize handler observed it. Remembered the focus origin and moved it to the equivalent visible control; both resize directions passed in Chromium and WebKit.
+8. The inherited Mountain Bell record contained placeholder organizer addresses. The original record remains preserved in source; the visible action routes to MCGB’s confirmed public contact for current organizer information.
 
 ## Remaining limitations
 
