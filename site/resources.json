@@ -192,11 +192,6 @@
             "url": "https://thichnhathanhfoundation.app.box.com/s/kkw4prrlwhrsxza5vf9hof1ec6ljbkso"
           },
           {
-            "title": "OI Directory",
-            "copy": "Find Order of Interbeing members around the world.",
-            "url": "https://brownjackets.org/"
-          },
-          {
             "title": "Care Taking Council",
             "copy": "Care-taking roles, coordination, and sangha stewardship.",
             "unavailable": true
@@ -252,7 +247,7 @@
         ]
       },
       {
-        "title": "Brown Jackets",
+        "title": "Brown Jackets (OI directory)",
         "copy": "Find Order of Interbeing members around the world.",
         "url": "https://brownjackets.org/"
       }

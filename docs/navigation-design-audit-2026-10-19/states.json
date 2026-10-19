@@ -1,42 +1,41 @@
 [
   {
     "name": "Direct desktop navigation",
-    "violations": [],
-    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+    "scope": "First-party HTML; external iframes evaluated separately in third-party.json",
+    "violations": []
   },
   {
     "name": "Mobile drawer",
-    "violations": [],
-    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+    "scope": "First-party HTML; external iframes evaluated separately in third-party.json",
+    "violations": []
   },
   {
     "name": "All resource disclosures open",
-    "violations": [],
-    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+    "scope": "First-party HTML; external iframes evaluated separately in third-party.json",
+    "violations": []
   },
   {
     "name": "No matching groups",
-    "violations": [],
-    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+    "scope": "First-party HTML; external iframes evaluated separately in third-party.json",
+    "violations": []
   },
   {
     "name": "Group details and organizer contact",
-    "violations": [],
-    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+    "scope": "First-party HTML; external iframes evaluated separately in third-party.json",
+    "violations": []
   },
   {
     "name": "Subscription guides open and URL copied",
-    "violations": [],
-    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+    "scope": "First-party HTML; external iframes evaluated separately in third-party.json",
+    "violations": []
   },
   {
     "name": "Feed error state",
-    "violations": [],
-    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+    "scope": "First-party HTML; external iframes evaluated separately in third-party.json",
+    "violations": []
   },
   {
     "name": "Blocked map and calendar embeds",
-    "alternativeContentAvailable": true,
-    "scope": "First-party HTML and interactions; external iframe content evaluated separately in third-party.json."
+    "alternativeContentAvailable": true
   }
 ]

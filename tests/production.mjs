@@ -82,6 +82,12 @@ await p.locator("[data-group]:visible").first().locator("summary").click();
 await expect(
   p.locator("[data-group]:visible").first().getByRole("link", { name: "Contact organizer" }),
 ).toBeVisible();
+await expect(
+  p
+    .locator("[data-group]:visible")
+    .first()
+    .getByRole("link", { name: "Get directions", exact: true }),
+).toHaveAttribute("href", /^https:\/\/www\.google\.com\/maps\/dir\//);
 await p.locator('a[href="#subscribe-calendar"]').first().click();
 await p.locator("[data-copy]").click();
 await expect(p.locator(".copy-status")).toContainText(/copied|selected/);

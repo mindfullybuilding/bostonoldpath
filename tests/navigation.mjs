@@ -39,6 +39,10 @@ for (const [engineName, engine] of [
     /^mailto:/,
   );
   await first.locator("summary").click();
+  await expect(first.getByRole("link", { name: "Get directions", exact: true })).toHaveAttribute(
+    "href",
+    /^https:\/\/www\.google\.com\/maps\/dir\/\?api=1&destination=/,
+  );
   await expect(first.getByRole("link", { name: "Contact organizer", exact: true })).toBeVisible();
   await p.locator(".desktop-nav").getByRole("link", { name: "Events", exact: true }).click();
   await expect(p).toHaveURL(base + "/find-a-sangha.html#calendar");
