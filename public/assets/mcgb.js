@@ -11,6 +11,77 @@ document.addEventListener("pointerdown", (e) => {
 });
 const focusBeforeReflow = () =>
   document.activeElement === document.body ? focusOrigin : document.activeElement;
+// Arrow-free website navigation disclosures; ordinary links retain native semantics.
+const navDisclosures = $$(".nav-disclosure");
+function setNav(group, open) {
+  const trigger = $(".nav-trigger", group);
+  trigger.setAttribute("aria-expanded", String(open));
+  document.getElementById(trigger.getAttribute("aria-controls")).hidden = !open;
+  if (!open) group.dataset.hoverOpened = "false";
+}
+function closeNav(except) {
+  navDisclosures.forEach((group) => {
+    if (group !== except) setNav(group, false);
+  });
+}
+navDisclosures.forEach((group) => {
+  const trigger = $(".nav-trigger", group);
+  const panel = $(".nav-panel", group);
+  if ($('a[aria-current="page"]', panel)) trigger.dataset.current = "true";
+  trigger.addEventListener("click", (e) => {
+    const hoverOpened = e.detail > 0 && group.dataset.hoverOpened === "true";
+    const open = hoverOpened || trigger.getAttribute("aria-expanded") !== "true";
+    closeNav(group);
+    setNav(group, open);
+    group.dataset.hoverOpened = "false";
+  });
+  group.addEventListener("pointerenter", (e) => {
+    if (e.pointerType !== "mouse" || !matchMedia("(hover:hover) and (pointer:fine)").matches)
+      return;
+    if (trigger.getAttribute("aria-expanded") !== "true") {
+      closeNav(group);
+      setNav(group, true);
+      group.dataset.hoverOpened = "true";
+    }
+  });
+  group.addEventListener("pointerleave", () => {
+    if (!group.contains(document.activeElement)) setNav(group, false);
+  });
+  group.addEventListener("focusout", (e) => {
+    const next = e.relatedTarget;
+    setTimeout(() => {
+      // WebKit on macOS can blur a button without focusing a clicked link.
+      // Keep the pointer's panel alive until that click has completed.
+      if (!group.contains(document.activeElement) && (next || !group.matches(":hover")))
+        setNav(group, false);
+    }, 0);
+  });
+  group.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      e.stopPropagation();
+      setNav(group, false);
+      trigger.focus();
+    }
+    if (e.key === "ArrowDown" && e.target === trigger) {
+      e.preventDefault();
+      closeNav(group);
+      setNav(group, true);
+      $("a", panel).focus();
+    }
+  });
+});
+document.addEventListener("pointerdown", (e) => {
+  if (!e.target.closest(".nav-disclosure")) closeNav();
+});
+$$(".drawer-trigger").forEach((trigger) => {
+  trigger.addEventListener("click", () => {
+    const open = trigger.getAttribute("aria-expanded") !== "true";
+    trigger.setAttribute("aria-expanded", String(open));
+    document.getElementById(trigger.getAttribute("aria-controls")).hidden = !open;
+    $(".disclosure-state", trigger).textContent = open ? "Close" : "Open";
+  });
+});
 const drawer = $("#mobile-menu");
 let drawerOpener;
 $("[data-open-drawer]")?.addEventListener("click", (e) => {
@@ -45,6 +116,7 @@ drawer?.addEventListener("keydown", (e) => {
 });
 const desktop = matchMedia("(min-width:1200px)");
 desktop.addEventListener("change", (e) => {
+  closeNav();
   if (e.matches) {
     const focusWasInCompactNav = drawer?.open || focusBeforeReflow() === $("[data-open-drawer]");
     if (drawer?.open) drawer.close();
@@ -77,10 +149,14 @@ if (calendarDisclosure) calendarDisclosure.open = false;
 $$("[data-copy]").forEach((button) =>
   button.addEventListener("click", async () => {
     const input = document.getElementById(button.dataset.copy),
-      status = $(".copy-status");
+      status = button.dataset.status
+        ? document.getElementById(button.dataset.status)
+        : $(".copy-status");
     try {
       await navigator.clipboard.writeText(input.value);
-      status.textContent = "Calendar URL copied.";
+      status.textContent = button.dataset.copy.startsWith("mail-")
+        ? "Email address copied."
+        : "Calendar URL copied.";
     } catch {
       input.focus();
       input.select();
@@ -267,3 +343,19 @@ if (siteHeader && "ResizeObserver" in window)
       `${entry.target.getBoundingClientRect().height + 24}px`,
     ),
   ).observe(siteHeader);
+
+const mailingChoices = $$("[data-mail-choice]");
+if (mailingChoices.length) {
+  const updateMailChoices = () => {
+    const selected = mailingChoices.filter((el) => el.checked);
+    $("#mail-selection").textContent = selected.length
+      ? selected.map((el) => el.dataset.label).join(" and ") +
+        " selected. Send a separate request to each selected list."
+      : "No lists selected. Choose a list to see its subscription address.";
+    mailingChoices.forEach((el) => {
+      document.getElementById(el.getAttribute("aria-controls")).hidden = !el.checked;
+    });
+  };
+  mailingChoices.forEach((el) => el.addEventListener("change", updateMailChoices));
+  updateMailChoices();
+}

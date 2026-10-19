@@ -54,3 +54,8 @@ test-results/
 /outputs/
 # Meeting reference remains local even inside the source preservation snapshot.
 /design-prototypes/archive/**/public/assets/GBCOM Website Working Group.pdf
+
+# Local browser profiles, automation traces, and design reference captures
+/.browser-profiles/
+/.playwright-mcp/
+/blob-report/

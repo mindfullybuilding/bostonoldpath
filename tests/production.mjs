@@ -26,6 +26,7 @@ for (const path of [
   "/api/events",
   "/assets/licensed/thich-nhat-hanh.jpg",
   "/assets/licensed/plum-village-hall.jpg",
+  "/assets/illustrations/newcomer-river.png",
 ]) {
   const r = await p.request.get(base + path);
   requests.push({ path, status: r.status() });
@@ -53,18 +54,18 @@ await p.setViewportSize({ width: 1440, height: 1000 });
 await p.goto(base);
 await expect(p.locator("h1")).toHaveText("A deep bow to you, dear friend.");
 expect(await p.locator(".site-header").evaluate((e) => getComputedStyle(e).backgroundColor)).toBe(
-  "rgb(50, 118, 194)",
+  "rgb(54, 123, 202)",
 );
 expect(
   await p
     .locator(".site-header .button.primary")
     .evaluate((e) => getComputedStyle(e).backgroundColor),
 ).toBe("rgb(255, 255, 255)");
-await p.locator('.desktop-nav a[href="/our-community.html"]').click();
 await p
-  .getByRole("navigation", { name: "Our community", exact: true })
-  .getByRole("link", { name: "Community Voices", exact: true })
-  .click();
+  .locator(".desktop-nav")
+  .getByRole("button", { name: "Community Voices", exact: true })
+  .press("Enter");
+await p.locator(".desktop-nav").getByRole("link", { name: "Overview", exact: true }).click();
 await expect(p.locator("h1")).toHaveText("Community Voices");
 await p.goto(base);
 await p.locator("h1").click();
@@ -96,6 +97,21 @@ await p.goto(base + "/community-voices.html");
 await expect(
   p.getByRole("link", { name: "Submit your contribution", exact: true }),
 ).toHaveAttribute("href", "https://forms.gle/ab3cBUX3K76PppPA9");
+await p.goto(base + "/new-here.html");
+await expect(p.locator(".page-intro em")).toHaveText("“Go as a river” — Thích Nhất Hạnh");
+await expect(p.locator(".river-stops > li")).toHaveCount(5);
+expect(await p.locator(".page-intro .reading").evaluate((e) => getComputedStyle(e).textAlign)).toBe(
+  "left",
+);
+await p.screenshot({ path: "outputs/release-verification/live-newcomers-mobile.png" });
+await p.goto(base + "/newsletters.html");
+await expect(p.locator(".year-group > h2")).toHaveText(["2026", "2022"]);
+await expect(p.locator(".issue-card a")).toHaveCount(3);
+await p.goto(base + "/join-mailing-list.html");
+await p.locator("[data-mail-choice]").first().uncheck();
+await expect(p.locator("#practice-subscribe")).toBeHidden();
+await p.locator("[data-mail-choice]").first().check();
+await expect(p.locator("#practice-subscribe")).toBeVisible();
 const report = {
   checkedAt: new Date().toISOString(),
   base,
@@ -107,8 +123,11 @@ const report = {
     timeZone: api.timeZone,
   },
   privateReferenceStatus: missing.status(),
-  desktopHeader: "Accessible Continental Blue companion with white primary action",
+  desktopHeader: "Continental Blue water gloss with accessible label zone and white primary action",
   greetingVerified: true,
+  newcomerRiverAndQuoteVerified: true,
+  newsletterYearGroupsVerified: true,
+  mailingSelectionVerified: true,
   mobileDrawerVerified: true,
   directoryVerified: true,
   calendarCopyVerified: true,

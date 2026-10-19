@@ -10,18 +10,60 @@ const resources = JSON.parse(await fs.readFile("site/resources.json", "utf8"));
 const link = (url, label, cls = "") =>
   `<a ${cls ? `class="${cls}"` : ""} href="${esc(url)}">${label}</a>`;
 const form = link(c.communityVoicesFormUrl, "Submit your contribution", "button primary");
-const group = link("/find-a-sangha.html", "Find a group", "button primary");
-const destinations = [
-  ["/our-practice.html", "Our practice"],
-  ["/our-community.html", "Our community"],
-  ["/find-a-sangha.html#calendar", "Events"],
-  ["/resources.html", "Resources"],
-  ["/join-mailing-list.html", "Mailing lists"],
+const group = link("/find-a-sangha.html", "Find a Group", "button primary");
+const navigationGroups = [
+  [
+    "About",
+    [
+      ["/new-here.html", "Newcomers"],
+      ["/our-practice.html", "Our Practice"],
+      ["/our-community.html", "Greater Boston Community"],
+      ["/resources.html", "Resources"],
+    ],
+  ],
+  [
+    "Get Involved",
+    [
+      ["/find-a-sangha.html", "Find a Sangha"],
+      ["/find-a-sangha.html#calendar", "Events Calendar"],
+      ["https://togethernessma.vercel.app/", "Gather with Friends", true],
+    ],
+  ],
+  [
+    "Community Voices",
+    [
+      ["/community-voices.html", "Overview"],
+      ["https://buddhistpoetryexchange.blogspot.com", "Poetry zine", true],
+      ["/newsletters.html", "Newsletter"],
+      [c.communityVoicesFormUrl, "Submit your contribution", true],
+    ],
+  ],
 ];
-const menu = destinations.map(([url, label]) => link(url, label)).join("");
-const header = `<a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="header-inner container"><a class="brand" href="/" aria-label="Mindfulness Communities of Greater Boston — home"><span class="full-brand">Mindfulness Communities<br>of Greater Boston</span><span class="compact-brand">MCGB</span></a><nav class="desktop-nav" aria-label="Main">${menu}</nav><div class="header-actions">${group}<button class="menu-trigger" data-open-drawer aria-haspopup="dialog" aria-controls="mobile-menu" aria-label="Open menu"><span class="icon icon-menu" aria-hidden="true"></span></button></div></div></header><dialog class="drawer" id="mobile-menu" aria-labelledby="drawer-title"><div class="drawer-top"><h2 id="drawer-title">MCGB</h2><button data-close-dialog aria-label="Close menu"><span class="icon icon-close" aria-hidden="true"></span></button></div><nav aria-label="Mobile main">${menu}${link("/find-a-sangha.html", "Find a group")}</nav></dialog>`;
-const footer = `<footer class="site-footer"><div class="container footer-inner"><div><p class="footer-name">Mindfulness Communities of Greater Boston</p><p>Engaged Buddhism in the Plum Village tradition of Thích Nhất Hạnh.</p></div><nav aria-label="Site information"><a href="mailto:${c.contactEmail}">Contact</a><a href="/accessibility.html">Accessibility</a><a href="/photo-credits.html">Photo credits</a><a href="/privacy.html">Privacy &amp; site information</a></nav></div></footer>`;
-const communityPages = ["our-community", "community-voices", "newsletters"];
+const navLinks = (items) =>
+  items
+    .map(
+      ([url, label, external]) =>
+        `<a href="${esc(url)}">${label}${external ? '<span class="external-note">External site</span>' : ""}</a>`,
+    )
+    .join("");
+const menu =
+  navigationGroups
+    .map(
+      ([title, items], i) =>
+        `<div class="nav-disclosure"><button class="nav-trigger" aria-expanded="false" aria-controls="nav-panel-${i}">${title}</button><div class="nav-panel" id="nav-panel-${i}" hidden>${navLinks(items)}</div></div>`,
+    )
+    .join("") + link("/join-mailing-list.html", "Mailing Lists");
+const mobileMenu =
+  navigationGroups
+    .map(
+      ([title, items], i) =>
+        `<section class="drawer-group"><h3><button aria-expanded="false" aria-controls="drawer-panel-${i}" class="drawer-trigger">${title}<span class="disclosure-state" aria-hidden="true">Open</span></button></h3><div class="drawer-panel" id="drawer-panel-${i}" hidden>${navLinks(items)}</div></section>`,
+    )
+    .join("") +
+  link("/join-mailing-list.html", "Mailing Lists") +
+  link("/find-a-sangha.html", "Find a Group");
+const header = `<a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="header-inner container"><a class="brand" href="/" aria-label="Mindfulness Communities of Greater Boston — home"><span class="full-brand">Mindfulness Communities<br>of Greater Boston</span><span class="compact-brand">MCGB</span></a><nav class="desktop-nav" aria-label="Main">${menu}</nav><div class="header-actions">${link("/find-a-sangha.html", "Find a Group", "button primary")}<button class="menu-trigger" data-open-drawer aria-haspopup="dialog" aria-controls="mobile-menu" aria-label="Open menu"><span class="icon icon-menu" aria-hidden="true"></span></button></div></div></header><dialog class="drawer" id="mobile-menu" aria-labelledby="drawer-title"><div class="drawer-top"><h2 id="drawer-title">MCGB</h2><button data-close-dialog aria-label="Close menu"><span class="icon icon-close" aria-hidden="true"></span></button></div><nav aria-label="Mobile main">${mobileMenu}</nav></dialog>`;
+const footer = `<footer class="site-footer"><div class="container footer-grid"><div><h2 class="footer-name">Mindfulness Communities<br>of Greater Boston</h2><p>Engaged Buddhism in the Plum Village tradition of Thích Nhất Hạnh.</p></div><nav aria-label="Participation"><h2>Get involved</h2>${link("/find-a-sangha.html", "Find a Sangha")}${link("/find-a-sangha.html#calendar", "Events Calendar")}${link("https://togethernessma.vercel.app/", "Gather with Friends (external)")}${link("/community-voices.html", "Community Voices")}${link("/join-mailing-list.html", "Mailing Lists")}</nav><nav aria-label="Site information"><h2>Contact &amp; information</h2>${link(`mailto:${c.contactEmail}`, "Contact MCGB")}${link("/accessibility.html", "Accessibility")}${link("/photo-credits.html", "Photo & illustration credits")}${link("/privacy.html", "Privacy &amp; site information")}</nav></div></footer>`;
 const guidePages = [
   "sangha-overview",
   "sangha-facilitation",
@@ -30,23 +72,11 @@ const guidePages = [
   "dharma-sharing-guidelines",
 ];
 function localNavigation(file) {
-  const items = communityPages.includes(file)
-    ? [
-        ["our-community", "About MCGB"],
-        ["community-voices", "Community Voices"],
-        ["newsletters", "Newsletter archive"],
-      ]
-    : ["our-practice", "new-here"].includes(file)
-      ? [
-          ["our-practice", "Our practice"],
-          ["new-here", "New here"],
-        ]
-      : [];
   if (guidePages.includes(file))
     return `<nav class="container breadcrumb" aria-label="Breadcrumb">${link("/resources.html", "Resources")}<span aria-hidden="true">/</span>${link("/resources.html#resource-sangha-resources", "Sangha resources")}</nav>`;
-  return items.length
-    ? `<nav class="container local-nav" aria-label="${communityPages.includes(file) ? "Our community" : "Our practice"}">${items.map(([id, label]) => `<a href="/${id}.html"${id === file ? ' aria-current="page"' : ""}>${label}</a>`).join("")}</nav>`
-    : "";
+  if (file === "newsletters")
+    return `<nav class="container breadcrumb" aria-label="Breadcrumb">${link("/community-voices.html", "Community Voices")}<span aria-hidden="true">/</span><span aria-current="page">The Present Moment</span></nav>`;
+  return "";
 }
 const page = async (
   file,
@@ -56,7 +86,7 @@ const page = async (
 ) =>
   fs.writeFile(
     `public/${file}.html`,
-    `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#3276c2">${file === "home" ? '<link rel="preload" as="image" href="/assets/beginners-mind-page-title-hero.jpg" fetchpriority="high">' : ""}<title>${esc(title)} | MCGB</title><link rel="canonical" href="${c.origin}${file === "home" ? "/" : `/${file}.html`}"><link rel="stylesheet" href="/assets/mcgb.css"><script type="module" src="/assets/mcgb.js"></script></head><body>${header.replaceAll(`href="/${file === "home" ? "" : file + ".html"}"`, `href="/${file === "home" ? "" : file + ".html"}" aria-current="page"`)}<noscript><nav class="container no-script-nav" aria-label="Site destinations"><a href="/new-here.html">New here</a><a href="/find-a-sangha.html">Groups &amp; events</a><a href="/resources.html">Resources</a><a href="/our-community.html">Our community</a><a href="/join-mailing-list.html">Mailing lists</a></nav></noscript><main id="main" tabindex="-1" data-page="${file}">${localNavigation(file)}${body.replace(/[ \t]+$/gm, "")}</main>${footer}</body></html>`,
+    `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#367bca">${file === "home" ? '<link rel="preload" as="image" href="/assets/beginners-mind-page-title-hero.jpg" fetchpriority="high">' : ""}<title>${esc(title)} | MCGB</title><link rel="canonical" href="${c.origin}${file === "home" ? "/" : `/${file}.html`}"><link rel="stylesheet" href="/assets/mcgb.css"><script type="module" src="/assets/mcgb.js"></script></head><body>${header.replaceAll(`href="/${file === "home" ? "" : file + ".html"}"`, `href="/${file === "home" ? "" : file + ".html"}" aria-current="page"`)}<noscript><nav class="container no-script-nav" aria-label="Site destinations"><a href="/new-here.html">New here</a><a href="/find-a-sangha.html">Groups &amp; events</a><a href="/resources.html">Resources</a><a href="/our-community.html">Our community</a><a href="/join-mailing-list.html">Mailing lists</a></nav></noscript><main id="main" tabindex="-1" data-page="${file}">${localNavigation(file)}${body.replace(/[ \t]+$/gm, "")}</main>${footer}</body></html>`,
   );
 const intro = (eyebrow, title, copy) =>
   `<section class="page-intro container"><div class="reading"><h1>${title}</h1><p class="lede">${copy}</p></div></section>`;
@@ -67,7 +97,7 @@ const agenda = (limit = 10) =>
 await page(
   "home",
   "A deep bow to you, dear friend",
-  `<section class="hero"><div class="hero-content container"><h1>A deep bow to you, dear friend.</h1><p class="lede">Mindfulness Communities of Greater Boston is an interfaith collective that seeks to learn and practice mindfulness taught by Thích Nhất Hạnh (“Thầy”), a Vietnamese Buddhist monk, author and activist.</p><div class="actions">${group}${link("/new-here.html", "New here", "hero-link")}</div></div></section>
+  `<section class="hero"><div class="hero-content container"><h1>A deep bow to you, dear friend.</h1><p class="lede">Mindfulness Communities of Greater Boston is an interfaith collective that seeks to learn and practice mindfulness taught by Thích Nhất Hạnh (“Thầy”), a Vietnamese Buddhist monk, author and activist.</p><div class="actions">${group}${link("/new-here.html", "Newcomers", "hero-link")}</div></div></section>
   <section class="section container home-practice"><h2>Practice &amp; community</h2><p class="home-introduction">We explore ways to bring mindfulness into our lives, families, work, and society. We try to practice mindfulness throughout every day, not just during meditation, but also in the kitchen, in the car, at work, on the phone, and while walking from one place to another.</p><div class="route-grid">${card("", "Our practice", "An intro to mindfulness & mindful living, Thích Nhất Hạnh, and the Plum Village tradition.", "/our-practice.html", "Our practice")}${card("", "Our community", "Meet MCGB and discover how we practice together.", "/our-community.html", "Our community")}${card("", "Resources", "Find foundational readings, talks, songs, practice links, and beginner-friendly resources.", "/resources.html", "Resources")}</div></section>
   <section class="section container home-voices"><div><h2>Community Voices</h2><p>Read community writing in <em>The Present Moment</em>, or submit art, writing, songs, and photographs for review.</p><div class="actions">${link("/community-voices.html", "About contributions", "button")}</div></div><a class="newsletter-feature" href="/newsletters.html"><img src="/assets/newsletters/april-2026.png" alt="" width="90" height="120" loading="lazy"><span><strong>The Present Moment</strong><span>April 2026</span><span class="underlined">Browse the newsletter archive</span></span></a></section>
   <section class="section container home-updates"><div><div class="section-head"><h2>Community events</h2><p>Regular sangha schedules are in the group directory.</p></div>${agenda(3)}${link("/find-a-sangha.html#calendar", "Calendar and subscription guide", "text-link")}</div><div class="mailing-note"><h2>Mailing lists</h2><p>Receive sitting updates, retreat information, and community announcements.</p>${link("/join-mailing-list.html", "Join our mailing lists", "text-link")}</div></section>`,
@@ -75,7 +105,15 @@ await page(
 await page(
   "new-here",
   "New here",
-  `<article class="section container reading"><h1>New here</h1><p class="lede">You may be curious about meditation, returning to practice, or looking for people to practice with. You can begin by learning about a group and contacting its organizer.</p><h2>What is a sangha?</h2><p>Sangha means a community of practice. In our tradition, friends support one another in cultivating mindfulness, understanding, and compassion.</p><h2>Choosing a group</h2><p>Compare location, meeting format, and schedule. Some groups have a particular focus or community; read the details before joining.</p><p>Confirm the next meeting, joining instructions, registration or cost, and any access arrangements with that group’s organizer.</p><h2>What might a gathering include?</h2><p>Groups may practice sitting meditation, walking meditation, readings, mindful listening, and Dharma sharing — reflecting together on life and practice. The format and length vary by group.</p><h2>Access and participation</h2><p>Ask the organizer about chairs, movement, restrooms, stairs, sensory needs, online captions, or anything else that would help you participate. The directory preserves organizer-provided access information; it is not a verified accessibility survey of venues.</p><div class="actions">${group}</div></article>`,
+  `${intro("", "Newcomers", "<em>“Go as a river” — Thích Nhất Hạnh</em>")}
+  <section class="container newcomer-journey" aria-label="Ways to begin practicing"><img class="river-illustration" src="/assets/illustrations/newcomer-river.png" alt="" width="540" height="1568"><div class="mobile-river" aria-hidden="true">${Array.from({ length: 8 }, () => '<img src="/assets/illustrations/newcomer-river.png" alt="" width="540" height="1568">').join("")}</div><ol class="river-stops">
+  <li><div class="river-stop"><h2>Our Practice</h2><p>Mindfulness brings awareness to breathing, walking, and the activities of daily life. Learn about practice in the Plum Village tradition.</p>${link("/our-practice.html", "What is mindfulness?", "button")}</div></li>
+  <li><div class="river-stop"><h2>Start Practicing</h2><p>The free Plum Village app offers guided meditations, talks, and other practice resources from the Plum Village community.</p>${link("https://plumvillage.app/", "Explore the Plum Village app", "button")}<p class="small external-caption">External website</p></div></li>
+  <li><div class="river-stop"><h2>Practice with a Community</h2><p>A sangha is a community of practice. Compare meeting schedules and locations, or look for a community event.</p><div class="actions">${link("/find-a-sangha.html", "Find a Sangha", "button primary")}${link("/find-a-sangha.html#calendar", "Events Calendar", "button")}</div></div></li>
+  <li><div class="river-stop"><h2>Gather with Friends</h2><p>Togetherness helps friends arrange a walk, a cup of tea, or time together outside scheduled practice.</p>${link("https://togethernessma.vercel.app/", "Visit Togetherness", "button")}<p class="small external-caption">External website</p></div></li>
+  <li><div class="river-stop"><h2>Deepen Your Practice</h2><p>For further study, explore books by Thích Nhất Hạnh, the Five Mindfulness Trainings, and resources for daily practice.</p><div class="actions">${link("/resources.html#explore-tradition", "Books & teachings", "button")}${link("/resources.html#resource-five-mindfulness-trainings", "Five Mindfulness Trainings", "text-link")}</div><p class="small">Optional further reading.</p></div></li>
+  </ol></section>
+  <section class="section container reading newcomer-guidance"><h2>Before joining a gathering</h2><p>Confirm the next meeting, joining instructions, registration or cost, and any access arrangements with that group’s organizer.</p><h3>What might a gathering include?</h3><p>Groups may practice sitting meditation, walking meditation, readings, mindful listening, and Dharma sharing — reflecting together on life and practice. The format and length vary by group.</p><h3>Access and participation</h3><p>Ask the organizer about chairs, movement, restrooms, stairs, sensory needs, online captions, or anything else that would help you participate. The directory preserves organizer-provided access information; it is not a verified accessibility survey of venues.</p></section>`,
 );
 await page(
   "our-community",
@@ -87,21 +125,29 @@ const issues = [
   ["Spring 2022", "Spring2022_Newsletter_Final.pdf", "spring-2022.png"],
   ["Winter 2022", "Winter2022_Newsletter_Final.pdf", "winter-2022.png"],
 ];
-const issueCards = issues
+const archiveYears = [2026, 2022]
   .map(
-    ([name, pdf, img]) =>
-      `<article class="card issue-card"><img src="/assets/newsletters/${img}" alt="" width="90" height="120" loading="lazy"><div><h3>${name}</h3>${link(`/assets/${pdf}`, "Read edition (PDF)")}</div></article>`,
+    (year) =>
+      `<section class="year-group" aria-labelledby="year-${year}"><h2 id="year-${year}">${year}</h2><div class="issue-grid">${issues
+        .filter(([name]) => name.endsWith(String(year)))
+        .map(
+          ([name, pdf, img]) =>
+            `<article class="issue-card"><a href="/assets/${pdf}" aria-label="Read ${name} edition of The Present Moment (PDF)"><figure><img src="/assets/newsletters/${img}" alt="" width="300" height="400" loading="lazy"><figcaption><h3>${name}</h3><span>The Present Moment</span><span class="underlined">Read edition (PDF)</span></figcaption></figure></a></article>`,
+        )
+        .join("")}</div></section>`,
   )
   .join("");
 await page(
   "community-voices",
   "Community Voices",
-  `${intro("", "Community Voices", "Art, writing, song, and reflection from our community.")}<section class="section container reading"><h2>Submit a contribution</h2><p>Share a link to your art, writing, song, photograph, or other contribution, along with a title and description. The contribution form also asks about collaborators.</p><p>Please share only work you have permission to submit. A person reviews submissions; completing the form does not publish your work automatically.</p>${form}<p class="small form-note">Opens a Google Form. The form accepts links and descriptions, rather than direct file uploads.</p><p>If the form is difficult to use, email ${link(`mailto:${c.contactEmail}`, c.contactEmail)}.</p><section class="related-pages"><h2>Community writing</h2><p>Read published writing and reflections in ${link("/newsletters.html", "The Present Moment newsletter archive")}.</p></section></section>`,
+  `${intro("", "Community Voices", "Art, writing, song, and reflection from our community.")}
+  <section class="section container voices-publications" aria-label="Community publications"><article class="voices-feature"><a class="publication-cover" href="/newsletters.html" aria-label="Browse The Present Moment newsletter"><img src="/assets/newsletters/april-2026.png" alt="" width="300" height="400"></a><div><h2>The Present Moment</h2><p>The Newsletter of Mindfulness Communities of Greater Boston brings together community updates, reflections, and practice.</p><p>April 2026</p>${link("/newsletters.html", "Browse newsletter editions", "button")}</div></article><article class="poetry-feature"><h2>New England Buddhist Poetry Exchange</h2><p>Poetry, reflections, and Buddhist practice writing from New England community members. MCGB’s newsletter editions are collected separately in The Present Moment archive.</p>${link("https://buddhistpoetryexchange.blogspot.com", "Read the poetry zine", "button")}<p class="small external-caption">External publication</p></article></section>
+  <section class="section container voices-submission" id="submit"><div><h2>Submit a contribution</h2><p>Share a link to your art, writing, song, photograph, or other MCGB-related contribution, along with a title and description. The contribution form also asks about collaborators.</p><p>Please share only work you have permission to submit. A person reviews submissions; completing the form does not publish your work automatically.</p></div><div>${form}<p class="small form-note">Opens a Google Form. The form accepts links and descriptions, rather than direct file uploads.</p><p>If the form is difficult to use, email ${link(`mailto:${c.contactEmail}`, c.contactEmail)}.</p></div></section>`,
 );
 await page(
   "newsletters",
-  "Newsletter archive",
-  `${intro("The Present Moment", "The Present Moment", "The Newsletter of Mindfulness Communities of Greater Boston brings together community updates, reflections, and practice.")}<section class="section container"><div class="issue-grid">${issueCards}</div><div class="callout"><h2>Accessing historical editions</h2><p>These PDFs are retained in their original form and have not been comprehensively remediated for accessibility. For help with a particular article or edition, email ${link(`mailto:${c.contactEmail}`, c.contactEmail)}.</p></div><div class="actions">${link("/join-mailing-list.html", "Join our mailing lists", "button primary")}${link("/community-voices.html", "Contribute to Community Voices", "button")}</div></section>`,
+  "The Present Moment",
+  `${intro("", "The Present Moment", "The Newsletter of Mindfulness Communities of Greater Boston brings together community updates, reflections, and practice.")}<div class="container newsletter-archive">${archiveYears}</div><section class="section container"><div class="callout"><h2>Accessing historical editions</h2><p>These PDFs are retained in their original form and have not been comprehensively remediated for accessibility. For help with a particular article or edition, email ${link(`mailto:${c.contactEmail}`, c.contactEmail)}.</p></div><div class="actions">${link("/join-mailing-list.html", "Join our mailing lists", "button primary")}${link("/community-voices.html#submit", "Contribute to Community Voices", "button")}</div></section>`,
 );
 function resource(item) {
   const id = item.id ? ` id="resource-${esc(item.id)}"` : "";
@@ -289,12 +335,23 @@ await page(
 await page(
   "join-mailing-list",
   "Join our mailing lists",
-  `${intro("Stay connected", "Join our mailing lists", "Choose the messages you would like to receive. Our mailing lists are managed through Groups.io; the newsletter archive is available separately.")}<section class="section container reading"><div class="subscribe-choice"><h2>Practice announcements</h2><p>Sitting updates, retreats, and community announcements through the Old Path list.</p><p>${link("mailto:oldpath+subscribe@BostonOldPath.groups.io", "Request a practice-list subscription", "button primary")}</p><p class="email-address">oldpath+subscribe@BostonOldPath.groups.io</p></div><div class="subscribe-choice"><h2>Member sharing</h2><p>Member-to-member sharing through the separate Member Sharing list.</p><p>${link("mailto:membersharing+subscribe@BostonOldPath.groups.io", "Request a member-sharing subscription", "button")}</p><p class="email-address">membersharing+subscribe@BostonOldPath.groups.io</p></div><h2>How to subscribe</h2><ol><li>Use the appropriate button to open a new email, or copy the address into your email app.</li><li>Send the subscription request from the email address you want to use.</li><li>Look for a confirmation email from Groups.io and follow its instructions. Check spam if it does not arrive.</li></ol><p>For both lists, send a separate request to each address. A button click alone does not complete a subscription.</p><h2>Manage your subscription</h2><p>Use the subscription preferences or unsubscribe link in a list email. For assistance, contact ${link(`mailto:${c.contactEmail}`, c.contactEmail)}.</p>${link("/newsletters.html", "Browse the newsletter archive")}</section>`,
+  `${intro("", "Join our mailing lists", "Select one or both lists. Send a blank email for each subscription, using your email app or email in your browser.")}
+  <noscript><style>.list-options,#mail-selection{display:none}</style><p class="container">Both subscription addresses are shown below. Send a request only to the lists you want to join.</p></noscript><section class="section container mailing-tool"><fieldset class="list-options"><legend>Mailing lists</legend><label class="list-option"><input type="checkbox" data-mail-choice data-label="Community practice emails" aria-controls="practice-subscribe" checked><span><strong>Community practice emails</strong><span>Sitting updates, days of mindfulness, retreats, and community announcements.</span></span></label><label class="list-option"><input type="checkbox" data-mail-choice data-label="Member sharing" aria-controls="sharing-subscribe" checked><span><strong>Member sharing</strong><span>News, events, and items of interest shared with community members.</span></span></label></fieldset>
+  <div class="subscription-addresses"><p id="mail-selection" role="status">Community practice emails and Member sharing selected. Send a separate request to each selected list.</p>${[
+    ["practice", "Community practice emails", "oldpath+subscribe@BostonOldPath.groups.io"],
+    ["sharing", "Member sharing", "membersharing+subscribe@BostonOldPath.groups.io"],
+  ]
+    .map(
+      ([id, label, address]) =>
+        `<section class="subscription-address" id="${id}-subscribe"><h2>${label}</h2><label class="small" for="mail-${id}">Subscription email address</label><input id="mail-${id}" class="subscribe-url" value="${address}" readonly><div class="actions">${link(`mailto:${address}`, "Open email request", "button primary")}<button data-copy="mail-${id}" data-status="status-${id}">Copy address</button></div><p id="status-${id}" class="copy-status small" role="status"></p></section>`,
+    )
+    .join("")}</div>
+  </section><section class="section container mailing-instructions"><h2>How to subscribe</h2><p>Our lists use Groups.io, so joining takes an email and a confirmation step. An email app is optional.</p><ol class="subscribe-steps"><li><h3>Choose</h3><p>Select the list or lists that fit what you want to receive.</p></li><li><h3>Send</h3><p>Send a blank email to each selected address. In browser-based email, compose a new message and paste the copied address into To. Use the email account where you want to receive updates.</p></li><li><h3>Confirm</h3><p>Follow the confirmation instructions sent by Groups.io. Check your spam folder if the message does not arrive.</p></li></ol><h2>Manage your subscription</h2><p>Use the subscription preferences or unsubscribe link in a list email. For assistance, contact ${link(`mailto:${c.contactEmail}`, c.contactEmail)}.</p>${link("/newsletters.html", "Browse The Present Moment archive")}</section>`,
 );
 await page(
   "photo-credits",
   "Photo credits",
-  `${intro("Sources & permissions", "Photo credits.", "Sources and permissions for current and retained photographs.")}<section class="section container reading"><h2>Thích Nhất Hạnh</h2><p>Photo by Duc (pixiduc), Paris, 2006. ${link("https://commons.wikimedia.org/wiki/File:Thich_Nhat_Hanh_close-up_(cropped).jpg", "Source on Wikimedia Commons")}. Licensed ${link("https://creativecommons.org/licenses/by-sa/2.0/", "CC BY-SA 2.0")}. The source is already cropped; the website uses a responsive display crop. No other image edits.</p><h2>Still Water Meditation Hall</h2><p>Plum Village, Upper Hamlet, France. Photo by Solipsistic19, 12 July 2022. ${link("https://commons.wikimedia.org/wiki/File:Plum_Village_-_Upper_Hamlet_Still_Water_Meditation_Hall.jpg", "Source on Wikimedia Commons")}. Licensed ${link("https://creativecommons.org/licenses/by-sa/4.0/", "CC BY-SA 4.0")}. Responsive display crop; no other edits.</p><h2>Landscape and historical materials</h2><p>The pond landscape and newsletter cover images were retained from the existing MCGB draft. Historical practice-page illustrations and documents retain their existing context. They are not represented as newly licensed community photographs.</p></section>`,
+  `${intro("Sources & permissions", "Photo credits.", "Sources and permissions for current and retained photographs.")}<section class="section container reading"><h2>Thích Nhất Hạnh</h2><p>Photo by Duc (pixiduc), Paris, 2006. ${link("https://commons.wikimedia.org/wiki/File:Thich_Nhat_Hanh_close-up_(cropped).jpg", "Source on Wikimedia Commons")}. Licensed ${link("https://creativecommons.org/licenses/by-sa/2.0/", "CC BY-SA 2.0")}. The source is already cropped; the website uses a responsive display crop. No other image edits.</p><h2>Still Water Meditation Hall</h2><p>Plum Village, Upper Hamlet, France. Photo by Solipsistic19, 12 July 2022. ${link("https://commons.wikimedia.org/wiki/File:Plum_Village_-_Upper_Hamlet_Still_Water_Meditation_Hall.jpg", "Source on Wikimedia Commons")}. Licensed ${link("https://creativecommons.org/licenses/by-sa/4.0/", "CC BY-SA 4.0")}. Responsive display crop; no other edits.</p><h2>Newcomer river illustrations</h2><p>Decorative river artwork generated with OpenAI ImageGen for MCGB on 19 October 2026. Transparent margins cropped for display; the mobile layout uses a wider crop with a soft edge mask. These illustrations do not depict a particular river or practice venue.</p><h2>Landscape and historical materials</h2><p>The pond landscape and newsletter cover images were retained from the existing MCGB draft. Historical practice-page illustrations and documents retain their existing context. They are not represented as newly licensed community photographs.</p></section>`,
 );
 await page(
   "privacy",

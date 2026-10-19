@@ -13,3 +13,10 @@ dist/
 # Audit evidence and test code are versioned but not needed for production builds
 docs/
 tests/
+
+# Local automation profiles and test reports
+.browser-profiles/
+.playwright-mcp/
+blob-report/
+playwright-report/
+test-results/

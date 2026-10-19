@@ -22,6 +22,7 @@ for (const [name, engine] of [
   await expect(p.locator(".skip-link")).toBeFocused();
   await p.keyboard.press("Enter");
   await expect(p.locator("#main")).toBeFocused();
+  await p.locator(".nav-trigger").first().press("Enter");
   const resources = p.locator('.desktop-nav a[href="/resources.html"]');
   await resources.focus();
   await p.keyboard.press("Enter");
@@ -50,7 +51,7 @@ for (const [name, engine] of [
   await p.setViewportSize({ width: 1280, height: 500 });
   await expect(p.locator("#mobile-menu")).not.toBeVisible();
   await expect(p.locator(".brand")).toBeFocused();
-  await p.locator('.desktop-nav a[href="/resources.html"]').focus();
+  await p.locator(".nav-trigger").first().focus();
   await p.setViewportSize({ width: 390, height: 844 });
   await expect(opener).toBeFocused();
   await p.setViewportSize({ width: 1280, height: 900 });

@@ -1,0 +1,104 @@
+[
+  {
+    "state": "normal",
+    "label": "Mindfulness Communitiesof Greater Boston",
+    "minimumContrast": 5.49859726417079,
+    "pass": true
+  },
+  {
+    "state": "normal",
+    "label": "About",
+    "minimumContrast": 5.969429056401937,
+    "pass": true
+  },
+  {
+    "state": "normal",
+    "label": "Get Involved",
+    "minimumContrast": 6.062834220283756,
+    "pass": true
+  },
+  {
+    "state": "normal",
+    "label": "Community Voices",
+    "minimumContrast": 6.062834220283756,
+    "pass": true
+  },
+  {
+    "state": "normal",
+    "label": "Mailing Lists",
+    "minimumContrast": 6.062834220283756,
+    "pass": true
+  },
+  {
+    "state": "normal",
+    "label": "Find a Group",
+    "minimumContrast": 18.956127530327215,
+    "pass": true
+  },
+  {
+    "state": "hover-selected",
+    "label": "Mindfulness Communitiesof Greater Boston",
+    "minimumContrast": 5.49859726417079,
+    "pass": true
+  },
+  {
+    "state": "hover-selected",
+    "label": "About",
+    "minimumContrast": 6.957510705982857,
+    "pass": true
+  },
+  {
+    "state": "hover-selected",
+    "label": "Get Involved",
+    "minimumContrast": 6.062834220283756,
+    "pass": true
+  },
+  {
+    "state": "hover-selected",
+    "label": "Community Voices",
+    "minimumContrast": 6.062834220283756,
+    "pass": true
+  },
+  {
+    "state": "hover-selected",
+    "label": "Mailing Lists",
+    "minimumContrast": 6.062834220283756,
+    "pass": true
+  },
+  {
+    "state": "hover-selected",
+    "label": "Find a Group",
+    "minimumContrast": 18.956127530327215,
+    "pass": true
+  },
+  {
+    "state": "primary",
+    "label": "Submit your contribution",
+    "minimumContrast": 6.062834220283756,
+    "pass": true
+  },
+  {
+    "state": "primary-hover",
+    "label": "Submit your contribution",
+    "minimumContrast": 6.714374618333525,
+    "pass": true
+  },
+  {
+    "state": "mobile-header",
+    "label": "MCGB",
+    "minimumContrast": 5.653653641008269,
+    "pass": true
+  },
+  {
+    "state": "mobile-header",
+    "label": "Find a Group",
+    "minimumContrast": 18.92160394096289,
+    "pass": true
+  },
+  {
+    "state": "drawer-selected",
+    "label": "AboutClose",
+    "minimumContrast": 6.062834220283756,
+    "pass": true
+  }
+]
