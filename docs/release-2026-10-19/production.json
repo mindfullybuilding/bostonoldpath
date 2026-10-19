@@ -1,0 +1,125 @@
+{
+  "checkedAt": "2026-10-19T16:53:19.011Z",
+  "base": "https://bostonmindfulness.vercel.app",
+  "requests": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/new-here.html",
+      "status": 200
+    },
+    {
+      "path": "/our-practice.html",
+      "status": 200
+    },
+    {
+      "path": "/our-community.html",
+      "status": 200
+    },
+    {
+      "path": "/find-a-sangha.html",
+      "status": 200
+    },
+    {
+      "path": "/resources.html",
+      "status": 200
+    },
+    {
+      "path": "/community-voices.html",
+      "status": 200
+    },
+    {
+      "path": "/newsletters.html",
+      "status": 200
+    },
+    {
+      "path": "/join-mailing-list.html",
+      "status": 200
+    },
+    {
+      "path": "/sangha-overview.html",
+      "status": 200
+    },
+    {
+      "path": "/sangha-facilitation.html",
+      "status": 200
+    },
+    {
+      "path": "/minding-the-bell.html",
+      "status": 200
+    },
+    {
+      "path": "/meeting-and-bell-minding-flow.html",
+      "status": 200
+    },
+    {
+      "path": "/dharma-sharing-guidelines.html",
+      "status": 200
+    },
+    {
+      "path": "/accessibility.html",
+      "status": 200
+    },
+    {
+      "path": "/photo-credits.html",
+      "status": 200
+    },
+    {
+      "path": "/privacy.html",
+      "status": 200
+    },
+    {
+      "path": "/api/events",
+      "status": 200
+    },
+    {
+      "path": "/assets/licensed/thich-nhat-hanh.jpg",
+      "status": 200
+    },
+    {
+      "path": "/assets/licensed/plum-village-hall.jpg",
+      "status": 200
+    },
+    {
+      "path": "/home.html",
+      "status": 308,
+      "location": "/"
+    },
+    {
+      "path": "/our-community-feedback-2.html",
+      "status": 308,
+      "location": "/our-community.html"
+    },
+    {
+      "path": "/resources-feedback-3.html",
+      "status": 308,
+      "location": "/resources.html"
+    },
+    {
+      "path": "/find-a-sangha-feedback-1.html",
+      "status": 308,
+      "location": "/find-a-sangha.html"
+    },
+    {
+      "path": "/mcgb-homepage-wireframe-feedback-3.html",
+      "status": 308,
+      "location": "/"
+    }
+  ],
+  "api": {
+    "status": 200,
+    "eventCount": 0,
+    "retrievedAt": "2026-10-19T16:52:41.319Z",
+    "timeZone": "America/New_York"
+  },
+  "privateReferenceStatus": 404,
+  "desktopHeader": "butter yellow with white primary action",
+  "greetingVerified": true,
+  "mobileDrawerVerified": true,
+  "directoryVerified": true,
+  "calendarCopyVerified": true,
+  "contributionDestinationVerified": true,
+  "browserVersion": "148.0.7778.96"
+}

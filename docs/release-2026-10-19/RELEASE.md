@@ -16,3 +16,11 @@ Source security: compatible dependency updates resolved the initial high/moderat
 To roll back a blocking production regression, use the existing Vercel project and the prior deployment URL above. Do not replace the production domain or create another project. Recheck public root, finder, `/api/events`, and canonical legacy redirects after rollback.
 
 Final preview: `dpl_5YJpjX1nneDcSwZauwhsAmgvroLi` / https://bostonoldpath-n37lkv3cr-mindfullybuildings-projects.vercel.app. Authenticated project CLI checks verified the canonical root HTML and the calendar API. The preview itself retains existing Vercel preview protection. Anonymous Google Form access was checked separately.
+
+## Production verification
+
+Main source revision `21bbdd7` was pushed to GitHub before explicit production deployment. Production deployment `dpl_CtP3vfVCsmUR3kiwaKweastr6NbK` / https://bostonoldpath-15jel0jlx-mindfullybuildings-projects.vercel.app reached READY and was aliased to https://bostonmindfulness.vercel.app.
+
+Anonymous production checks at 2026-10-19 16:53 UTC passed: all 17 release pages returned 200; calendar API returned valid empty-upcoming JSON; licensed photo assets returned 200; tested legacy URLs returned 308 to canonical destinations; the excluded meeting PDF returned 404. The exact greeting, butter header/white button, hamburger drawer, directory filtering/contact details, calendar copy action, and contribution URL were verified in the live browser. See `production.json` and live screenshots. No rollback was necessary.
+
+This production record is committed separately from the implementation; the final documentation revision is pushed to main and explicitly redeployed afterward. Production smoke checks are repeated after that deployment.
