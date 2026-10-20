@@ -35,8 +35,8 @@ await scan("Mobile drawer");
 await page.screenshot({ path: "outputs/release-verification/mobile-drawer.png" });
 await page.keyboard.press("Escape");
 await page.goto(base + "/resources.html");
-await page.locator("details").evaluateAll((els) => els.forEach((el) => (el.open = true)));
-await scan("All resource disclosures open");
+
+await scan("Resource tiles and collection links");
 await page.goto(base + "/find-a-sangha.html");
 await page.locator("[data-filter-toggle]").click();
 await page.locator("#group-search").fill("zzzz-nothing");
@@ -45,7 +45,7 @@ await scan("No matching groups");
 await page.locator("[data-clear-filters]").click();
 await page.locator("[data-group] summary").first().click();
 await scan("Group details and organizer contact");
-await page.goto(base + "/find-a-sangha.html#subscribe-calendar");
+await page.goto(base + "/subscribe-calendar.html");
 await page
   .locator(".tutorials details")
   .evaluateAll((els) => els.forEach((el) => (el.open = true)));
@@ -54,7 +54,7 @@ await expect(page.locator(".copy-status")).toContainText("copied");
 expect(await page.evaluate(() => navigator.clipboard.readText())).toContain("feed.ics");
 await scan("Subscription guides open and URL copied");
 await page.route("**/api/events", (route) => route.fulfill({ status: 503, body: "{}" }));
-await page.reload();
+await page.goto(base + "/find-a-sangha.html");
 await expect(page.locator(".agenda-status")).toContainText("temporarily unavailable");
 await scan("Feed error state");
 await page.screenshot({ path: "outputs/release-verification/calendar-error.png", fullPage: true });

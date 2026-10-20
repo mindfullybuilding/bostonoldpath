@@ -1,0 +1,54 @@
+# Interface refinement verification — 19 October 2026
+
+This report records implementation checks. It is not independent accessibility certification. The earlier WCAG criterion matrix remains in `../water-gloss-2026-10-19/WCAG-MATRIX.csv`; this release adds the subscription page and public month-calendar states to the checked inventory. Native screen-reader combinations and third-party limitations remain unverified or limited as described below.
+
+## Changes and content provenance
+
+- Header and footer now have square outer corners, retaining the selected blue gloss. The homepage secondary action is **New? Start here.**, transparent with a white border. The greeting and introduction remain unchanged.
+- About and Get Involved retain arrow-free dropdowns. Community Voices is a direct link with the same interaction treatment as Mailing Lists, including in the drawer.
+- Removed the requested newcomer guidance section, extra reading action, source-note paragraphs and external-destination eyebrow captions. Stop three is **Practice with Us**; the final stop links to **Resources**. Togetherness is absent from Greater Boston Community, and its remaining links say **Gather with Friends**.
+- Resources has a bounded **Jump to section** tool and one consistent blue tile treatment. Community Members and Community Builders expose their actual resources without nested drawers. Existing resource anchors and standalone practice guides remain available.
+- The finder keeps its filters, records and map/calendar rail. The map is horizontally centered. Native **More details** and **Contact organizer** controls sit side by side; expanded details use the full record width, including organizer links and directions.
+- The subscription tutorial is now `/subscribe-calendar.html`. Old finder `#subscribe-calendar` links redirect there, including same-page hash changes. Without JavaScript, the legacy anchor exposes a real link to the new page.
+- Photo and source attribution is centralized on the footer-linked **Credits** page. The practice portrait now uses the wider, 1941×2229 version of Duc (pixiduc)'s Paris photograph, under [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/), rather than its tight face crop. [Verified photograph source](<https://commons.wikimedia.org/wiki/File:Thich_Nhat_Hanh_12_(cropped).jpg>). The author, source, license and responsive display crop are credited. The user confirmed the proposed Getty image is not licensed; no Getty asset was used or purchased.
+- The group-practice explanation is a paraphrase of [Plum Village's sangha directory introduction](https://plumvillage.org/community/international-sangha-directory). Other approved substantive practice copy is retained. Attribution to Janey Gilman and Peaceful Garden is preserved centrally.
+
+## Calendar finding and behavior
+
+The authoritative Groups.io feed contains one test event on 19 October 2026, 10–11 AM Eastern. At verification it was already over, so an upcoming-only agenda correctly had no events. The optional Google embed also requires sign-in and is not the public presentation.
+
+The finder now displays an ordinary HTML month table and a matching accessible agenda using the existing read-only event API. Calendar dates remain visible with an honest empty state. Next/Previous month changes do not move focus. Real feed events appear as date counts and chronological agenda entries; all-day exclusive end dates and Eastern daylight-saving transitions are preserved. Only the API's next 180 days are shown. The homepage retains its upcoming-events list. Directory filters do not alter the calendar.
+
+No events were invented or added to the source. Browser-only fixtures verify populated, empty, pagination, next-month, failure and retained-results states. The API implementation, Groups.io source, recurrence parser, cache and timeout remain unchanged. Google Calendar remains an optional signed-in view. No Google account was accessed.
+
+## Inventory and results
+
+All 18 first-party pages: home; Newcomers; Our Practice; Greater Boston Community; Find a Sangha; Subscribe to calendar; Resources; Community Voices; newsletter archive; Mailing Lists; Sangha Overview; Sangha Facilitation; Minding the Bell; Meeting and Bell Minding Flow; Dharma Sharing Guidelines; Accessibility; Credits; Privacy.
+
+| Check                               | Recorded result                                                                                                                                                                                                                                                                                                                                                    |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Build and event/display unit tests  | Build passes; 7 tests pass, including recurrence/DST/cancellations, fixed-source failure/cache behavior, leap years, year changes and all-day/overnight date counts.                                                                                                                                                                                               |
+| Automated accessibility             | Zero detected axe violations on all 18 first-party pages, excluding external iframes; important open/error/selected states also checked. Automated results do not establish conformance.                                                                                                                                                                           |
+| Responsive layout                   | No page overflow at 320, 390, 430, 768, 820, 1024, 1280 and 1440px. Side-by-side record controls verified at 320, 390 and 1440px.                                                                                                                                                                                                                                  |
+| Enlargement and display preferences | All 18 pages checked with 200% text enlargement at 390 and 1440px. 320px covers the layout equivalent of 400% zoom from 1280px. Text-spacing, short-screen drawer, reduced-motion, forced-colors and image-failure checks retained.                                                                                                                                |
+| Complete navigation                 | Chromium and WebKit pass dropdown keyboard/pointer journeys, drawer containment/Escape/focus return and breakpoint transitions, newcomer → directory/contact/directions, Events → subscriptions, Voices → publications, mailing selection and five standalone guides.                                                                                              |
+| New calendar and subscription       | Both engines pass month rendering/filtering, month-control focus, empty/data/error states, 10-event pagination, copy fallback, six provider guides and legacy hashes.                                                                                                                                                                                              |
+| No JavaScript                       | Eight core pages retain main content/navigation, directory details, resource destinations, newsletter links and mailing addresses. Live event loading requires JavaScript and has subscription/calendar fallback links.                                                                                                                                            |
+| Link integrity                      | 18 pages, 29 internal destinations and 90 anchors; no broken local destinations or anchors.                                                                                                                                                                                                                                                                        |
+| Rendered contrast                   | Minimum sampled header identity 5.49:1; ordinary navigation 5.96:1; selected navigation 6.95:1; primary blue action 6.06:1; hovered primary 6.71:1; white header action 18.92:1. New blue tile headings 6.34:1 normal / 7.12:1 hover; tile prose 6.82:1 normal / 7.82:1 hover. Samples cover actual glyph rectangles after hiding text, not the base swatch alone. |
+
+Browser versions: Chromium 148.0.7778.96 and Playwright WebKit 26.4. The in-app browser was also used for visual inspection of the resource grid and finder/calendar. This is not a native Safari/VoiceOver evaluation.
+
+## Fix and retest record
+
+- Removed header/footer outer radii without changing their color or gloss; rendered computed-style and screenshot checks pass.
+- Global disclosure child margins offset the map. Centered the iframe explicitly; equal inset assertions and visual review pass.
+- Moving subscriptions exposed an old-link bug: same-page hash changes did not navigate to the new tutorial. Added the compatibility route for both initial load and hash changes; both browser engines pass.
+- Removed the prior fixed sixth calendar row when unnecessary. Month rows now derive from the number of dates and leading cells; leap-year/year-boundary tests pass.
+- Previous test fixtures assumed the wall-clock date was before November. Fixed their clock to 19 October for deterministic recurrence/month verification; production still uses actual time.
+
+## Limits and release gate
+
+No unresolved first-party blocking findings were detected by the checks above. Native VoiceOver/Safari, NVDA/Windows, real iOS VoiceOver and Android TalkBack were not tested and are not marked passed. Historical PDFs were not fully remediated or evaluated. Known external-map issues remain; the directory/contact/directions work independently. Google Calendar and the external Google Form are separate processes and are not certified by this report. The public accessibility statement retains scope, assessment date, limitations and the feedback address.
+
+The baseline source tag and previous deployment are in `PRESERVATION.md`. Release requires a verified preview, GitHub main push, explicit deployment to the existing Vercel project and public smoke checks. Final identifiers and byte-matching results are written after rollout to ignored local `outputs/interface-polish-2026-10-19/release.json`; this report does not pre-claim deployment success.

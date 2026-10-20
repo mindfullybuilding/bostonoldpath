@@ -24,7 +24,7 @@ for (const page of [
   await p.setViewportSize({ width: 1440, height: 1000 });
 }
 await p.goto(base);
-for (const i of [0, 1, 2]) {
+for (const i of [0, 1]) {
   const trigger = p.locator(".nav-trigger").nth(i);
   await trigger.press("Enter");
   const scan = await new AxeBuilder({ page: p })
@@ -43,13 +43,28 @@ for (const state of [
   "primary-hover",
   "mobile-header",
   "drawer-selected",
+  "resource-normal",
+  "resource-hover",
 ]) {
   await p.setViewportSize({
     width: state.startsWith("mobile") || state.startsWith("drawer") ? 390 : 1440,
     height: 1000,
   });
-  await p.goto(base + (state.startsWith("primary") ? "/community-voices.html" : "/"));
+  await p.goto(
+    base +
+      (state.startsWith("primary")
+        ? "/community-voices.html"
+        : state.startsWith("resource")
+          ? "/resources.html"
+          : "/"),
+  );
   let selectors = [".full-brand", ".nav-trigger", ".desktop-nav > a", ".header-actions .button"];
+  if (state.startsWith("resource")) {
+    const firstCard = ".resource-group:first-of-type .resource-grid > .resource-card:first-child";
+    await p.locator(firstCard).scrollIntoViewIfNeeded();
+    selectors = [firstCard + " h3 a", firstCard + " p"];
+    if (state === "resource-hover") await p.locator(selectors[0]).hover();
+  }
   if (state === "hover-selected") await p.locator(".nav-trigger").first().hover();
   if (state.startsWith("primary")) {
     await p.locator(".voices-submission .button.primary").scrollIntoViewIfNeeded();
@@ -115,11 +130,11 @@ await expect(p.locator(".issue-card a")).toHaveCount(3);
 await p.setViewportSize({ width: 390, height: 844 });
 await p.goto(base);
 await p.locator("[data-open-drawer]").click();
-await p.locator(".drawer-trigger").nth(2).click();
+await p.locator(".drawer-trigger").nth(1).click();
 await p.screenshot({ path: `${out}/drawer-mobile.png` });
 results.push({
   status: "pass",
-  openDropdownScans: 3,
+  openDropdownScans: 2,
   forcedColors: true,
   riverFailureContent: true,
   reflow320: true,

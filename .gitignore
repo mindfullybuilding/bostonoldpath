@@ -59,3 +59,7 @@ test-results/
 /.browser-profiles/
 /.playwright-mcp/
 /blob-report/
+
+# Private image originals and licensing documents
+/licensed-originals/
+/license-receipts/

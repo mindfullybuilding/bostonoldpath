@@ -10,6 +10,7 @@ for (const path of [
   "/new-here.html",
   "/newsletters.html",
   "/join-mailing-list.html",
+  "/subscribe-calendar.html",
 ]) {
   await p.goto("http://127.0.0.1:4173" + path);
   await expect(p.locator("h1")).toBeVisible();
@@ -26,7 +27,6 @@ for (const path of [
   if (path.includes("join-mailing"))
     await expect(p.locator('main a[href^="mailto:"][href*="subscribe@"]')).toHaveCount(2);
   if (path.includes("resources")) {
-    await p.locator("#resource-sangha-resources summary").click();
     await expect(p.getByRole("link", { name: "Minding the Bell", exact: true })).toBeVisible();
   }
 }

@@ -1,3 +1,4 @@
+import { calendarDateKey, monthModel, monthTable } from "./calendar-view.js";
 const $ = (s, root = document) => root.querySelector(s);
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 // Browsers can blur a control before a breakpoint event fires. Remember its origin
@@ -141,8 +142,13 @@ function openHash() {
   }
   requestAnimationFrame(() => el.scrollIntoView());
 }
-addEventListener("hashchange", openHash);
-if (location.hash) openHash();
+function routeHash() {
+  if (location.pathname.endsWith("find-a-sangha.html") && location.hash === "#subscribe-calendar")
+    location.replace("/subscribe-calendar.html");
+  else if (location.hash) openHash();
+}
+addEventListener("hashchange", routeHash);
+routeHash();
 const calendarDisclosure = $(".calendar-disclosure");
 if (calendarDisclosure) calendarDisclosure.open = false;
 
@@ -259,14 +265,31 @@ function eventTime(event) {
 for (const root of $$("[data-agenda]")) {
   let events = [],
     shown = Number(root.dataset.limit),
-    hasLoaded = false;
+    hasLoaded = false,
+    lastError = false,
+    monthOffset = 0;
   const list = $(".agenda-list", root),
     status = $(".agenda-status", root),
     more = $("[data-more]", root),
     retry = $("[data-retry]", root);
+  const calendar = root.hasAttribute("data-month-calendar");
+  const today = calendarDateKey(new Date());
+  const [year, month] = today.split("-").map(Number);
+  const rangeEnd = calendarDateKey(Date.now() + 180 * 86400000)
+    .split("-")
+    .map(Number);
+  const maxOffset = (rangeEnd[0] - year) * 12 + rangeEnd[1] - month;
   function render() {
+    const model = monthModel(year, month - 1 + monthOffset, events, today);
+    const visible = calendar ? model.events : events;
+    if (calendar) {
+      $("[data-month-label]", root).textContent = model.label;
+      $("[data-month-grid]", root).innerHTML = monthTable(model);
+      $("[data-month-prev]", root).disabled = monthOffset <= 0;
+      $("[data-month-next]", root).disabled = monthOffset >= maxOffset;
+    }
     list.replaceChildren();
-    for (const event of events.slice(0, shown)) {
+    for (const event of visible.slice(0, shown)) {
       const article = document.createElement("article");
       article.className = "agenda-item";
       const h = document.createElement("h3");
@@ -303,22 +326,28 @@ for (const root of $$("[data-agenda]")) {
       }
       list.append(article);
     }
-    more.hidden = events.length <= shown;
+    more.hidden = visible.length <= shown;
+    if (hasLoaded && !lastError)
+      status.textContent = visible.length
+        ? `${visible.length} ${calendar ? "community" : "upcoming"} ${visible.length === 1 ? "event" : "events"}${calendar ? " in " + model.label : ""}.`
+        : calendar
+          ? `No upcoming community events listed in ${model.label}.`
+          : "No upcoming community events are currently listed.";
   }
   async function load() {
     retry.disabled = true;
     retry.textContent = "Refreshing…";
     try {
-      const r = await fetch("/api/events", { signal: AbortSignal.timeout(15000) });
-      if (!r.ok) throw new Error("Calendar unavailable");
-      const data = await r.json();
+      const response = await fetch("/api/events", { signal: AbortSignal.timeout(15000) });
+      if (!response.ok) throw new Error("Calendar unavailable");
+      const data = await response.json();
+      if (!Array.isArray(data.events)) throw new Error("Invalid calendar response");
       events = data.events;
       hasLoaded = true;
+      lastError = false;
       render();
-      status.textContent = events.length
-        ? `${events.length} upcoming ${events.length === 1 ? "event" : "events"}. Updated ${timeFmt.format(new Date(data.retrievedAt))}.`
-        : "No upcoming community events are currently listed.";
     } catch {
+      lastError = true;
       status.textContent = hasLoaded
         ? "The calendar could not refresh. Previously loaded events remain below; retry or use Google Calendar and the subscription guide."
         : "Upcoming events are temporarily unavailable. Retry, open Google Calendar, or use the subscription guide.";
@@ -332,6 +361,19 @@ for (const root of $$("[data-agenda]")) {
     shown += 10;
     render();
   });
+  if (calendar) {
+    $("[data-month-prev]", root).addEventListener("click", () => {
+      if (monthOffset > 0) monthOffset--;
+      shown = Number(root.dataset.limit);
+      render();
+    });
+    $("[data-month-next]", root).addEventListener("click", () => {
+      if (monthOffset < maxOffset) monthOffset++;
+      shown = Number(root.dataset.limit);
+      render();
+    });
+    render();
+  }
   load();
 }
 // Keep anchored sections and focused controls clear of the content-driven header.

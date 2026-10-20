@@ -11,6 +11,7 @@ for (const path of [
   "/our-practice.html",
   "/our-community.html",
   "/find-a-sangha.html",
+  "/subscribe-calendar.html",
   "/resources.html",
   "/community-voices.html",
   "/newsletters.html",
@@ -27,6 +28,7 @@ for (const path of [
   "/assets/licensed/thich-nhat-hanh.jpg",
   "/assets/licensed/plum-village-hall.jpg",
   "/assets/illustrations/newcomer-river.png",
+  "/assets/calendar-view.js",
 ]) {
   const r = await p.request.get(base + path);
   requests.push({ path, status: r.status() });
@@ -61,11 +63,15 @@ expect(
     .locator(".site-header .button.primary")
     .evaluate((e) => getComputedStyle(e).backgroundColor),
 ).toBe("rgb(255, 255, 255)");
-await p
-  .locator(".desktop-nav")
-  .getByRole("button", { name: "Community Voices", exact: true })
-  .press("Enter");
-await p.locator(".desktop-nav").getByRole("link", { name: "Overview", exact: true }).click();
+expect(await p.locator(".site-header").evaluate((e) => getComputedStyle(e).borderRadius)).toBe(
+  "0px",
+);
+expect(await p.locator(".site-footer").evaluate((e) => getComputedStyle(e).borderRadius)).toBe(
+  "0px",
+);
+await expect(p.locator(".hero-secondary")).toHaveText("New? Start here.");
+await expect(p.locator(".desktop-nav .nav-trigger")).toHaveCount(2);
+await p.locator('.desktop-nav > a[href="/community-voices.html"]').click();
 await expect(p.locator("h1")).toHaveText("Community Voices");
 await p.goto(base);
 await p.locator("h1").click();
@@ -76,6 +82,7 @@ await p.getByRole("button", { name: "Open menu" }).click();
 await expect(p.locator("dialog")).toBeVisible();
 await p.keyboard.press("Escape");
 await p.goto(base + "/find-a-sangha.html");
+await expect(p.locator(".month-grid")).toBeVisible();
 await p.getByRole("button", { name: "Filter groups" }).click();
 await p.locator("#group-search").fill("Brookline");
 await expect(p.locator("[data-group]:visible")).toHaveCount(2);
@@ -89,10 +96,10 @@ await expect(
     .first()
     .getByRole("link", { name: "Get directions", exact: true }),
 ).toHaveAttribute("href", /^https:\/\/www\.google\.com\/maps\/dir\//);
-await p.locator('a[href="#subscribe-calendar"]').first().click();
+await p.locator('a[href="/subscribe-calendar.html"]').first().click();
 await p.locator("[data-copy]").click();
 await expect(p.locator(".copy-status")).toContainText(/copied|selected/);
-await expect(p.locator(".calendar-disclosure")).not.toHaveAttribute("open", "");
+await expect(p.locator("h1")).toHaveText("Subscribe to calendar");
 await p.goto(base + "/community-voices.html");
 await expect(
   p.getByRole("link", { name: "Submit your contribution", exact: true }),

@@ -20,3 +20,7 @@ tests/
 blob-report/
 playwright-report/
 test-results/
+
+# Private image originals and licensing documents
+/licensed-originals/
+/license-receipts/

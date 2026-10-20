@@ -11,6 +11,7 @@ const pages = [
   "/our-practice.html",
   "/our-community.html",
   "/find-a-sangha.html",
+  "/subscribe-calendar.html",
   "/resources.html",
   "/community-voices.html",
   "/newsletters.html",

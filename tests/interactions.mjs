@@ -15,6 +15,7 @@ for (const [name, engine] of [
   // The anonymous embedded-map scan and its findings live in third-party.json.
   await ctx.route("https://www.google.com/maps/**", (route) => route.abort());
   const p = await ctx.newPage();
+  await p.clock.setFixedTime(new Date("2026-10-19T16:00:00Z"));
   const errors = [];
   p.on("pageerror", (e) => errors.push(e.message));
   await p.goto(base + "/");
@@ -27,7 +28,7 @@ for (const [name, engine] of [
   await resources.focus();
   await p.keyboard.press("Enter");
   await expect(p).toHaveURL(base + "/resources.html");
-  await expect(p.locator("h1")).toHaveText("Practice resources");
+  await expect(p.locator("h1")).toHaveText("Resources");
   await p.goto(base + "/");
   await p.setViewportSize({ width: 390, height: 844 });
   const opener = p.locator("[data-open-drawer]");
@@ -82,8 +83,8 @@ for (const [name, engine] of [
     .analyze();
   expect(stateScan.violations).toEqual([]);
   await p.goto(base + "/resources.html#resource-sangha-resources");
-  await expect(p.locator("#resource-sangha-resources")).toHaveAttribute("open", "");
-  await p.goto(base + "/find-a-sangha.html#subscribe-calendar");
+  await expect(p.locator("#resource-sangha-resources")).toBeVisible();
+  await p.goto(base + "/subscribe-calendar.html");
   for (const s of await p.locator(".tutorials summary").all()) {
     await s.focus();
     await p.keyboard.press("Enter");
@@ -101,7 +102,7 @@ for (const [name, engine] of [
   await p.route("**/api/events", (r) =>
     r.fulfill({ status: 503, contentType: "application/json", body: "{}" }),
   );
-  await p.reload();
+  await p.goto(base + "/find-a-sangha.html");
   await expect(p.locator(".agenda-status")).toContainText("temporarily unavailable");
   await expect(p.locator("[data-retry]")).toBeEnabled();
   const events = Array.from({ length: 12 }, (_, i) => ({
@@ -125,6 +126,7 @@ for (const [name, engine] of [
     }),
   );
   await p.locator("[data-retry]").click();
+  await p.locator("[data-month-next]").click();
   await expect(p.locator(".agenda-item")).toHaveCount(10);
   await expect(p.locator(".agenda-item img")).toHaveCount(0);
   await expect(p.locator(".agenda-item").nth(1)).toContainText("Wed, Nov 4, 2026");

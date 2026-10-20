@@ -23,9 +23,8 @@ for (const [engineName, engine] of [
   await expect(p.locator(".desktop-nav > .nav-disclosure > button")).toHaveText([
     "About",
     "Get Involved",
-    "Community Voices",
   ]);
-  await expect(p.locator(".desktop-nav > a")).toHaveText("Mailing Lists");
+  await expect(p.locator(".desktop-nav > a")).toHaveText(["Community Voices", "Mailing Lists"]);
   await expect(p.locator(".site-header .button")).toHaveText("Find a Group");
   const about = p.locator(".desktop-nav").getByRole("button", { name: "About", exact: true });
   await about.press("Enter");
@@ -64,8 +63,9 @@ for (const [engineName, engine] of [
     .locator("#calendar")
     .getByRole("link", { name: "Subscribe to calendar", exact: true })
     .click();
-  await expect(p.locator("#subscribe-calendar")).toBeInViewport();
-  await go("Community Voices", "Overview");
+  await expect(p).toHaveURL(base + "/subscribe-calendar.html");
+  await expect(p.locator("h1")).toHaveText("Subscribe to calendar");
+  await p.locator('.desktop-nav > a[href="/community-voices.html"]').click();
   await expect(
     p.locator("main").getByRole("link", { name: "Submit your contribution", exact: true }),
   ).toHaveAttribute("href", "https://forms.gle/ab3cBUX3K76PppPA9");
@@ -73,12 +73,15 @@ for (const [engineName, engine] of [
     "href",
     "https://buddhistpoetryexchange.blogspot.com",
   );
-  await go("Community Voices", "Newsletter");
+  await p
+    .locator("main")
+    .getByRole("link", { name: "Browse newsletter editions", exact: true })
+    .click();
   await expect(p.locator(".year-group > h2")).toHaveText(["2026", "2022"]);
   await expect(p.locator(".issue-card a")).toHaveCount(3);
   for (const a of await p.locator(".issue-card a").all())
     expect((await p.request.get(new URL(await a.getAttribute("href"), base).href)).ok()).toBe(true);
-  await p.locator(".desktop-nav > a").click();
+  await p.locator('.desktop-nav > a[href="/join-mailing-list.html"]').click();
   await expect(p.locator('main a[href^="mailto:"][href*="subscribe@"]')).toHaveCount(2);
   await p.locator("[data-mail-choice]").first().uncheck();
   await expect(p.locator("#practice-subscribe")).toBeHidden();
@@ -101,17 +104,13 @@ for (const [engineName, engine] of [
       .getByRole("navigation", { name: "Breadcrumb", exact: true })
       .getByRole("link", { name: "Sangha resources", exact: true })
       .click();
-    await expect(p.locator("#resource-sangha-resources")).toHaveAttribute("open", "");
+    await expect(p.locator("#resource-sangha-resources")).toBeVisible();
   }
   await p.setViewportSize({ width: 390, height: 844 });
   await p.goto(base);
   await p.getByRole("button", { name: "Open menu", exact: true }).click();
   const drawer = p.locator(".drawer");
-  await expect(drawer.locator(".drawer-trigger")).toHaveText([
-    "AboutOpen",
-    "Get InvolvedOpen",
-    "Community VoicesOpen",
-  ]);
+  await expect(drawer.locator(".drawer-trigger")).toHaveText(["AboutOpen", "Get InvolvedOpen"]);
   await drawer.getByRole("button", { name: "About", exact: true }).click();
   const scan = await new AxeBuilder({ page: p })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
