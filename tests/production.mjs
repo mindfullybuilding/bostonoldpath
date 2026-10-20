@@ -77,6 +77,7 @@ await p.goto(base);
 await p.locator("h1").click();
 await p.screenshot({ path: "outputs/release-verification/live-desktop.png" });
 await p.setViewportSize({ width: 390, height: 844 });
+await expect(p.locator(".compact-brand")).toHaveText("Mindfulness Communities of Greater Boston");
 await p.screenshot({ path: "outputs/release-verification/live-mobile.png" });
 await p.getByRole("button", { name: "Open menu" }).click();
 await expect(p.locator("dialog")).toBeVisible();
@@ -97,6 +98,7 @@ await expect(
     .getByRole("link", { name: "Get directions", exact: true }),
 ).toHaveAttribute("href", /^https:\/\/www\.google\.com\/maps\/dir\//);
 await p.locator('a[href="/subscribe-calendar.html"]').first().click();
+await p.waitForLoadState("load");
 await p.locator("[data-copy]").click();
 await expect(p.locator(".copy-status")).toContainText(/copied|selected/);
 await expect(p.locator("h1")).toHaveText("Subscribe to calendar");

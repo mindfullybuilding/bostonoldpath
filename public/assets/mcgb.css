@@ -1272,7 +1272,7 @@ details > div {
   }
   .compact-brand {
     display: block;
-    font-size: 23px;
+    font-size: 18px;
   }
   .header-inner {
     min-height: 72px;
@@ -1382,11 +1382,24 @@ details > div {
   .header-inner {
     gap: 8px;
   }
+  .brand {
+    flex: 1 1 90px;
+    max-width: none;
+    min-width: 0;
+  }
+  .compact-brand {
+    font-size: 13px;
+    line-height: 1.3;
+  }
   .header-actions {
+    flex: 0 0 auto;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     gap: 8px;
   }
   .header-actions .button {
-    padding-inline: 12px;
+    padding-inline: 10px;
   }
   .hero {
     padding-block: 48px;

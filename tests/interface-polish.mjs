@@ -28,6 +28,21 @@ for (const [name, engine] of [
     await p.locator(".hero-secondary").evaluate((e) => getComputedStyle(e).backgroundColor),
   ).toBe("rgba(0, 0, 0, 0)");
   await expect(p.locator(".desktop-nav .nav-trigger")).toHaveCount(2);
+  for (const width of [320, 390, 430, 768, 1024]) {
+    await p.setViewportSize({ width, height: 844 });
+    await expect(p.locator(".compact-brand")).toBeVisible();
+    await expect(p.locator(".compact-brand")).toHaveText(
+      "Mindfulness Communities of Greater Boston",
+    );
+    const [name, action, menu] = await Promise.all([
+      p.locator(".brand").boundingBox(),
+      p.locator(".header-actions .button").boundingBox(),
+      p.locator(".menu-trigger").boundingBox(),
+    ]);
+    expect(Math.abs(name.y + name.height / 2 - action.y - action.height / 2)).toBeLessThan(1);
+    expect(Math.abs(menu.y + menu.height / 2 - action.y - action.height / 2)).toBeLessThan(1);
+  }
+  await p.setViewportSize({ width: 1440, height: 1000 });
   await expect(p.locator(".desktop-nav > a")).toHaveText(["Community Voices", "Mailing Lists"]);
   await p.goto(base + "/new-here.html");
   await expect(p.getByRole("heading", { name: "Practice with Us", exact: true })).toBeVisible();
