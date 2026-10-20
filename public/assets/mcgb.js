@@ -81,7 +81,6 @@ $$(".drawer-trigger").forEach((trigger) => {
     const open = trigger.getAttribute("aria-expanded") !== "true";
     trigger.setAttribute("aria-expanded", String(open));
     document.getElementById(trigger.getAttribute("aria-controls")).hidden = !open;
-    $(".disclosure-state", trigger).textContent = open ? "Close" : "Open";
   });
 });
 const drawer = $("#mobile-menu");
@@ -193,9 +192,17 @@ if (filters) {
   toggle?.addEventListener("click", () => {
     const open = toggle.getAttribute("aria-expanded") !== "true";
     toggle.setAttribute("aria-expanded", String(open));
-    toggle.textContent = open ? "Hide filters" : "Filter groups";
+    toggle.setAttribute("aria-label", open ? "Hide filters" : "Filter groups");
     filters.classList.toggle("is-open", open);
     if (open) $("#group-search").focus();
+  });
+  filters.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && matchMedia("(max-width:899px)").matches) {
+      filters.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Filter groups");
+      toggle.focus();
+    }
   });
   let version = 0;
   async function filter() {
@@ -224,7 +231,7 @@ if (filters) {
         $(`[data-group="${s.id}"]`).hidden = !match;
         if (match) count++;
       }
-      $("#group-count").textContent = `${count} ${count === 1 ? "sangha" : "sanghas"}`;
+      $("#group-count").textContent = `${count} of ${sanghas.length} sanghas`;
       $("#no-groups").hidden = count !== 0;
     } catch {
       $("#group-count").textContent = "Filters are unavailable. All groups are shown below.";
@@ -234,7 +241,9 @@ if (filters) {
   filters.addEventListener("reset", () => setTimeout(filter, 0));
   $("[data-clear-filters]")?.addEventListener("click", () => {
     filters.reset();
-    $("#group-search").focus();
+    if (matchMedia("(max-width:899px)").matches && !filters.classList.contains("is-open"))
+      toggle.focus();
+    else $("#group-search").focus();
   });
 }
 const dateFmt = new Intl.DateTimeFormat("en-US", {
@@ -350,8 +359,8 @@ for (const root of $$("[data-agenda]")) {
     } catch {
       lastError = true;
       status.textContent = hasLoaded
-        ? "The calendar could not refresh. Previously loaded events remain below; retry or use Google Calendar and the subscription guide."
-        : "Upcoming events are temporarily unavailable. Retry, open Google Calendar, or use the subscription guide.";
+        ? "The calendar could not refresh. Previously loaded events remain below; retry or use the calendar subscription guide."
+        : "Upcoming events are temporarily unavailable. Retry or use the calendar subscription guide.";
     } finally {
       retry.disabled = false;
       retry.textContent = "Refresh events";
@@ -388,7 +397,7 @@ if (todaySanghas) {
     const dateLabel = new Intl.DateTimeFormat("en-US", {
       timeZone: "America/New_York",
       weekday: "long",
-      month: "long",
+      month: "short",
       day: "numeric",
     }).format(new Date());
     $("[data-sangha-date]").replaceChildren(
@@ -421,6 +430,18 @@ if (todaySanghas) {
   };
   document.addEventListener("visibilitychange", checkDate);
   setInterval(checkDate, 60000);
+}
+
+// Desktop shows the full introduction; phones use an explicit information disclosure.
+const scheduleContext = $(".schedule-context");
+if (scheduleContext) {
+  const narrow = matchMedia("(max-width:899px)");
+  scheduleContext.open = !narrow.matches;
+  narrow.addEventListener("change", () => {
+    if (!narrow.matches && document.activeElement === $("summary", scheduleContext))
+      $("#today-sanghas-title").focus();
+    scheduleContext.open = !narrow.matches;
+  });
 }
 
 // Keep anchored sections and focused controls clear of the content-driven header.

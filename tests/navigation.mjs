@@ -110,7 +110,7 @@ for (const [engineName, engine] of [
   await p.goto(base);
   await p.getByRole("button", { name: "Open menu", exact: true }).click();
   const drawer = p.locator(".drawer");
-  await expect(drawer.locator(".drawer-trigger")).toHaveText(["AboutOpen", "Get InvolvedOpen"]);
+  await expect(drawer.locator(".drawer-trigger")).toHaveText(["About", "Get Involved"]);
   await drawer.getByRole("button", { name: "About", exact: true }).click();
   const scan = await new AxeBuilder({ page: p })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])

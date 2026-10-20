@@ -32,6 +32,8 @@ for (const path of [
   "/assets/calendar-view.js",
   "/assets/sangha-schedule.js",
   "/assets/illustrations/community-path.png",
+  "/assets/icons/funnel.svg",
+  "/assets/icons/info.svg",
   "/assets/illustrations/community-forest.jpg",
   "/assets/licensed/arnold-arboretum.jpg",
 ]) {
@@ -60,6 +62,7 @@ expect(missing.status()).toBe(404);
 await p.setViewportSize({ width: 1440, height: 1000 });
 await p.goto(base);
 await expect(p.locator("h1")).toHaveText("A deep bow to you, dear friend.");
+await expect(p).toHaveTitle("Mindfulness Communities of Greater Boston");
 expect(await p.locator(".site-header").evaluate((e) => getComputedStyle(e).backgroundColor)).toBe(
   "rgb(54, 123, 202)",
 );

@@ -1,9 +1,11 @@
-# MCGB homepage design QA — 20 October 2026
+# MCGB participation UI QA — 20 October 2026
 
 final result: passed
 
-The full-screen welcome retains its approved greeting and complete source-backed introduction. Its photograph now accurately depicts Arnold Arboretum greenery and has documented CC0 reuse permission. The decorative bodhi forest extends horizontally behind the lower homepage reading composition, becoming progressively denser and darker. Light masks keep black text readable; desktop content alternates beside the central dirt path, while phone content follows a left-margin path.
+The full organization name appears in the homepage browser title. The approved welcome introduction fits two natural lines at standard desktop width. Mobile drawer labels are clean, with the primary group action blue. Today's sanghas has a noninteractive date panel; mobile titles/action center and the supplied paragraph remains available through an information disclosure.
 
-Today's regular sanghas remain visible, followed by a direct Full sangha schedule button to the existing finder. There is no duplicate weekly disclosure. Community Voices keeps its publications behind its overview button. Community Events uses the requested sign-up copy and opens calendar subscription guidance. Existing pages and shared controls retain their roles.
+The finder preserves its useful records and calendar. Desktop filters remain visible while scrolling; mobile filter/result controls share one toolbar and omit the map. Details/contact buttons remain aligned, and expanded details keep their full border. White reset/refresh actions match shared controls. The public Groups.io calendar needs no duplicate signed-in Google view.
 
-Rendered desktop/mobile proofs and loading, empty, failed-data, image-failure, uncertain-recurrence and no-script states were checked. First-party automated accessibility, keyboard navigation and enlarged-text checks passed. Native screen readers and third-party/document limitations remain untested or limited as recorded in docs/homepage-forest-2026-10-20/VERIFICATION.md.
+Community publications occupy equal desktop columns with aligned headings, introductions and buttons. The contribution invitation fills the section below. Mobile titles center; actual editions remain in the archive. Mailing Lists remains focused on subscription.
+
+Visual proofs and cross-engine journeys passed. First-party automated accessibility, keyboard and enlarged-text checks passed. Native screen readers, historical PDFs and third-party map/form limits remain recorded in docs/directory-polish-2026-10-20/VERIFICATION.md.

@@ -212,13 +212,6 @@ button:disabled {
   border-color: #000;
   box-shadow: none;
 }
-.text-button {
-  border: 0;
-  padding-inline: 0;
-  text-decoration: underline;
-  background: transparent;
-  justify-content: flex-start;
-}
 .text-link {
   display: inline-flex;
   align-items: center;
@@ -547,10 +540,6 @@ button:disabled {
   color: #fff;
   border-color: var(--water-deep);
 }
-.disclosure-state {
-  font-size: 14px;
-  font-weight: 400;
-}
 .drawer-panel {
   padding: 8px 0 8px 12px;
 }
@@ -595,7 +584,7 @@ button:disabled {
 }
 .hero .lede {
   color: #fff;
-  max-width: 70ch;
+  max-width: 1040px;
   margin-inline: auto;
 }
 .hero .actions {
@@ -983,13 +972,6 @@ button:disabled {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-}
-.agenda-controls [data-retry] {
-  border: 0;
-  background: transparent;
-  padding-inline: 0;
-  font-weight: 400;
-  text-decoration: underline;
 }
 .calendar-label {
   font-size: 16px;
@@ -1592,37 +1574,35 @@ details > div {
     min-height: 0;
   }
 }
-/* Publication layouts use actual covers and dates instead of empty category cards. */
+/* Equal publication tracks align titles, introductions and actions. */
 .voices-publications {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 48px;
-  align-items: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 64px;
 }
-.voices-feature {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 32px;
-  align-items: start;
-}
-.publication-cover img {
-  width: 100%;
-  height: auto;
-  border: 1px solid var(--line);
-  box-shadow: 0 6px 18px #173c6020;
-}
+.voices-feature,
 .poetry-feature {
-  border-left: 1px solid var(--line);
-  padding-left: 32px;
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+}
+.voices-publications h2,
+.voices-publications p {
+  margin: 0;
+}
+.voices-publications .button {
+  justify-self: start;
+  align-self: start;
 }
 .voices-submission {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 64px;
-  align-items: start;
+  display: block;
 }
-.voices-submission > div > .button {
-  margin-bottom: 8px;
+.voices-submission .reading {
+  max-width: 78ch;
+  margin-inline: auto;
 }
 .year-group {
   padding-block: 32px;
@@ -1749,6 +1729,15 @@ details > div {
   .mailing-tool {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+  .voices-feature,
+  .poetry-feature {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .voices-publications .button {
+    align-self: start;
   }
   .poetry-feature {
     border-left: 0;
@@ -1997,5 +1986,157 @@ details > div {
 @media print {
   .hero {
     min-height: 0;
+  }
+}
+
+/* Participation refinements: shared controls and purposeful mobile density. */
+.icon-filter {
+  mask-image: url("/assets/icons/funnel.svg");
+}
+.icon-info {
+  mask-image: url("/assets/icons/info.svg");
+}
+.drawer nav > .button.primary {
+  color: #fff;
+  background-color: var(--blue);
+  background-image: var(--water-gloss);
+  border-color: var(--water-deep);
+}
+.drawer nav > .button.primary:hover {
+  background-image: linear-gradient(#689bd0, #245d9d 30%, #245d9d 77%, #1c497e);
+}
+.schedule-date {
+  border-left: 4px solid var(--water-deep);
+  padding: 12px 20px;
+  background: linear-gradient(110deg, #e3eef8, #f4f8fc);
+  color: #000;
+  font-weight: 650;
+  font-size: 18px;
+}
+.schedule-context {
+  max-width: none;
+  border: 0;
+  margin: 0 0 24px;
+}
+.schedule-context > summary {
+  display: none;
+}
+.schedule-context > p {
+  margin: 0;
+}
+.finder-heading > p {
+  max-width: 85ch;
+}
+.group-card > details > summary {
+  display: flex;
+  line-height: 1.4;
+  padding: 12px 8px;
+}
+.group-card > details[open] > summary {
+  border: 1px solid #000;
+  border-radius: 14px;
+  margin-bottom: 24px;
+}
+.group-card > details {
+  overflow: visible;
+}
+.region-map h2 {
+  margin-bottom: 20px;
+}
+@media (min-width: 900px) {
+  .filters {
+    position: sticky;
+    top: var(--sticky-offset);
+    max-height: calc(100svh - var(--sticky-offset) - 24px);
+    overflow-y: auto;
+    padding: 4px 8px 8px 4px;
+    scrollbar-gutter: stable;
+  }
+}
+@media (max-width: 899px) {
+  .schedule-heading {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    text-align: center;
+  }
+  .schedule-heading h2 {
+    margin-bottom: 16px;
+  }
+  .schedule-date {
+    padding: 8px 16px;
+    font-size: 16px;
+  }
+  .schedule-context {
+    text-align: center;
+  }
+  .schedule-context > summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    min-height: 44px;
+    margin: 0 auto 16px;
+    padding: 10px;
+    list-style: none;
+    border: 1px solid #000;
+    border-radius: 50%;
+  }
+  .schedule-context > summary::-webkit-details-marker {
+    display: none;
+  }
+  .schedule-context[open] > summary {
+    border-radius: 50%;
+  }
+  .schedule-context > p {
+    text-align: left;
+  }
+  .full-sangha-schedule {
+    justify-content: center;
+  }
+  .results-top {
+    justify-content: flex-end;
+  }
+  .filter-trigger {
+    margin-right: auto;
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+  }
+  .filter-trigger[aria-expanded="true"] {
+    box-shadow: inset 0 0 0 2px #000;
+  }
+  .finder-aside {
+    display: block;
+    padding-top: 0;
+  }
+  .region-map {
+    display: none;
+  }
+  [data-page="community-voices"] :is(h1, h2) {
+    text-align: center;
+  }
+  [data-page="community-voices"] .page-intro p {
+    text-align: center;
+  }
+  .voices-publications .button {
+    align-self: center;
+  }
+  .voices-submission .actions {
+    justify-content: center;
+  }
+}
+@media (max-height: 600px) and (min-width: 900px) {
+  .filters {
+    top: 16px;
+    max-height: calc(100svh - 32px);
+  }
+}
+@media print {
+  .schedule-context > p {
+    display: block;
+  }
+  .schedule-context > summary {
+    display: none;
   }
 }

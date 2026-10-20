@@ -63,7 +63,10 @@ await page.route("https://www.google.com/maps/**", (r) => r.abort());
 await page.reload();
 await expect(page.locator("#subscribe-calendar")).toBeVisible();
 await expect(page.locator("[data-group]")).toHaveCount(13);
-results.push({ name: "Blocked map and calendar embeds", alternativeContentAvailable: true });
+results.push({
+  name: "Blocked map; public calendar remains available",
+  alternativeContentAvailable: true,
+});
 await page.setViewportSize({ width: 1440, height: 1000 });
 await page.goto(base + "/find-a-sangha.html");
 await page.screenshot({ path: "outputs/release-verification/finder-desktop.png", fullPage: true });
