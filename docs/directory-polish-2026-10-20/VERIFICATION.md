@@ -10,7 +10,7 @@ Finder filters stick below the actual header on desktop, with an internally scro
 
 The month calendar and agenda read GET /api/events, whose configured source is the public Groups.io ICS feed. The redundant Google Calendar view is removed, along with obsolete Google recovery text; privacy and accessibility statements match the actual remaining services. The API, feed URL and subscription guide are unchanged.
 
-Community Voices has equally sized publication columns with shared heading, description and action tracks. Latest-cover/date previews are removed. The full-width contribution invitation welcomes existing online work or a description of work the community can help share, with the real form button below. This is original invitation copy, not a quotation attributed to Thích Nhất Hạnh. Mobile titles center. The archive link is removed from Mailing Lists; the archive remains available through Community Voices.
+Community Voices has equally sized publication columns with shared heading, description and action tracks. Latest-cover/date previews are removed. Publication columns use a 48px gap. The contribution title aligns with The Present Moment, and its reading area extends to the poetry column’s outer right edge. The full-width contribution invitation welcomes existing online work or a description of work the community can help share, with the real form button below. This is original invitation copy, not a quotation attributed to Thích Nhất Hạnh. Mobile titles center. The archive link is removed from Mailing Lists; the archive remains available through Community Voices.
 
 ## Checks and evidence
 

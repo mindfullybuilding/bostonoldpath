@@ -120,6 +120,25 @@ for (const [name, engine] of [
       Math.abs((await cards.nth(0).boundingBox()).width - (await cards.nth(1).boundingBox()).width),
     ).toBeLessThan(2);
   }
+  const poetryMeasure = await p.locator(".poetry-feature").evaluate((e) => {
+    const range = document.createRange();
+    range.selectNodeContents(e.querySelector("h2"));
+    return {
+      paragraph: e.querySelector("p").getBoundingClientRect().width,
+      heading: range.getBoundingClientRect().width,
+    };
+  });
+  expect(poetryMeasure.paragraph).toBeLessThanOrEqual(poetryMeasure.heading + 1);
+  const firstPublication = await cards.nth(0).boundingBox();
+  const lastPublication = await cards.nth(1).boundingBox();
+  const submission = await p.locator(".voices-submission .reading").boundingBox();
+  expect(Math.abs(submission.x - firstPublication.x)).toBeLessThan(1);
+  expect(
+    Math.abs(submission.x + submission.width - lastPublication.x - lastPublication.width),
+  ).toBeLessThan(1);
+  expect(
+    await p.locator(".voices-publications").evaluate((e) => getComputedStyle(e).columnGap),
+  ).toBe("48px");
   await expect(p.locator(".voices-submission")).not.toContainText("Opens a Google Form");
   await expect(p.locator(".voices-submission a")).toHaveAttribute(
     "href",

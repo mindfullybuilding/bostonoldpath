@@ -1578,7 +1578,7 @@ details > div {
 .voices-publications {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px 64px;
+  gap: 24px 48px;
 }
 .voices-feature,
 .poetry-feature {
@@ -1597,12 +1597,18 @@ details > div {
   justify-self: start;
   align-self: start;
 }
+@media (min-width: 900px) {
+  .poetry-feature p {
+    max-width: 43ch;
+  }
+}
 .voices-submission {
   display: block;
 }
 .voices-submission .reading {
-  max-width: 78ch;
-  margin-inline: auto;
+  max-width: none;
+  width: 100%;
+  margin: 0;
 }
 .year-group {
   padding-block: 32px;
