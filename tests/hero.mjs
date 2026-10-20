@@ -3,7 +3,8 @@ import fs from "node:fs/promises";
 const base = process.env.TEST_BASE || "http://127.0.0.1:4173";
 const b = await chromium.launch();
 const ctx = await b.newContext();
-const p = await ctx.newPage({ viewport: { width: 1440, height: 1000 } });
+const p = await ctx.newPage();
+await p.setViewportSize({ width: 1440, height: 1000 });
 await p.goto(base);
 const hero = p.locator(".hero");
 await expect(p.locator(".hero img")).toHaveCount(0);
@@ -17,7 +18,10 @@ const style = await hero.evaluate((el) => ({
   height: el.getBoundingClientRect().height,
 }));
 expect(style.background).toContain("beginners-mind-page-title-hero.jpg");
-expect(style.height).toBeLessThan(600);
+const headerHeight = await p
+  .locator(".site-header")
+  .evaluate((el) => el.getBoundingClientRect().height);
+expect(Math.abs(style.height + headerHeight - 1000)).toBeLessThan(2);
 const lum = (rgb) =>
   rgb
     .map((v) => v / 255)

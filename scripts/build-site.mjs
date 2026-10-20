@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import { config as c } from "../site/config.mjs";
 import { calendarDateKey, monthModel, monthTable } from "../public/assets/calendar-view.js";
+import { weekdays, meetingMinutes, scheduleRow } from "../public/assets/sangha-schedule.js";
 const esc = (s) =>
   String(s ?? "").replace(
     /[&<>"']/g,
@@ -79,21 +80,38 @@ const page = async (
   );
 const intro = (eyebrow, title, copy) =>
   `<section class="page-intro container"><div class="reading"><h1>${title}</h1>${copy ? `<p class="lede">${copy}</p>` : ""}</div></section>`;
-const card = (n, title, copy, url) =>
-  `<article class="card"><h3>${link(url, title)}</h3><p>${copy}</p></article>`;
 const calendarToday = calendarDateKey(new Date());
 const [calendarYear, calendarMonth] = calendarToday.split("-").map(Number);
 const initialMonth = monthModel(calendarYear, calendarMonth - 1, [], "");
 const agenda = (limit = 10, calendar = false) =>
   `<div data-agenda data-limit="${limit}"${calendar ? " data-month-calendar" : ""}>${calendar ? `<div class="month-controls"><button data-month-prev aria-label="Previous month" disabled>Previous</button><h3 data-month-label aria-live="polite">${initialMonth.label}</h3><button data-month-next aria-label="Next month" disabled>Next</button></div><div data-month-grid>${monthTable(initialMonth)}</div>` : ""}<p class="agenda-status" role="status">Loading upcoming events…</p><div class="agenda-list"></div><div class="agenda-controls"><button data-retry>Refresh events</button><button data-more hidden>Show more events</button></div><noscript><p>Live events require JavaScript. ${link("/subscribe-calendar.html", "Subscribe to calendar")} or ${link(c.googleCalendarEmbedUrl, "open Google Calendar (sign-in required)")}.</p></noscript></div>`;
 
+const weeklySchedule = weekdays
+  .slice(1)
+  .concat(weekdays[0])
+  .map((day) => {
+    const groups = sanghas
+      .filter((group) => group.days.includes(day.toLowerCase()))
+      .sort((a, b) => meetingMinutes(a) - meetingMinutes(b));
+    return `<section class="schedule-day"><h3>${day}</h3>${groups.length ? `<ul class="sangha-schedule-list">${groups.map((group) => scheduleRow(group, true)).join("")}</ul>` : "<p>No regular meetings listed.</p>"}</section>`;
+  })
+  .join("");
+const pathStop = (title, body, actions, cls = "") =>
+  `<article class="path-stop ${cls}"><div class="path-stop-content"><h2>${title}</h2>${body}${actions ? `<div class="actions">${actions}</div>` : ""}</div></article>`;
 await page(
   "home",
   "A deep bow to you, dear friend",
   `<section class="hero"><div class="hero-content container"><h1>A deep bow to you, dear friend.</h1><p class="lede">Mindfulness Communities of Greater Boston is an interfaith collective that seeks to learn and practice mindfulness taught by Thích Nhất Hạnh (“Thầy”), a Vietnamese Buddhist monk, author and activist.</p><div class="actions">${group}${link("/new-here.html", "New? Start here.", "button hero-secondary")}</div></div></section>
-  <section class="section container home-practice"><h2>Practice &amp; community</h2><p class="home-introduction">We explore ways to bring mindfulness into our lives, families, work, and society. We try to practice mindfulness throughout every day, not just during meditation, but also in the kitchen, in the car, at work, on the phone, and while walking from one place to another.</p><div class="route-grid">${card("", "Our practice", "An intro to mindfulness & mindful living, Thích Nhất Hạnh, and the Plum Village tradition.", "/our-practice.html", "Our practice")}${card("", "Our community", "Meet MCGB and discover how we practice together.", "/our-community.html", "Our community")}${card("", "Resources", "Find foundational readings, talks, songs, practice links, and beginner-friendly resources.", "/resources.html", "Resources")}</div></section>
-  <section class="section container home-voices"><div><h2>Community Voices</h2><p>Read community writing in <em>The Present Moment</em>, or submit art, writing, songs, and photographs for review.</p><div class="actions">${link("/community-voices.html", "About contributions", "button")}</div></div><a class="newsletter-feature" href="/newsletters.html"><img src="/assets/newsletters/april-2026.png" alt="" width="90" height="120" loading="lazy"><span><strong>The Present Moment</strong><span>April 2026</span><span class="underlined">Browse the newsletter archive</span></span></a></section>
-  <section class="section container home-updates"><div><div class="section-head"><h2>Community events</h2><p>Regular sangha schedules are in the group directory.</p></div>${agenda(3)}${link("/find-a-sangha.html#calendar", "View community calendar", "text-link")}</div><div class="mailing-note"><h2>Mailing lists</h2><p>Receive sitting updates, retreat information, and community announcements.</p>${link("/join-mailing-list.html", "Join our mailing lists", "text-link")}</div></section>`,
+  <section class="section container home-schedule" aria-labelledby="today-sanghas-title"><div class="schedule-heading"><h2 id="today-sanghas-title">Today’s sanghas</h2><p data-sangha-date></p></div><p class="schedule-context">Regular meeting schedules; confirm changes and joining details with the organizer.</p><p class="today-status" role="status">Browse the full schedule below.</p><div data-today-sanghas></div><details class="full-sangha-schedule"><summary>Full sangha schedule</summary><div class="weekly-schedule">${weeklySchedule}</div><div class="actions">${link("/find-a-sangha.html", "Find a Sangha", "button primary")}${link("/find-a-sangha.html#calendar", "Community events calendar", "button")}</div></details></section>
+  <section class="container community-path" aria-label="Practice and community"><div class="community-path-art" aria-hidden="true"><img src="/assets/illustrations/community-path.png" alt="" width="724" height="2172" loading="lazy"></div><div class="path-stops">
+  ${pathStop("Our Practice", `<p>We explore ways to bring mindfulness into our lives, families, work, and society. We try to practice mindfulness throughout every day, not just during meditation, but also in the kitchen, in the car, at work, on the phone, and while walking from one place to another.</p>`, link("/our-practice.html", "Our Practice", "button"))}
+  ${pathStop("Greater Boston Community", `<p>Meet MCGB and discover how we practice together.</p>`, link("/our-community.html", "Our Community", "button"))}
+  ${pathStop("Gather with Friends", `<p>Togetherness helps friends arrange a walk, a cup of tea, or time together outside scheduled practice.</p>`, link("https://togethernessma.vercel.app/", "Gather with Friends", "button"))}
+  ${pathStop("Resources", `<p>Find foundational readings, talks, songs, practice links, and beginner-friendly resources.</p>`, link("/resources.html", "Resources", "button"))}
+  ${pathStop("Community Voices", `<p>Read community writing in <em>The Present Moment</em>, or submit art, writing, songs, and photographs for review.</p><a class="path-publication" href="/newsletters.html"><img src="/assets/newsletters/april-2026.png" alt="" width="72" height="96" loading="lazy"><span><strong>The Present Moment</strong><span>April 2026</span><span class="underlined">Browse the newsletter archive</span></span></a>`, link("/community-voices.html", "Community Voices", "button"))}
+  ${pathStop("Community Events", `<p>Regular sangha schedules are in the group directory.</p>${agenda(3)}`, link("/find-a-sangha.html#calendar", "View community calendar", "button"))}
+  ${pathStop("Mailing Lists", `<p>Receive sitting updates, retreat information, and community announcements.</p>`, link("/join-mailing-list.html", "Join our mailing lists", "button"))}
+  </div></section>`,
 );
 await page(
   "new-here",
@@ -354,7 +372,7 @@ await page(
 await page(
   "photo-credits",
   "Credits",
-  `${intro("Sources & permissions", "Credits", "")}<section class="section container reading"><h2 id="thich-nhat-hanh">Thích Nhất Hạnh</h2><p>Photo by Duc (pixiduc), Paris, 2006. ${link("https://commons.wikimedia.org/wiki/File:Thich_Nhat_Hanh_12_(cropped).jpg", "Source on Wikimedia Commons")}. Licensed ${link("https://creativecommons.org/licenses/by-sa/2.0/", "CC BY-SA 2.0")}. The source is already cropped; the website uses a responsive display crop. No other image edits.</p><h2>Still Water Meditation Hall</h2><p>Plum Village, Upper Hamlet, France. Photo by Solipsistic19, 12 July 2022. ${link("https://commons.wikimedia.org/wiki/File:Plum_Village_-_Upper_Hamlet_Still_Water_Meditation_Hall.jpg", "Source on Wikimedia Commons")}. Licensed ${link("https://creativecommons.org/licenses/by-sa/4.0/", "CC BY-SA 4.0")}. Responsive display crop; no other edits.</p><h2>Newcomer river illustrations</h2><p>Decorative river artwork generated with OpenAI ImageGen for MCGB on 19 October 2026. Transparent margins cropped for display; the mobile layout uses a wider crop with a soft edge mask. These illustrations do not depict a particular river or practice venue.</p><h2>Text sources</h2><ul>${textCredits.map(({ file, attribution }) => `<li>${link(`/${file}.html`, file === "our-practice" ? "Our Practice" : file.split("-").join(" "))}: ${attribution}</li>`).join("")}<li>Practicing with a group: adapted from ${link("https://plumvillage.org/community/international-sangha-directory", "Plum Village’s Find a local group")}.</li></ul><h2>Landscape and historical materials</h2><p>The pond landscape and newsletter cover images were retained from the existing MCGB draft. Historical practice-page illustrations and documents retain their existing context. They are not represented as newly licensed community photographs.</p></section>`,
+  `${intro("Sources & permissions", "Credits", "")}<section class="section container reading"><h2 id="thich-nhat-hanh">Thích Nhất Hạnh</h2><p>Photo by Duc (pixiduc), Paris, 2006. ${link("https://commons.wikimedia.org/wiki/File:Thich_Nhat_Hanh_12_(cropped).jpg", "Source on Wikimedia Commons")}. Licensed ${link("https://creativecommons.org/licenses/by-sa/2.0/", "CC BY-SA 2.0")}. The source is already cropped; the website uses a responsive display crop. No other image edits.</p><h2>Still Water Meditation Hall</h2><p>Plum Village, Upper Hamlet, France. Photo by Solipsistic19, 12 July 2022. ${link("https://commons.wikimedia.org/wiki/File:Plum_Village_-_Upper_Hamlet_Still_Water_Meditation_Hall.jpg", "Source on Wikimedia Commons")}. Licensed ${link("https://creativecommons.org/licenses/by-sa/4.0/", "CC BY-SA 4.0")}. Responsive display crop; no other edits.</p><h2>Homepage garden path</h2><p>Decorative dirt path and bodhi-tree artwork generated with OpenAI ImageGen for MCGB on 19 October 2026. Responsive display crops; this illustration does not depict a particular garden or practice venue.</p><h2>Newcomer river illustrations</h2><p>Decorative river artwork generated with OpenAI ImageGen for MCGB on 19 October 2026. Transparent margins cropped for display; the mobile layout uses a wider crop with a soft edge mask. These illustrations do not depict a particular river or practice venue.</p><h2>Text sources</h2><ul>${textCredits.map(({ file, attribution }) => `<li>${link(`/${file}.html`, file === "our-practice" ? "Our Practice" : file.split("-").join(" "))}: ${attribution}</li>`).join("")}<li>Practicing with a group: adapted from ${link("https://plumvillage.org/community/international-sangha-directory", "Plum Village’s Find a local group")}.</li></ul><h2>Landscape and historical materials</h2><p>The pond landscape and newsletter cover images were retained from the existing MCGB draft. Historical practice-page illustrations and documents retain their existing context. They are not represented as newly licensed community photographs.</p></section>`,
 );
 await page(
   "privacy",

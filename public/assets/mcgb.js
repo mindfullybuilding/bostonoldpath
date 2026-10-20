@@ -1,4 +1,5 @@
 import { calendarDateKey, monthModel, monthTable } from "./calendar-view.js";
+import { dailySanghas, dailyMarkup, directoryDate } from "./sangha-schedule.js";
 const $ = (s, root = document) => root.querySelector(s);
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 // Browsers can blur a control before a breakpoint event fires. Remember its origin
@@ -376,15 +377,60 @@ for (const root of $$("[data-agenda]")) {
   }
   load();
 }
+const todaySanghas = $("[data-today-sanghas]");
+if (todaySanghas) {
+  const status = $(".today-status");
+  let groups, shownDate;
+  const render = () => {
+    if (!groups) return;
+    const model = dailySanghas(groups);
+    shownDate = model.date;
+    const dateLabel = new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/New_York",
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    }).format(new Date());
+    $("[data-sangha-date]").replaceChildren(
+      Object.assign(document.createElement("time"), {
+        dateTime: model.date,
+        textContent: dateLabel,
+      }),
+    );
+    todaySanghas.innerHTML = dailyMarkup(model);
+    status.textContent = `${model.scheduled.length} regular sanghas listed for ${dateLabel}${model.uncertain.length ? `; ${model.uncertain.length} group requires confirmation` : ""}.`;
+    status.classList.add("sr-only");
+  };
+  status.textContent = "Loading today’s sanghas…";
+  fetch("/assets/site-data.json", { signal: AbortSignal.timeout(8000) })
+    .then((response) => {
+      if (!response.ok) throw new Error("Directory unavailable");
+      return response.json();
+    })
+    .then((data) => {
+      if (!Array.isArray(data.sanghas)) throw new Error("Invalid directory");
+      groups = data.sanghas;
+      render();
+    })
+    .catch(() => {
+      status.textContent =
+        "Today’s list is unavailable. The full schedule remains available below.";
+    });
+  const checkDate = () => {
+    if (!document.hidden && directoryDate().date !== shownDate) render();
+  };
+  document.addEventListener("visibilitychange", checkDate);
+  setInterval(checkDate, 60000);
+}
+
 // Keep anchored sections and focused controls clear of the content-driven header.
 const siteHeader = document.querySelector(".site-header");
 if (siteHeader && "ResizeObserver" in window)
-  new ResizeObserver(([entry]) =>
-    document.documentElement.style.setProperty(
-      "--sticky-offset",
-      `${entry.target.getBoundingClientRect().height + 24}px`,
-    ),
-  ).observe(siteHeader);
+  new ResizeObserver(([entry]) => {
+    const height = entry.target.getBoundingClientRect().height;
+    document.documentElement.style.setProperty("--header-height", `${height}px`);
+    document.documentElement.style.setProperty("--sticky-offset", `${height + 24}px`);
+  }).observe(siteHeader);
 
 const mailingChoices = $$("[data-mail-choice]");
 if (mailingChoices.length) {

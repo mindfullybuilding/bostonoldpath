@@ -1,5 +1,6 @@
 import { chromium, expect } from "@playwright/test";
 import fs from "node:fs/promises";
+import { dailySanghas } from "../public/assets/sangha-schedule.js";
 const base = "https://bostonmindfulness.vercel.app";
 const browser = await chromium.launch();
 const context = await browser.newContext();
@@ -29,6 +30,8 @@ for (const path of [
   "/assets/licensed/plum-village-hall.jpg",
   "/assets/illustrations/newcomer-river.png",
   "/assets/calendar-view.js",
+  "/assets/sangha-schedule.js",
+  "/assets/illustrations/community-path.png",
 ]) {
   const r = await p.request.get(base + path);
   requests.push({ path, status: r.status() });
@@ -70,6 +73,9 @@ expect(await p.locator(".site-footer").evaluate((e) => getComputedStyle(e).borde
   "0px",
 );
 await expect(p.locator(".hero-secondary")).toHaveText("New? Start here.");
+const today = dailySanghas(JSON.parse(await fs.readFile("site/sanghas.json", "utf8")));
+await expect(p.locator("[data-today-sanghas] > ul > li")).toHaveCount(today.scheduled.length);
+await expect(p.locator(".path-stop")).toHaveCount(7);
 await expect(p.locator(".desktop-nav .nav-trigger")).toHaveCount(2);
 await p.locator('.desktop-nav > a[href="/community-voices.html"]').click();
 await expect(p.locator("h1")).toHaveText("Community Voices");
@@ -134,6 +140,8 @@ const report = {
   privateReferenceStatus: missing.status(),
   desktopHeader: "Continental Blue water gloss with accessible label zone and white primary action",
   greetingVerified: true,
+  todayScheduleVerified: true,
+  gardenPathVerified: true,
   newcomerRiverAndQuoteVerified: true,
   newsletterYearGroupsVerified: true,
   mailingSelectionVerified: true,
