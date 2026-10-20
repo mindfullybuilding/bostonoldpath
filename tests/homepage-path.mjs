@@ -2,7 +2,7 @@ import { chromium, webkit, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import fs from "node:fs/promises";
 const base = process.env.TEST_BASE || "http://127.0.0.1:4173";
-const out = "outputs/homepage-path-2026-10-19";
+const out = "outputs/homepage-forest-2026-10-20";
 await fs.mkdir(out, { recursive: true });
 const report = [];
 for (const [name, engine] of [
@@ -34,6 +34,36 @@ for (const [name, engine] of [
     const button = await p.locator(".hero-secondary").boundingBox();
     expect(button.y + button.height).toBeLessThanOrEqual(viewport.height);
     await expect(p.locator(".path-stop")).toHaveCount(7);
+    await expect(p.locator(".path-publication")).toHaveCount(0);
+    if (viewport.width === 1440) {
+      expect(
+        await p.locator(".community-path-art img").evaluate((image) => image.naturalWidth),
+      ).toBe(948);
+    }
+    const masks = await p.locator(".path-stop-content").evaluateAll((blocks) =>
+      blocks.map((block) => ({
+        background: getComputedStyle(block).backgroundColor,
+        color: getComputedStyle(block).color,
+      })),
+    );
+    for (const mask of masks) {
+      expect(mask.background).toBe("rgba(255, 255, 255, 0.98)");
+      expect(mask.color).toBe("rgb(0, 0, 0)");
+    }
+    await expect(
+      p
+        .locator(".path-stop")
+        .filter({ has: p.getByRole("heading", { name: "Community Voices", exact: true }) })
+        .locator("a"),
+    ).toHaveCount(1);
+    await expect(
+      p
+        .locator(".path-stop")
+        .filter({ has: p.getByRole("heading", { name: "Community Events", exact: true }) }),
+    ).toContainText(
+      "Sign up to stay up to date with days of mindfulness, retreats, engaged practice, and other happenings outside of regular practice sittings.",
+    );
+    await expect(p.locator('.path-stop a[href="/subscribe-calendar.html"]')).toBeVisible();
     expect(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     if (name === "Chromium" && viewport.width !== 320) {
       const size = `${viewport.width}x${viewport.height}`;
@@ -42,6 +72,7 @@ for (const [name, engine] of [
       await p.screenshot({ path: `${out}/schedule-${size}.png` });
       await p.locator(".community-path").scrollIntoViewIfNeeded();
       await p.screenshot({ path: `${out}/path-${size}.png` });
+      await p.evaluate(() => scrollTo(0, 0));
       await p.screenshot({ path: `${out}/page-${size}.png`, fullPage: true });
     }
   }
@@ -58,18 +89,14 @@ for (const [name, engine] of [
   );
   await p.goto(base);
   await expect(p.locator(".today-status")).toContainText("Loading");
-  await p.locator(".full-sangha-schedule summary").click();
-  await expect(p.locator(".weekly-schedule")).toBeVisible();
+  await expect(p.locator(".full-sangha-schedule a")).toHaveAttribute("href", "/find-a-sangha.html");
+  await expect(p.locator(".full-sangha-schedule a")).toBeVisible();
   await releaseDirectory();
   await expect(p.locator("[data-today-sanghas] li")).toHaveCount(2);
-  await p.locator(".full-sangha-schedule summary").click();
   await p.unroute("**/assets/site-data.json");
-  await p.locator(".full-sangha-schedule summary").press("Enter");
-  await expect(p.locator(".schedule-day")).toHaveCount(7);
-  await expect(p.locator(".weekly-schedule")).toContainText("2nd and 4th Wednesday");
-  await expect(p.locator(".weekly-schedule")).toContainText("Every other Thursday");
-  await p.locator('.weekly-schedule a[href$="#tree-house-sangha"]').click();
-  await expect(p).toHaveURL(base + "/find-a-sangha.html#tree-house-sangha");
+  await p.locator(".full-sangha-schedule a").focus();
+  await p.keyboard.press("Enter");
+  await expect(p).toHaveURL(base + "/find-a-sangha.html");
   await expect(p.locator("#tree-house-sangha")).toBeVisible();
   await p.clock.setFixedTime(new Date("2026-10-22T16:00:00Z"));
   await p.goto(base);
@@ -85,7 +112,6 @@ for (const [name, engine] of [
   await p.evaluate(() => document.dispatchEvent(new Event("visibilitychange")));
   await expect(p.locator("[data-sangha-date]")).toContainText("Tuesday");
   await expect(p.locator("[data-today-sanghas]")).toContainText("Peaceful Garden Sangha");
-  await p.locator(".full-sangha-schedule summary").click();
   let scan = await new AxeBuilder({ page: p })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
     .exclude("iframe")
@@ -94,10 +120,12 @@ for (const [name, engine] of [
   await p.route("**/assets/site-data.json", (r) => r.fulfill({ status: 503, body: "Unavailable" }));
   await p.goto(base);
   await expect(p.locator(".today-status")).toContainText("unavailable");
-  await p.locator(".full-sangha-schedule summary").click();
-  await expect(p.locator(".weekly-schedule")).toContainText("Peaceful Garden Sangha");
+  await expect(p.locator(".full-sangha-schedule a")).toBeVisible();
+  await p.locator(".full-sangha-schedule a").click();
+  await expect(p.locator("#peaceful-garden-sangha")).toBeVisible();
   await p.unroute("**/assets/site-data.json");
   await p.route("**/community-path.png", (r) => r.abort());
+  await p.route("**/community-forest.jpg", (r) => r.abort());
   await p.setViewportSize({ width: 320, height: 568 });
   await p.goto(base);
   await expect(p.locator(".path-stop h2")).toHaveCount(7);
@@ -119,11 +147,11 @@ for (const [name, engine] of [
       "daily and ordinal schedules",
       "uncertain fortnightly group",
       "Boston midnight",
-      "expanded full schedule and deep links",
+      "full schedule button and directory recovery",
       "empty/error/no-art states",
       "forced colors",
       "short landscape",
-      "axe open schedule",
+      "axe homepage including masked text",
     ],
   });
   await b.close();
@@ -131,9 +159,9 @@ for (const [name, engine] of [
 const b = await chromium.launch();
 const p = await b.newPage({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
 await p.goto(base);
-await p.locator(".full-sangha-schedule summary").click();
-await expect(p.locator(".weekly-schedule")).toContainText("Peaceful Garden Sangha");
 await expect(p.locator(".path-stop h2")).toHaveCount(7);
+await p.locator(".full-sangha-schedule a").click();
+await expect(p.locator("#peaceful-garden-sangha")).toBeVisible();
 await b.close();
 await fs.writeFile(`${out}/interactions.json`, JSON.stringify(report, null, 2));
 console.log(report);

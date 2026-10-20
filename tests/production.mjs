@@ -32,6 +32,8 @@ for (const path of [
   "/assets/calendar-view.js",
   "/assets/sangha-schedule.js",
   "/assets/illustrations/community-path.png",
+  "/assets/illustrations/community-forest.jpg",
+  "/assets/licensed/arnold-arboretum.jpg",
 ]) {
   const r = await p.request.get(base + path);
   requests.push({ path, status: r.status() });

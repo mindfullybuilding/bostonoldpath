@@ -50,7 +50,8 @@ test-results/
 # Local production and responsive layout verification
 /outputs/site-verification/
 
-# Local audit images, generated artwork drafts, browser evidence, and machine-specific output
+# Local audit images, downloaded photo originals, generated artwork masters, browser evidence, and machine-specific output
+# Only optimized public assets and their documented provenance belong in source control.
 /outputs/
 # Meeting reference remains local even inside the source preservation snapshot.
 /design-prototypes/archive/**/public/assets/GBCOM Website Working Group.pdf

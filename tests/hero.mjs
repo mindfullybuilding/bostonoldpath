@@ -17,7 +17,7 @@ const style = await hero.evaluate((el) => ({
   color: getComputedStyle(el).color,
   height: el.getBoundingClientRect().height,
 }));
-expect(style.background).toContain("beginners-mind-page-title-hero.jpg");
+expect(style.background).toContain("arnold-arboretum.jpg");
 const headerHeight = await p
   .locator(".site-header")
   .evaluate((el) => el.getBoundingClientRect().height);
@@ -42,7 +42,7 @@ expect(await p.locator(".hero h1").evaluate((e) => getComputedStyle(e).color)).t
 await p.emulateMedia({ media: "screen", forcedColors: "active" });
 expect(await hero.evaluate((e) => getComputedStyle(e).backgroundImage)).toBe("none");
 await p.emulateMedia({ forcedColors: "none" });
-await p.route("**/beginners-mind-page-title-hero.jpg", (r) => r.abort());
+await p.route("**/arnold-arboretum.jpg", (r) => r.abort());
 await p.reload();
 await expect(p.locator(".hero h1")).toBeVisible();
 await expect(p.locator(".hero .button.primary")).toBeVisible();

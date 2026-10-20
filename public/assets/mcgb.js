@@ -414,7 +414,7 @@ if (todaySanghas) {
     })
     .catch(() => {
       status.textContent =
-        "Today’s list is unavailable. The full schedule remains available below.";
+        "Today’s list is unavailable. Open the full sangha schedule for regular meeting times.";
     });
   const checkDate = () => {
     if (!document.hidden && directoryDate().date !== shownDate) render();

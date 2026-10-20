@@ -1,11 +1,9 @@
-# MCGB homepage design QA — 19 October 2026
+# MCGB homepage design QA — 20 October 2026
 
 final result: passed
 
-The reference observation is Cambridge Zen's navigation plus full-screen photographic introduction before its schedule. MCGB uses that proportion with its own approved greeting, full interfaith introduction, retained landscape, shared blue gloss and two existing actions. A minimum viewport height preserves the intended opening while allowing short windows and enlarged text to grow.
+The full-screen welcome retains its approved greeting and complete source-backed introduction. Its photograph now accurately depicts Arnold Arboretum greenery and has documented CC0 reuse permission. The decorative bodhi forest extends horizontally behind the lower homepage reading composition, becoming progressively denser and darker. Light masks keep black text readable; desktop content alternates beside the central dirt path, while phone content follows a left-margin path.
 
-Today's sanghas and a native full-schedule disclosure make participation visible before the illustrated content. Dates are Boston dates; monthly rules and uncertain alternating-week meetings are handled explicitly. The full schedule remains available when daily data is loading, absent or unavailable.
+Today's regular sanghas remain visible, followed by a direct Full sangha schedule button to the existing finder. There is no duplicate weekly disclosure. Community Voices keeps its publications behind its overview button. Community Events uses the requested sign-up copy and opens calendar subscription guidance. Existing pages and shared controls retain their roles.
 
-Seven existing content destinations follow a botanical dirt path. Actual raster artwork with bodhi trees is decorative, naturally proportioned and masked beside reading columns. Desktop content alternates; phones use a single reading column. The artwork never carries essential information or covers controls. Existing publication covers and standalone pages remain.
-
-Desktop/mobile hero, schedule and path proofs were inspected under `outputs/homepage-path-2026-10-19/`. The complete first-screen boundary, reading hierarchy, keyboard disclosure, loading/empty/error/partial states, no-script schedule, short landscape, text enlargement and forced colors were checked. No unresolved first-party blocking findings were detected in this scope. Native screen readers and third-party/document limitations remain explicitly untested or limited in `docs/homepage-path-2026-10-19/VERIFICATION.md`.
+Rendered desktop/mobile proofs and loading, empty, failed-data, image-failure, uncertain-recurrence and no-script states were checked. First-party automated accessibility, keyboard navigation and enlarged-text checks passed. Native screen readers and third-party/document limitations remain untested or limited as recorded in docs/homepage-forest-2026-10-20/VERIFICATION.md.
