@@ -685,23 +685,6 @@ button:disabled {
 .guide-reading h3 {
   margin-top: 32px;
 }
-.guide-reading nav,
-.guide-navigation {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 24px;
-}
-.guide-navigation {
-  margin: 40px auto 0;
-  border-top: 1px solid var(--line);
-  padding-top: 24px;
-}
-.guide-navigation a {
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  text-transform: capitalize;
-}
 .verse {
   border-left: 2px solid #000;
   padding-left: 24px;
@@ -1053,6 +1036,8 @@ details > div {
   align-items: start;
 }
 .resource-card {
+  display: block;
+  text-decoration: none;
   min-width: 0;
   padding: 24px;
   border: 1px solid var(--water-deep);
@@ -1074,20 +1059,21 @@ details > div {
   letter-spacing: -0.015em;
   margin: 0 0 12px;
 }
-.resource-card h3 a,
-.resource-card h4 a {
-  display: inline-block;
+.resource-card h3,
+.resource-card h4 {
   padding-block: 6px;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 .resource-card p {
   font-size: 16px;
   margin-bottom: 0;
 }
-.resource-card a:focus-visible {
+a.resource-card:focus-visible {
   outline-color: #fff;
   box-shadow: 0 0 0 4px #000;
 }
-.resource-card:has(a:hover) {
+a.resource-card:hover {
   background-image: linear-gradient(#ffffff25, transparent 12px), linear-gradient(#245d9d, #1c497e);
 }
 .subscription-page > .reading {

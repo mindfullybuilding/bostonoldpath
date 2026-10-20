@@ -52,6 +52,7 @@ test-results/
 
 # Local audit images, downloaded photo originals, generated artwork masters, browser evidence, and machine-specific output
 # Only optimized public assets and their documented provenance belong in source control.
+# Whole-tile hit-area/focus captures and deployment comparisons remain under /outputs/.
 /outputs/
 # Meeting reference remains local even inside the source preservation snapshot.
 /design-prototypes/archive/**/public/assets/GBCOM Website Working Group.pdf

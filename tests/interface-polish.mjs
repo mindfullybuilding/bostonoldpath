@@ -62,7 +62,7 @@ for (const [name, engine] of [
     "resource-order-of-interbeing",
     "resource-sangha-resources",
   ])
-    await expect(p.locator("#" + id + " a").first()).toBeVisible();
+    await expect(p.locator("a#" + id + ", #" + id + " a").first()).toBeVisible();
   let scan = await new AxeBuilder({ page: p })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
     .exclude("iframe")

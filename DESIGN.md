@@ -121,3 +121,9 @@ Desktop About links directly to Greater Boston Community and Get Involved links 
 Mobile Today’s sanghas places the noninteractive date centered above the heading. Center the heading/info-control group beneath it, with the 44px information button immediately beside the text. The exact introduction expands below through aria-controls/aria-expanded, and remains visible without JavaScript. Use 12px between date and heading, 24px before the list, and 32px section padding; avoid a separate full-height icon row. Desktop retains the visible introduction and side-by-side heading/date. Preserve focus on breakpoint changes and print the introduction.
 
 Expanded mobile filters include an explicit 44px Close filters control at the top right of the filter heading. Keep that heading available while scrolling within the filter area. Closing via the button or Escape preserves selections and returns focus to the toolbar icon; it does not clear the filters. Desktop filters do not show this mobile-only close control.
+
+### Whole resource tiles and guide reading (20 October 2026)
+
+Each Resources tile is one native anchor covering the full visible tile, including padding and description. Preserve its destination, h3 heading, blue surface and spacing. Use the title as its accessible link name, one keyboard stop, no nested anchors, and a visible whole-tile focus outline. Inquiry tiles link to their genuine email destination. Do not add click handlers or role-button navigation.
+
+Standalone Community Builder guides retain top breadcrumb navigation and omit the repeated bottom list of sibling guide links. Keep the Resources tiles and legacy anchors as the discovery and return paths. Apply the supplied Dharma Sharing opening paragraph verbatim.

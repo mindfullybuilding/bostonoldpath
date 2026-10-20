@@ -1,9 +1,9 @@
-# MCGB resource and navigation QA — 20 October 2026
+# MCGB resource interaction QA — 20 October 2026
 
 final result: passed
 
-Community Members and Community Builders now use peer-level resource cards matching the existing blue tiles. Redundant collection headings and generic Introduction tiles are removed; published descriptions, real destinations and legacy anchors remain. Homepage and subscription copy match the supplied replacements exactly.
+Every resource tile is now one native link across its whole visible surface. Typography, blue treatment, spacing and responsive columns remain consistent. Whole-tile keyboard focus is visible, destinations are preserved, and no nested links or click-handler navigation are introduced.
 
-Desktop parent labels follow their actual overview destinations. The dropdowns remain accessible through hover, focus and Arrow Down, with Escape and focus restoration verified. Mobile drawer behavior is preserved. The mobile schedule uses an adjacent info button and a centered date on a separate row with reduced spacing. Mobile finder filters include a visible close control that preserves selections.
+Community Builder guides omit the repeated bottom navigation while retaining their top resource breadcrumbs. The Dharma Sharing opening paragraph matches the supplied replacement exactly.
 
-Desktop/mobile visual proofs, direct navigation, guide return links, automated accessibility, text enlargement and responsive focus checks passed. Native screen readers, historical documents and third-party limitations remain scoped in docs/resource-tiles-2026-10-20/VERIFICATION.md.
+Desktop/mobile visuals, visible bottom-padding clicks in both engines, keyboard focus, destination preservation, automated accessibility and text enlargement passed. Scope and native-screen-reader/third-party limitations are recorded in docs/clickable-resources-2026-10-20/VERIFICATION.md.

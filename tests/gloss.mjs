@@ -62,7 +62,7 @@ for (const state of [
   if (state.startsWith("resource")) {
     const firstCard = ".resource-group:first-of-type .resource-grid > .resource-card:first-child";
     await p.locator(firstCard).scrollIntoViewIfNeeded();
-    selectors = [firstCard + " h3 a", firstCard + " p"];
+    selectors = [firstCard + " h3", firstCard + " p"];
     if (state === "resource-hover") await p.locator(selectors[0]).hover();
   }
   if (state === "hover-selected") await p.locator(".nav-trigger").first().hover();

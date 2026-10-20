@@ -102,9 +102,15 @@ for (const [engineName, engine] of [
     "dharma-sharing-guidelines",
   ]) {
     await p.goto(base + "/resources.html#resource-sangha-resources");
-    await p.locator(`#resource-sangha-resources a[href="${guide}.html"]`).click();
+    const tile = p.locator(`#resource-sangha-resources a[href="${guide}.html"]`);
+    const tileBounds = await tile.boundingBox();
+    await tile.click({ position: { x: tileBounds.width / 2, y: tileBounds.height - 8 } });
     await expect(p.locator("h1")).toBeVisible();
-    await expect(p.locator(".guide-navigation a")).toHaveCount(4);
+    if (guide === "dharma-sharing-guidelines")
+      await expect(p.locator(".guide-reading > p").first()).toHaveText(
+        "During Dharma Sharing, we base our sharing on our own experience of the practice rather than about abstract ideas and theoretical topics. Overtime, we realize that many of us share similar difficulties and aspirations. Sitting, listening and sharing together, we recognize our connection to one another.",
+      );
+    await expect(p.locator(".guide-navigation")).toHaveCount(0);
     await p
       .getByRole("navigation", { name: "Breadcrumb", exact: true })
       .getByRole("link", { name: "Sangha resources", exact: true })

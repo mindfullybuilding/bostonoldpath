@@ -155,8 +155,8 @@ function resource(item) {
   const id = item.id ? ` id="resource-${esc(item.id)}"` : "";
   if (item.unavailable || ["become-a-mentor", "update-sangha-details"].includes(item.id)) return "";
   if (item.id === "join-builder-sangha")
-    return `<article class="resource-card" id="resource-join-builder-sangha"><h3>Community builder inquiries</h3><p>For questions about Builder Sangha, <span id="resource-become-a-mentor">mentoring</span>, or <span id="resource-update-sangha-details">updating sangha details</span>, ${link(`mailto:${c.contactEmail}`, "email MCGB")}.</p></article>`;
-  return `<article class="resource-card"${id}><h3>${item.url ? link(item.url, esc(item.title)) : esc(item.title)}</h3><p>${esc(item.copy)}</p>${item.relatedUrl ? link(item.relatedUrl, "Related resource") : ""}</article>`;
+    return `<a class="resource-card" id="resource-join-builder-sangha" href="mailto:${c.contactEmail}" aria-label="Community builder inquiries"><h3>Community builder inquiries</h3><p>For questions about Builder Sangha, <span id="resource-become-a-mentor">mentoring</span>, or <span id="resource-update-sangha-details">updating sangha details</span>, <span class="underlined">email MCGB</span>.</p></a>`;
+  return `<a class="resource-card"${id} href="${esc(item.url)}" aria-label="${esc(item.title)}"><h3>${esc(item.title)}</h3><p>${esc(item.copy)}</p></a>`;
 }
 await page(
   "resources",
@@ -193,25 +193,7 @@ for (const file of [
       .split("-")
       .map((x) => x[0].toUpperCase() + x.slice(1))
       .join(" "),
-    `<div class="section container">${body}${
-      guidePages.includes(file)
-        ? `<nav class="guide-navigation reading" aria-label="Sangha guides">${guidePages
-            .filter((id) => id !== file)
-            .map((id) =>
-              link(
-                `/${id}.html`,
-                {
-                  "sangha-overview": "Sangha Facilitation Overview",
-                  "sangha-facilitation": "Sangha Facilitation",
-                  "minding-the-bell": "Minding the Bell",
-                  "meeting-and-bell-minding-flow": "Meeting and Bell Minding Flow",
-                  "dharma-sharing-guidelines": "Dharma Sharing Guidelines",
-                }[id],
-              ),
-            )
-            .join("")}</nav>`
-        : ""
-    }</div>`,
+    `<div class="section container">${body}</div>`,
   );
 }
 const filters = [
