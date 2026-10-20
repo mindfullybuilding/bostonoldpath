@@ -26,7 +26,7 @@ for (const page of [
 await p.goto(base);
 for (const i of [0, 1]) {
   const trigger = p.locator(".nav-trigger").nth(i);
-  await trigger.press("Enter");
+  await trigger.press("ArrowDown");
   const scan = await new AxeBuilder({ page: p })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
     .exclude("iframe")

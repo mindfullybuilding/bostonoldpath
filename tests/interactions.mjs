@@ -23,7 +23,7 @@ for (const [name, engine] of [
   await expect(p.locator(".skip-link")).toBeFocused();
   await p.keyboard.press("Enter");
   await expect(p.locator("#main")).toBeFocused();
-  await p.locator(".nav-trigger").first().press("Enter");
+  await p.locator(".nav-trigger").first().press("ArrowDown");
   const resources = p.locator('.desktop-nav a[href="/resources.html"]');
   await resources.focus();
   await p.keyboard.press("Enter");

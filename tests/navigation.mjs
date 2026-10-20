@@ -13,21 +13,26 @@ for (const [engineName, engine] of [
   await context.route("https://www.google.com/maps/**", (r) => r.abort());
   const p = await context.newPage();
   const go = async (group, name) => {
-    const trigger = p.locator(".desktop-nav").getByRole("button", { name: group, exact: true });
+    const trigger = p.locator(".desktop-nav").getByRole("link", { name: group, exact: true });
     await p.waitForLoadState("load");
-    if ((await trigger.getAttribute("aria-expanded")) !== "true") await trigger.press("Enter");
+    if ((await trigger.getAttribute("aria-expanded")) !== "true") await trigger.press("ArrowDown");
     await expect(trigger).toHaveAttribute("aria-expanded", "true");
     await p.locator(".desktop-nav").getByRole("link", { name, exact: true }).click();
   };
   await p.goto(base);
-  await expect(p.locator(".desktop-nav > .nav-disclosure > button")).toHaveText([
+  await expect(p.locator(".desktop-nav > .nav-disclosure > a")).toHaveText([
     "About",
     "Get Involved",
   ]);
   await expect(p.locator(".desktop-nav > a")).toHaveText(["Community Voices", "Mailing Lists"]);
   await expect(p.locator(".site-header .button")).toHaveText("Find a Group");
-  const about = p.locator(".desktop-nav").getByRole("button", { name: "About", exact: true });
-  await about.press("Enter");
+  const about = p.locator(".desktop-nav").getByRole("link", { name: "About", exact: true });
+  await about.click();
+  await expect(p).toHaveURL(base + "/our-community.html");
+  await p.locator(".desktop-nav").getByRole("link", { name: "Get Involved", exact: true }).click();
+  await expect(p).toHaveURL(base + "/find-a-sangha.html");
+  await p.goto(base);
+  await about.press("ArrowDown");
   await expect(about).toHaveAttribute("aria-expanded", "true");
   await expect(p.locator("#nav-panel-0 a")).toHaveText([
     "Newcomers",

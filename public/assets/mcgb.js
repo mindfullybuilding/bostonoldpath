@@ -19,7 +19,6 @@ function setNav(group, open) {
   const trigger = $(".nav-trigger", group);
   trigger.setAttribute("aria-expanded", String(open));
   document.getElementById(trigger.getAttribute("aria-controls")).hidden = !open;
-  if (!open) group.dataset.hoverOpened = "false";
 }
 function closeNav(except) {
   navDisclosures.forEach((group) => {
@@ -30,12 +29,11 @@ navDisclosures.forEach((group) => {
   const trigger = $(".nav-trigger", group);
   const panel = $(".nav-panel", group);
   if ($('a[aria-current="page"]', panel)) trigger.dataset.current = "true";
-  trigger.addEventListener("click", (e) => {
-    const hoverOpened = e.detail > 0 && group.dataset.hoverOpened === "true";
-    const open = hoverOpened || trigger.getAttribute("aria-expanded") !== "true";
+  let restoringFocus = false;
+  trigger.addEventListener("focus", () => {
+    if (restoringFocus) return;
     closeNav(group);
-    setNav(group, open);
-    group.dataset.hoverOpened = "false";
+    setNav(group, true);
   });
   group.addEventListener("pointerenter", (e) => {
     if (e.pointerType !== "mouse" || !matchMedia("(hover:hover) and (pointer:fine)").matches)
@@ -43,7 +41,6 @@ navDisclosures.forEach((group) => {
     if (trigger.getAttribute("aria-expanded") !== "true") {
       closeNav(group);
       setNav(group, true);
-      group.dataset.hoverOpened = "true";
     }
   });
   group.addEventListener("pointerleave", () => {
@@ -52,7 +49,7 @@ navDisclosures.forEach((group) => {
   group.addEventListener("focusout", (e) => {
     const next = e.relatedTarget;
     setTimeout(() => {
-      // WebKit on macOS can blur a button without focusing a clicked link.
+      // WebKit on macOS can blur a navigation control before focusing a clicked link.
       // Keep the pointer's panel alive until that click has completed.
       if (!group.contains(document.activeElement) && (next || !group.matches(":hover")))
         setNav(group, false);
@@ -62,8 +59,10 @@ navDisclosures.forEach((group) => {
     if (e.key === "Escape") {
       e.preventDefault();
       e.stopPropagation();
+      restoringFocus = true;
       setNav(group, false);
       trigger.focus();
+      restoringFocus = false;
     }
     if (e.key === "ArrowDown" && e.target === trigger) {
       e.preventDefault();
@@ -196,13 +195,15 @@ if (filters) {
     filters.classList.toggle("is-open", open);
     if (open) $("#group-search").focus();
   });
+  const closeFilters = () => {
+    filters.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-label", "Filter groups");
+    toggle.focus();
+  };
+  $("[data-close-filters]")?.addEventListener("click", closeFilters);
   filters.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && matchMedia("(max-width:899px)").matches) {
-      filters.classList.remove("is-open");
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.setAttribute("aria-label", "Filter groups");
-      toggle.focus();
-    }
+    if (event.key === "Escape" && matchMedia("(max-width:899px)").matches) closeFilters();
   });
   let version = 0;
   async function filter() {
@@ -432,15 +433,23 @@ if (todaySanghas) {
   setInterval(checkDate, 60000);
 }
 
-// Desktop shows the full introduction; phones use an explicit information disclosure.
+// Desktop shows the introduction; phones use a labeled information disclosure.
 const scheduleContext = $(".schedule-context");
-if (scheduleContext) {
+const scheduleInfo = $(".schedule-info");
+if (scheduleContext && scheduleInfo) {
   const narrow = matchMedia("(max-width:899px)");
-  scheduleContext.open = !narrow.matches;
-  narrow.addEventListener("change", () => {
-    if (!narrow.matches && document.activeElement === $("summary", scheduleContext))
+  const reflow = () => {
+    if (!narrow.matches && document.activeElement === scheduleInfo)
       $("#today-sanghas-title").focus();
-    scheduleContext.open = !narrow.matches;
+    scheduleInfo.hidden = !narrow.matches;
+    scheduleContext.hidden = narrow.matches;
+    scheduleInfo.setAttribute("aria-expanded", String(!scheduleContext.hidden));
+  };
+  reflow();
+  narrow.addEventListener("change", reflow);
+  scheduleInfo.addEventListener("click", () => {
+    scheduleContext.hidden = !scheduleContext.hidden;
+    scheduleInfo.setAttribute("aria-expanded", String(!scheduleContext.hidden));
   });
 }
 

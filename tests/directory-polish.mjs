@@ -29,24 +29,34 @@ for (const [name, engine] of [
       Math.round(e.getBoundingClientRect().height / parseFloat(getComputedStyle(e).lineHeight)),
     );
   expect(lines).toBe(2);
-  await expect(p.locator(".schedule-context")).toHaveAttribute("open", "");
-  await expect(p.locator(".schedule-context p")).toHaveText(intro);
+  await expect(p.locator(".schedule-context")).toBeVisible();
+  await expect(p.locator(".schedule-context")).toHaveText(intro);
   if (name === "Chromium") {
     await p.screenshot({ path: out + "/hero-1440x1000.png" });
     await p.locator(".home-schedule").scrollIntoViewIfNeeded();
     await p.screenshot({ path: out + "/schedule-1440x1000.png" });
   }
   await p.setViewportSize({ width: 390, height: 844 });
-  await expect(p.locator(".schedule-context")).not.toHaveAttribute("open", "");
-  const info = p.locator(".schedule-context > summary");
+  await expect(p.locator(".schedule-context")).toBeHidden();
+  const info = p.getByRole("button", { name: "About practicing with a sangha" });
   await info.press("Enter");
-  await expect(p.locator(".schedule-context p")).toBeVisible();
+  await expect(p.locator(".schedule-context")).toBeVisible();
   await info.press("Enter");
-  await expect(p.locator(".schedule-context p")).toBeHidden();
-  for (const selector of ["#today-sanghas-title", ".schedule-date", ".full-sangha-schedule a"]) {
+  await expect(p.locator(".schedule-context")).toBeHidden();
+  for (const selector of [".schedule-title", ".full-sangha-schedule a"]) {
     const box = await p.locator(selector).boundingBox();
     expect(Math.abs(box.x + box.width / 2 - 195)).toBeLessThan(2);
   }
+  const dateBox = await p.locator(".schedule-date").boundingBox();
+  const titleBox = await p.locator(".schedule-title").boundingBox();
+  expect(dateBox.y + dateBox.height).toBeLessThan(titleBox.y);
+  expect(Math.abs(dateBox.x + dateBox.width / 2 - 195)).toBeLessThan(1);
+  const headingBox = await p.locator("#today-sanghas-title").boundingBox();
+  const infoBox = await info.boundingBox();
+  expect(infoBox.x).toBeGreaterThanOrEqual(headingBox.x + headingBox.width);
+  expect(
+    Math.abs(infoBox.y + infoBox.height / 2 - headingBox.y - headingBox.height / 2),
+  ).toBeLessThan(2);
   if (name === "Chromium") {
     await p.locator(".home-schedule").scrollIntoViewIfNeeded();
     await p.screenshot({ path: out + "/schedule-390x844.png" });
@@ -71,7 +81,8 @@ for (const [name, engine] of [
   await toggle.click();
   await p.locator("#group-search").fill("Brookline");
   await expect(p.locator("#group-count")).toHaveText("2 of 13 sanghas");
-  await p.locator("#group-search").press("Escape");
+  await p.getByRole("button", { name: "Close filters", exact: true }).click();
+  await expect(p.locator("#group-count")).toHaveText("2 of 13 sanghas");
   await expect(toggle).toBeFocused();
   await expect(p.locator("#group-filters")).toBeHidden();
   await toggle.click();

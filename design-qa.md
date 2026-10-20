@@ -1,11 +1,9 @@
-# MCGB participation UI QA — 20 October 2026
+# MCGB resource and navigation QA — 20 October 2026
 
 final result: passed
 
-The full organization name appears in the homepage browser title. The approved welcome introduction fits two natural lines at standard desktop width. Mobile drawer labels are clean, with the primary group action blue. Today's sanghas has a noninteractive date panel; mobile titles/action center and the supplied paragraph remains available through an information disclosure.
+Community Members and Community Builders now use peer-level resource cards matching the existing blue tiles. Redundant collection headings and generic Introduction tiles are removed; published descriptions, real destinations and legacy anchors remain. Homepage and subscription copy match the supplied replacements exactly.
 
-The finder preserves its useful records and calendar. Desktop filters remain visible while scrolling; mobile filter/result controls share one toolbar and omit the map. Details/contact buttons remain aligned, and expanded details keep their full border. White reset/refresh actions match shared controls. The public Groups.io calendar needs no duplicate signed-in Google view.
+Desktop parent labels follow their actual overview destinations. The dropdowns remain accessible through hover, focus and Arrow Down, with Escape and focus restoration verified. Mobile drawer behavior is preserved. The mobile schedule uses an adjacent info button and a centered date on a separate row with reduced spacing. Mobile finder filters include a visible close control that preserves selections.
 
-Community publications occupy equal desktop columns with aligned headings, introductions and buttons. The contribution invitation fills the section below. Mobile titles center; actual editions remain in the archive. Mailing Lists remains focused on subscription.
-
-Visual proofs and cross-engine journeys passed. First-party automated accessibility, keyboard and enlarged-text checks passed. Native screen readers, historical PDFs and third-party map/form limits remain recorded in docs/directory-polish-2026-10-20/VERIFICATION.md.
+Desktop/mobile visual proofs, direct navigation, guide return links, automated accessibility, text enlargement and responsive focus checks passed. Native screen readers, historical documents and third-party limitations remain scoped in docs/resource-tiles-2026-10-20/VERIFICATION.md.

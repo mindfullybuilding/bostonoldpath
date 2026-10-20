@@ -47,7 +47,7 @@ test-results/
 /outputs/photos-transcription/
 /public/assets/GBCOM Website Working Group.pdf
 
-# Local production and responsive layout verification
+# Local production, resource/navigation captures and responsive layout verification
 /outputs/site-verification/
 
 # Local audit images, downloaded photo originals, generated artwork masters, browser evidence, and machine-specific output
