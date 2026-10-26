@@ -172,30 +172,26 @@ $$("[data-copy]").forEach((button) =>
 );
 const filters = $("#group-filters");
 if (filters) {
-  const sortButton = $("[data-sort-sanghas]");
+  const sortSelect = $("[data-sort-sanghas]");
   const groupList = $(".group-list");
   const cards = $$("[data-group]", groupList);
-  let descending = false;
-  sortButton.hidden = false;
-  sortButton.addEventListener("click", () => {
-    descending = !descending;
+  const weekdays = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+  sortSelect.closest(".sangha-sort").hidden = false;
+  sortSelect.addEventListener("change", () => {
     cards.sort((a, b) => {
-      const dayOrder = a.dataset.sortDay.localeCompare(b.dataset.sortDay, "en");
-      return (
-        dayOrder * (descending ? -1 : 1) ||
-        $("h2", a).textContent.localeCompare($("h2", b).textContent, "en")
-      );
+      const nameOrder = $("h2", a).textContent.localeCompare($("h2", b).textContent, "en");
+      if (sortSelect.value === "day")
+        return (
+          weekdays.indexOf(a.dataset.sortDay) - weekdays.indexOf(b.dataset.sortDay) || nameOrder
+        );
+      return nameOrder * (sortSelect.value === "name-desc" ? -1 : 1);
     });
     groupList.append(...cards);
-    $("[data-sort-direction]", sortButton).textContent = descending ? "Z–A" : "A–Z";
-    sortButton.setAttribute(
-      "aria-label",
-      descending
-        ? "Sort by Day of the Week, Z to A. Activate for A to Z."
-        : "Sort by Day of the Week, A to Z. Activate for Z to A.",
-    );
-    $("[data-sort-status]").textContent =
-      `Sorted by Day of the Week, ${descending ? "Z to A" : "A to Z"}.`;
+    $("[data-sort-status]").textContent = {
+      "name-asc": "Sorted by Sangha Name, A to Z.",
+      "name-desc": "Sorted by Sangha Name, Z to A.",
+      day: "Sorted by Day of the Week, Sunday to Saturday.",
+    }[sortSelect.value];
   });
   let data;
   const load = () =>

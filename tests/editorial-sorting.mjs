@@ -37,18 +37,39 @@ for (const [engineName, engine] of [
     const cards = p.locator("[data-group]");
     const days = () =>
       cards.evaluateAll((es) => es.filter((e) => !e.hidden).map((e) => e.dataset.sortDay));
-    const az = await days();
+    const names = () =>
+      cards.evaluateAll((es) =>
+        es.filter((e) => !e.hidden).map((e) => e.querySelector("h2").textContent),
+      );
+    const az = await names();
     expect(az).toEqual([...az].sort((a, b) => a.localeCompare(b, "en")));
     await expect(cards).toHaveCount(13);
     const sort = p.locator("[data-sort-sanghas]");
+    await expect(sort).toHaveAccessibleName("Sort Sanghas");
     await sort.focus();
-    await sort.press("Enter");
-    const za = await days();
-    expect(za).toEqual([...az].sort((a, b) => b.localeCompare(a, "en")));
-    await expect(sort).toBeFocused();
-    await expect(sort).toHaveAccessibleName(
-      "Sort by Day of the Week, Z to A. Activate for A to Z.",
+    await sort.selectOption("day");
+    expect(await cards.evaluateAll((es) => es.map((e) => e.id))).toEqual([
+      "mountain-bell-sangha",
+      "dandelions-of-the-heart-sangha",
+      "tree-house-sangha",
+      "green-fields-sangha",
+      "peaceful-garden-sangha",
+      "joyful-lotus-sangha",
+      "living-the-14-sangha",
+      "mindful-lunch",
+      "wake-up-boston",
+      "lotus-pond-sangha",
+      "peaceful-heart-sangha",
+      "sangha-of-the-seven-hills",
+      "peaceful-songbird-sangha",
+    ]);
+    await expect(p.locator("[data-sort-status]")).toHaveText(
+      "Sorted by Day of the Week, Sunday to Saturday.",
     );
+    await sort.selectOption("name-desc");
+    expect(await names()).toEqual([...az].reverse());
+    await expect(sort).toBeFocused();
+    await expect(p.locator("[data-sort-status]")).toHaveText("Sorted by Sangha Name, Z to A.");
     await expect(p.locator("#group-count")).toHaveText("13 of 13 Sanghas");
     if (width < 900) await p.locator("[data-filter-toggle]").click();
     await p.locator("#group-search").fill("Brookline");
@@ -58,11 +79,13 @@ for (const [engineName, engine] of [
     await expect(p.locator("#no-groups")).toBeVisible();
     await p.locator("[data-clear-filters]").click();
     await expect(p.locator("#group-count")).toHaveText("13 of 13 Sanghas");
-    await sort.click();
-    expect(await days()).toEqual(az);
+    await expect(sort).toHaveValue("name-desc");
+    expect(await names()).toEqual([...az].reverse());
+    await sort.selectOption("name-asc");
+    expect(await names()).toEqual(az);
     if (width < 900 && (await p.locator(".filters.is-open").count()))
       await p.locator("[data-close-filters]").click();
-    const sb = await sort.boundingBox(),
+    const sb = await p.locator(".sangha-sort").boundingBox(),
       cb = await p.locator("#group-count").boundingBox();
     expect(sb.height).toBeGreaterThanOrEqual(44);
     if (width >= 900) {
@@ -109,23 +132,8 @@ for (const [engineName, engine] of [
   const offline = await b.newPage({ javaScriptEnabled: false });
   await offline.goto(base + "/find-a-sangha.html");
   await expect(offline.locator("[data-sort-sanghas]")).toBeHidden();
-  expect(
-    await offline.locator("[data-group]").evaluateAll((es) => es.map((e) => e.dataset.sortDay)),
-  ).toEqual([
-    "friday",
-    "friday",
-    "monday",
-    "monday",
-    "saturday",
-    "sunday",
-    "thursday",
-    "tuesday",
-    "tuesday",
-    "wednesday",
-    "wednesday",
-    "wednesday",
-    "wednesday",
-  ]);
+  const offlineNames = await offline.locator("[data-group] h2").allTextContents();
+  expect(offlineNames).toEqual([...offlineNames].sort((a, b) => a.localeCompare(b, "en")));
   await b.close();
 }
 await fs.writeFile(`${out}/editorial-sorting.json`, JSON.stringify(report, null, 2));

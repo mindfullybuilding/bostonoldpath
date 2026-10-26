@@ -6,13 +6,13 @@ The Plum Village App is the first resource in Practice Now. It uses the shared r
 
 | Element | Previous | Current |
 | --- | --- | --- |
-| Directory order | Source-record order | Weekday names A–Z by default; text button toggles Z–A |
+| Directory order | Source-record order | Sangha Name A–Z by default; selector also offers Z–A and Sunday–Saturday |
 | Desktop controls | Count alone | Sort on the left and count on the right, vertically centered |
-| Mobile controls | Filter and count | Filter on the left; sort above count on the right |
+| Mobile controls | Filter and count | Sort above the count on the right; filter beside the count |
 | Count | Proportional numbers, lowercase sanghas | Tabular numbers and Sanghas |
 | Homepage heading | Greeting | Supplied tradition heading; one line at 1024px and 1440px, balanced wrapping below |
 
-Sort keys use the first weekday in each record. Monthly ordinals do not override the weekday; sangha name breaks ties. Sorting preserves filters, disclosures, and keyboard focus, and announces changes through a live status. Default HTML is sorted and all contacts remain available without JavaScript.
+Sangha Name sorts alphabetically in either direction. Day of the Week sorts Sunday–Saturday, using the first weekday in each record. Monthly ordinals do not override the weekday; sangha name breaks ties. Sorting preserves filters, disclosures, and keyboard focus, and announces changes through a live status. Default HTML is sorted by sangha name and all contacts remain available without JavaScript.
 
 Validation: build, lint, 11 unit tests, Chromium/WebKit sorting and filter tests at 320/390/768/1024/1440px, automated accessibility checks excluding third-party frames, hero fallback/print/forced-color checks, navigation journeys, general browser checks, enlarged text, no-JavaScript content, and internal links. Browser evidence and deployment details are local under ignored outputs/editorial-2026-10-26/.
 
