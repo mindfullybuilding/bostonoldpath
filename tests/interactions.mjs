@@ -75,7 +75,7 @@ for (const [name, engine] of [
   await p.locator("[data-group]:visible").first().locator("summary").focus();
   await p.keyboard.press("Enter");
   await expect(
-    p.locator("[data-group]:visible").first().getByRole("link", { name: "Contact organizer" }),
+    p.locator("[data-group]:visible").first().getByRole("link", { name: "Contact Organizer" }),
   ).toBeVisible();
   stateScan = await new AxeBuilder({ page: p })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])

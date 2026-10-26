@@ -41,7 +41,7 @@ await page.goto(base + "/find-a-sangha.html");
 await page.locator("[data-filter-toggle]").click();
 await page.locator("#group-search").fill("zzzz-nothing");
 await expect(page.locator("#no-groups")).toBeVisible();
-await scan("No matching groups");
+await scan("No Matching Sanghas");
 await page.locator("[data-clear-filters]").click();
 await page.locator("[data-group] summary").first().click();
 await scan("Group details and organizer contact");

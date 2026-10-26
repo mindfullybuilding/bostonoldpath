@@ -1,8 +1,13 @@
 [
   [
     "practice-now",
-    "Practice now",
+    "Practice Now",
     [
+      {
+        "title": "Plum Village App",
+        "copy": "The free Plum Village app offers guided meditations, talks, and other practice resources from the Plum Village community.",
+        "url": "https://plumvillage.app/"
+      },
       {
         "title": "Meditations",
         "copy": "Guided meditations and simple practices for everyday life.",
@@ -25,11 +30,11 @@
   ],
   [
     "explore-tradition",
-    "Explore the tradition",
+    "Explore the Tradition",
     [
       {
         "title": "Thích Nhất Hạnh",
-        "copy": "Learn about Thích Nhất Hạnh (Thay), his teachings, and the Plum Village tradition.",
+        "copy": "Learn about Thích Nhất Hạnh (Thầy), his teachings, and the Plum Village tradition.",
         "url": "https://plumvillage.org/about/thich-nhat-hanh"
       },
       {
@@ -65,7 +70,7 @@
       },
       {
         "title": "Letters from Thích Nhất Hạnh",
-        "copy": "Read letters and teachings from Thay for personal practice and community reflection.",
+        "copy": "Read letters and teachings from Thầy for personal practice and community reflection.",
         "url": "https://plumvillage.org/about/thich-nhat-hanh/letters"
       },
       {
@@ -141,7 +146,7 @@
         "url": "sangha-facilitation.html"
       },
       {
-        "title": "Dharma sharing guidelines",
+        "title": "Dharma Sharing Guidelines",
         "copy": "Deep listening, mindful speech, and shared agreements for a safe practice space.",
         "url": "dharma-sharing-guidelines.html"
       },
@@ -166,7 +171,7 @@
         "copy": "Connect with others who help sustain sangha life."
       },
       {
-        "title": "Brown Jackets (OI directory)",
+        "title": "Brown Jackets (OI Directory)",
         "copy": "Find Order of Interbeing members around the world.",
         "url": "https://brownjackets.org/"
       }

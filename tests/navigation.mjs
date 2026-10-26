@@ -25,7 +25,7 @@ for (const [engineName, engine] of [
     "Get Involved",
   ]);
   await expect(p.locator(".desktop-nav > a")).toHaveText(["Community Voices", "Mailing Lists"]);
-  await expect(p.locator(".site-header .button")).toHaveText("Find a Group");
+  await expect(p.locator(".site-header .button")).toHaveText("Find a Sangha");
   const about = p.locator(".desktop-nav").getByRole("link", { name: "About", exact: true });
   await about.click();
   await expect(p).toHaveURL(base + "/our-community.html");
@@ -52,13 +52,13 @@ for (const [engineName, engine] of [
   await expect(p.locator(".river-illustration")).toHaveAttribute("alt", "");
   await p.locator(".river-stops").getByRole("link", { name: "Find a Sangha", exact: true }).click();
   await expect(p.locator("[data-group]")).toHaveCount(13);
-  const first = p.locator("[data-group]").first();
-  await expect(first.getByRole("link", { name: "Contact organizer", exact: true })).toHaveAttribute(
+  const first = p.locator("#dandelions-of-the-heart-sangha");
+  await expect(first.getByRole("link", { name: "Contact Organizer", exact: true })).toHaveAttribute(
     "href",
     /^mailto:/,
   );
   await first.locator("summary").click();
-  await expect(first.getByRole("link", { name: "Get directions", exact: true })).toHaveAttribute(
+  await expect(first.getByRole("link", { name: "Get Directions", exact: true })).toHaveAttribute(
     "href",
     /^https:\/\/www\.google\.com\/maps\/dir\//,
   );
@@ -66,13 +66,13 @@ for (const [engineName, engine] of [
   await expect(p).toHaveURL(base + "/find-a-sangha.html#calendar");
   await p
     .locator("#calendar")
-    .getByRole("link", { name: "Subscribe to calendar", exact: true })
+    .getByRole("link", { name: "Subscribe to Calendar", exact: true })
     .click();
   await expect(p).toHaveURL(base + "/subscribe-calendar.html");
-  await expect(p.locator("h1")).toHaveText("Subscribe to calendar");
+  await expect(p.locator("h1")).toHaveText("Subscribe to Calendar");
   await p.locator('.desktop-nav > a[href="/community-voices.html"]').click();
   await expect(
-    p.locator("main").getByRole("link", { name: "Submit your contribution", exact: true }),
+    p.locator("main").getByRole("link", { name: "Submit Your Contribution", exact: true }),
   ).toHaveAttribute("href", "https://forms.gle/ab3cBUX3K76PppPA9");
   await expect(p.locator(".poetry-feature a")).toHaveAttribute(
     "href",
@@ -80,7 +80,7 @@ for (const [engineName, engine] of [
   );
   await p
     .locator("main")
-    .getByRole("link", { name: "Browse newsletter editions", exact: true })
+    .getByRole("link", { name: "Browse Newsletter Editions", exact: true })
     .click();
   await expect(p.locator(".year-group > h2")).toHaveText(["2026", "2022"]);
   await expect(p.locator(".issue-card a")).toHaveCount(3);
@@ -113,7 +113,7 @@ for (const [engineName, engine] of [
     await expect(p.locator(".guide-navigation")).toHaveCount(0);
     await p
       .getByRole("navigation", { name: "Breadcrumb", exact: true })
-      .getByRole("link", { name: "Sangha resources", exact: true })
+      .getByRole("link", { name: "Sangha Resources", exact: true })
       .click();
     await expect(p.locator("#resource-sangha-resources")).toBeVisible();
   }

@@ -23,7 +23,7 @@ for (const [name, engine] of [
   await p.goto(base);
   for (const selector of [".site-header", ".site-footer"])
     expect(await p.locator(selector).evaluate((e) => getComputedStyle(e).borderRadius)).toBe("0px");
-  await expect(p.locator(".hero-secondary")).toHaveText("New? Start here.");
+  await expect(p.locator(".hero-secondary")).toHaveText("New? Start Here.");
   expect(
     await p.locator(".hero-secondary").evaluate((e) => getComputedStyle(e).backgroundColor),
   ).toBe("rgba(0, 0, 0, 0)");
@@ -55,7 +55,7 @@ for (const [name, engine] of [
   await expect(p.locator("main figcaption,.source-note")).toHaveCount(0);
   await p.goto(base + "/resources.html");
   await expect(p.locator("h1")).toHaveText("Resources");
-  await expect(p.getByRole("navigation", { name: "Jump to section" })).toBeVisible();
+  await expect(p.getByRole("navigation", { name: "Jump to Section" })).toBeVisible();
   await expect(p.locator("main details")).toHaveCount(0);
   for (const id of [
     "resource-five-mindfulness-trainings",
@@ -86,7 +86,7 @@ for (const [name, engine] of [
     expect(Math.abs(s.y - c.y)).toBeLessThan(1);
     expect(s.x + s.width).toBeLessThanOrEqual(c.x);
     await summary.click();
-    await expect(first.getByRole("link", { name: "Get directions", exact: true })).toBeVisible();
+    await expect(first.getByRole("link", { name: "Get Directions", exact: true })).toBeVisible();
     await summary.click();
     expect(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }
@@ -131,7 +131,7 @@ for (const [name, engine] of [
   await expect(p).toHaveURL(base + "/subscribe-calendar.html");
   await expect(p.locator(".tutorials details")).toHaveCount(6);
   await p.goto(base + "/photo-credits.html");
-  await expect(p.locator("main")).toContainText("Janey Gilman");
+  await expect(p.locator("main")).not.toContainText(/Janey|Gilman/i);
   if (name === "Chromium") {
     await p.unroute("**/api/events");
     await p.route("**/api/events", (r) =>

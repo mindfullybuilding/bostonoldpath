@@ -70,38 +70,38 @@ for (const [name, engine] of [
   await p.keyboard.press("Escape");
   await p.goto(base + "/find-a-sangha.html");
   await expect(p.locator(".finder-heading > p")).toHaveText(intro);
-  await expect(p.locator(".finder-shortcuts a")).toHaveText("Jump to Community events & calendar");
+  await expect(p.locator(".finder-shortcuts a")).toHaveText("Jump to Community Events & Calendar");
   await expect(p.locator(".region-map")).toBeHidden();
   await expect(p.locator(".calendar-disclosure")).toHaveCount(0);
-  await expect(p.locator("#group-count")).toHaveText("13 of 13 sanghas");
+  await expect(p.locator("#group-count")).toHaveText("13 of 13 Sanghas");
   const toggle = p.getByRole("button", { name: "Filter groups", exact: true });
   const t = await toggle.boundingBox(),
     c = await p.locator("#group-count").boundingBox();
   expect(t.x + t.width).toBeLessThan(c.x);
   await toggle.click();
   await p.locator("#group-search").fill("Brookline");
-  await expect(p.locator("#group-count")).toHaveText("2 of 13 sanghas");
+  await expect(p.locator("#group-count")).toHaveText("2 of 13 Sanghas");
   await p.getByRole("button", { name: "Close filters", exact: true }).click();
-  await expect(p.locator("#group-count")).toHaveText("2 of 13 sanghas");
+  await expect(p.locator("#group-count")).toHaveText("2 of 13 Sanghas");
   await expect(toggle).toBeFocused();
   await expect(p.locator("#group-filters")).toBeHidden();
   await toggle.click();
   await p.locator("#group-search").fill("nomatch123");
-  await expect(p.locator("#group-count")).toHaveText("0 of 13 sanghas");
+  await expect(p.locator("#group-count")).toHaveText("0 of 13 Sanghas");
   await p.locator("#group-search").press("Escape");
   await p.locator("#no-groups button").click();
   await expect(toggle).toBeFocused();
-  await expect(p.locator("#group-count")).toHaveText("13 of 13 sanghas");
+  await expect(p.locator("#group-count")).toHaveText("13 of 13 Sanghas");
   if (name === "Chromium") {
     await p.evaluate(() => scrollTo(0, 0));
     await p.screenshot({ path: out + "/finder-390x844.png" });
   }
   for (const width of [320, 390, 1440]) {
     await p.setViewportSize({ width, height: 1000 });
-    const first = p.locator("[data-group]").first();
+    const first = p.locator("#dandelions-of-the-heart-sangha");
     const summary = first.locator("summary");
     await summary.click();
-    await expect(first.getByRole("link", { name: "Get directions", exact: true })).toBeVisible();
+    await expect(first.getByRole("link", { name: "Get Directions", exact: true })).toBeVisible();
     const bounds = await summary.boundingBox();
     expect(bounds.height).toBeGreaterThanOrEqual(48);
     expect(await summary.evaluate((e) => getComputedStyle(e).borderBottomLeftRadius)).toBe("14px");
@@ -115,7 +115,7 @@ for (const [name, engine] of [
   expect(filter.y).toBeGreaterThan(88);
   expect(filter.y).toBeLessThan(140);
   await expect(p.locator(".region-map")).toBeVisible();
-  await expect(p.locator(".region-map > h2")).toHaveText("Regional sangha map");
+  await expect(p.locator(".region-map > h2")).toHaveText("Regional Sangha Map");
   if (name === "Chromium") {
     await p.evaluate(() => scrollTo(0, 0));
     await p.screenshot({ path: out + "/finder-1440x1000.png" });

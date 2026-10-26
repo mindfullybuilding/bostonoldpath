@@ -172,6 +172,31 @@ $$("[data-copy]").forEach((button) =>
 );
 const filters = $("#group-filters");
 if (filters) {
+  const sortButton = $("[data-sort-sanghas]");
+  const groupList = $(".group-list");
+  const cards = $$("[data-group]", groupList);
+  let descending = false;
+  sortButton.hidden = false;
+  sortButton.addEventListener("click", () => {
+    descending = !descending;
+    cards.sort((a, b) => {
+      const dayOrder = a.dataset.sortDay.localeCompare(b.dataset.sortDay, "en");
+      return (
+        dayOrder * (descending ? -1 : 1) ||
+        $("h2", a).textContent.localeCompare($("h2", b).textContent, "en")
+      );
+    });
+    groupList.append(...cards);
+    $("[data-sort-direction]", sortButton).textContent = descending ? "Z–A" : "A–Z";
+    sortButton.setAttribute(
+      "aria-label",
+      descending
+        ? "Sort by Day of the Week, Z to A. Activate for A to Z."
+        : "Sort by Day of the Week, A to Z. Activate for Z to A.",
+    );
+    $("[data-sort-status]").textContent =
+      `Sorted by Day of the Week, ${descending ? "Z to A" : "A to Z"}.`;
+  });
   let data;
   const load = () =>
     (data ??= fetch("/assets/site-data.json").then((r) => {
@@ -232,7 +257,7 @@ if (filters) {
         $(`[data-group="${s.id}"]`).hidden = !match;
         if (match) count++;
       }
-      $("#group-count").textContent = `${count} of ${sanghas.length} sanghas`;
+      $("#group-count").textContent = `${count} of ${sanghas.length} Sanghas`;
       $("#no-groups").hidden = count !== 0;
     } catch {
       $("#group-count").textContent = "Filters are unavailable. All groups are shown below.";

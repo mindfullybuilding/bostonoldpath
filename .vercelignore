@@ -24,3 +24,8 @@ test-results/
 # Private image originals and licensing documents
 /licensed-originals/
 /license-receipts/
+
+# Local document extraction and verification scratch files
+tmp/
+output/
+verification-local/

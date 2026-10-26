@@ -61,7 +61,7 @@ const missing = await p.request.get(base + "/assets/GBCOM%20Website%20Working%20
 expect(missing.status()).toBe(404);
 await p.setViewportSize({ width: 1440, height: 1000 });
 await p.goto(base);
-await expect(p.locator("h1")).toHaveText("A deep bow to you, dear friend.");
+await expect(p.locator("h1")).toHaveText("Engaged Buddhism in the Plum Village Tradition");
 await expect(p).toHaveTitle("Mindfulness Communities of Greater Boston");
 expect(await p.locator(".site-header").evaluate((e) => getComputedStyle(e).backgroundColor)).toBe(
   "rgb(54, 123, 202)",
@@ -77,7 +77,7 @@ expect(await p.locator(".site-header").evaluate((e) => getComputedStyle(e).borde
 expect(await p.locator(".site-footer").evaluate((e) => getComputedStyle(e).borderRadius)).toBe(
   "0px",
 );
-await expect(p.locator(".hero-secondary")).toHaveText("New? Start here.");
+await expect(p.locator(".hero-secondary")).toHaveText("New? Start Here.");
 const today = dailySanghas(JSON.parse(await fs.readFile("site/sanghas.json", "utf8")));
 await expect(p.locator("[data-today-sanghas] > ul > li")).toHaveCount(today.scheduled.length);
 await expect(p.locator(".path-stop")).toHaveCount(7);
@@ -100,22 +100,22 @@ await p.locator("#group-search").fill("Brookline");
 await expect(p.locator("[data-group]:visible")).toHaveCount(2);
 await p.locator("[data-group]:visible").first().locator("summary").click();
 await expect(
-  p.locator("[data-group]:visible").first().getByRole("link", { name: "Contact organizer" }),
+  p.locator("[data-group]:visible").first().getByRole("link", { name: "Contact Organizer" }),
 ).toBeVisible();
 await expect(
   p
     .locator("[data-group]:visible")
     .first()
-    .getByRole("link", { name: "Get directions", exact: true }),
+    .getByRole("link", { name: "Get Directions", exact: true }),
 ).toHaveAttribute("href", /^https:\/\/www\.google\.com\/maps\/dir\//);
 await p.locator('a[href="/subscribe-calendar.html"]').first().click();
 await p.waitForLoadState("load");
 await p.locator("[data-copy]").click();
 await expect(p.locator(".copy-status")).toContainText(/copied|selected/);
-await expect(p.locator("h1")).toHaveText("Subscribe to calendar");
+await expect(p.locator("h1")).toHaveText("Subscribe to Calendar");
 await p.goto(base + "/community-voices.html");
 await expect(
-  p.getByRole("link", { name: "Submit your contribution", exact: true }),
+  p.getByRole("link", { name: "Submit Your Contribution", exact: true }),
 ).toHaveAttribute("href", "https://forms.gle/ab3cBUX3K76PppPA9");
 await p.goto(base + "/new-here.html");
 await expect(p.locator(".page-intro em")).toHaveText("“Go as a river” — Thích Nhất Hạnh");

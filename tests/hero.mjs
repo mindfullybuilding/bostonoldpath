@@ -8,7 +8,7 @@ await p.setViewportSize({ width: 1440, height: 1000 });
 await p.goto(base);
 const hero = p.locator(".hero");
 await expect(p.locator(".hero img")).toHaveCount(0);
-await expect(p.locator(".hero h1")).toHaveText("A deep bow to you, dear friend.");
+await expect(p.locator(".hero h1")).toHaveText("Engaged Buddhism in the Plum Village Tradition");
 await expect(p.locator(".hero .lede")).toHaveText(
   "Mindfulness Communities of Greater Boston is an interfaith collective that seeks to learn and practice mindfulness taught by Thích Nhất Hạnh (“Thầy”), a Vietnamese Buddhist monk, author and activist.",
 );

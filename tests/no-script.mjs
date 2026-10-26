@@ -19,7 +19,7 @@ for (const path of [
     await expect(p.locator("[data-group]")).toHaveCount(13);
     await p.locator("[data-group] summary").first().click();
     await expect(
-      p.locator("[data-group]").first().getByRole("link", { name: "Contact organizer" }),
+      p.locator("[data-group]").first().getByRole("link", { name: "Contact Organizer" }),
     ).toBeVisible();
   }
   if (path.includes("newsletters")) await expect(p.locator(".issue-card a")).toHaveCount(3);
