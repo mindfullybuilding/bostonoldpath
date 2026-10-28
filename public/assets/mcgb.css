@@ -592,19 +592,23 @@ button:disabled {
   justify-content: center;
 }
 .hero .button.primary {
-  color: #000;
-  background: #fff;
-  border-color: #fff;
+  color: #fff;
+  background-color: var(--blue);
+  background-image: var(--water-gloss);
+  border-color: var(--water-deep);
+}
+.hero .button.primary:hover {
+  background-image: linear-gradient(#689bd0, #245d9d 30%, #245d9d 77%, #1c497e);
 }
 .hero .hero-secondary {
-  background: transparent;
-  color: #fff;
+  background: #fff;
+  color: #000;
   border: 1px solid #fff;
   box-shadow: inset 0 1px 0 #ffffff40;
 }
 .hero .hero-secondary:hover {
-  background: #0003;
-  color: #fff;
+  background: linear-gradient(#fff, #dae9f7);
+  color: #000;
 }
 .hero a:focus-visible {
   outline-color: #fff;

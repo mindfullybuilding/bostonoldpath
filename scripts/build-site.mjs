@@ -27,7 +27,7 @@ const navigationGroups = [
     [
       ["/find-a-sangha.html", "Find a Sangha"],
       ["/find-a-sangha.html#calendar", "Events Calendar"],
-      ["https://togethernessma.vercel.app/", "Gather with Friends"],
+      ["https://withtogetherness.org/", "Gather with Friends"],
     ],
   ],
 ];
@@ -52,7 +52,7 @@ const mobileMenu =
   link("/join-mailing-list.html", "Mailing Lists") +
   link("/find-a-sangha.html", "Find a Sangha", "button primary");
 const header = `<a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="header-inner container"><a class="brand" href="/" aria-label="Mindfulness Communities of Greater Boston — home"><span class="full-brand">Mindfulness Communities<br>of Greater Boston</span><span class="compact-brand">Mindfulness Communities<br> of Greater Boston</span></a><nav class="desktop-nav" aria-label="Main">${menu}</nav><div class="header-actions">${link("/find-a-sangha.html", "Find a Sangha", "button primary")}<button class="menu-trigger" data-open-drawer aria-haspopup="dialog" aria-controls="mobile-menu" aria-label="Open menu"><span class="icon icon-menu" aria-hidden="true"></span></button></div></div></header><dialog class="drawer" id="mobile-menu" aria-labelledby="drawer-title"><div class="drawer-top"><h2 id="drawer-title">MCGB</h2><button data-close-dialog aria-label="Close menu"><span class="icon icon-close" aria-hidden="true"></span></button></div><nav aria-label="Mobile main">${mobileMenu}</nav></dialog>`;
-const footer = `<footer class="site-footer"><div class="container footer-grid"><div><h2 class="footer-name">Mindfulness Communities<br>of Greater Boston</h2><p>Engaged Buddhism in the Plum Village tradition of Thích Nhất Hạnh.</p></div><nav aria-label="Participation"><h2>Get Involved</h2>${link("/find-a-sangha.html", "Find a Sangha")}${link("/find-a-sangha.html#calendar", "Events Calendar")}${link("https://togethernessma.vercel.app/", "Gather with Friends")}${link("/community-voices.html", "Community Voices")}${link("/join-mailing-list.html", "Mailing Lists")}</nav><nav aria-label="Site information"><h2>Contact &amp; Information</h2>${link(`mailto:${c.contactEmail}`, "Contact MCGB")}${link("/accessibility.html", "Accessibility")}${link("/photo-credits.html", "Credits")}${link("/privacy.html", "Privacy &amp; Site Information")}</nav></div></footer>`;
+const footer = `<footer class="site-footer"><div class="container footer-grid"><div><h2 class="footer-name">Mindfulness Communities<br>of Greater Boston</h2><p>Engaged Buddhism in the Plum Village tradition of Thích Nhất Hạnh.</p></div><nav aria-label="Participation"><h2>Get Involved</h2>${link("/find-a-sangha.html", "Find a Sangha")}${link("/find-a-sangha.html#calendar", "Events Calendar")}${link("https://withtogetherness.org/", "Gather with Friends")}${link("/community-voices.html", "Community Voices")}${link("/join-mailing-list.html", "Mailing Lists")}</nav><nav aria-label="Site information"><h2>Contact &amp; Information</h2>${link(`mailto:${c.contactEmail}`, "Contact MCGB")}${link("/accessibility.html", "Accessibility")}${link("/photo-credits.html", "Credits")}${link("/privacy.html", "Privacy &amp; Site Information")}</nav></div></footer>`;
 const guidePages = [
   "sangha-overview",
   "sangha-facilitation",
@@ -97,7 +97,7 @@ await page(
   <section class="container community-path" aria-label="Practice and community"><div class="community-path-art" aria-hidden="true"><img src="/assets/illustrations/community-forest.jpg" alt="" width="948" height="1659" loading="lazy"></div><div class="path-stops">
   ${pathStop("Our Practice", `<p>We explore ways to bring mindfulness into our lives, families, work, and society. We try to practice mindfulness throughout every day, not just during meditation, but also in the kitchen, in the car, at work, on the phone, and while walking from one place to another.</p>`, link("/our-practice.html", "Our Practice", "button"))}
   ${pathStop("Greater Boston Community", `<p>Meet MCGB and discover how we practice together.</p>`, link("/our-community.html", "Our Community", "button"))}
-  ${pathStop("Gather with Friends", `<p>Togetherness helps friends arrange a walk, a cup of tea, or time together outside scheduled practice.</p>`, link("https://togethernessma.vercel.app/", "Gather with Friends", "button"))}
+  ${pathStop("Gather with Friends", `<p>Togetherness helps friends arrange a walk, a cup of tea, or time together outside scheduled practice.</p>`, link("https://withtogetherness.org/", "Gather with Friends", "button"))}
   ${pathStop("Resources", `<p>Find foundational readings, talks, songs, practice links, and beginner-friendly resources.</p>`, link("/resources.html", "Resources", "button"))}
   ${pathStop("Community Voices", `<p>Enjoy art, writing, song, and reflection from our community, or submit your own creation.</p>`, link("/community-voices.html", "Community Voices", "button"))}
   ${pathStop("Community Events", `<p>Sign up to stay up to date with days of mindfulness, retreats, engaged practice, and other happenings outside of regular practice sittings.</p>`, link("/subscribe-calendar.html", "Subscribe to Calendar", "button"))}
@@ -112,7 +112,7 @@ await page(
   <li><div class="river-stop"><h2>Our Practice</h2><p>Mindfulness brings awareness to breathing, walking, and the activities of daily life. Learn about practice in the Plum Village tradition.</p>${link("/our-practice.html", "What Is Mindfulness?", "button")}</div></li>
   <li><div class="river-stop"><h2>Start Practicing</h2><p>The free Plum Village app offers guided meditations, talks, and other practice resources from the Plum Village community.</p>${link("https://plumvillage.app/", "Explore the Plum Village App", "button")}</div></li>
   <li><div class="river-stop"><h2>Practice with Us</h2><p>A practitioner without a sangha is like a tiger who has left a mountain. Taking refuge in our sangha is our practice.</p><div class="actions">${link("/find-a-sangha.html", "Find a Sangha", "button primary")}${link("/find-a-sangha.html#calendar", "Events Calendar", "button")}</div></div></li>
-  <li><div class="river-stop"><h2>Gather with Friends</h2><p>Togetherness helps friends arrange a walk, a cup of tea, or time together outside scheduled practice.</p>${link("https://togethernessma.vercel.app/", "Visit Togetherness", "button")}</div></li>
+  <li><div class="river-stop"><h2>Gather with Friends</h2><p>Togetherness helps friends arrange a walk, a cup of tea, or time together outside scheduled practice.</p>${link("https://withtogetherness.org/", "Visit Togetherness", "button")}</div></li>
   <li><div class="river-stop"><h2>Deepen Your Practice</h2><p>For further study, explore books by Thích Nhất Hạnh, the Five Mindfulness Trainings, and resources for daily practice.</p><div class="actions">${link("/resources.html", "Resources", "button")}</div></div></li>
   </ol></section>
 `,

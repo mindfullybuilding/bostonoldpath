@@ -26,7 +26,7 @@ for (const [name, engine] of [
   await expect(p.locator(".hero-secondary")).toHaveText("New? Start Here.");
   expect(
     await p.locator(".hero-secondary").evaluate((e) => getComputedStyle(e).backgroundColor),
-  ).toBe("rgba(0, 0, 0, 0)");
+  ).toBe("rgb(255, 255, 255)");
   await expect(p.locator(".desktop-nav .nav-trigger")).toHaveCount(2);
   for (const width of [320, 390, 430, 768, 1024]) {
     await p.setViewportSize({ width, height: 844 });
