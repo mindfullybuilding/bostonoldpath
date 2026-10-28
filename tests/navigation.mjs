@@ -37,7 +37,7 @@ for (const [engineName, engine] of [
   await expect(p.locator("#nav-panel-0 a")).toHaveText([
     "Newcomers",
     "Our Practice",
-    "Greater Boston Community",
+    "Our Community",
     "Resources",
   ]);
   await p.locator("#nav-panel-0 a").first().press("Escape");

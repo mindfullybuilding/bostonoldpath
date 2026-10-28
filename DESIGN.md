@@ -16,7 +16,7 @@ The brand links home. Desktop navigation is **About / Get Involved / Community V
 
 | Group            | Destinations, in order                                                           |
 | ---------------- | -------------------------------------------------------------------------------- |
-| About            | Newcomers; Our Practice; Greater Boston Community; Resources                     |
+| About            | Newcomers; Our Practice; Our Community; Resources                                |
 | Get Involved     | Find a Sangha; Events Calendar; Gather with Friends (external Togetherness site) |
 | Community Voices | Direct overview page; publications and submission form are presented there       |
 | Mailing Lists    | Existing standalone subscription page                                            |

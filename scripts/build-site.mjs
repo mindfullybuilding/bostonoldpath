@@ -18,7 +18,7 @@ const navigationGroups = [
     [
       ["/new-here.html", "Newcomers"],
       ["/our-practice.html", "Our Practice"],
-      ["/our-community.html", "Greater Boston Community"],
+      ["/our-community.html", "Our Community"],
       ["/resources.html", "Resources"],
     ],
   ],
