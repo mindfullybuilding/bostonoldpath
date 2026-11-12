@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{{description}}" />
+    <meta name="theme-color" content="#367bca" />
+    {{#isHome}}
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/licensed/arnold-arboretum.jpg"
+      fetchpriority="high"
+    />
+    {{/isHome}}
+    <title>{{title}}</title>
+    <link rel="canonical" href="{{canonicalUrl}}" />
+    <link rel="stylesheet" href="/assets/mcgb.css" />
+    <link rel="stylesheet" href="/assets/identity.css" />
+    <script type="module" src="/assets/mcgb.js"></script>
+  </head>
+  <body class="{{bodyClass}}">
+    {{{header}}}
+    <noscript>
+      <nav class="container no-script-nav" aria-label="Site destinations">
+        <a href="/new-here.html">New Here</a>
+        <a href="/find-a-sangha.html">Groups &amp; Events</a>
+        <a href="/resources.html">Resources</a>
+        <a href="/our-community.html">Our Community</a>
+        <a href="/join-mailing-list.html">Mailing Lists</a>
+      </nav>
+    </noscript>
+    <main id="main" tabindex="-1" data-page="{{file}}">{{{breadcrumb}}} {{{content}}}</main>
+    {{{footer}}}
+  </body>
+</html>
