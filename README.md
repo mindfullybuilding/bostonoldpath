@@ -1,34 +1,52 @@
 # Mindfulness Communities of Greater Boston
 
-First-party HTML website deployed to the existing Vercel project `bostonoldpath`, with production at https://bostonmindfulness.vercel.app.
+The [Boston Mindfulness website](https://bostonmindfulness.vercel.app) is a static HTML site with a Vercel function for the community calendar.
 
-## Editing and building
+## Local development
 
-- `DESIGN.md` governs shared spacing, type, color, components, responsive behavior, and editorial rules.
-- `scripts/build-site.mjs` contains the shared header/footer and current page copy. Its output is the canonical `public/*.html` site; edit the source and regenerate rather than editing generated HTML.
-- `site/content/` holds the practice and facilitator reading pages.
-- `site/sanghas.json` preserves the original 13 group records. Organizer details are rendered into HTML so they remain available without JavaScript.
-- `site/resources.json` holds resource groups and legacy deep-link identifiers.
-- `site/config.mjs` is the single configuration point for the contribution form, contact address, public ICS feed, and optional Google Calendar embed.
-- `public/assets/mcgb.css` and `mcgb.js` provide shared styles and progressive interactions.
-- `lib/events.mjs` and `api/events.js` implement the fixed-source calendar endpoint. No API credentials or Google account access are required.
+Use Node.js 24 and npm. If you use nvm, run `nvm use` from the repository root.
 
-Run `npm ci`, `npm run dev`, and open http://127.0.0.1:4173. Run `npm run build` to regenerate HTML and copy public assets into `dist/client`. Vercel uses this same build, existing routing, and the root `/api/events` function. The earlier React/TanStack scaffolding is retained for source history but is not part of the HTML build or production page rendering.
+```sh
+npm ci
+npm run dev
+```
+
+Open [http://127.0.0.1:4173](http://127.0.0.1:4173). After changing content or assets, run `npm run build` to refresh the running preview. `npm run preview` serves an existing build.
+
+| Path                                 | What to edit                                                                          |
+| ------------------------------------ | ------------------------------------------------------------------------------------- |
+| `site/`                              | Sangha directory, resource data, site settings, and practice and facilitator readings |
+| `scripts/build-site.mjs`             | Shared layout, page templates, and HTML generation                                    |
+| `public/assets/`                     | Styles, browser JavaScript, images, and public documents                              |
+| `api/events.js` and `lib/events.mjs` | Calendar endpoint and Groups.io feed processing                                       |
+| `vercel.json`                        | Build settings, legacy redirects, and response headers                                |
+| `tests/`                             | Unit tests and browser checks                                                         |
+| `dist/`                              | Generated website, rebuilt by `npm run build` and ignored by Git                      |
+
+[DESIGN.md](DESIGN.md) covers shared design conventions. [Design prototypes](design-prototypes/) and [release notes](docs/) document earlier iterations. The calligraphy assets used by the site are in `public/assets/`.
+
+## Working on a change
+
+Create a short-lived branch from current `main`, push it, and open a pull request into `main`.
+
+```sh
+git switch main
+git pull --ff-only
+git switch -c fix/example
+# Make the change and commit it.
+git push -u origin fix/example
+```
+
+GitHub Actions runs lint, unit tests, and the build for pull requests into `main` and pushes to `main`. Review the diff and checks before squash-merging. For visual changes, include the pages and screen sizes checked. The repository's GitHub plan currently requires this review convention to be followed manually.
 
 ## Verification
 
-Run `npm run lint` and `npm test`. With the preview server running, run `npm run test:browser`, `node tests/states.mjs`, `node tests/enlargement.mjs`, and `node tests/links.mjs`. Browser checks use installed Playwright browsers. `TEST_BASE` can target production for the read-only browser checks. Test fixtures never publish invented calendar events.
+Run `npm run lint`, `npm test`, and `npm run build`. For browser checks, install Chromium and WebKit with `npx playwright install chromium webkit`, start `npm run preview`, and run `npm run test:browser` in a second terminal.
 
-Release evidence and limitations: `docs/release-2026-10-19/`. The subsequent background-hero and Boston palette refinement is documented in `docs/hero-refinement-2026-10-19/`. Accessibility verification is not independent certification. Native Safari/VoiceOver testing could not be performed because computer-use access to Safari was denied; WebKit testing is separately identified and is not a substitute for VoiceOver.
+The calendar reads the public Groups.io feed. Browser fixtures simulate calendar responses without publishing events.
 
-## Calendar
+## Deployment
 
-Groups.io remains the source. `/api/events` expands the next 180 days with node-ical, including recurrence exceptions and daylight saving. Successful responses cache for five minutes; upstream requests time out after ten seconds. Descriptions render as inert text, and source URLs allow HTTP(S) only.
+The GitHub-linked [bostonoldpath Vercel project](https://vercel.com/mindfullybuildings-projects/bostonoldpath) builds the repository root with `npm ci` and `npm run build`. Vercel uses `main` for production and feature branches for previews. The project serves `dist/` and runs `api/events.js` directly.
 
-The supplied imported Google Calendar requires sign-in and has no public-sharing control in the available settings. Following the user’s decision, the public website agenda and ICS subscription instructions are primary; Google Calendar is an optional disclosed signed-in view. No Google account information is stored in this project. The contribution form was verified anonymously without submitting a response.
-
-## Preservation and deployment
-
-The previous source is saved in `design-prototypes/archive/2026-10-19-live/`, with baseline metadata and immutable previous deployment URL in `BASELINE.json`. Git tag: `mcgb-pre-redesign-2026-10-19`. The archive is excluded from deployment and public navigation. Local meeting references and browser output are ignored by Git; the meeting PDF is also excluded from deployment.
-
-Use the existing `.vercel/project.json` link (local and ignored). Do not create a replacement project. Push the tested revision to `main`, then deploy with `npx vercel@latest deploy --prod --yes`; verify the public domain, API, primary journeys, and legacy redirects. The previous ready deployment can be restored with Vercel rollback using the URL recorded in `BASELINE.json`.
+The public domain currently points to the separate calligraphy project. For the consolidation, verify the Git-backed build and `/api/events` on `bostonoldpath` before moving the public domain. The `bostonmindfulness-old.vercel.app` domain currently follows production on `bostonoldpath`, so merging this change will also update that address. The [original deployment](https://bostonoldpath-lfzdhqmvt-mindfullybuildings-projects.vercel.app) and [calligraphy deployment](https://mcgb-identity-test-20261103-n33rs0jje.vercel.app) are the pre-consolidation rollback references. Verify the homepage, directory, calendar, and legacy URLs after the move.

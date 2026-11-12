@@ -51,12 +51,12 @@ for (const [name, engine] of [
   await opener.click();
   await p.setViewportSize({ width: 1280, height: 500 });
   await expect(p.locator("#mobile-menu")).not.toBeVisible();
-  await expect(p.locator(".brand")).toBeFocused();
+  await expect(p.locator(".nav-trigger").first()).toBeFocused();
   await p.locator(".nav-trigger").first().focus();
   await p.setViewportSize({ width: 390, height: 844 });
   await expect(opener).toBeFocused();
   await p.setViewportSize({ width: 1280, height: 900 });
-  await expect(p.locator(".brand")).toBeFocused();
+  await expect(p.locator(".nav-trigger").first()).toBeFocused();
   await p.goto(base + "/find-a-sangha.html");
   await p.locator("#group-search").focus();
   await p.setViewportSize({ width: 390, height: 844 });
@@ -68,7 +68,7 @@ for (const [name, engine] of [
   await p.locator("#group-search").fill("impossible-search-qzx");
   await expect(p.locator("#no-groups")).toBeVisible();
   await p.locator("[data-clear-filters]").click();
-  await expect(p.locator("[data-group]:visible")).toHaveCount(13);
+  await expect(p.locator("[data-group]:visible")).toHaveCount(14);
   await p.locator(".filters summary").first().click();
   await p.getByLabel("Online", { exact: true }).check();
   await expect(p.locator("[data-group]:visible")).toHaveCount(4);
