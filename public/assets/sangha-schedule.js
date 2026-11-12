@@ -58,16 +58,13 @@ const escape = (value) =>
   );
 export function scheduleRow(group, showRule = false) {
   const mode = { "in-person": "In person", hybrid: "Hybrid", virtual: "Online" }[group.modality];
-  return `<li class="sangha-schedule-row"><div><a href="/find-a-sangha.html#${encodeURIComponent(group.id)}">${escape(group.name)}</a>${showRule && (ordinalWeeks[group.id] || group.id === "lotus-pond-sangha") ? `<span class="schedule-recurrence">${group.id === "lotus-pond-sangha" ? "Every other Thursday; confirm this week" : escape(group.day)}</span>` : ""}</div><span class="schedule-time">${escape(group.time)}</span><span class="schedule-place">${escape(group.location)}${group.location === "Online" ? "" : ` · ${mode}`}</span></li>`;
+  return `<li class="sangha-schedule-row"><div><a href="/find-a-sangha.html#${encodeURIComponent(group.id)}">${escape(group.name)}</a>${showRule && (ordinalWeeks[group.id] || group.id === "lotus-pond-sangha") ? `<span class="schedule-recurrence">${group.id === "lotus-pond-sangha" ? "Every other Thursday" : escape(group.day)}</span>` : ""}</div><span class="schedule-time">${escape(group.time)}</span><span class="schedule-place">${escape(group.location)}${group.location === "Online" ? "" : ` · ${mode}`}</span></li>`;
 }
 export function dailyMarkup(model) {
-  const meetings = model.scheduled.length
-    ? `<ul class="sangha-schedule-list">${model.scheduled.map((group) => scheduleRow(group)).join("")}</ul>`
-    : `<p>No regular sangha meetings are listed for this ${model.weekday}.</p>`;
-  return (
-    meetings +
-    (model.uncertain.length
-      ? `<section class="schedule-uncertain"><h3>Check this week with the organizer</h3><ul class="sangha-schedule-list">${model.uncertain.map((group) => scheduleRow(group, true)).join("")}</ul></section>`
-      : "")
+  const groups = [...model.scheduled, ...model.uncertain].sort(
+    (a, b) => meetingMinutes(a) - meetingMinutes(b) || a.name.localeCompare(b.name),
   );
+  return groups.length
+    ? `<ul class="sangha-schedule-list">${groups.map((group) => scheduleRow(group, group.id === "lotus-pond-sangha")).join("")}</ul>`
+    : `<p>No regular sangha meetings are listed for this ${model.weekday}.</p>`;
 }

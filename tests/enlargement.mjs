@@ -4,12 +4,13 @@ const b = await chromium.launch();
 const p = await b.newPage();
 const results = [];
 const base = process.env.TEST_BASE || "http://127.0.0.1:4173";
-for (const file of (await fs.readdir("public")).filter(
-  (f) => f.endsWith(".html") && !f.includes("feedback") && !f.includes("wireframe"),
+for (const file of (await fs.readdir("dist")).filter(
+  (f) =>
+    f.endsWith(".html") && f !== "home.html" && !f.includes("feedback") && !f.includes("wireframe"),
 )) {
   for (const width of [390, 1440]) {
     await p.setViewportSize({ width, height: 900 });
-    await p.goto(`${base}/${file}`);
+    await p.goto(`${base}/${file === "index.html" ? "" : file}`);
     await p.evaluate(() => {
       const nodes = [...document.querySelectorAll("body *")];
       const fonts = nodes.map((e) => parseFloat(getComputedStyle(e).fontSize));
@@ -28,6 +29,7 @@ for (const file of (await fs.readdir("public")).filter(
     results.push({ file, ...overflow });
   }
 }
+await fs.mkdir("outputs/release-verification", { recursive: true });
 await fs.writeFile(
   "outputs/release-verification/enlargement.json",
   JSON.stringify(results, null, 2),

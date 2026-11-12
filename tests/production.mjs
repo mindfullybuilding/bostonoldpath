@@ -1,7 +1,8 @@
 import { chromium, expect } from "@playwright/test";
 import fs from "node:fs/promises";
 import { dailySanghas } from "../public/assets/sangha-schedule.js";
-const base = "https://bostonmindfulness.vercel.app";
+const base = process.env.TEST_BASE || "https://bostonmindfulness.vercel.app";
+await fs.mkdir("outputs/release-verification", { recursive: true });
 const browser = await chromium.launch();
 const context = await browser.newContext();
 const p = await context.newPage();
@@ -61,7 +62,8 @@ const missing = await p.request.get(base + "/assets/GBCOM%20Website%20Working%20
 expect(missing.status()).toBe(404);
 await p.setViewportSize({ width: 1440, height: 1000 });
 await p.goto(base);
-await expect(p.locator("h1")).toHaveText("Engaged Buddhism in the Plum Village Tradition");
+await expect(p.locator("h1")).toHaveAccessibleName("Mindfulness Communities of Greater Boston");
+await expect(p.locator(".identity-calligraphy img")).toBeVisible();
 await expect(p).toHaveTitle("Mindfulness Communities of Greater Boston");
 expect(await p.locator(".site-header").evaluate((e) => getComputedStyle(e).backgroundColor)).toBe(
   "rgb(54, 123, 202)",
@@ -79,7 +81,9 @@ expect(await p.locator(".site-footer").evaluate((e) => getComputedStyle(e).borde
 );
 await expect(p.locator(".hero-secondary")).toHaveText("New? Start Here.");
 const today = dailySanghas(JSON.parse(await fs.readFile("site/sanghas.json", "utf8")));
-await expect(p.locator("[data-today-sanghas] > ul > li")).toHaveCount(today.scheduled.length);
+await expect(p.locator("[data-today-sanghas] > ul > li")).toHaveCount(
+  today.scheduled.length + today.uncertain.length,
+);
 await expect(p.locator(".path-stop")).toHaveCount(7);
 await expect(p.locator(".desktop-nav .nav-trigger")).toHaveCount(2);
 await p.locator('.desktop-nav > a[href="/community-voices.html"]').click();
@@ -88,7 +92,7 @@ await p.goto(base);
 await p.locator("h1").click();
 await p.screenshot({ path: "outputs/release-verification/live-desktop.png" });
 await p.setViewportSize({ width: 390, height: 844 });
-await expect(p.locator(".compact-brand")).toHaveText("Mindfulness Communities of Greater Boston");
+await expect(p.locator(".identity-calligraphy img")).toBeVisible();
 await p.screenshot({ path: "outputs/release-verification/live-mobile.png" });
 await p.getByRole("button", { name: "Open menu" }).click();
 await expect(p.locator("dialog")).toBeVisible();

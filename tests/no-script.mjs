@@ -1,4 +1,7 @@
+import fs from "node:fs/promises";
 import { chromium, expect } from "@playwright/test";
+const sanghas = JSON.parse(await fs.readFile("site/sanghas.json", "utf8"));
+const base = process.env.TEST_BASE || "http://127.0.0.1:4173";
 const b = await chromium.launch();
 const ctx = await b.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
 const p = await ctx.newPage();
@@ -12,11 +15,11 @@ for (const path of [
   "/join-mailing-list.html",
   "/subscribe-calendar.html",
 ]) {
-  await p.goto("http://127.0.0.1:4173" + path);
+  await p.goto(base + path);
   await expect(p.locator("h1")).toBeVisible();
   await expect(p.locator(".no-script-nav")).toBeVisible();
   if (path.includes("sangha")) {
-    await expect(p.locator("[data-group]")).toHaveCount(13);
+    await expect(p.locator("[data-group]")).toHaveCount(sanghas.length);
     await p.locator("[data-group] summary").first().click();
     await expect(
       p.locator("[data-group]").first().getByRole("link", { name: "Contact Organizer" }),

@@ -12,6 +12,7 @@ const types = {
   ".png": "image/png",
   ".svg": "image/svg+xml",
   ".pdf": "application/pdf",
+  ".txt": "text/plain; charset=utf-8",
 };
 http
   .createServer(async (req, res) => {
@@ -33,8 +34,8 @@ http
         name.endsWith("GBCOM Website Working Group.pdf")
       )
         throw new Error("Private reference");
-      const file = path.resolve("public", name === "/" ? "home.html" : "." + name);
-      if (!file.startsWith(path.resolve("public") + path.sep)) throw new Error("Path");
+      const file = path.resolve("dist", name === "/" ? "index.html" : "." + name);
+      if (!file.startsWith(path.resolve("dist") + path.sep)) throw new Error("Path");
       const data = await fs.readFile(file);
       res.setHeader("Content-Type", types[path.extname(file)] || "application/octet-stream");
       res.end(data);

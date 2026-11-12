@@ -3,14 +3,15 @@ import fs from "node:fs/promises";
 const base = process.env.TEST_BASE || "http://127.0.0.1:4173";
 const browser = await chromium.launch();
 const page = await browser.newPage();
-const files = (await fs.readdir("public")).filter(
-  (f) => f.endsWith(".html") && !f.includes("feedback") && !f.includes("wireframe"),
+const files = (await fs.readdir("dist")).filter(
+  (f) =>
+    f.endsWith(".html") && f !== "home.html" && !f.includes("feedback") && !f.includes("wireframe"),
 );
 const destinations = new Set(),
   anchors = [],
   issues = [];
 for (const file of files) {
-  await page.goto(`${base}/${file}`);
+  await page.goto(`${base}/${file === "index.html" ? "" : file}`);
   const links = await page
     .locator("a[href],img[src],script[src],link[rel=stylesheet]")
     .evaluateAll((els) => els.map((e) => e.getAttribute("href") ?? e.getAttribute("src")));
@@ -36,6 +37,7 @@ console.log({
   anchors: anchors.length,
   issues,
 });
+await fs.mkdir("outputs/release-verification", { recursive: true });
 await fs.writeFile(
   "outputs/release-verification/links.json",
   JSON.stringify(
