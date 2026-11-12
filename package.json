@@ -21,6 +21,7 @@
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.6",
     "globals": "^15.15.0",
+    "mustache": "4.2.0",
     "prettier": "^3.7.3"
   },
   "engines": {
