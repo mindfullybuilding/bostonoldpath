@@ -24,6 +24,7 @@ const sanghas = await readJson("site/sanghas.json");
 const resources = await readJson("site/resources.json");
 const titles = await readJson("site/page-titles.json");
 const contactLink = link(`mailto:${config.contactEmail}`, config.contactEmail);
+const sanghaCardTemplate = await fs.readFile("site/pages/partials/sangha-card.html", "utf8");
 const pageViews = {
   "community-voices": {
     contributionLink: link(
@@ -32,7 +33,7 @@ const pageViews = {
       "button primary",
     ),
   },
-  "find-a-sangha": directoryView(sanghas),
+  "find-a-sangha": directoryView(sanghas, sanghaCardTemplate),
   newsletters: newsletterView(),
   resources: resourceView(resources),
   "subscribe-calendar": subscriptionView(config.calendarFeedUrl),

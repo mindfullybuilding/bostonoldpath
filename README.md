@@ -26,7 +26,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173). After changing content or a
 | `tests/`                                                      | Unit tests and browser checks                                                                              |
 | `dist/`                                                       | Generated website, rebuilt by `npm run build` and ignored by Git                                           |
 
-Page templates use [Mustache](https://github.com/janl/mustache.js/#templates). Edit ordinary HTML for copy and layout. Leave placeholders such as `{{{monthTable}}}` in place unless you’re changing that feature. A matching `.mjs` file contains the data or rendering logic for pages that need it. To add a page, add its HTML file and an entry in `site/page-titles.json`.
+Page templates use [Mustache](https://github.com/janl/mustache.js/#templates). Edit ordinary HTML for copy and layout. Leave placeholders such as `{{{monthTable}}}` in place unless you’re changing that feature. A matching `.mjs` file contains the data or rendering logic for pages that need it. Repeated sangha cards use `site/pages/partials/sangha-card.html`. To add a page, add its HTML file and an entry in `site/page-titles.json`.
 
 [DESIGN.md](DESIGN.md) covers shared design conventions. [Design prototypes](design-prototypes/) and [release notes](docs/) document earlier iterations. The calligraphy assets used by the site are in `public/assets/`.
 
@@ -42,13 +42,22 @@ git switch -c fix/example
 git push -u origin fix/example
 ```
 
-GitHub Actions runs lint, unit tests, and the build for pull requests into `main` and pushes to `main`. Review the diff and checks before squash-merging. For visual changes, include the pages and screen sizes checked. The repository's GitHub plan currently requires this review convention to be followed manually.
+GitHub Actions runs lint, unit tests, the build, and a check for generated pages and internal links for pull requests into `main` and pushes to `main`. Review the diff and checks before squash-merging. For visual changes, include the pages and screen sizes checked. The repository's GitHub plan currently requires this review convention to be followed manually.
+
+## First change: update a sangha listing
+
+1. Start a branch from current `main` using the steps above.
+2. Open [site/sanghas.json](site/sanghas.json) and find `path-of-peace-sangha` as an example. For a confirmed meeting-time correction, edit `time` and check whether `timeBand` also needs to change. If the meeting day changes, update both the displayed `day` and the `days` array used by the filters. Keep the record’s `id` stable so existing links keep working.
+3. Run `npm run dev` and open [Find a Sangha locally](http://127.0.0.1:4173/find-a-sangha.html). Search for the group, expand its card, and check the edited details and relevant filters.
+4. Open a pull request with the confirmed change, its source, and what you checked in the preview. The directory, homepage schedule, and browser filters all use the same source data.
+
+If you use VS Code, the [contributor CodeTour](.tours/new-joiner-site.tour) follows a record from source through the build and shows where calendar and deployment changes belong.
 
 ## Verification
 
 Run `npm run lint`, `npm test`, and `npm run build`. For browser checks, install Chromium and WebKit with `npx playwright install chromium webkit`, start `npm run preview`, and run `npm run test:browser` in a second terminal.
 
-The calendar reads the public Groups.io feed. Browser fixtures simulate calendar responses without publishing events.
+With the built preview running and Chromium installed, run `npm run test:links` to repeat the CI page and link check. The calendar reads the public Groups.io feed. Browser fixtures simulate calendar responses without publishing events.
 
 ## Deployment
 
