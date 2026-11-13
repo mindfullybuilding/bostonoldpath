@@ -16,7 +16,7 @@ concurrency:
 jobs:
   verify:
     name: Lint, test, and build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v6
@@ -30,3 +30,14 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Check generated pages and internal links
+        run: |
+          node scripts/preview.mjs > "$RUNNER_TEMP/site-preview.log" 2>&1 &
+          preview_pid=$!
+          trap 'kill "$preview_pid" 2>/dev/null || true' EXIT
+          if ! curl --fail --silent --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:4173/ > /dev/null; then
+            cat "$RUNNER_TEMP/site-preview.log"
+            exit 1
+          fi
+          npm run test:links

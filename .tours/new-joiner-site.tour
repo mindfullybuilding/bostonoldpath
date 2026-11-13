@@ -1,0 +1,67 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Boston Mindfulness contributor walkthrough",
+  "description": "Trace a sangha listing from source to the website and verify a first pull request.",
+  "steps": [
+    {
+      "file": "README.md",
+      "line": 5,
+      "title": "Run the site locally",
+      "description": "Use Node 24, install the locked dependencies, and start the local preview. A page or data edit takes effect after you rebuild."
+    },
+    {
+      "file": "README.md",
+      "line": 47,
+      "title": "Pick a small first change",
+      "description": "Follow the worked example to update a confirmed meeting detail on a short-lived branch. The example uses a real record without requiring a test edit to be published."
+    },
+    {
+      "file": "site/sanghas.json",
+      "line": 203,
+      "title": "Find the listing",
+      "description": "The directory and homepage schedule share this record. Keep the ID stable. Day and time fields are displayed to visitors, while days and timeBand support filtering and scheduling."
+    },
+    {
+      "file": "site/pages/find-a-sangha.html",
+      "line": 47,
+      "title": "Find the page template",
+      "description": "This file matches /find-a-sangha.html. It owns the page and filter layout. The placeholder receives the server-rendered cards, which also work before browser JavaScript loads."
+    },
+    {
+      "file": "site/pages/partials/sangha-card.html",
+      "line": 1,
+      "title": "Edit the repeated card",
+      "description": "This partial controls the markup for each listing. Double braces escape values. Keep the data attributes when editing markup because the browser uses them for filtering and sorting."
+    },
+    {
+      "file": "site/pages/find-a-sangha.mjs",
+      "line": 38,
+      "title": "Trace the data into the card",
+      "description": "The view prepares the meeting format, directions, and organizer contact. Update the JSON for a single group. Change this function when the same behavior should apply to every card."
+    },
+    {
+      "file": "scripts/build-site.mjs",
+      "line": 47,
+      "title": "Trace the HTML build",
+      "description": "The build combines each registered page with the shared layout and writes it to dist/. The same build emits the directory data for the browser. Make edits in site/ so the changes survive a rebuild."
+    },
+    {
+      "file": "public/assets/mcgb.js",
+      "line": 198,
+      "title": "Trace browser filtering",
+      "description": "The browser reads generated site data and uses each record’s ID to find its existing card. Check the relevant filter in the local preview after changing a meeting format or day."
+    },
+    {
+      "file": "api/events.js",
+      "line": 2,
+      "title": "Find the calendar endpoint",
+      "description": "Vercel serves this handler at /api/events. It calls lib/events.mjs to read the Groups.io feed. Calendar events and regular sangha listings come from separate sources."
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 34,
+      "title": "Verify before merging",
+      "description": "GitHub runs lint, unit tests, and the build, then starts the built preview and checks each registered page and its internal links. Use the Vercel preview to check behavior and layout before squash-merging."
+    }
+  ]
+}
