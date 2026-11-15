@@ -64,14 +64,20 @@ for (const [name, engine] of [
   await p.setViewportSize({ width: 1280, height: 900 });
   await expect(p.locator("#group-search")).toBeFocused();
   await p.locator("#group-search").fill("Brookline");
-  await expect(p.locator("[data-group]:visible")).toHaveCount(2);
+  await expect(p.locator("[data-group]:visible")).toHaveCount(1);
+  await p.locator("#group-search").fill("Newton");
+  const dandelions = p.locator("#dandelions-of-the-heart-sangha");
+  await expect(dandelions).toBeVisible();
+  await expect(dandelions.locator(".group-metadata dd").last()).toHaveText("Newton");
+  await expect(dandelions.getByRole("link", { name: "Get Directions" })).toHaveCount(0);
   await p.locator("#group-search").fill("impossible-search-qzx");
   await expect(p.locator("#no-groups")).toBeVisible();
   await p.locator("[data-clear-filters]").click();
-  await expect(p.locator("[data-group]:visible")).toHaveCount(14);
+  await expect(p.locator("[data-group]:visible")).toHaveCount(13);
+  await expect(p.locator("#mindful-lunch")).toHaveCount(0);
   await p.locator(".filters summary").first().click();
   await p.getByLabel("Online", { exact: true }).check();
-  await expect(p.locator("[data-group]:visible")).toHaveCount(4);
+  await expect(p.locator("[data-group]:visible")).toHaveCount(3);
   await p.locator("[data-group]:visible").first().locator("summary").focus();
   await p.keyboard.press("Enter");
   await expect(
@@ -84,6 +90,29 @@ for (const [name, engine] of [
   expect(stateScan.violations).toEqual([]);
   await p.goto(base + "/resources.html#resource-sangha-resources");
   await expect(p.locator("#resource-sangha-resources")).toBeVisible();
+  await expect(p.locator('main a[href="meeting-and-bell-minding-flow.html"]')).toHaveCount(0);
+  await expect(p.locator("#resource-five-mindfulness-trainings h3")).toHaveText(
+    "Five Mindfulness Trainings",
+  );
+  const fourteenTrainings = p.locator("#resource-fourteen-mindfulness-trainings");
+  const trainingLink = fourteenTrainings.getByRole("link", {
+    name: "Fourteen Mindfulness Trainings",
+  });
+  const centersLink = fourteenTrainings.getByRole("link", { name: "monastic practice centers" });
+  await expect(trainingLink).toHaveAttribute("href", /\/the-14-mindfulness-trainings$/);
+  await expect(centersLink).toHaveAttribute(
+    "href",
+    "https://plumvillage.org/monastic-practice-centres/",
+  );
+  await trainingLink.focus();
+  await p.keyboard.press(tabKey);
+  await expect(centersLink).toBeFocused();
+  expect(
+    await fourteenTrainings.evaluate((card) => {
+      const { left, top } = card.getBoundingClientRect();
+      return document.elementFromPoint(left + 8, top + 8)?.closest("a")?.textContent;
+    }),
+  ).toBe("Fourteen Mindfulness Trainings");
   await p.goto(base + "/subscribe-calendar.html");
   for (const s of await p.locator(".tutorials summary").all()) {
     await s.focus();
@@ -138,11 +167,34 @@ for (const [name, engine] of [
   await p.locator("[data-retry]").click();
   await expect(p.locator(".agenda-status")).toContainText("Previously loaded events remain");
   await expect(p.locator(".agenda-item")).toHaveCount(12);
-  await p.setViewportSize({ width: 320, height: 700 });
   await p.emulateMedia({ reducedMotion: "reduce" });
+  for (const width of [320, 1440]) {
+    await p.setViewportSize({ width, height: 900 });
+    await p.goto(base + "/");
+    await expect(p.locator("h1")).toBeVisible();
+    expect(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    const lede = p.locator(".hero .lede");
+    await expect(lede).toHaveText(
+      "A community of engaged Buddhist practitioners practicing in the Plum Village Tradition of Zen Master Thích Nhất Hạnh (“Thầy”).",
+    );
+    const copy = await lede.boundingBox();
+    const actions = await p.locator(".hero .actions").boundingBox();
+    expect(actions.y - (copy.y + copy.height)).toBeGreaterThanOrEqual(24);
+    expect(actions.x).toBeGreaterThanOrEqual(0);
+    expect(actions.x + actions.width).toBeLessThanOrEqual(width);
+    await p.goto(base + "/our-practice.html");
+    await expect(p.getByRole("heading", { name: "What is Mindfulness?" })).toBeVisible();
+    const intro = await p.locator(".practice-page .split").boundingBox();
+    const mindfulness = await p.locator(".practice-reading > h2").first().boundingBox();
+    const previousParagraph = await p
+      .locator(".practice-reading > p:has(+ h2:nth-of-type(2))")
+      .boundingBox();
+    const nextHeading = await p.locator(".practice-reading > h2").nth(1).boundingBox();
+    expect(mindfulness.y - (intro.y + intro.height)).toBeCloseTo(
+      nextHeading.y - (previousParagraph.y + previousParagraph.height),
+    );
+  }
   await p.goto(base + "/");
-  await expect(p.locator("h1")).toBeVisible();
-  expect(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   // Text spacing overrides and 200% text enlargement; 320px viewport models 400% reflow at 1280px.
   await p.setViewportSize({ width: 1280, height: 800 });
   await p.addStyleTag({

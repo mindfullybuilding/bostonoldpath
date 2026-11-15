@@ -663,7 +663,8 @@ button:disabled {
   padding: 0 0 0 24px;
 }
 .reading h2:not(:first-child),
-.related-pages {
+.related-pages,
+.practice-reading {
   margin-top: 40px;
 }
 .related-pages h2 {
@@ -1105,11 +1106,30 @@ details > div {
   font-size: 16px;
   margin-bottom: 0;
 }
-a.resource-card:focus-visible {
-  outline-color: #fff;
+a.resource-card:focus-visible,
+.resource-card-title:focus-visible::after {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
   box-shadow: 0 0 0 4px #000;
 }
-a.resource-card:hover {
+.resource-card-with-links {
+  position: relative;
+}
+.resource-card-title::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+}
+.resource-card-title:focus-visible {
+  outline-color: #fff;
+}
+.resource-card-with-links p a {
+  position: relative;
+  z-index: 1;
+}
+a.resource-card:hover,
+.resource-card-with-links:has(.resource-card-title:hover) {
   background-image: linear-gradient(#ffffff25, transparent 12px), linear-gradient(#245d9d, #1c497e);
 }
 .subscription-page > .reading {
@@ -1434,13 +1454,6 @@ a.resource-card:hover {
     display: none;
   }
 }
-.practice-reading {
-  margin-top: 40px;
-}
-.practice-reading > h2 {
-  margin-top: 40px;
-}
-
 /* Reading-page introductions share the same left edge as their article. */
 :is([data-page="accessibility"], [data-page="photo-credits"], [data-page="privacy"])
   .page-intro
