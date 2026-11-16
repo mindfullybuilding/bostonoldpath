@@ -84,7 +84,7 @@
 }
 .hero .lede {
   max-width: 1040px;
-  text-wrap: pretty;
+  text-wrap: balance;
 }
 @media print, (forced-colors: active) {
   .hero {

@@ -58,9 +58,8 @@ for (const [engineName, engine] of [
     /^mailto:/,
   );
   await first.locator("summary").click();
-  await expect(first.getByRole("link", { name: "Get Directions", exact: true })).toHaveAttribute(
-    "href",
-    /^https:\/\/www\.google\.com\/maps\/dir\//,
+  await expect(first.locator(".metadata")).toContainText(
+    "Contact the organizer for meeting location and online details.",
   );
   await go("Get Involved", "Events Calendar");
   await expect(p).toHaveURL(base + "/find-a-sangha.html#calendar");
@@ -98,7 +97,6 @@ for (const [engineName, engine] of [
     "sangha-overview",
     "sangha-facilitation",
     "minding-the-bell",
-    "meeting-and-bell-minding-flow",
     "dharma-sharing-guidelines",
   ]) {
     await p.goto(base + "/resources.html#resource-sangha-resources");
@@ -108,7 +106,7 @@ for (const [engineName, engine] of [
     await expect(p.locator("h1")).toBeVisible();
     if (guide === "dharma-sharing-guidelines")
       await expect(p.locator(".guide-reading > p").first()).toHaveText(
-        "During Dharma Sharing, we base our sharing on our own experience of the practice rather than about abstract ideas and theoretical topics. Overtime, we realize that many of us share similar difficulties and aspirations. Sitting, listening and sharing together, we recognize our connection to one another.",
+        "During Dharma Sharing, we base our sharing on our own experience of the practice rather than about abstract ideas and theoretical topics. Over time, we realize that many of us share similar difficulties and aspirations. Sitting, listening and sharing together, we recognize our connection to one another.",
       );
     await expect(p.locator(".guide-navigation")).toHaveCount(0);
     await p
@@ -137,11 +135,11 @@ for (const [engineName, engine] of [
     status: "pass",
     journeys: [
       "arrow-free disclosures, keyboard Escape/ArrowDown",
-      "newcomer river → finder/contact/directions",
+      "newcomer river → finder/contact and meeting details",
       "Events → subscriptions",
       "Voices → zine/newsletter PDFs",
       "mailing selection",
-      "five standalone guides → parent",
+      "four linked guides → parent",
       "mobile grouped drawer → newcomer",
     ],
   });

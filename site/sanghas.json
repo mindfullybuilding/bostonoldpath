@@ -9,10 +9,8 @@
     "time": "6:30-7:30 AM",
     "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
     "timeBand": "morning",
-    "location": "Brookline",
-    "latLng": [42.3331519, -71.1181054],
-    "address": "Boston Center for Contemplative Practice, 11 Kent Street, Brookline, MA 02445",
-    "access": "Boston Center for Contemplative Practice, 11 Kent Street, Brookline, MA 02445",
+    "location": "Newton",
+    "access": "Contact the organizer for meeting location and online details.",
     "description": "This is a mostly silent sit with a closing dharma reflection except on Thursday and Friday. Feel to drop in and sit for any part of that time.",
     "registerUrl": "mailto:info@yenkuei.org"
   },
@@ -153,21 +151,6 @@
     "access": "Free parking in the lot available.",
     "description": "A Worcester sangha in the Plum Village tradition, hosted at Assumption Center. Our format: 20 min sitting, 10 min walking, a short reading, dharma sharing. Welcoming to, new or experienced practitioners. Drop in anytime, no advance notice needed, free to participate.",
     "registerUrl": "mailto:ellenzanino@yahoo.com"
-  },
-  {
-    "id": "mindful-lunch",
-    "name": "Mindful Lunch",
-    "region": "boston",
-    "area": "Greater Boston",
-    "modality": "virtual",
-    "day": "Wednesday",
-    "time": "12:00-12:45 PM",
-    "days": ["wednesday"],
-    "timeBand": "afternoon",
-    "location": "Online",
-    "access": "Contact the organizer for the Zoom Link.",
-    "description": "A brief mid-day eating practice for pausing, arriving, and practicing mindfulness during lunch.",
-    "registerUrl": "mailto:info@yenkuei.org"
   },
   {
     "id": "peaceful-heart-sangha",

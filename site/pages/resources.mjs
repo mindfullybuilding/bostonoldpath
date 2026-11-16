@@ -5,6 +5,12 @@ function resource(item) {
   if (item.unavailable || ["become-a-mentor", "update-sangha-details"].includes(item.id)) return "";
   if (item.id === "join-builder-sangha")
     return `<a class="resource-card" id="resource-join-builder-sangha" href="mailto:${c.contactEmail}" aria-label="Community Builder Inquiries"><h3>Community Builder Inquiries</h3><p>For questions about Builder Sangha, <span id="resource-become-a-mentor">mentoring</span>, or <span id="resource-update-sangha-details">updating sangha details</span>, <span class="underlined">email MCGB</span>.</p></a>`;
+  if (Array.isArray(item.copy)) {
+    const copy = item.copy
+      .map((part) => (typeof part === "string" ? esc(part) : link(part.url, esc(part.label))))
+      .join("");
+    return `<article class="resource-card resource-card-with-links"${id}><h3>${link(item.url, esc(item.title), "resource-card-title")}</h3><p>${copy}</p></article>`;
+  }
   return `<a class="resource-card"${id} href="${esc(item.url)}" aria-label="${esc(item.title)}"><h3>${esc(item.title)}</h3><p>${esc(item.copy)}</p></a>`;
 }
 

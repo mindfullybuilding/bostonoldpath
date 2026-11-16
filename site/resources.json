@@ -95,20 +95,27 @@
     "Community Members",
     [
       {
-        "title": "5 Mindfulness Trainings",
+        "title": "Five Mindfulness Trainings",
         "copy": "The Five Mindfulness Trainings offer a practical ethical foundation for daily life.",
         "url": "https://plumvillage.org/mindfulness/the-5-mindfulness-trainings",
         "id": "five-mindfulness-trainings"
       },
       {
         "title": "Order of Interbeing",
-        "copy": "An introduction to the Order of Interbeing and the Fourteen Mindfulness Trainings.",
+        "copy": "An introduction to the order of interbeing, with over 2,000 lay men and women ordained worldwide.",
         "url": "https://plumvillage.org/community/order-of-interbeing",
         "id": "order-of-interbeing"
       },
       {
         "title": "Fourteen Mindfulness Trainings",
-        "copy": "The guiding practices of the Order of Interbeing.",
+        "copy": [
+          "Fourteen Trainings outline a way of practicing harmoniously in community followed by residents at all of the international ",
+          {
+            "label": "monastic practice centers",
+            "url": "https://plumvillage.org/monastic-practice-centres/"
+          },
+          " in the Plum Village tradition and members of the Order of Interbeing."
+        ],
         "url": "https://plumvillage.org/mindfulness/the-14-mindfulness-trainings",
         "id": "fourteen-mindfulness-trainings"
       },
@@ -149,11 +156,6 @@
         "title": "Dharma Sharing Guidelines",
         "copy": "Deep listening, mindful speech, and shared agreements for a safe practice space.",
         "url": "dharma-sharing-guidelines.html"
-      },
-      {
-        "title": "Meeting and Bell Minding Flow",
-        "copy": "An example of the flow, timing, and bell cadences of a Sangha meeting.",
-        "url": "meeting-and-bell-minding-flow.html"
       },
       {
         "title": "Songbook",
