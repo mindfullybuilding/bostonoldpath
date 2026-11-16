@@ -1,0 +1,110 @@
+{
+  "entries": [
+    {
+      "localId": "dandelions-of-the-heart-sangha",
+      "plumlineId": "fixture-dandelions-of-the-heart-sangha",
+      "keepLocal": true,
+      "venue": "withhold",
+      "location": "Newton"
+    },
+    {
+      "localId": "peaceful-garden-sangha",
+      "plumlineId": null,
+      "keepLocal": true,
+      "publicVenue": true
+    },
+    {
+      "localId": "peaceful-songbird-sangha",
+      "plumlineId": null,
+      "keepLocal": true
+    },
+    {
+      "localId": "wake-up-boston",
+      "plumlineId": "fixture-wake-up-boston",
+      "keepLocal": true,
+      "publicVenue": true,
+      "meetingOverrides": [
+        {
+          "id": "wake-wednesday",
+          "match": {
+            "rule": {
+              "freq": "monthly",
+              "interval": 1,
+              "dtstart": "2026-01-14T19:30",
+              "tzid": "America/New_York",
+              "byweekday": ["we"],
+              "bysetpos": [2, 4]
+            }
+          },
+          "excludeDates": ["2026-11-25"]
+        }
+      ]
+    },
+    {
+      "localId": "joyful-lotus-sangha",
+      "plumlineId": "fixture-joyful-lotus-sangha",
+      "keepLocal": true,
+      "publicVenue": true,
+      "venue": "plumline"
+    },
+    {
+      "localId": "tree-house-sangha",
+      "plumlineId": null,
+      "keepLocal": true
+    },
+    {
+      "localId": "mountain-bell-sangha",
+      "plumlineId": null,
+      "keepLocal": true,
+      "venue": "withhold"
+    },
+    {
+      "localId": "green-fields-sangha",
+      "plumlineId": null,
+      "keepLocal": true,
+      "publicVenue": true
+    },
+    {
+      "localId": "sangha-of-the-seven-hills",
+      "plumlineId": null,
+      "keepLocal": true
+    },
+    {
+      "localId": "peaceful-heart-sangha",
+      "plumlineId": null,
+      "keepLocal": true
+    },
+    {
+      "localId": "living-the-14-sangha",
+      "plumlineId": null,
+      "keepLocal": true
+    },
+    {
+      "localId": "path-of-peace-sangha",
+      "plumlineId": "fixture-path-of-peace-sangha",
+      "keepLocal": true,
+      "publicVenue": true,
+      "meetingOverrides": [
+        {
+          "id": "path-online",
+          "match": {
+            "rule": {
+              "freq": "weekly",
+              "interval": 1,
+              "dtstart": "2026-01-05T19:00",
+              "tzid": "America/New_York",
+              "byweekday": ["mo"]
+            }
+          },
+          "excludeOrdinals": [2]
+        }
+      ],
+      "plumlineSlug": "path-of-peace-sangha-franklin"
+    },
+    {
+      "localId": "lotus-pond-sangha",
+      "plumlineId": "fixture-lotus-pond-sangha",
+      "keepLocal": true
+    }
+  ]
+}

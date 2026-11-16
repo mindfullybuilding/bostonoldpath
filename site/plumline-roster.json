@@ -1,0 +1,78 @@
+{
+  "entries": [
+    {
+      "localId": "dandelions-of-the-heart-sangha",
+      "plumlineId": null,
+      "keepLocal": true,
+      "venue": "withhold",
+      "location": "Newton"
+    },
+    {
+      "localId": "peaceful-garden-sangha",
+      "plumlineId": null,
+      "keepLocal": true,
+      "publicVenue": true
+    },
+    {
+      "localId": "peaceful-songbird-sangha",
+      "plumlineId": null,
+      "keepLocal": true
+    },
+    {
+      "localId": "wake-up-boston",
+      "plumlineId": null,
+      "keepLocal": true,
+      "publicVenue": true
+    },
+    {
+      "localId": "joyful-lotus-sangha",
+      "plumlineId": null,
+      "keepLocal": true,
+      "publicVenue": true
+    },
+    {
+      "localId": "tree-house-sangha",
+      "plumlineId": null,
+      "keepLocal": true
+    },
+    {
+      "localId": "mountain-bell-sangha",
+      "plumlineId": null,
+      "keepLocal": true,
+      "venue": "withhold"
+    },
+    {
+      "localId": "green-fields-sangha",
+      "plumlineId": null,
+      "keepLocal": true,
+      "publicVenue": true
+    },
+    {
+      "localId": "sangha-of-the-seven-hills",
+      "plumlineId": null,
+      "keepLocal": true
+    },
+    {
+      "localId": "peaceful-heart-sangha",
+      "plumlineId": null,
+      "keepLocal": true
+    },
+    {
+      "localId": "living-the-14-sangha",
+      "plumlineId": null,
+      "keepLocal": true
+    },
+    {
+      "localId": "path-of-peace-sangha",
+      "plumlineId": null,
+      "keepLocal": true,
+      "publicVenue": true,
+      "plumlineSlug": "path-of-peace-sangha-franklin"
+    },
+    {
+      "localId": "lotus-pond-sangha",
+      "plumlineId": null,
+      "keepLocal": true
+    }
+  ]
+}

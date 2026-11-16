@@ -9,12 +9,21 @@
 </section>
 <section class="section container reading">
   <h2>Calendar, Maps, and Contributions</h2>
+  {{#useDirectoryMap}}
+  <p>
+    The regional map loads map tiles from OpenStreetMap. Directions links and the contribution form
+    use Google services. Visiting or using these services is subject to their own privacy terms. The
+    group directory is available independently of the map. The website calendar reads the public
+    Groups.io feed.
+  </p>
+  {{/useDirectoryMap}} {{^useDirectoryMap}}
   <p>
     The embedded Google Map connects to Google’s services. The contribution form is hosted by Google
     Forms. Visiting or using these services is subject to their own privacy terms. The group
     directory provides a first-party alternative to browsing the map. The website calendar reads the
     public Groups.io feed.
   </p>
+  {{/useDirectoryMap}}
   <h2>Mailing Lists</h2>
   <p>
     Subscriptions are managed by Groups.io. Follow the confirmation and preferences instructions

@@ -1,6 +1,7 @@
 import Mustache from "mustache";
 import { config } from "../config.mjs";
 import { calendarDateKey, monthModel, monthTable } from "../../public/assets/calendar-view.js";
+import { firstMeetingDay } from "../../public/assets/sangha-filters.js";
 const calendarToday = calendarDateKey(new Date());
 const [calendarYear, calendarMonth] = calendarToday.split("-").map(Number);
 const initialMonth = monthModel(calendarYear, calendarMonth - 1, [], "");
@@ -33,34 +34,97 @@ const filters = [
   ],
 ];
 
-const meetingFormats = { virtual: "Online", hybrid: "Hybrid" };
+const meetingFormats = { "in-person": "In person", virtual: "Online", hybrid: "Hybrid" };
 
-function sanghaCardView(sangha) {
-  const { address, access, modality, registerUrl } = sangha;
-  const usesContactFallback = /email[12]@gmail/.test(registerUrl);
+function isPublicVenue(sangha) {
+  return sangha.publicVenue === true && sangha.modality !== "virtual" && !sangha.approximate;
+}
+
+function venueCoordinates(sangha) {
+  const [lat, lng] = sangha.latLng || [];
+  if (Number.isFinite(lat) && Math.abs(lat) <= 90 && Number.isFinite(lng) && Math.abs(lng) <= 180)
+    return { lat, lng };
+  return null;
+}
+
+function organizerLink(value) {
+  try {
+    const url = new URL(value);
+    if (["https:", "http:", "mailto:"].includes(url.protocol)) return url.href;
+  } catch {
+    return "";
+  }
+  return "";
+}
+
+function sanghaCardView(sangha, useDirectoryMap) {
+  const { access, modality } = sangha;
+  const registerUrl = organizerLink(sangha.registerUrl);
+  const address = useDirectoryMap && sangha.publicVenue !== true ? "" : sangha.address;
+  const coordinates = isPublicVenue(sangha) && venueCoordinates(sangha);
+  const directionsDestination = address || (coordinates && `${coordinates.lat},${coordinates.lng}`);
+  const canShowDirections = useDirectoryMap ? isPublicVenue(sangha) : modality !== "virtual";
+  const usesContactFallback =
+    sangha.contactKind === "mcgb" || !registerUrl || /email[12]@gmail/.test(registerUrl);
   const showAccessDetails =
     access && access.trim().toLowerCase() !== (address || "").trim().toLowerCase();
+  const sessions = (sangha.meetings || []).map((meeting) => ({
+    text: meeting.summary || [meeting.dayLabel, meeting.timeLabel].filter(Boolean).join(", "),
+    format: meetingFormats[meeting.format],
+  }));
+  const publishedSchedule = sangha.meetingDescription?.trim();
+  const scheduleSummary = sessions
+    .map(({ text }) => text)
+    .join(" ")
+    .replace(/\s+/g, " ");
+  const publishedFormats = [...new Set(sessions.map(({ format }) => format).filter(Boolean))];
+  const dayOrder = sangha.meetings?.length
+    ? firstMeetingDay(sangha.meetings.flatMap(({ days }) => days || []))
+    : firstMeetingDay(sangha.days || []);
+  const encodedEmail =
+    !usesContactFallback && registerUrl.startsWith("mailto:") && registerUrl.slice(7);
+  let organizerEmail = "";
+  if (encodedEmail) {
+    try {
+      organizerEmail = decodeURIComponent(encodedEmail).replace("?cc=", ", ");
+    } catch {
+      organizerEmail = encodedEmail;
+    }
+  }
 
   return {
     ...sangha,
-    sortDay: sangha.days[0],
-    meetingFormat: meetingFormats[modality] ?? "In person",
+    address,
+    sortDay: dayOrder,
+    meetingFormat: publishedFormats.join(" / ") || meetingFormats[modality] || "Ask organizer",
+    scheduleDetails: sessions.filter(({ text }) => text),
+    additionalSchedule:
+      publishedSchedule?.replace(/\s+/g, " ") === scheduleSummary ? "" : publishedSchedule,
+    affinityList: sangha.affinities?.join(", "),
     accessDetails: showAccessDetails ? access : "",
     directionsUrl:
-      modality !== "virtual" && address
-        ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`
+      canShowDirections && directionsDestination
+        ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(directionsDestination)}`
         : "",
     contactUrl: usesContactFallback ? `mailto:${config.contactEmail}` : registerUrl,
     contactLabel: usesContactFallback ? "Ask MCGB for Organizer Contact" : "Contact Organizer",
-    organizerEmail:
-      registerUrl.startsWith("mailto:") && !usesContactFallback
-        ? decodeURIComponent(registerUrl.slice(7)).replace("?cc=", ", ")
-        : "",
+    organizerEmail,
   };
 }
 
-export function directoryView(sanghas, cardTemplate) {
+export function directoryView(sanghas, cardTemplate, { useDirectoryMap = false } = {}) {
+  const sorted = [...sanghas].sort((a, b) => a.name.localeCompare(b.name, "en"));
+  const mapVenues = [];
+  if (useDirectoryMap) {
+    for (const sangha of sorted) {
+      const coordinates = isPublicVenue(sangha) && venueCoordinates(sangha);
+      if (coordinates) mapVenues.push({ id: sangha.id, name: sangha.name, ...coordinates });
+    }
+  }
   return {
+    useDirectoryMap,
+    hasMapVenues: mapVenues.length > 0,
+    mapVenues,
     filterOptions: filters
       .map(
         ([key, title, opts]) =>
@@ -68,9 +132,8 @@ export function directoryView(sanghas, cardTemplate) {
       )
       .join(""),
     sanghaCount: sanghas.length,
-    groupsHTML: [...sanghas]
-      .sort((a, b) => a.name.localeCompare(b.name, "en"))
-      .map((sangha) => Mustache.render(cardTemplate, sanghaCardView(sangha)))
+    groupsHTML: sorted
+      .map((sangha) => Mustache.render(cardTemplate, sanghaCardView(sangha, useDirectoryMap)))
       .join(""),
     monthLabel: initialMonth.label,
     monthTable: monthTable(initialMonth),

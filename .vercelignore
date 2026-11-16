@@ -6,6 +6,7 @@ Photos/
 outputs/
 design-prototypes/
 node_modules/
+.cache/
 .git/
 .vercel/
 dist/

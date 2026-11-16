@@ -1,0 +1,189 @@
+{
+  "apiVersion": "v1",
+  "count": 6,
+  "sanghas": [
+    {
+      "id": "fixture-wake-up-boston",
+      "slug": "wake-up-boston",
+      "url": "https://plumline.org/sanghas/wake-up-boston",
+      "name": "Wake Up Boston",
+      "types": ["local sangha"],
+      "affinities": ["Wake Up"],
+      "meetingScheduleMode": "structured",
+      "meetingDescription": "",
+      "meetings": [
+        {
+          "startTime": "2026-01-14T19:30",
+          "durationMinutes": 90,
+          "format": "in person",
+          "recurrenceRule": {
+            "freq": "monthly",
+            "interval": 1,
+            "dtstart": "2026-01-14T19:30",
+            "tzid": "America/New_York",
+            "byweekday": ["we"],
+            "bysetpos": [2, 4]
+          }
+        },
+        {
+          "startTime": "2026-01-11T19:00",
+          "durationMinutes": 90,
+          "format": "in person",
+          "recurrenceRule": {
+            "freq": "monthly",
+            "interval": 1,
+            "dtstart": "2026-01-11T19:00",
+            "tzid": "America/New_York",
+            "byweekday": ["su"],
+            "bysetpos": 2
+          }
+        }
+      ],
+      "canReceiveIntro": false
+    },
+    {
+      "id": "fixture-joyful-lotus-sangha",
+      "slug": "joyful-lotus-sangha",
+      "url": "https://plumline.org/sanghas/joyful-lotus-sangha",
+      "name": "Joyful Lotus Sangha",
+      "types": ["local sangha"],
+      "affinities": ["BIPOC"],
+      "meetingScheduleMode": "structured",
+      "meetingDescription": "",
+      "meetings": [
+        {
+          "startTime": "2026-01-07T17:00",
+          "durationMinutes": 90,
+          "format": "in person",
+          "recurrenceRule": {
+            "freq": "monthly",
+            "interval": 1,
+            "dtstart": "2026-01-07T17:00",
+            "tzid": "America/New_York",
+            "byweekday": ["we"],
+            "bysetpos": 1
+          }
+        },
+        {
+          "startTime": "2026-01-18T14:00",
+          "durationMinutes": 90,
+          "format": "in person",
+          "recurrenceRule": {
+            "freq": "monthly",
+            "interval": 1,
+            "dtstart": "2026-01-18T14:00",
+            "tzid": "America/New_York",
+            "byweekday": ["su"],
+            "bysetpos": 3
+          }
+        }
+      ],
+      "canReceiveIntro": false,
+      "address": "Cambridge Zen Center, 199 Auburn Street, Cambridge, MA",
+      "latitude": 42.364369,
+      "longitude": -71.1060039
+    },
+    {
+      "id": "fixture-path-of-peace-sangha",
+      "slug": "path-of-peace-sangha-franklin",
+      "url": "https://plumline.org/sanghas/path-of-peace-sangha-franklin",
+      "name": "Path of Peace Sangha",
+      "types": ["local sangha", "online sangha"],
+      "affinities": [],
+      "meetingScheduleMode": "structured",
+      "meetingDescription": "",
+      "meetings": [
+        {
+          "startTime": "2026-01-05T19:00",
+          "durationMinutes": 90,
+          "format": "online",
+          "recurrenceRule": {
+            "freq": "weekly",
+            "interval": 1,
+            "dtstart": "2026-01-05T19:00",
+            "tzid": "America/New_York",
+            "byweekday": ["mo"]
+          }
+        },
+        {
+          "startTime": "2026-01-12T19:00",
+          "durationMinutes": 90,
+          "format": "in person",
+          "recurrenceRule": {
+            "freq": "monthly",
+            "interval": 1,
+            "dtstart": "2026-01-12T19:00",
+            "tzid": "America/New_York",
+            "byweekday": ["mo"],
+            "bysetpos": 2
+          }
+        }
+      ],
+      "canReceiveIntro": true
+    },
+    {
+      "id": "fixture-lotus-pond-sangha",
+      "slug": "lotus-pond-sangha",
+      "url": "https://plumline.org/sanghas/lotus-pond-sangha",
+      "name": "Lotus Pond Sangha",
+      "types": ["online sangha"],
+      "affinities": [],
+      "meetingScheduleMode": "structured",
+      "meetingDescription": "",
+      "meetings": [
+        {
+          "startTime": "2026-10-01T19:15",
+          "durationMinutes": 105,
+          "format": "online",
+          "recurrenceRule": {
+            "freq": "weekly",
+            "interval": 2,
+            "dtstart": "2026-10-01T19:15",
+            "tzid": "America/New_York",
+            "byweekday": ["th"]
+          }
+        }
+      ],
+      "canReceiveIntro": false
+    },
+    {
+      "id": "fixture-dandelions-of-the-heart-sangha",
+      "slug": "dandelions-of-the-heart-sangha",
+      "url": "https://plumline.org/sanghas/dandelions-of-the-heart-sangha",
+      "name": "Dandelions of the Heart Sangha",
+      "types": ["local sangha", "online sangha"],
+      "affinities": [],
+      "meetingScheduleMode": "text",
+      "meetingDescription": "Old fixture venue data to suppress. Contact the organizer to confirm.",
+      "meetings": [
+        {
+          "startTime": "2026-01-01T06:30",
+          "durationMinutes": 45,
+          "format": "online",
+          "recurrenceRule": {
+            "freq": "daily",
+            "interval": 1,
+            "dtstart": "2026-01-01T06:30",
+            "tzid": "America/New_York"
+          }
+        }
+      ],
+      "canReceiveIntro": false,
+      "address": "Withheld fixture address",
+      "latitude": 42.333,
+      "longitude": -71.2
+    },
+    {
+      "id": "fixture-different-wake-up-boston",
+      "slug": "different-wake-up-boston",
+      "url": "https://plumline.org/sanghas/different-wake-up-boston",
+      "name": "Wake Up Boston",
+      "types": ["online sangha"],
+      "affinities": [],
+      "meetingScheduleMode": "text",
+      "meetingDescription": "",
+      "meetings": [],
+      "canReceiveIntro": false
+    }
+  ]
+}

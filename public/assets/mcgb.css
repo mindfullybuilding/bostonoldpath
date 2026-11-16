@@ -944,6 +944,47 @@ button:disabled {
 .region-map .small {
   margin: 12px 0 0;
 }
+.sangha-map {
+  height: 300px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  isolation: isolate;
+}
+.sangha-map .leaflet-control-zoom a {
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+}
+.sangha-map .sangha-map-pin {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+}
+.sangha-map-pin::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: #1757a2;
+  box-shadow: 0 0 0 1px #1d344f;
+}
+.sangha-map-list {
+  margin-top: 12px;
+}
+.sangha-map-list ul {
+  margin: 8px 0 0;
+  padding-inline-start: 24px;
+}
+.group-card details p.sangha-meeting {
+  margin-block: 4px;
+}
+.plumline-preview {
+  border-inline-start: 3px solid var(--line);
+  padding-inline-start: 12px;
+}
 .finder-calendar {
   border-top: 1px solid var(--line);
   padding-top: 24px;

@@ -24,11 +24,18 @@
       Google Maps, Google Forms, and linked websites have their own accessibility behavior. Their
       complete processes are not certified by this statement.
     </li>
+    {{#useDirectoryMap}}
+    <li>
+      The map shows venues with a confirmed public location. The full group directory, schedules,
+      and organizer contacts are available independently of the map.
+    </li>
+    {{/useDirectoryMap}} {{^useDirectoryMap}}
     <li>
       Testing found unlabeled controls, invalid ARIA attributes, and contrast and target-size
       problems inside Google’s embedded map. The full group directory, schedules, and organizer
       contacts remain available independently of the map.
     </li>
+    {{/useDirectoryMap}}
     <li>
       The public calendar and agenda use the Groups.io feed without requiring a Google account.
     </li>
