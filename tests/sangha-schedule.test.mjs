@@ -6,6 +6,7 @@ import {
   directoryDate,
   meetingMinutes,
   scheduleRow,
+  dailyMarkup,
 } from "../public/assets/sangha-schedule.js";
 const groups = JSON.parse(
   await fs.readFile(new URL("../site/sanghas.json", import.meta.url), "utf8"),
@@ -26,7 +27,11 @@ test("unknown alternating-week anchor is never invented as a dated occurrence", 
   const m = dailySanghas(groups, "2026-10-22T16:00:00Z");
   assert.ok(!m.scheduled.some((group) => group.id === "lotus-pond-sangha"));
   assert.equal(m.uncertain[0].id, "lotus-pond-sangha");
-  assert.match(scheduleRow(m.uncertain[0], true), /Every other Thursday; confirm this week/);
+  assert.match(scheduleRow(m.uncertain[0], true), /Every other Thursday/);
+  const markup = dailyMarkup(m);
+  assert.ok(markup.includes("Lotus Pond Sangha"));
+  assert.ok(!/confirm|check this week|organizer/i.test(markup));
+  assert.equal((markup.match(/<ul /g) || []).length, 1);
 });
 test("Boston date changes at Eastern midnight and handles daylight saving time", () => {
   assert.equal(directoryDate("2026-10-20T03:59:59Z").date, "2026-10-19");

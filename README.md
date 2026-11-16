@@ -1,34 +1,66 @@
 # Mindfulness Communities of Greater Boston
 
-First-party HTML website deployed to the existing Vercel project `bostonoldpath`, with production at https://bostonmindfulness.vercel.app.
+The [Boston Mindfulness website](https://bostonmindfulness.vercel.app) is a static HTML site with a Vercel function for the community calendar.
 
-## Editing and building
+## Local development
 
-- `DESIGN.md` governs shared spacing, type, color, components, responsive behavior, and editorial rules.
-- `scripts/build-site.mjs` contains the shared header/footer and current page copy. Its output is the canonical `public/*.html` site; edit the source and regenerate rather than editing generated HTML.
-- `site/content/` holds the practice and facilitator reading pages.
-- `site/sanghas.json` preserves the original 13 group records. Organizer details are rendered into HTML so they remain available without JavaScript.
-- `site/resources.json` holds resource groups and legacy deep-link identifiers.
-- `site/config.mjs` is the single configuration point for the contribution form, contact address, public ICS feed, and optional Google Calendar embed.
-- `public/assets/mcgb.css` and `mcgb.js` provide shared styles and progressive interactions.
-- `lib/events.mjs` and `api/events.js` implement the fixed-source calendar endpoint. No API credentials or Google account access are required.
+Use Node.js 24 and npm. If you use nvm, run `nvm use` from the repository root.
 
-Run `npm ci`, `npm run dev`, and open http://127.0.0.1:4173. Run `npm run build` to regenerate HTML and copy public assets into `dist/client`. Vercel uses this same build, existing routing, and the root `/api/events` function. The earlier React/TanStack scaffolding is retained for source history but is not part of the HTML build or production page rendering.
+```sh
+npm ci
+npm run dev
+```
+
+Open [http://127.0.0.1:4173](http://127.0.0.1:4173). After changing content or assets, run `npm run build` to refresh the running preview. `npm run preview` serves an existing build.
+
+| Path                                                          | What to edit                                                                                               |
+| ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `site/pages/`                                                 | One HTML template per page. Edit `home.html` for the homepage or the file that matches another page’s URL. |
+| `site/layouts/`                                               | Shared HTML, header, footer, navigation, and breadcrumbs                                                   |
+| `site/page-titles.json`                                       | Page registration and browser tab titles                                                                   |
+| `site/sanghas.json`, `site/resources.json`, `site/config.mjs` | Directory records, resource listings, and shared links                                                     |
+| `scripts/build-site.mjs`                                      | Reads the templates and data and writes the website                                                        |
+| `public/assets/`                                              | Styles, browser JavaScript, images, and public documents                                                   |
+| `api/events.js` and `lib/events.mjs`                          | Calendar endpoint and Groups.io feed processing                                                            |
+| `vercel.json`                                                 | Build settings, legacy redirects, and response headers                                                     |
+| `tests/`                                                      | Unit tests and browser checks                                                                              |
+| `dist/`                                                       | Generated website, rebuilt by `npm run build` and ignored by Git                                           |
+
+Page templates use [Mustache](https://github.com/janl/mustache.js/#templates). Edit ordinary HTML for copy and layout. Leave placeholders such as `{{{monthTable}}}` in place unless you’re changing that feature. A matching `.mjs` file contains the data or rendering logic for pages that need it. Repeated sangha cards use `site/pages/partials/sangha-card.html`. To add a page, add its HTML file and an entry in `site/page-titles.json`.
+
+[DESIGN.md](DESIGN.md) covers shared design conventions. [Design prototypes](design-prototypes/) and [release notes](docs/) document earlier iterations. The calligraphy assets used by the site are in `public/assets/`.
+
+## Working on a change
+
+Create a short-lived branch from current `main`, push it, and open a pull request into `main`.
+
+```sh
+git switch main
+git pull --ff-only
+git switch -c fix/example
+# Make the change and commit it.
+git push -u origin fix/example
+```
+
+GitHub Actions runs lint, unit tests, the build, and a check for generated pages and internal links for pull requests into `main` and pushes to `main`. Review the diff and checks before squash-merging. For visual changes, include the pages and screen sizes checked. The repository's GitHub plan currently requires this review convention to be followed manually.
+
+## First change: update a sangha listing
+
+1. Start a branch from current `main` using the steps above.
+2. Open [site/sanghas.json](site/sanghas.json) and find `path-of-peace-sangha` as an example. For a confirmed meeting-time correction, edit `time` and check whether `timeBand` also needs to change. If the meeting day changes, update both the displayed `day` and the `days` array used by the filters. Keep the record’s `id` stable so existing links keep working.
+3. Run `npm run dev` and open [Find a Sangha locally](http://127.0.0.1:4173/find-a-sangha.html). Search for the group, expand its card, and check the edited details and relevant filters.
+4. Open a pull request with the confirmed change, its source, and what you checked in the preview. The directory, homepage schedule, and browser filters all use the same source data.
+
+If you use VS Code, the [contributor CodeTour](.tours/new-joiner-site.tour) follows a record from source through the build and shows where calendar and deployment changes belong.
 
 ## Verification
 
-Run `npm run lint` and `npm test`. With the preview server running, run `npm run test:browser`, `node tests/states.mjs`, `node tests/enlargement.mjs`, and `node tests/links.mjs`. Browser checks use installed Playwright browsers. `TEST_BASE` can target production for the read-only browser checks. Test fixtures never publish invented calendar events.
+Run `npm run lint`, `npm test`, and `npm run build`. For browser checks, install Chromium and WebKit with `npx playwright install chromium webkit`, start `npm run preview`, and run `npm run test:browser` in a second terminal.
 
-Release evidence and limitations: `docs/release-2026-10-19/`. The subsequent background-hero and Boston palette refinement is documented in `docs/hero-refinement-2026-10-19/`. Accessibility verification is not independent certification. Native Safari/VoiceOver testing could not be performed because computer-use access to Safari was denied; WebKit testing is separately identified and is not a substitute for VoiceOver.
+With the built preview running and Chromium installed, run `npm run test:links` to repeat the CI page and link check. The calendar reads the public Groups.io feed. Browser fixtures simulate calendar responses without publishing events.
 
-## Calendar
+## Deployment
 
-Groups.io remains the source. `/api/events` expands the next 180 days with node-ical, including recurrence exceptions and daylight saving. Successful responses cache for five minutes; upstream requests time out after ten seconds. Descriptions render as inert text, and source URLs allow HTTP(S) only.
+The GitHub-linked [bostonoldpath Vercel project](https://vercel.com/mindfullybuildings-projects/bostonoldpath) builds the repository root with `npm ci` and `npm run build`. Vercel uses `main` for production and feature branches for previews. The project serves `dist/` and runs `api/events.js` directly.
 
-The supplied imported Google Calendar requires sign-in and has no public-sharing control in the available settings. Following the user’s decision, the public website agenda and ICS subscription instructions are primary; Google Calendar is an optional disclosed signed-in view. No Google account information is stored in this project. The contribution form was verified anonymously without submitting a response.
-
-## Preservation and deployment
-
-The previous source is saved in `design-prototypes/archive/2026-10-19-live/`, with baseline metadata and immutable previous deployment URL in `BASELINE.json`. Git tag: `mcgb-pre-redesign-2026-10-19`. The archive is excluded from deployment and public navigation. Local meeting references and browser output are ignored by Git; the meeting PDF is also excluded from deployment.
-
-Use the existing `.vercel/project.json` link (local and ignored). Do not create a replacement project. Push the tested revision to `main`, then deploy with `npx vercel@latest deploy --prod --yes`; verify the public domain, API, primary journeys, and legacy redirects. The previous ready deployment can be restored with Vercel rollback using the URL recorded in `BASELINE.json`.
+The public domain points to the Git-backed `bostonoldpath` project. After a production merge, check the public homepage, directory, calendar API, and any affected redirects.

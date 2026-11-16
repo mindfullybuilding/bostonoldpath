@@ -1,0 +1,46 @@
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner container">
+    {{^isHome}}<a
+      class="brand calligraphy-brand"
+      href="/"
+      aria-label="Mindfulness Communities of Greater Boston — home"
+      ><img
+        src="/assets/MCGB_Calligraphy.svg"
+        alt="Mindfulness Communities of Greater Boston"
+        width="2136"
+        height="662"
+        decoding="async" /></a
+    >{{/isHome}}
+    <nav class="desktop-nav" aria-label="Main">{{{menu}}}</nav>
+    <div class="header-actions">
+      <a class="button primary" href="/find-a-sangha.html">Find a Sangha</a
+      ><button
+        class="menu-trigger"
+        data-open-drawer
+        aria-haspopup="dialog"
+        aria-controls="mobile-menu"
+        aria-label="Open menu"
+      >
+        <span class="icon icon-menu" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</header>
+<dialog class="drawer" id="mobile-menu" aria-labelledby="drawer-title">
+  <div class="drawer-top">
+    <h2 id="drawer-title">
+      <img
+        src="/assets/MCGB_Calligraphy.svg"
+        alt="Mindfulness Communities of Greater Boston"
+        width="2136"
+        height="662"
+        decoding="async"
+      />
+    </h2>
+    <button data-close-dialog aria-label="Close menu">
+      <span class="icon icon-close" aria-hidden="true"></span>
+    </button>
+  </div>
+  <nav aria-label="Mobile main">{{{mobileMenu}}}</nav>
+</dialog>

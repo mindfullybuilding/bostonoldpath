@@ -120,7 +120,7 @@ desktop.addEventListener("change", (e) => {
   if (e.matches) {
     const focusWasInCompactNav = drawer?.open || focusBeforeReflow() === $("[data-open-drawer]");
     if (drawer?.open) drawer.close();
-    if (focusWasInCompactNav) $(".brand")?.focus();
+    if (focusWasInCompactNav) ($(".brand") || $(".desktop-nav a"))?.focus();
   } else {
     const focusWasInDesktopNav = focusBeforeReflow()?.closest(".desktop-nav");
     if (focusWasInDesktopNav) $("[data-open-drawer]")?.focus();
@@ -429,7 +429,7 @@ if (todaySanghas) {
       }),
     );
     todaySanghas.innerHTML = dailyMarkup(model);
-    status.textContent = `${model.scheduled.length} regular sanghas listed for ${dateLabel}${model.uncertain.length ? `; ${model.uncertain.length} group requires confirmation` : ""}.`;
+    status.textContent = `${model.scheduled.length + model.uncertain.length} regular sanghas listed for ${dateLabel}.`;
     status.classList.add("sr-only");
   };
   status.textContent = "Loading today’s sanghas…";
@@ -452,26 +452,6 @@ if (todaySanghas) {
   };
   document.addEventListener("visibilitychange", checkDate);
   setInterval(checkDate, 60000);
-}
-
-// Desktop shows the introduction; phones use a labeled information disclosure.
-const scheduleContext = $(".schedule-context");
-const scheduleInfo = $(".schedule-info");
-if (scheduleContext && scheduleInfo) {
-  const narrow = matchMedia("(max-width:899px)");
-  const reflow = () => {
-    if (!narrow.matches && document.activeElement === scheduleInfo)
-      $("#today-sanghas-title").focus();
-    scheduleInfo.hidden = !narrow.matches;
-    scheduleContext.hidden = narrow.matches;
-    scheduleInfo.setAttribute("aria-expanded", String(!scheduleContext.hidden));
-  };
-  reflow();
-  narrow.addEventListener("change", reflow);
-  scheduleInfo.addEventListener("click", () => {
-    scheduleContext.hidden = !scheduleContext.hidden;
-    scheduleInfo.setAttribute("aria-expanded", String(!scheduleContext.hidden));
-  });
 }
 
 // Keep anchored sections and focused controls clear of the content-driven header.
@@ -497,4 +477,17 @@ if (mailingChoices.length) {
   };
   mailingChoices.forEach((el) => el.addEventListener("change", updateMailChoices));
   updateMailChoices();
+}
+
+const identityImage = $(".identity-calligraphy img");
+if (identityImage) {
+  const title = identityImage.closest("h1");
+  const updateIdentity = () =>
+    title.classList.toggle(
+      "identity-image-ready",
+      identityImage.complete && identityImage.naturalWidth > 0,
+    );
+  identityImage.addEventListener("load", updateIdentity);
+  identityImage.addEventListener("error", updateIdentity);
+  updateIdentity();
 }

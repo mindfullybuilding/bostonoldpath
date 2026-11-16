@@ -1,0 +1,97 @@
+<section class="container finder-page">
+  <div class="finder-heading">
+    <h1>Find a Sangha</h1>
+    <p>
+      Sangha offers an opportunity to connect authentically with others and to feel safe enough to
+      look at our own suffering in order to change it. We’ve learned “what we don’t transform, we
+      transmit.” We each take in the Dharma through our own filters and, happily, it manifests in
+      each of us differently.
+    </p>
+    <div class="finder-shortcuts">
+      <a href="#calendar">Jump to Community Events &amp; Calendar</a>
+    </div>
+  </div>
+  <div class="finder-layout">
+    <form class="filters" id="group-filters" aria-label="Filter groups">
+      <div class="filters-heading">
+        <h2>Filter Sanghas</h2>
+        <button type="button" data-close-filters aria-label="Close filters">
+          <span class="icon icon-close" aria-hidden="true"></span>
+        </button>
+      </div>
+      <label for="group-search">Search name or place</label
+      ><input type="search" id="group-search" name="search" placeholder="e.g. Brookline" />
+      <div class="filter-sheet">{{{filterOptions}}}</div>
+      <button type="reset">Clear Filters</button>
+    </form>
+    <div class="directory-results">
+      <div class="results-top">
+        <button
+          class="filter-trigger"
+          data-filter-toggle
+          aria-label="Filter groups"
+          aria-expanded="false"
+          aria-controls="group-filters"
+        >
+          <span class="icon icon-filter" aria-hidden="true"></span></button
+        ><label class="sangha-sort" hidden
+          ><span aria-hidden="true">↑↓</span><span class="sr-only">Sort Sanghas</span
+          ><select data-sort-sanghas aria-label="Sort Sanghas">
+            <option value="name-asc">Sangha Name: A–Z</option>
+            <option value="name-desc">Sangha Name: Z–A</option>
+            <option value="day">Day: Sun–Sat</option>
+          </select></label
+        ><span class="sr-only" data-sort-status role="status"></span>
+        <p id="group-count" role="status">{{sanghaCount}} of {{sanghaCount}} Sanghas</p>
+      </div>
+      <div class="group-list">{{{groupsHTML}}}</div>
+      <div id="no-groups" class="status-box" hidden>
+        <h2>No Matching Sanghas</h2>
+        <p>Try fewer filters or a different place.</p>
+        <button data-clear-filters>Clear Filters</button>
+      </div>
+    </div>
+    <aside class="finder-aside" aria-label="Map and community calendar">
+      <section class="region-map" aria-labelledby="regional-map-title">
+        <h2 id="regional-map-title">Regional Sangha Map</h2>
+        <iframe
+          loading="lazy"
+          title="Supplementary map of regional sanghas"
+          src="https://www.google.com/maps/d/embed?mid=1TBbpA9rWK7PatKg8S-NV2kAVLRAaE_c&amp;ehbc=2E312F"
+          width="100%"
+          height="320"
+        ></iframe>
+      </section>
+      <section id="calendar" class="finder-calendar">
+        <h2>Community Events</h2>
+        <p>
+          Subscribe to stay up to date with days of mindfulness, retreats, engaged practice, and
+          other happenings outside of regular practice sittings.
+        </p>
+        <a id="subscribe-calendar" class="button primary" href="/subscribe-calendar.html"
+          >Subscribe to Calendar</a
+        >
+        <div data-agenda data-limit="10" data-month-calendar>
+          <div class="month-controls">
+            <button data-month-prev aria-label="Previous month" disabled>Previous</button>
+            <h3 data-month-label aria-live="polite">{{monthLabel}}</h3>
+            <button data-month-next aria-label="Next month" disabled>Next</button>
+          </div>
+          <div data-month-grid>{{{monthTable}}}</div>
+          <p class="agenda-status" role="status">Loading upcoming events…</p>
+          <div class="agenda-list"></div>
+          <div class="agenda-controls">
+            <button data-retry>Refresh Events</button>
+            <button data-more hidden>Show More Events</button>
+          </div>
+          <noscript>
+            <p>
+              Live events require JavaScript.
+              <a href="/subscribe-calendar.html">Subscribe to Calendar</a>.
+            </p>
+          </noscript>
+        </div>
+      </section>
+    </aside>
+  </div>
+</section>
