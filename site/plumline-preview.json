@@ -1,0 +1,475 @@
+{
+  "sanghas": [
+    {
+      "id": "dandelions-of-the-heart-sangha",
+      "name": "Dandelions of the Heart Sangha",
+      "region": "boston",
+      "area": "Greater Boston",
+      "modality": "in-person",
+      "day": "Daily",
+      "time": "6:30 AM–7:15 AM",
+      "days": ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
+      "timeBand": "morning",
+      "location": "Newton",
+      "access": "Contact the organizer for meeting location and online details.",
+      "description": "This is a mostly silent sit with a closing dharma reflection except on Thursday and Friday. Feel to drop in and sit for any part of that time.",
+      "registerUrl": "https://plumline.org/sanghas/dandelions-of-the-heart-sangha#intro",
+      "meetingDescription": "",
+      "affinities": [],
+      "meetings": [
+        {
+          "id": "meeting-9f3e173f42a5328f",
+          "format": "in-person",
+          "rule": {
+            "freq": "daily",
+            "interval": 1,
+            "dtstart": "2026-10-01T06:30",
+            "tzid": "America/New_York"
+          },
+          "summary": "",
+          "durationMinutes": 45,
+          "days": ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
+          "timeLabel": "6:30 AM–7:15 AM",
+          "timeBand": "morning",
+          "dayLabel": "Daily"
+        }
+      ],
+      "contactKind": "plumline",
+      "publicVenue": false
+    },
+    {
+      "id": "peaceful-garden-sangha",
+      "name": "Peaceful Garden Sangha",
+      "region": "boston",
+      "area": "Greater Boston",
+      "modality": "in-person",
+      "day": "Tuesday",
+      "time": "7:00 PM–8:30 PM",
+      "days": ["tuesday"],
+      "timeBand": "evening",
+      "location": "Brookline",
+      "address": "United Parish Church, 210 Harvard Street, Brookline, MA",
+      "latLng": [42.340198, -71.1214634],
+      "access": "Use the Marion Street entrance (up the stairs to the Parlor on the left). Green C line or Bus 66. Or ample free parking on side streets.",
+      "description": "We are a secular group of friends that practice mindful living in the Plum Village tradition. Some are brand new and others of us have an established practice.  We’re peer- led and share in facilitation. While our meetings are based on Buddhist practices, everyone is encouraged to appreciate and deepen their own (root) tradition.  We welcome all ages, identities backgrounds and experience. Each evening we share a reading and talk about what comes up for us. Our practice is interactive.",
+      "registerUrl": "https://plumline.org/sanghas/peaceful-garden-sangha#intro",
+      "meetingDescription": "Every week on Tuesday at 19:00 (America/New_York), 90 minutes, in person",
+      "affinities": [],
+      "meetings": [
+        {
+          "id": "meeting-76c1ff1644d07c30",
+          "format": "in-person",
+          "rule": {
+            "freq": "weekly",
+            "interval": 1,
+            "dtstart": "2026-10-06T19:00",
+            "tzid": "America/New_York",
+            "byweekday": ["tu"]
+          },
+          "summary": "Every week on Tuesday at 19:00 (America/New_York), 90 minutes, in person",
+          "durationMinutes": 90,
+          "days": ["tuesday"],
+          "timeLabel": "7:00 PM–8:30 PM",
+          "timeBand": "evening",
+          "dayLabel": "Tuesday"
+        }
+      ],
+      "contactKind": "plumline",
+      "publicVenue": true
+    },
+    {
+      "id": "peaceful-songbird-sangha",
+      "name": "Peaceful Songbird Sangha",
+      "region": "boston",
+      "area": "Greater Boston",
+      "modality": "in-person",
+      "day": "Saturday",
+      "time": "9:30 AM–11:00 AM",
+      "days": ["saturday"],
+      "timeBand": "morning",
+      "location": "Roslindale",
+      "access": "For in-person, there's street parking and lot parking behind the temple.",
+      "description": "We meditate, check-in with one another, share a reading from a teacher of the dharma, and follow with Dharma discussion, metta practice and a final meditation. We practice in the Plum Village tradition of Thich Nhat Hanh, with its emphasis on engaged Buddhism and the art of mindful living.All are welcome to join us. Email us: PeacefulSongbird+owner@BostonOldPath.groups.io",
+      "registerUrl": "https://plumline.org/sanghas/peaceful-songbird-sangha#intro",
+      "meetingDescription": "Every week on Saturday at 09:30 (America/New_York), 90 minutes, in person",
+      "affinities": [],
+      "meetings": [
+        {
+          "id": "meeting-1c71edbe5b2c68f4",
+          "format": "in-person",
+          "rule": {
+            "freq": "weekly",
+            "interval": 1,
+            "dtstart": "2026-10-03T09:30",
+            "tzid": "America/New_York",
+            "byweekday": ["sa"]
+          },
+          "summary": "Every week on Saturday at 09:30 (America/New_York), 90 minutes, in person",
+          "durationMinutes": 90,
+          "days": ["saturday"],
+          "timeLabel": "9:30 AM–11:00 AM",
+          "timeBand": "morning",
+          "dayLabel": "Saturday"
+        }
+      ],
+      "contactKind": "plumline",
+      "publicVenue": false
+    },
+    {
+      "id": "wake-up-boston",
+      "name": "Wake Up Boston",
+      "region": "boston",
+      "area": "Greater Boston",
+      "modality": "in-person",
+      "day": "Second and fourth Wednesday of the month",
+      "time": "7:30 PM–9:00 PM",
+      "days": ["wednesday"],
+      "timeBand": "evening",
+      "location": "Cambridge",
+      "address": "763 Massachusetts Ave, Cambridge, MA 02139",
+      "latLng": [42.3666402, -71.1053125],
+      "access": "Conveniently off the red line, with limited metered street parking.",
+      "description": "Join us for an evening of sitting and walking meditations, sutra reading or Dharma talk viewing, and Dharma sharing! Energetic, vibrant community for younger practitioners (18 to 35+). All experience levels welcome.",
+      "registerUrl": "https://plumline.org/sanghas/massachusetts-wake-up-boston#intro",
+      "meetingDescription": "Every month on the second and fourth Wednesdays at 19:30 (America/New_York), 90 minutes, in person",
+      "affinities": ["Wake Up (Younger Adults)"],
+      "meetings": [
+        {
+          "id": "wake-wednesday",
+          "format": "in-person",
+          "rule": {
+            "freq": "monthly",
+            "interval": 1,
+            "dtstart": "2026-10-14T19:30",
+            "tzid": "America/New_York",
+            "byweekday": ["we"],
+            "bysetpos": [2, 4]
+          },
+          "summary": "Every month on the second and fourth Wednesdays at 19:30 (America/New_York), 90 minutes, in person",
+          "durationMinutes": 90,
+          "days": ["wednesday"],
+          "timeLabel": "7:30 PM–9:00 PM",
+          "timeBand": "evening",
+          "dayLabel": "Second and fourth Wednesday of the month",
+          "excludeDates": ["2026-11-25"]
+        }
+      ],
+      "contactKind": "plumline",
+      "publicVenue": true
+    },
+    {
+      "id": "joyful-lotus-sangha",
+      "name": "Joyful Lotus Sangha",
+      "region": "boston",
+      "area": "Greater Boston",
+      "modality": "in-person",
+      "day": "First Wednesday of the month",
+      "time": "5:00 PM–6:30 PM",
+      "days": ["wednesday"],
+      "timeBand": "evening",
+      "location": "Cambridge Zen Center",
+      "address": "Cambridge Zen Center, 199 Auburn Street, Cambridge, MA",
+      "latLng": [42.364369, -71.1060039],
+      "access": "Conveniently off the red line, with limited metered street parking.",
+      "description": "This Black, Indigenous and People of Color (BIPOC) practice group is a monthly gathering of self-identifying BIPOC practitioners that provides a safe place to meditate and explore contemplative practices. This sangha cultivates an environment that welcomes diverse voices and builds community. In a typical practice group, we enjoy a mix of sitting meditation, walking meditation, readings, and dharma sharing about our experiences and practice in everyday life.",
+      "registerUrl": "https://plumline.org/sanghas/joyful-lotus-sangha#intro",
+      "meetingDescription": "Every month on the first Wednesday at 17:00 (America/New_York), 90 minutes, in person",
+      "affinities": ["BIPOC"],
+      "meetings": [
+        {
+          "id": "meeting-302547872febdefb",
+          "format": "in-person",
+          "rule": {
+            "freq": "monthly",
+            "interval": 1,
+            "dtstart": "2026-10-07T17:00",
+            "tzid": "America/New_York",
+            "byweekday": ["we"],
+            "bysetpos": [1]
+          },
+          "summary": "Every month on the first Wednesday at 17:00 (America/New_York), 90 minutes, in person",
+          "durationMinutes": 90,
+          "days": ["wednesday"],
+          "timeLabel": "5:00 PM–6:30 PM",
+          "timeBand": "evening",
+          "dayLabel": "First Wednesday of the month"
+        }
+      ],
+      "contactKind": "plumline",
+      "publicVenue": true
+    },
+    {
+      "id": "tree-house-sangha",
+      "name": "Tree House Sangha",
+      "region": "boston",
+      "area": "Greater Boston",
+      "modality": "in-person",
+      "day": "First and third Monday of the month",
+      "time": "8:00 AM–10:30 AM",
+      "days": ["monday"],
+      "timeBand": "morning",
+      "location": "Bedford",
+      "access": "Street parking available.",
+      "description": "Bi-monthly meetings in the Plum Village Tradition. We practice meditation, mindfulness practices, dharma sharing and regular recitation on the Five Mindfulness Trainings. Each season we enjoy eating meditation together.",
+      "registerUrl": "https://plumline.org/sanghas/tree-house-sangha#intro",
+      "meetingDescription": "Every month on the first and third Mondays at 08:00 (America/New_York), 150 minutes, in person; First and Third Monday, 8-10:30AM. In case of a holiday weekend, we meet the following Monday.",
+      "affinities": [],
+      "meetings": [
+        {
+          "id": "meeting-fd9d3ad7cec46cb9",
+          "format": "in-person",
+          "rule": {
+            "freq": "monthly",
+            "interval": 1,
+            "dtstart": "2026-10-05T08:00",
+            "tzid": "America/New_York",
+            "byweekday": ["mo"],
+            "bysetpos": [1, 3]
+          },
+          "summary": "Every month on the first and third Mondays at 08:00 (America/New_York), 150 minutes, in person",
+          "durationMinutes": 150,
+          "days": ["monday"],
+          "timeLabel": "8:00 AM–10:30 AM",
+          "timeBand": "morning",
+          "dayLabel": "First and third Monday of the month"
+        }
+      ],
+      "contactKind": "plumline",
+      "publicVenue": false
+    },
+    {
+      "id": "mountain-bell-sangha",
+      "name": "Mountain Bell Sangha",
+      "region": "boston",
+      "area": "Greater Boston",
+      "modality": "in-person",
+      "day": "Second and fourth Sunday of the month",
+      "time": "5:30 PM–7:30 PM",
+      "days": ["sunday"],
+      "timeBand": "evening",
+      "location": "Belmont",
+      "access": "Street parking available.",
+      "description": "A Belmont-area sangha with in-person and online practice options.",
+      "registerUrl": "https://plumline.org/sanghas/mountain-bell-sangha-belmont#intro",
+      "meetingDescription": "",
+      "affinities": [],
+      "meetings": [
+        {
+          "id": "meeting-eb56228b8017898a",
+          "format": "in-person",
+          "rule": {
+            "freq": "monthly",
+            "interval": 1,
+            "dtstart": "2026-10-11T17:30",
+            "tzid": "America/New_York",
+            "byweekday": ["su"],
+            "bysetpos": [2, 4]
+          },
+          "summary": "",
+          "durationMinutes": 120,
+          "days": ["sunday"],
+          "timeLabel": "5:30 PM–7:30 PM",
+          "timeBand": "evening",
+          "dayLabel": "Second and fourth Sunday of the month"
+        }
+      ],
+      "contactKind": "plumline",
+      "publicVenue": false
+    },
+    {
+      "id": "green-fields-sangha",
+      "name": "Green Fields Sangha",
+      "region": "boston",
+      "area": "Greater Boston",
+      "modality": "in-person",
+      "day": "Tuesday",
+      "time": "4:00 PM",
+      "days": ["tuesday"],
+      "timeBand": "afternoon",
+      "location": "Lincoln",
+      "address": "First Parish Church, 4 Bedford Rd, Lincoln, MA",
+      "latLng": [42.4263662, -71.3037098],
+      "access": "Street parking available.",
+      "description": "We practice together sitting, walking meditation, reading together a book by Thich Nhat Hanh, Dharma Sharing and metta practice. We have been practicing together since 2011. New members welcome.",
+      "registerUrl": "https://plumline.org/sanghas/green-fields-sangha#intro",
+      "meetingDescription": "Every week on Tuesday at 16:00 (America/New_York), in person; We meet every Tuesday at 4:00 in person and when possible, hybrid.",
+      "affinities": [],
+      "meetings": [
+        {
+          "id": "meeting-15a4a6c8d3ed1c53",
+          "format": "in-person",
+          "rule": {
+            "freq": "weekly",
+            "interval": 1,
+            "dtstart": "2026-10-06T16:00",
+            "tzid": "America/New_York",
+            "byweekday": ["tu"]
+          },
+          "summary": "Every week on Tuesday at 16:00 (America/New_York), in person",
+          "durationMinutes": null,
+          "days": ["tuesday"],
+          "timeLabel": "4:00 PM",
+          "timeBand": "afternoon",
+          "dayLabel": "Tuesday"
+        }
+      ],
+      "contactKind": "plumline",
+      "publicVenue": true
+    },
+    {
+      "id": "sangha-of-the-seven-hills",
+      "name": "Sangha of the Seven Hills",
+      "region": "boston",
+      "area": "Greater Boston",
+      "modality": "in-person",
+      "day": "Friday",
+      "time": "1:00 PM–2:00 PM",
+      "days": ["friday"],
+      "timeBand": "afternoon",
+      "location": "Worcester",
+      "access": "Free parking in the lot available.",
+      "description": "Our format: 20 min sitting, 10 min walking, a short reading, dharma sharing. New or experienced practitioners, drop in anytime, no advance notice needed, free to participate.",
+      "registerUrl": "https://plumline.org/sanghas/sangha-of-the-seven-hills#intro",
+      "meetingDescription": "Every week on Friday at 13:00 (America/New_York), 60 minutes, in person",
+      "affinities": [],
+      "meetings": [
+        {
+          "id": "meeting-fae5905fb2042372",
+          "format": "in-person",
+          "rule": {
+            "freq": "weekly",
+            "interval": 1,
+            "dtstart": "2026-10-02T13:00",
+            "tzid": "America/New_York",
+            "byweekday": ["fr"]
+          },
+          "summary": "Every week on Friday at 13:00 (America/New_York), 60 minutes, in person",
+          "durationMinutes": 60,
+          "days": ["friday"],
+          "timeLabel": "1:00 PM–2:00 PM",
+          "timeBand": "afternoon",
+          "dayLabel": "Friday"
+        }
+      ],
+      "contactKind": "plumline",
+      "publicVenue": false
+    },
+    {
+      "id": "peaceful-heart-sangha",
+      "name": "Peaceful Heart Sangha",
+      "region": "boston",
+      "area": "Greater Boston",
+      "modality": "virtual",
+      "day": "Friday",
+      "time": "8:30 AM–10:00 AM",
+      "days": ["friday"],
+      "timeBand": "morning",
+      "location": "Online",
+      "access": "Contact the organizer for the Zoom Link.",
+      "description": "All are welcome and no previous meditation experience is necessary. We rotate facilitation by volunteer who chooses a reading. We practice sitting, walking and dharma sharing in a welcoming, non judgmental confidential setting.",
+      "registerUrl": "https://plumline.org/sanghas/peaceful-heart-sangha-ma#intro",
+      "meetingDescription": "Every week on Friday at 08:30 (America/New_York), 90 minutes, online",
+      "affinities": [],
+      "meetings": [
+        {
+          "id": "meeting-c3703c04c5d4d547",
+          "format": "virtual",
+          "rule": {
+            "freq": "weekly",
+            "interval": 1,
+            "dtstart": "2026-10-02T08:30",
+            "tzid": "America/New_York",
+            "byweekday": ["fr"]
+          },
+          "summary": "Every week on Friday at 08:30 (America/New_York), 90 minutes, online",
+          "durationMinutes": 90,
+          "days": ["friday"],
+          "timeLabel": "8:30 AM–10:00 AM",
+          "timeBand": "morning",
+          "dayLabel": "Friday"
+        }
+      ],
+      "contactKind": "plumline",
+      "publicVenue": false
+    },
+    {
+      "id": "living-the-14-sangha",
+      "name": "Living the 14 Sangha",
+      "region": "boston",
+      "area": "Greater Boston",
+      "modality": "virtual",
+      "day": "Wednesday",
+      "time": "7:30 PM–9:00 PM",
+      "days": ["wednesday"],
+      "timeBand": "evening",
+      "location": "Online",
+      "access": "Contact the organizer for the Zoom Link.",
+      "description": "The 14 Mindfulness Trainings are the foundation of the Order of Interbeing and we are strengthening our commitment to them by looking deeply at a single training each week.  We are open to OI members, Aspirants and pre-Aspirants.",
+      "registerUrl": "https://plumline.org/sanghas/living-the-14-sangha#intro",
+      "meetingDescription": "Every week on Wednesday at 19:30 (America/New_York), 90 minutes, online",
+      "affinities": ["Study"],
+      "meetings": [
+        {
+          "id": "meeting-a387120d64d0f63d",
+          "format": "virtual",
+          "rule": {
+            "freq": "weekly",
+            "interval": 1,
+            "dtstart": "2026-10-28T19:30",
+            "tzid": "America/New_York",
+            "byweekday": ["we"]
+          },
+          "summary": "Every week on Wednesday at 19:30 (America/New_York), 90 minutes, online",
+          "durationMinutes": 90,
+          "days": ["wednesday"],
+          "timeLabel": "7:30 PM–9:00 PM",
+          "timeBand": "evening",
+          "dayLabel": "Wednesday"
+        }
+      ],
+      "contactKind": "plumline",
+      "publicVenue": false
+    },
+    {
+      "id": "path-of-peace-sangha",
+      "name": "Path of Peace Sangha",
+      "region": "boston",
+      "area": "Greater Boston",
+      "modality": "in-person",
+      "day": "See meeting details",
+      "time": "See meeting details",
+      "days": [],
+      "timeBand": null,
+      "location": "Franklin",
+      "address": "First Universalist Society of Franklin, 262 Chestnut St, Franklin, MA 02038",
+      "access": "Practice is in English. Meet in person on the second Monday of the month and on Zoom on all other Mondays. Contact Robin or Ann through the organizer page for an invitation.",
+      "description": "We are a group of friends dedicated to mindful living and engaged Buddhist practice. You don’t have to be Buddhist to practice with us. All are welcome.",
+      "registerUrl": "https://plumline.org/sanghas/path-of-peace-sangha-franklin#intro",
+      "meetingDescription": "We meet Mondays: The 2nd week of the month in-person, all other weeks of the month on Zoom. contact us for an invitation.",
+      "affinities": [],
+      "meetings": [],
+      "contactKind": "plumline",
+      "publicVenue": true
+    },
+    {
+      "id": "lotus-pond-sangha",
+      "name": "Lotus Pond Sangha",
+      "region": "boston",
+      "area": "Greater Boston",
+      "modality": "virtual",
+      "day": "See meeting details",
+      "time": "See meeting details",
+      "days": [],
+      "timeBand": null,
+      "location": "Online",
+      "access": "Contact the organizer for the Zoom Link.",
+      "description": "We meet every other week on Zoom to practice sitting and walking meditation, followed by dharma sharing. We often read a short text to start dharma sharing to help us gather the mind and open the heart. We welcome everyone.",
+      "registerUrl": "https://plumline.org/sanghas/lotus-pond-sangha#intro",
+      "meetingDescription": "Thu 19:15 America/New_York fortnightly",
+      "affinities": [],
+      "meetings": [],
+      "contactKind": "plumline",
+      "publicVenue": false
+    }
+  ]
+}

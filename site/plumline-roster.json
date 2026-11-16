@@ -22,7 +22,23 @@
       "localId": "wake-up-boston",
       "plumlineId": "837cca54-7101-5d8c-9f8c-d4f73ddc523a",
       "keepLocal": true,
-      "publicVenue": true
+      "publicVenue": true,
+      "meetingOverrides": [
+        {
+          "id": "wake-wednesday",
+          "match": {
+            "rule": {
+              "freq": "monthly",
+              "interval": 1,
+              "dtstart": "2026-10-14T19:30",
+              "tzid": "America/New_York",
+              "byweekday": ["we"],
+              "bysetpos": [2, 4]
+            }
+          },
+          "excludeDates": ["2026-11-25"]
+        }
+      ]
     },
     {
       "localId": "joyful-lotus-sangha",

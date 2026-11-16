@@ -17,12 +17,12 @@ const snapshotFile = snapshotOption >= 0 ? args[snapshotOption + 1] : null;
 if (snapshotOption >= 0 && (!snapshotFile || snapshotFile.startsWith("--")))
   throw new Error("--plumline-snapshot requires a candidate file.");
 
-const fixturePreview =
-  args.includes("--plumline-preview") ||
-  (!snapshotFile &&
-    process.env.VERCEL_ENV === "preview" &&
-    process.env.VERCEL_GIT_COMMIT_REF === "codex/mcgb-plumline-finder");
-const useDirectoryMap = fixturePreview || Boolean(snapshotFile);
+const fixturePreview = args.includes("--plumline-preview");
+const hostedPreview =
+  process.env.VERCEL_ENV === "preview" &&
+  process.env.VERCEL_GIT_COMMIT_REF === "codex/mcgb-plumline-finder";
+const directoryFile = snapshotFile || (hostedPreview && "site/plumline-preview.json");
+const useDirectoryMap = fixturePreview || Boolean(directoryFile);
 if (snapshotFile && (process.env.VERCEL || process.env.VERCEL_ENV))
   throw new Error("A Plumline review candidate can only be built locally.");
 if (useDirectoryMap && process.env.VERCEL_ENV === "production")
@@ -42,12 +42,16 @@ if (fixturePreview) {
   if (candidate.review.blocked.length)
     throw new Error("The Plumline preview fixture is incomplete.");
   sanghas = candidate.sanghas;
-} else if (snapshotFile) {
-  const candidate = await readJson(snapshotFile);
+} else if (directoryFile) {
+  const candidate = await readJson(directoryFile);
+  if (
+    snapshotFile &&
+    (!Array.isArray(candidate?.review?.blocked) || candidate.review.blocked.length)
+  )
+    throw new Error("Use an unblocked candidate created by the Plumline refresh script.");
+
   sanghas = candidate?.sanghas;
   if (
-    !Array.isArray(candidate?.review?.blocked) ||
-    candidate.review.blocked.length ||
     !Array.isArray(sanghas) ||
     !sanghas.length ||
     !sanghas.every(
@@ -55,13 +59,22 @@ if (fixturePreview) {
     ) ||
     new Set(sanghas.map(({ id }) => id)).size !== sanghas.length
   )
-    throw new Error("Use an unblocked candidate created by the Plumline refresh script.");
+    throw new Error("Plumline preview directory has invalid or duplicate sangha records.");
+
+  if (hostedPreview) {
+    const { entries } = await readJson("site/plumline-roster.json");
+    const published = new Set(sanghas.map(({ id }) => id));
+    if (entries.length !== published.size || entries.some(({ localId }) => !published.has(localId)))
+      throw new Error("Plumline preview directory does not match the approved roster.");
+  }
 }
 const plumlinePreview = fixturePreview
   ? "Plumline preview with sample data."
-  : snapshotFile
-    ? "Plumline preview with directory data under review."
-    : "";
+  : hostedPreview
+    ? "Plumline preview with live directory data under review."
+    : snapshotFile
+      ? "Plumline preview with directory data under review."
+      : "";
 
 const output = "dist";
 await fs.rm(output, { recursive: true, force: true });
