@@ -37,7 +37,7 @@
     },
     {
       "localId": "mountain-bell-sangha",
-      "plumlineId": null,
+      "plumlineId": "54438314-5b51-5c21-ac9e-72cdd0bc1bb3",
       "keepLocal": true,
       "venue": "withhold"
     },
@@ -54,7 +54,7 @@
     },
     {
       "localId": "peaceful-heart-sangha",
-      "plumlineId": null,
+      "plumlineId": "9e3d7716-9e2c-5d8d-a7a9-88ba15134d6e",
       "keepLocal": true
     },
     {
@@ -64,7 +64,7 @@
     },
     {
       "localId": "path-of-peace-sangha",
-      "plumlineId": null,
+      "plumlineId": "73eb6750-e27b-5f43-8f7e-e05bf9e8cdd2",
       "keepLocal": true,
       "publicVenue": true,
       "plumlineSlug": "path-of-peace-sangha-franklin"

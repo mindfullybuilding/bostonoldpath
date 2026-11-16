@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { mkdtemp, readFile, rm, stat } from "node:fs/promises";
+import { copyFile, mkdir, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -247,4 +247,96 @@ test("the CLI builds a private candidate from fixtures without a key", async (t)
   assert.equal(fixture.sanghas.length, baseline.length);
   assert.equal(fixture.source.kind, "fixture");
   assert.equal((await stat(output)).mode & 0o777, 0o600);
+});
+
+test("the CLI remembers the latest ETag across review and scheduled checks", async (t) => {
+  const directory = await mkdtemp(path.join(tmpdir(), "mcgb-plumline-etag-"));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  const inDirectory = (...parts) => path.join(directory, ...parts);
+  const responseFile = inDirectory("response.json");
+  const mockFetch = inDirectory("mock-fetch.mjs");
+  await mkdir(inDirectory("site"));
+  await writeFile(inDirectory("site", "plumline-roster.json"), JSON.stringify(roster));
+  await writeFile(inDirectory("site", "sanghas.json"), JSON.stringify(baseline));
+  await writeFile(
+    mockFetch,
+    `import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+globalThis.fetch = async (url, { headers }) => {
+  const { status, etag, expected, payload } = JSON.parse(await readFile(process.env.MCGB_TEST_RESPONSE));
+  assert.equal(url, "https://plumline.org/api/v1/sanghas");
+  assert.equal(headers.Authorization, "Bearer fixture-key");
+  assert.equal(headers["If-None-Match"] ?? null, expected);
+  return new Response(status === 304 ? null : JSON.stringify(payload), {
+    status,
+    headers: { ETag: etag },
+  });
+};
+`,
+  );
+  const script = path.resolve("scripts/refresh-plumline.mjs");
+  async function run(args, response) {
+    await writeFile(responseFile, JSON.stringify(response));
+    return promisify(execFile)(process.execPath, ["--import", mockFetch, script, ...args], {
+      cwd: directory,
+      env: {
+        ...process.env,
+        PLUMLINE_API_KEY: "fixture-key",
+        MCGB_TEST_RESPONSE: responseFile,
+      },
+    });
+  }
+
+  const original = { status: 200, expected: null, etag: '"original"', payload };
+  await run(["--review-matches"], original);
+  const matches = inDirectory(".cache", "plumline", "matches.json");
+  const originalMatches = await readFile(matches, "utf8");
+  const reuse = { status: 304, expected: '"original"', etag: '"original"' };
+  assert.match((await run(["--review-matches"], reuse)).stdout, /HTTP 304/);
+  assert.equal(await readFile(matches, "utf8"), originalMatches);
+
+  await run([], original);
+  const candidate = inDirectory(".cache", "plumline", "candidate.json");
+  const approved = inDirectory("site", "plumline-approved.json");
+  await copyFile(candidate, approved);
+  await rm(candidate);
+  const scheduled = ["--scheduled", "--previous", approved];
+  const globalChange = structuredClone(payload);
+  globalChange.sanghas.push({ id: "unrelated-global-record" });
+  globalChange.count++;
+  const outsideRoster = await run(scheduled, {
+    status: 200,
+    expected: '"original"',
+    etag: '"global-change"',
+    payload: globalChange,
+  });
+  assert.match(outsideRoster.stdout, /selected public data is unchanged/);
+  const state = inDirectory(".cache", "plumline", "check-state.json");
+  assert.deepEqual(Object.keys(await load(state)).sort(), [
+    "approvedRevision",
+    "etag",
+    "inputRevision",
+    "needsReview",
+  ]);
+  assert.equal((await load(state)).needsReview, false);
+  await assert.rejects(stat(candidate), { code: "ENOENT" });
+  const unchanged = await run(scheduled, {
+    status: 304,
+    expected: '"global-change"',
+    etag: '"global-change"',
+  });
+  assert.match(unchanged.stdout, /HTTP 304/);
+
+  const changedRoster = structuredClone(roster);
+  changedRoster.entries.find(({ localId }) => localId === "path-of-peace-sangha").location =
+    "Franklin, MA";
+  await writeFile(inDirectory("site", "plumline-roster.json"), JSON.stringify(changedRoster));
+  await run(scheduled, { ...original, etag: '"global-change"' });
+  assert.equal((await load(state)).needsReview, true);
+  const pending = await run(scheduled, {
+    status: 304,
+    expected: '"global-change"',
+    etag: '"global-change"',
+  });
+  assert.match(pending.stdout, /last candidate still needs review/);
 });

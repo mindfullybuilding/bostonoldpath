@@ -24,10 +24,24 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
+      - name: Restore the last successful check
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache/plumline/check-state.json
+          key: plumline-etag-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: plumline-etag-v1-
       - name: Validate normalized changes
         env:
           PLUMLINE_API_KEY: ${{ secrets.PLUMLINE_API_KEY }}
-        run: node scripts/refresh-plumline.mjs --scheduled --previous site/plumline-approved.json
+        run: |
+          set -o pipefail
+          node scripts/refresh-plumline.mjs --scheduled --previous site/plumline-approved.json | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Save the last successful check
+        if: ${{ success() && hashFiles('.cache/plumline/check-state.json') != '' }}
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/plumline/check-state.json
+          key: plumline-etag-v1-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Save the candidate for directory owner review
         if: ${{ github.event.repository.private && hashFiles('.cache/plumline/candidate.json') != '' }}
         uses: actions/upload-artifact@v4

@@ -5,6 +5,7 @@ import { parseArgs } from "node:util";
 import { fetchPlumlineDirectory } from "../lib/plumline-fetch.mjs";
 import { normalizePlumlineSnapshot, reviewPlumlineMatches } from "../lib/plumline.mjs";
 
+const checkStateFile = ".cache/plumline/check-state.json";
 const jsonFile = async (filename) => JSON.parse(await readFile(filename, "utf8"));
 
 async function optionalJson(filename) {
@@ -72,30 +73,48 @@ async function refresh() {
     previousFile,
     fixture,
     "site/plumline-approved.json",
+    checkStateFile,
   ].filter(Boolean);
   if (destinations.some((filename) => path.resolve(filename) === path.resolve(output))) {
     throw new Error("Write candidates to a separate output file.");
   }
 
-  const inputRevision = digest([1, roster, baseline]);
-  const previous = fixture || reviewOnly ? null : await optionalJson(previousFile || output);
-  const earlierLive = previous?.source?.kind === "live" && Array.isArray(previous.sanghas);
-  const etag =
+  // Changes to the roster or importer can require renormalizing the same upstream data.
+  const inputRevision = digest([2, roster, baseline]);
+  const previous = fixture ? null : await optionalJson(previousFile || output);
+  const earlierLive =
+    previous?.source?.kind === "live" &&
+    Array.isArray(reviewOnly ? previous.matches : previous.sanghas);
+  const approvedContent = scheduled && earlierLive ? [previous.sanghas, previous.review] : null;
+  const approvedRevision = approvedContent ? digest(approvedContent) : null;
+  const savedState = scheduled ? await optionalJson(checkStateFile) : null;
+  const currentState =
+    savedState?.inputRevision === inputRevision && savedState.approvedRevision === approvedRevision
+      ? savedState
+      : null;
+  let etag =
     earlierLive && previous.source.inputRevision === inputRevision
       ? previous.source.etag
       : undefined;
+  if (currentState) etag = currentState.etag;
+
   const result = fixture
     ? { payload: await jsonFile(fixture), etag: null }
     : await fetchPlumlineDirectory({ key, etag });
 
   if (result.unchanged) {
-    console.log("Plumline directory is unchanged. The previous snapshot remains available.");
+    console.log(
+      currentState?.needsReview
+        ? "Plumline directory is unchanged (HTTP 304). The last candidate still needs review."
+        : "Plumline directory is unchanged (HTTP 304). No response body was downloaded.",
+    );
     return;
   }
 
+  const source = { kind: fixture ? "fixture" : "live", etag: result.etag, inputRevision };
   if (reviewOnly) {
     const matches = reviewPlumlineMatches(result.payload, roster, baseline);
-    await writePrivateJson(output, { matches });
+    await writePrivateJson(output, { matches, source });
     console.log("Wrote the roster match candidates to a private review file.");
     return;
   }
@@ -108,20 +127,22 @@ async function refresh() {
         ".",
     );
   }
-  if (
-    scheduled &&
-    earlierLive &&
-    digest(previous.sanghas) === digest(candidate.sanghas) &&
-    digest(previous.review) === digest(candidate.review)
-  ) {
+  const changed = approvedRevision !== digest([candidate.sanghas, candidate.review]);
+  if (scheduled && !changed) {
     console.log("The selected public data is unchanged. No review file was generated.");
-    return;
+  } else {
+    await writePrivateJson(output, { ...candidate, source });
+    console.log("Wrote the normalized directory candidate for review.");
   }
-  await writePrivateJson(output, {
-    ...candidate,
-    source: { kind: fixture ? "fixture" : "live", etag: result.etag, inputRevision },
-  });
-  console.log("Wrote the normalized directory candidate for review.");
+  if (scheduled) {
+    // Persist only the validator and review status. The raw response stays in memory.
+    await writePrivateJson(checkStateFile, {
+      etag: result.etag,
+      inputRevision,
+      approvedRevision,
+      needsReview: changed,
+    });
+  }
 }
 
 try {
