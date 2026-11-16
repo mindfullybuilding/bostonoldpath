@@ -78,7 +78,7 @@
           }
         }
       ],
-      "canReceiveIntro": false,
+      "canReceiveIntro": true,
       "address": "Cambridge Zen Center, 199 Auburn Street, Cambridge, MA",
       "latitude": 42.364369,
       "longitude": -71.1060039

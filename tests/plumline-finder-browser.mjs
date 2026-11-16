@@ -42,6 +42,12 @@ try {
   await expect(
     noScript.getByRole("heading", { name: "Dandelions of the Heart Sangha" }),
   ).toBeVisible();
+  await expect(
+    noScript.locator("#joyful-lotus-sangha").getByRole("link", { name: "Message via Plumline" }),
+  ).toHaveAttribute("href", "https://plumline.org/sanghas/joyful-lotus-sangha#intro");
+  await expect(
+    noScript.locator("#wake-up-boston").getByRole("link", { name: "Contact Organizer" }),
+  ).toBeVisible();
   await noScript.locator(".sangha-map-list summary").click();
   await expect(noScript.locator(`.sangha-map-list a[href="${target}"]`)).toBeVisible();
   await expect(noScript.locator(`${target} .organizer-contact`)).toBeVisible();

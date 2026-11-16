@@ -77,8 +77,27 @@ test("scheduled meetings retain recurrence, availability, and a targeted local e
   assert.deepEqual(pathOfPeace.meetings[0].excludeOrdinals, [2]);
   assert.equal(
     pathOfPeace.registerUrl,
-    "https://plumline.org/sanghas/path-of-peace-sangha-franklin",
+    "https://plumline.org/sanghas/path-of-peace-sangha-franklin#intro",
   );
+});
+
+test("only a documented introduction capability and listing produce a Plumline message link", () => {
+  const upstream = structuredClone(payload);
+  const row = upstream.sanghas.find(({ id }) => id === "fixture-joyful-lotus-sangha");
+  row.website = "https://www.cambridgezen.org/bipoc-zen";
+  const joyful = () =>
+    normalizePlumlineSnapshot(upstream, roster, baseline).sanghas.find(
+      ({ id }) => id === "joyful-lotus-sangha",
+    );
+  assert.equal(joyful().contactKind, "plumline");
+  assert.equal(joyful().registerUrl, "https://plumline.org/sanghas/joyful-lotus-sangha#intro");
+
+  const editorialLink = baseline.find(({ id }) => id === "joyful-lotus-sangha").registerUrl;
+  row.url = null;
+  assert.equal(joyful().registerUrl, editorialLink);
+  row.url = "https://plumline.org/sanghas/joyful-lotus-sangha";
+  row.canReceiveIntro = false;
+  assert.equal(joyful().registerUrl, editorialLink);
 });
 
 test("missing and ambiguous inputs are held for review", () => {

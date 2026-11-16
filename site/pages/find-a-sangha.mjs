@@ -60,6 +60,8 @@ function organizerLink(value) {
 function sanghaCardView(sangha, useDirectoryMap) {
   const { access, modality } = sangha;
   const registerUrl = organizerLink(sangha.registerUrl);
+  const organizerLabel =
+    sangha.contactKind === "plumline" ? "Message via Plumline" : "Contact Organizer";
   const address = useDirectoryMap && sangha.publicVenue !== true ? "" : sangha.address;
   const coordinates = isPublicVenue(sangha) && venueCoordinates(sangha);
   const directionsDestination = address || (coordinates && `${coordinates.lat},${coordinates.lng}`);
@@ -107,7 +109,7 @@ function sanghaCardView(sangha, useDirectoryMap) {
         ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(directionsDestination)}`
         : "",
     contactUrl: usesContactFallback ? `mailto:${config.contactEmail}` : registerUrl,
-    contactLabel: usesContactFallback ? "Ask MCGB for Organizer Contact" : "Contact Organizer",
+    contactLabel: usesContactFallback ? "Ask MCGB for Organizer Contact" : organizerLabel,
     organizerEmail,
   };
 }
