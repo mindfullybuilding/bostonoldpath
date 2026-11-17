@@ -131,7 +131,9 @@
         }
       ],
       "contactKind": "plumline",
-      "publicVenue": false
+      "publicVenue": true,
+      "address": "68 Bradeen St, Roslindale, MA 02131",
+      "latLng": [42.290433, -71.120128]
     },
     {
       "id": "wake-up-boston",
@@ -144,8 +146,6 @@
       "days": ["wednesday"],
       "timeBand": "evening",
       "location": "Cambridge",
-      "address": "763 Massachusetts Ave, Cambridge, MA 02139",
-      "latLng": [42.3666402, -71.1053125],
       "access": "Conveniently off the red line, with limited metered street parking.",
       "description": "Join us for an evening of sitting and walking meditations, sutra reading or Dharma talk viewing, and Dharma sharing! Energetic, vibrant community for younger practitioners (18 to 35+). All experience levels welcome.",
       "registerUrl": "https://plumline.org/sanghas/massachusetts-wake-up-boston#intro",
@@ -173,7 +173,9 @@
         }
       ],
       "contactKind": "plumline",
-      "publicVenue": true
+      "publicVenue": true,
+      "address": "Orange Door Collaborative, Cambridge, MA 02139",
+      "latLng": [42.366543, -71.105422]
     },
     {
       "id": "joyful-lotus-sangha",
@@ -186,8 +188,6 @@
       "days": ["sunday", "wednesday"],
       "timeBand": "evening",
       "location": "Cambridge Zen Center",
-      "address": "Cambridge Zen Center, 199 Auburn Street, Cambridge, MA",
-      "latLng": [42.364369, -71.1060039],
       "access": "Conveniently off the red line, with limited metered street parking.",
       "description": "This Black, Indigenous and People of Color (BIPOC) practice group is a monthly gathering of self-identifying BIPOC practitioners that provides a safe place to meditate and explore contemplative practices. This sangha cultivates an environment that welcomes diverse voices and builds community. In a typical practice group, we enjoy a mix of sitting meditation, walking meditation, readings, and dharma sharing about our experiences and practice in everyday life.",
       "registerUrl": "https://plumline.org/sanghas/joyful-lotus-sangha#intro",
@@ -232,7 +232,9 @@
         }
       ],
       "contactKind": "plumline",
-      "publicVenue": true
+      "publicVenue": true,
+      "address": "Cambridge Zen Center, 199 Auburn St, Cambridge, MA 02139",
+      "latLng": [42.364369, -71.106004]
     },
     {
       "id": "tree-house-sangha",
@@ -271,7 +273,9 @@
         }
       ],
       "contactKind": "plumline",
-      "publicVenue": false
+      "publicVenue": true,
+      "address": "200 Carlisle Rd, Bedford, Massachusetts 01730,  United States",
+      "latLng": [42.502968, -71.300738]
     },
     {
       "id": "mountain-bell-sangha",
@@ -323,8 +327,6 @@
       "days": ["tuesday"],
       "timeBand": "afternoon",
       "location": "Lincoln",
-      "address": "First Parish Church, 4 Bedford Rd, Lincoln, MA",
-      "latLng": [42.4263662, -71.3037098],
       "access": "Street parking available.",
       "description": "We practice together sitting, walking meditation, reading together a book by Thich Nhat Hanh, Dharma Sharing and metta practice. We have been practicing together since 2011. New members welcome.",
       "registerUrl": "https://plumline.org/sanghas/green-fields-sangha#intro",
@@ -350,7 +352,9 @@
         }
       ],
       "contactKind": "plumline",
-      "publicVenue": true
+      "publicVenue": true,
+      "address": "First Parish Lincoln, 4 Bedford Road, Lincoln MA 01773,  United States",
+      "latLng": [42.42582, -71.303884]
     },
     {
       "id": "sangha-of-the-seven-hills",
@@ -388,7 +392,9 @@
         }
       ],
       "contactKind": "plumline",
-      "publicVenue": false
+      "publicVenue": true,
+      "address": "Root of the Soul Yoga Studio, 100 Barber Ave #3B, Worcester, MA 01606",
+      "latLng": [42.298158, -71.798828]
     },
     {
       "id": "peaceful-heart-sangha",
@@ -477,8 +483,6 @@
       "days": [],
       "timeBand": null,
       "location": "Franklin",
-      "address": "First Universalist Society of Franklin, 262 Chestnut St, Franklin, MA 02038",
-      "latLng": [42.0872276, -71.3818833],
       "access": "Practice is in English. Meet in person on the second Monday of the month and on Zoom on all other Mondays. Contact Robin or Ann through the organizer page for an invitation.",
       "description": "We are a group of friends dedicated to mindful living and engaged Buddhist practice. You don’t have to be Buddhist to practice with us. All are welcome.",
       "registerUrl": "https://plumline.org/sanghas/path-of-peace-sangha-franklin#intro",
@@ -486,7 +490,9 @@
       "affinities": [],
       "meetings": [],
       "contactKind": "plumline",
-      "publicVenue": true
+      "publicVenue": true,
+      "address": "First Universalist Society of Franklin, 262 Chestnut St, Franklin, MA 02038, United States",
+      "latLng": [42.08652, -71.380253]
     },
     {
       "id": "lotus-pond-sangha",

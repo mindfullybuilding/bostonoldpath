@@ -16,13 +16,16 @@
     {
       "localId": "peaceful-songbird-sangha",
       "plumlineId": "470be47d-a214-539c-88ad-b6fea5d78a0b",
-      "keepLocal": true
+      "keepLocal": true,
+      "publicVenue": true,
+      "venue": "plumline"
     },
     {
       "localId": "wake-up-boston",
       "plumlineId": "837cca54-7101-5d8c-9f8c-d4f73ddc523a",
       "keepLocal": true,
       "publicVenue": true,
+      "venue": "plumline",
       "meetingOverrides": [
         {
           "id": "wake-wednesday",
@@ -44,12 +47,15 @@
       "localId": "joyful-lotus-sangha",
       "plumlineId": "98bd3b0a-5a79-54ae-997d-a537597a8bff",
       "keepLocal": true,
-      "publicVenue": true
+      "publicVenue": true,
+      "venue": "plumline"
     },
     {
       "localId": "tree-house-sangha",
       "plumlineId": "3470a348-059f-514c-bb09-30e92d0e8e7c",
-      "keepLocal": true
+      "keepLocal": true,
+      "publicVenue": true,
+      "venue": "plumline"
     },
     {
       "localId": "mountain-bell-sangha",
@@ -61,12 +67,15 @@
       "localId": "green-fields-sangha",
       "plumlineId": "8aedac90-9cca-5f73-90e4-887752f7c6cb",
       "keepLocal": true,
-      "publicVenue": true
+      "publicVenue": true,
+      "venue": "plumline"
     },
     {
       "localId": "sangha-of-the-seven-hills",
       "plumlineId": "4c347dfc-262b-5aeb-b427-847c8ae7442c",
-      "keepLocal": true
+      "keepLocal": true,
+      "publicVenue": true,
+      "venue": "plumline"
     },
     {
       "localId": "peaceful-heart-sangha",
@@ -83,6 +92,7 @@
       "plumlineId": "73eb6750-e27b-5f43-8f7e-e05bf9e8cdd2",
       "keepLocal": true,
       "publicVenue": true,
+      "venue": "plumline",
       "plumlineSlug": "path-of-peace-sangha-franklin"
     },
     {

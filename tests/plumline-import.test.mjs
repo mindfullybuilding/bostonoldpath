@@ -150,13 +150,16 @@ test("approved imported coordinates replace local values and unknown fields stay
   const joyful = upstream.sanghas.find(({ id }) => id === "fixture-joyful-lotus-sangha");
   joyful.latitude = 42.3644;
   joyful.contactEmail = "private@example.invalid";
-  local.find(({ id }) => id === "joyful-lotus-sangha").internalNote = "private review note";
+  const joyfulLocal = local.find(({ id }) => id === "joyful-lotus-sangha");
+  joyfulLocal.internalNote = "private review note";
+  joyfulLocal.approximate = true;
   const rule = joyful.meetings[0].recurrenceRule;
   rule.until = rule.dtstart;
   rule.dtstart += ":00";
   const { sanghas } = normalizePlumlineSnapshot(upstream, roster, local);
   const candidate = sanghas.find(({ id }) => id === "joyful-lotus-sangha");
   assert.equal(candidate.latLng[0], 42.3644);
+  assert.equal(candidate.approximate, undefined);
   assert.equal(candidate.meetings[0].rule.until, "2026-01-07T17:00");
   assert.equal(candidate.contactEmail, undefined);
   assert.equal(candidate.internalNote, undefined);
@@ -326,6 +329,26 @@ globalThis.fetch = async (url, { headers }) => {
     etag: '"global-change"',
   });
   assert.match(unchanged.stdout, /HTTP 304/);
+
+  const movedPin = structuredClone(globalChange);
+  movedPin.sanghas.find(({ id }) => id === "fixture-joyful-lotus-sangha").latitude = 42.3644;
+  await run(scheduled, {
+    status: 200,
+    expected: '"global-change"',
+    etag: '"map-change"',
+    payload: movedPin,
+  });
+  const changedVenue = (await load(candidate)).sanghas.find(
+    ({ id }) => id === "joyful-lotus-sangha",
+  );
+  assert.equal(changedVenue.latLng[0], 42.3644);
+  assert.equal((await load(state)).needsReview, true);
+  const unchangedPin = await run(scheduled, {
+    status: 304,
+    expected: '"map-change"',
+    etag: '"map-change"',
+  });
+  assert.match(unchangedPin.stdout, /last candidate still needs review/);
 
   const changedRoster = structuredClone(roster);
   changedRoster.entries.find(({ localId }) => localId === "path-of-peace-sangha").location =
