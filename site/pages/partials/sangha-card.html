@@ -1,4 +1,10 @@
-<article class="group-card" id="{{id}}" data-group="{{id}}" data-sort-day="{{sortDay}}">
+<article
+  class="group-card"
+  id="{{id}}"
+  data-group="{{id}}"
+  data-sort-day="{{sortDay}}"
+  tabindex="-1"
+>
   <h2>{{name}}</h2>
   <dl class="group-metadata">
     <dt>Day</dt>
@@ -10,11 +16,19 @@
   </dl>
   <details>
     <summary class="button">More Details</summary>
+    {{#description}}
     <p>{{description}}</p>
+    {{/description}}
     <dl class="metadata">
       <dt>Format</dt>
       <dd>{{meetingFormat}}</dd>
-      {{#address}}
+      {{#additionalSchedule}}
+      <dt>Schedule</dt>
+      <dd>{{additionalSchedule}}</dd>
+      {{/additionalSchedule}} {{#affinityList}}
+      <dt>Affinities</dt>
+      <dd>{{affinityList}}</dd>
+      {{/affinityList}} {{#address}}
       <dt>Location</dt>
       <dd>{{address}}</dd>
       {{/address}} {{#accessDetails}}
@@ -22,7 +36,9 @@
       <dd>{{accessDetails}}</dd>
       {{/accessDetails}}
     </dl>
-    {{#directionsUrl}}
+    {{#scheduleDetails}}
+    <p class="sangha-meeting">{{text}}{{#format}} <span>· {{format}}</span>{{/format}}</p>
+    {{/scheduleDetails}} {{#directionsUrl}}
     <a class="text-link" href="{{directionsUrl}}">Get Directions</a>
     {{/directionsUrl}}
     <p>Confirm current meeting details and access needs with the organizer.</p>

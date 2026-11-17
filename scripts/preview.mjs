@@ -2,6 +2,7 @@ import http from "node:http";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { getEvents } from "../lib/events.mjs";
+const port = Number(process.env.MCGB_PREVIEW_PORT || 4173);
 const types = {
   ".html": "text/html",
   ".css": "text/css",
@@ -44,4 +45,4 @@ http
       res.end("Not found");
     }
   })
-  .listen(4173, "127.0.0.1", () => console.log("MCGB preview http://127.0.0.1:4173"));
+  .listen(port, "127.0.0.1", () => console.log(`MCGB preview http://127.0.0.1:${port}`));

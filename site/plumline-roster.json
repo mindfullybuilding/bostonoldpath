@@ -1,0 +1,104 @@
+{
+  "entries": [
+    {
+      "localId": "dandelions-of-the-heart-sangha",
+      "plumlineId": "f2af5dbb-2dcf-502b-bd84-6dd0f9565d1d",
+      "keepLocal": true,
+      "venue": "withhold",
+      "location": "Newton"
+    },
+    {
+      "localId": "peaceful-garden-sangha",
+      "plumlineId": "442f7530-c1b8-5b4b-8769-463679f81604",
+      "keepLocal": true,
+      "publicVenue": true
+    },
+    {
+      "localId": "peaceful-songbird-sangha",
+      "plumlineId": "470be47d-a214-539c-88ad-b6fea5d78a0b",
+      "keepLocal": true,
+      "publicVenue": true,
+      "venue": "plumline"
+    },
+    {
+      "localId": "wake-up-boston",
+      "plumlineId": "837cca54-7101-5d8c-9f8c-d4f73ddc523a",
+      "keepLocal": true,
+      "publicVenue": true,
+      "venue": "plumline",
+      "meetingOverrides": [
+        {
+          "id": "wake-wednesday",
+          "match": {
+            "rule": {
+              "freq": "monthly",
+              "interval": 1,
+              "dtstart": "2026-10-14T19:30",
+              "tzid": "America/New_York",
+              "byweekday": ["we"],
+              "bysetpos": [2, 4]
+            }
+          },
+          "excludeDates": ["2026-11-25"]
+        }
+      ]
+    },
+    {
+      "localId": "joyful-lotus-sangha",
+      "plumlineId": "98bd3b0a-5a79-54ae-997d-a537597a8bff",
+      "keepLocal": true,
+      "publicVenue": true,
+      "venue": "plumline"
+    },
+    {
+      "localId": "tree-house-sangha",
+      "plumlineId": "3470a348-059f-514c-bb09-30e92d0e8e7c",
+      "keepLocal": true,
+      "publicVenue": true,
+      "venue": "plumline"
+    },
+    {
+      "localId": "mountain-bell-sangha",
+      "plumlineId": "54438314-5b51-5c21-ac9e-72cdd0bc1bb3",
+      "keepLocal": true,
+      "venue": "withhold"
+    },
+    {
+      "localId": "green-fields-sangha",
+      "plumlineId": "8aedac90-9cca-5f73-90e4-887752f7c6cb",
+      "keepLocal": true,
+      "publicVenue": true,
+      "venue": "plumline"
+    },
+    {
+      "localId": "sangha-of-the-seven-hills",
+      "plumlineId": "4c347dfc-262b-5aeb-b427-847c8ae7442c",
+      "keepLocal": true,
+      "publicVenue": true,
+      "venue": "plumline"
+    },
+    {
+      "localId": "peaceful-heart-sangha",
+      "plumlineId": "9e3d7716-9e2c-5d8d-a7a9-88ba15134d6e",
+      "keepLocal": true
+    },
+    {
+      "localId": "living-the-14-sangha",
+      "plumlineId": "a976d875-5410-561d-b872-d31234fd6bc7",
+      "keepLocal": true
+    },
+    {
+      "localId": "path-of-peace-sangha",
+      "plumlineId": "73eb6750-e27b-5f43-8f7e-e05bf9e8cdd2",
+      "keepLocal": true,
+      "publicVenue": true,
+      "venue": "plumline",
+      "plumlineSlug": "path-of-peace-sangha-franklin"
+    },
+    {
+      "localId": "lotus-pond-sangha",
+      "plumlineId": "1819e0c3-a82c-532b-a585-45574108a871",
+      "keepLocal": true
+    }
+  ]
+}

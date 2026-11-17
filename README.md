@@ -53,6 +53,21 @@ GitHub Actions runs lint, unit tests, the build, and a check for generated pages
 
 If you use VS Code, the [contributor CodeTour](.tours/new-joiner-site.tour) follows a record from source through the build and shows where calendar and deployment changes belong.
 
+## Plumline directory preview
+
+```sh
+npm run build:plumline-preview
+MCGB_PREVIEW_PORT=4175 npm run preview
+```
+
+Open [Find a Sangha with sample data](http://127.0.0.1:4175/find-a-sangha.html) and the [homepage schedule](http://127.0.0.1:4175/). The fixture preview exercises the importer, map, and schedule without contacting Plumline. The `codex/mcgb-plumline-finder` Vercel preview builds from `site/plumline-preview.json`, a snapshot of the imported MCGB listings. The normal build uses the editorial directory. With the sample preview running, run `TEST_BASE=http://127.0.0.1:4175 node tests/plumline-finder-browser.mjs` for the focused browser check.
+
+After obtaining a key, provide it via the private `PLUMLINE_API_KEY` environment variable and run `node scripts/refresh-plumline.mjs --review-matches`. Check the proposed associations against the public listings and organizer records before adding IDs to `site/plumline-roster.json`. Confirm which venues can be pinned or used for directions. Keep pending or local-only groups on the editorial data until reviewed.
+
+Run `node scripts/refresh-plumline.mjs` to create a private review candidate. To inspect that candidate locally, pass it to `npm run build -- --plumline-snapshot .cache/plumline/candidate.json`. Review missing groups, contact routes, map pins, and schedule exceptions. To update the hosted review branch, copy only the normalized `sanghas` array into `site/plumline-preview.json` and redeploy that branch. After the first live candidate is approved, retain its normalized snapshot as `site/plumline-approved.json` for comparison. Review changed candidates weekly and replace that baseline only with an approved snapshot. A failed check keeps the last approved data available. Production uses the editorial directory until the live cutover is approved.
+
+Repeated local imports and scheduled checks send the ETag from the last successful response. Plumline returns HTTP 304 without a body when the upstream directory is unchanged. If the global directory changes outside MCGB, the scheduled check stores the new ETag and skips generating a review candidate. A roster change invalidates the cached check. GitHub Actions caches only the ETag and review metadata.
+
 ## Verification
 
 Run `npm run lint`, `npm test`, and `npm run build`. For browser checks, install Chromium and WebKit with `npx playwright install chromium webkit`, start `npm run preview`, and run `npm run test:browser` in a second terminal.

@@ -944,6 +944,91 @@ button:disabled {
 .region-map .small {
   margin: 12px 0 0;
 }
+.sangha-map {
+  height: 300px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  isolation: isolate;
+}
+.sangha-map .leaflet-control-zoom a {
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+}
+.sangha-map .sangha-map-pin {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+}
+.sangha-map-pin::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: #1757a2;
+  box-shadow: 0 0 0 1px #1d344f;
+}
+.sangha-map-pin[aria-expanded="true"]::before {
+  background: var(--water-deep);
+  box-shadow: 0 0 0 2px var(--water-deep);
+}
+.sangha-map .sangha-map-popup .leaflet-popup-content {
+  margin: 8px;
+  padding: 4px;
+  font: 14px/1.45 var(--font-sans);
+}
+.sangha-map-details {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  gap: 4px 8px;
+}
+.sangha-map-details h3 {
+  align-self: center;
+  margin: 0;
+  font-size: 16px;
+}
+.sangha-map .sangha-map-details p {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+.sangha-map .sangha-map-details a {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-self: start;
+  min-height: 44px;
+  color: var(--water-deep);
+  font-weight: 600;
+}
+.sangha-map-details button {
+  grid-column: 2;
+  grid-row: 1;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: var(--surface);
+}
+.sangha-map-list {
+  margin-top: 12px;
+}
+.sangha-map-list ul {
+  margin: 8px 0 0;
+  padding-inline-start: 24px;
+}
+.group-card details p.sangha-meeting {
+  margin-block: 4px;
+}
+.plumline-preview {
+  border-inline-start: 3px solid var(--line);
+  padding-inline-start: 12px;
+}
 .finder-calendar {
   border-top: 1px solid var(--line);
   padding-top: 24px;

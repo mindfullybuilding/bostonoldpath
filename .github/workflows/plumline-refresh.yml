@@ -1,0 +1,55 @@
+name: Check Plumline directory
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 10 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: plumline-directory-review
+  cancel-in-progress: false
+
+jobs:
+  review:
+    name: Check for a directory update
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+      - name: Restore the last successful check
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache/plumline/check-state.json
+          key: plumline-etag-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: plumline-etag-v1-
+      - name: Validate normalized changes
+        env:
+          PLUMLINE_API_KEY: ${{ secrets.PLUMLINE_API_KEY }}
+        run: |
+          set -o pipefail
+          node scripts/refresh-plumline.mjs --scheduled --previous site/plumline-approved.json | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Save the last successful check
+        if: ${{ success() && hashFiles('.cache/plumline/check-state.json') != '' }}
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/plumline/check-state.json
+          key: plumline-etag-v1-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save the candidate for directory owner review
+        if: ${{ github.event.repository.private && hashFiles('.cache/plumline/candidate.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: plumline-directory-candidate
+          path: .cache/plumline/candidate.json
+          include-hidden-files: true
+          retention-days: 7
+      - name: Record a candidate for local review
+        if: ${{ !github.event.repository.private && hashFiles('.cache/plumline/candidate.json') != '' }}
+        run: echo 'A changed directory candidate is available by running the importer privately.' >> "$GITHUB_STEP_SUMMARY"

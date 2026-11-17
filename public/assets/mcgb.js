@@ -1,4 +1,5 @@
 import { calendarDateKey, monthModel, monthTable } from "./calendar-view.js";
+import { matchesSangha, weekdayOrder } from "./sangha-filters.js";
 import { dailySanghas, dailyMarkup, directoryDate } from "./sangha-schedule.js";
 const $ = (s, root = document) => root.querySelector(s);
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
@@ -175,15 +176,12 @@ if (filters) {
   const sortSelect = $("[data-sort-sanghas]");
   const groupList = $(".group-list");
   const cards = $$("[data-group]", groupList);
-  const weekdays = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
   sortSelect.closest(".sangha-sort").hidden = false;
   sortSelect.addEventListener("change", () => {
     cards.sort((a, b) => {
       const nameOrder = $("h2", a).textContent.localeCompare($("h2", b).textContent, "en");
       if (sortSelect.value === "day")
-        return (
-          weekdays.indexOf(a.dataset.sortDay) - weekdays.indexOf(b.dataset.sortDay) || nameOrder
-        );
+        return weekdayOrder(a.dataset.sortDay) - weekdayOrder(b.dataset.sortDay) || nameOrder;
       return nameOrder * (sortSelect.value === "name-desc" ? -1 : 1);
     });
     groupList.append(...cards);
@@ -232,24 +230,10 @@ if (filters) {
     try {
       const { sanghas } = await load();
       if (own !== version) return;
-      const f = new FormData(filters),
-        search = String(f.get("search") || "")
-          .toLowerCase()
-          .trim();
+      const query = new FormData(filters);
       let count = 0;
       for (const s of sanghas) {
-        const match =
-          (!search ||
-            `${s.name} ${s.location} ${s.address || ""} ${s.description}`
-              .toLowerCase()
-              .includes(search)) &&
-          ["modality", "day", "timeBand"].every((key) => {
-            const values = f.getAll(key);
-            return (
-              !values.length ||
-              values.some((v) => (key === "day" ? s.days.includes(v) : s[key] === v))
-            );
-          });
+        const match = matchesSangha(s, query);
         $(`[data-group="${s.id}"]`).hidden = !match;
         if (match) count++;
       }

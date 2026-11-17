@@ -9,9 +9,11 @@
     "lint": "eslint .",
     "test": "node --test tests/*.test.mjs",
     "test:browser": "node tests/browser-check.mjs && node tests/interactions.mjs",
-    "test:links": "node tests/links.mjs"
+    "test:links": "node tests/links.mjs",
+    "build:plumline-preview": "node scripts/build-site.mjs --plumline-preview"
   },
   "dependencies": {
+    "leaflet": "1.9.4",
     "node-ical": "^0.27.3"
   },
   "devDependencies": {
