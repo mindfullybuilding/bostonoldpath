@@ -72,7 +72,28 @@
           <summary>Mapped Sanghas</summary>
           <ul>
             {{#mapVenues}}
-            <li><a href="#{{id}}" data-map-lat="{{lat}}" data-map-lng="{{lng}}">{{name}}</a></li>
+            <li>
+              <a href="#{{id}}" data-map-lat="{{lat}}" data-map-lng="{{lng}}">{{name}}</a>
+              <template>
+                <section
+                  class="sangha-map-details"
+                  id="map-details-{{id}}"
+                  aria-labelledby="map-name-{{id}}"
+                  tabindex="-1"
+                >
+                  <h3 id="map-name-{{id}}">{{name}}</h3>
+                  {{#location}}
+                  <p>{{location}}</p>
+                  {{/location}} {{#schedule}}
+                  <p>{{schedule}}</p>
+                  {{/schedule}}
+                  <a href="#{{id}}">View in directory</a>
+                  <button type="button" aria-label="Close map details">
+                    <span class="icon icon-close" aria-hidden="true"></span>
+                  </button>
+                </section>
+              </template>
+            </li>
             {{/mapVenues}}
           </ul>
         </details>

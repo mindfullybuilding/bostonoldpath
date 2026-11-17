@@ -98,7 +98,14 @@ test("map and directions use reviewed venues, preserving links to local cards", 
     { ...venue, id: "invalid", latLng: [95, -71] },
   ];
   const view = directoryView([venue, ...noPin], card, { useDirectoryMap: true });
-  assert.deepEqual(view.mapVenues, [{ id: venue.id, name: venue.name, lat: 42.37, lng: -71.1 }]);
+  assert.deepEqual(view.mapVenues, [
+    { id: venue.id, name: venue.name, location: "Cambridge", schedule: "", lat: 42.37, lng: -71.1 },
+  ]);
+  const singleMeeting = { ...venue, meetings: [{ dayLabel: "Tuesday", timeLabel: "7:00 PM" }] };
+  assert.equal(
+    directoryView([singleMeeting], card, { useDirectoryMap: true }).mapVenues[0].schedule,
+    "Tuesday · 7:00 PM",
+  );
   assert.match(view.groupsHTML, /id="example-sangha"/);
   assert.match(view.groupsHTML, /data-sort-day="sunday"/);
   assert.match(view.groupsHTML, /Tuesday morning/);

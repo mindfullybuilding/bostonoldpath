@@ -2,7 +2,10 @@ const mapElement = document.querySelector("[data-sangha-map]");
 const status = document.querySelector("[data-sangha-map-status]");
 const entries = [...document.querySelectorAll("[data-map-lat][data-map-lng]")];
 
-function visitCard(link) {
+function followDirectoryLink(event) {
+  if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+  event.preventDefault();
+  const link = event.currentTarget;
   const card = document.getElementById(link.hash.slice(1));
   if (!card) return;
   if (card.hidden) {
@@ -14,17 +17,61 @@ function visitCard(link) {
   card.scrollIntoView({ block: "start" });
 }
 
+function connectMapDetails(pin, link) {
+  const pinElement = pin.getElement();
+  const details = link.parentElement
+    .querySelector("template")
+    .content.firstElementChild.cloneNode(true);
+  const close = () => {
+    pin.closePopup();
+    pinElement.focus({ preventScroll: true });
+  };
+
+  details.querySelector("a").addEventListener("click", followDirectoryLink);
+  details.querySelector("button").addEventListener("click", close);
+  details.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    event.stopPropagation();
+    close();
+  });
+
+  pinElement.setAttribute("aria-label", `View ${link.textContent.trim()}`);
+  pinElement.setAttribute("aria-expanded", "false");
+  pin.bindPopup(details, {
+    className: "sangha-map-popup",
+    closeButton: false,
+    maxHeight: 190,
+    minWidth: 224,
+    maxWidth: 248,
+    offset: [0, -10],
+    autoPanPadding: [12, 12],
+  });
+  pin.on("popupopen", () => {
+    pinElement.setAttribute("aria-controls", details.id);
+    pinElement.setAttribute("aria-expanded", "true");
+    details.focus({ preventScroll: true });
+  });
+  pin.on("popupclose", () => {
+    pinElement.removeAttribute("aria-controls");
+    pinElement.setAttribute("aria-expanded", "false");
+  });
+  pin.on("keydown", ({ originalEvent }) => {
+    if (originalEvent.key !== " ") return;
+    originalEvent.preventDefault();
+    pin.togglePopup();
+  });
+}
+
 async function initializeMap() {
   for (const link of entries) {
-    link.addEventListener("click", (event) => {
-      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-      event.preventDefault();
-      visitCard(link);
-    });
+    link.addEventListener("click", followDirectoryLink);
   }
   const { map, marker, tileLayer, divIcon } = await import("./leaflet/leaflet-src.esm.js");
   mapElement.hidden = false;
-  const regionalMap = map(mapElement, { scrollWheelZoom: false });
+  const regionalMap = map(mapElement, {
+    scrollWheelZoom: false,
+    fadeAnimation: !matchMedia("(prefers-reduced-motion: reduce)").matches,
+  });
   const coordinates = entries.map((link) => [
     Number(link.dataset.mapLat),
     Number(link.dataset.mapLng),
@@ -35,16 +82,8 @@ async function initializeMap() {
     const pin = marker(point, {
       title: link.textContent.trim(),
       icon: divIcon({ className: "sangha-map-pin", iconSize: [32, 32], iconAnchor: [16, 16] }),
-    });
-    pin
-      .on("click", () => visitCard(link))
-      .on("keydown", ({ originalEvent }) => {
-        if (!["Enter", " "].includes(originalEvent.key)) return;
-        originalEvent.preventDefault();
-        visitCard(link);
-      })
-      .addTo(regionalMap);
-    pin.getElement().setAttribute("aria-label", `View ${link.textContent.trim()}`);
+    }).addTo(regionalMap);
+    connectMapDetails(pin, link);
   }
 
   let loadedTile = false;

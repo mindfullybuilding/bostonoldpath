@@ -120,7 +120,15 @@ export function directoryView(sanghas, cardTemplate, { useDirectoryMap = false }
   if (useDirectoryMap) {
     for (const sangha of sorted) {
       const coordinates = isPublicVenue(sangha) && venueCoordinates(sangha);
-      if (coordinates) mapVenues.push({ id: sangha.id, name: sangha.name, ...coordinates });
+      if (!coordinates) continue;
+      const meeting = sangha.meetings?.length === 1 ? sangha.meetings[0] : null;
+      mapVenues.push({
+        id: sangha.id,
+        name: sangha.name,
+        location: sangha.location,
+        schedule: [meeting?.dayLabel, meeting?.timeLabel].filter(Boolean).join(" · "),
+        ...coordinates,
+      });
     }
   }
   return {
