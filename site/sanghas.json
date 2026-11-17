@@ -196,7 +196,8 @@
     "address": "First Universalist Society of Franklin, 262 Chestnut St, Franklin, MA 02038",
     "access": "Practice is in English. Meet in person on the second Monday of the month and on Zoom on all other Mondays. Contact Robin or Ann through the organizer page for an invitation.",
     "description": "We are a group of friends dedicated to mindful living and engaged Buddhist practice. You don’t have to be Buddhist to practice with us. All are welcome.",
-    "registerUrl": "https://new.plumline.org/sanghas/path-of-peace-sangha-franklin"
+    "registerUrl": "https://new.plumline.org/sanghas/path-of-peace-sangha-franklin",
+    "latLng": [42.0872276, -71.3818833]
   },
   {
     "id": "lotus-pond-sangha",

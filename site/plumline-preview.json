@@ -449,7 +449,8 @@
       "affinities": [],
       "meetings": [],
       "contactKind": "plumline",
-      "publicVenue": true
+      "publicVenue": true,
+      "latLng": [42.0872276, -71.3818833]
     },
     {
       "id": "lotus-pond-sangha",
