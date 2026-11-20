@@ -37,10 +37,14 @@
       {{/accessDetails}}
     </dl>
     {{#scheduleDetails}}
-    <p class="sangha-meeting">{{text}}{{#format}} <span>· {{format}}</span>{{/format}}</p>
+    <p class="sangha-meeting" data-meeting-until="{{listedUntil}}">
+      {{text}}{{#format}} <span>· {{format}}</span>{{/format}}
+    </p>
     {{/scheduleDetails}} {{#directionsUrl}}
     <a class="text-link" href="{{directionsUrl}}">Get Directions</a>
-    {{/directionsUrl}}
+    {{/directionsUrl}} {{#scheduleSourceUrl}}
+    <p><a class="text-link" href="{{scheduleSourceUrl}}">See the organizer’s schedule</a></p>
+    {{/scheduleSourceUrl}}
     <p>Confirm current meeting details and access needs with the organizer.</p>
     {{#organizerEmail}}
     <p class="email-address small">{{organizerEmail}}</p>

@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import Mustache from "mustache";
+import { applyPlumlineScheduleReview } from "../lib/plumline-schedule-review.mjs";
 import { normalizePlumlineSnapshot } from "../lib/plumline.mjs";
 import { config } from "../site/config.mjs";
 import { esc, link } from "../site/html.mjs";
@@ -18,9 +19,10 @@ if (snapshotOption >= 0 && (!snapshotFile || snapshotFile.startsWith("--")))
   throw new Error("--plumline-snapshot requires a candidate file.");
 
 const fixturePreview = args.includes("--plumline-preview");
+const plumlinePreviewBranches = ["codex/mcgb-plumline-finder", "codex/mcgb-finder-quality"];
 const hostedPreview =
   process.env.VERCEL_ENV === "preview" &&
-  process.env.VERCEL_GIT_COMMIT_REF === "codex/mcgb-plumline-finder";
+  plumlinePreviewBranches.includes(process.env.VERCEL_GIT_COMMIT_REF);
 const directoryFile = snapshotFile || (hostedPreview && "site/plumline-preview.json");
 const useDirectoryMap = fixturePreview || Boolean(directoryFile);
 if (snapshotFile && (process.env.VERCEL || process.env.VERCEL_ENV))
@@ -68,10 +70,12 @@ if (fixturePreview) {
       throw new Error("Plumline preview directory does not match the approved roster.");
   }
 }
+if (useDirectoryMap) sanghas = applyPlumlineScheduleReview(sanghas);
+
 const plumlinePreview = fixturePreview
   ? "Plumline preview with sample data."
   : hostedPreview
-    ? "Plumline preview with live directory data under review."
+    ? "Plumline directory snapshot under review."
     : snapshotFile
       ? "Plumline preview with directory data under review."
       : "";

@@ -173,9 +173,13 @@ $$("[data-copy]").forEach((button) =>
 );
 const filters = $("#group-filters");
 if (filters) {
+  const toggle = $("[data-filter-toggle]");
+  filters.hidden = false;
+  toggle.hidden = false;
   const sortSelect = $("[data-sort-sanghas]");
   const groupList = $(".group-list");
   const cards = $$("[data-group]", groupList);
+  const cardsById = new Map(cards.map((card) => [card.dataset.group, card]));
   sortSelect.closest(".sangha-sort").hidden = false;
   sortSelect.addEventListener("change", () => {
     cards.sort((a, b) => {
@@ -191,13 +195,23 @@ if (filters) {
       day: "Sorted by Day of the Week, Sunday to Saturday.",
     }[sortSelect.value];
   });
+  const groupCount = $("#group-count");
   let data;
   const load = () =>
-    (data ??= fetch("/assets/site-data.json").then((r) => {
-      if (!r.ok) throw new Error("Directory data");
-      return r.json();
-    }));
-  const toggle = $("[data-filter-toggle]");
+    (data ??= fetch("/assets/site-data.json", { signal: AbortSignal.timeout(8000) }).then(
+      async (response) => {
+        if (!response.ok) throw new Error("Directory data unavailable");
+        const { sanghas } = await response.json();
+        if (
+          !Array.isArray(sanghas) ||
+          sanghas.length !== cards.length ||
+          new Set(sanghas.map((sangha) => sangha?.id)).size !== cards.length ||
+          !sanghas.every((sangha) => cardsById.has(sangha?.id))
+        )
+          throw new Error("Directory data does not match the page");
+        return sanghas;
+      },
+    ));
   matchMedia("(max-width:899px)").addEventListener("change", (e) => {
     if (
       e.matches &&
@@ -210,14 +224,12 @@ if (filters) {
   toggle?.addEventListener("click", () => {
     const open = toggle.getAttribute("aria-expanded") !== "true";
     toggle.setAttribute("aria-expanded", String(open));
-    toggle.setAttribute("aria-label", open ? "Hide filters" : "Filter groups");
     filters.classList.toggle("is-open", open);
     if (open) $("#group-search").focus();
   });
   const closeFilters = () => {
     filters.classList.remove("is-open");
     toggle.setAttribute("aria-expanded", "false");
-    toggle.setAttribute("aria-label", "Filter groups");
     toggle.focus();
   };
   $("[data-close-filters]")?.addEventListener("click", closeFilters);
@@ -227,23 +239,33 @@ if (filters) {
   let version = 0;
   async function filter() {
     const own = ++version;
+    if (!data) groupCount.textContent = "Searching sanghas…";
     try {
-      const { sanghas } = await load();
+      const sanghas = await load();
       if (own !== version) return;
       const query = new FormData(filters);
+      const today = calendarDateKey(Date.now());
       let count = 0;
       for (const s of sanghas) {
-        const match = matchesSangha(s, query);
-        $(`[data-group="${s.id}"]`).hidden = !match;
+        const match = matchesSangha(s, query, today);
+        cardsById.get(s.id).hidden = !match;
         if (match) count++;
       }
-      $("#group-count").textContent = `${count} of ${sanghas.length} Sanghas`;
+      groupCount.textContent = `${count} of ${sanghas.length} Sanghas`;
       $("#no-groups").hidden = count !== 0;
     } catch {
-      $("#group-count").textContent = "Filters are unavailable. All groups are shown below.";
+      if (own !== version) return;
+      data = undefined;
+      for (const card of cards) card.hidden = false;
+      $("#no-groups").hidden = true;
+      groupCount.textContent = "All sanghas are shown. Change a filter to retry.";
     }
   }
   filters.addEventListener("input", filter);
+  filters.addEventListener("submit", (event) => {
+    event.preventDefault();
+    filter();
+  });
   filters.addEventListener("reset", () => setTimeout(filter, 0));
   $("[data-clear-filters]")?.addEventListener("click", () => {
     filters.reset();
@@ -251,6 +273,21 @@ if (filters) {
       toggle.focus();
     else $("#group-search").focus();
   });
+  const datedMeetings = $$('[data-meeting-until]:not([data-meeting-until=""])', groupList);
+  if (datedMeetings.length) {
+    let shownDate;
+    const updateDatedMeetings = () => {
+      const today = calendarDateKey(Date.now());
+      if (document.hidden || today === shownDate) return;
+      for (const meeting of datedMeetings)
+        meeting.toggleAttribute("data-meeting-current", meeting.dataset.meetingUntil >= today);
+      if (shownDate && data) filter();
+      shownDate = today;
+    };
+    updateDatedMeetings();
+    document.addEventListener("visibilitychange", updateDatedMeetings);
+    setInterval(updateDatedMeetings, 60_000);
+  }
 }
 const dateFmt = new Intl.DateTimeFormat("en-US", {
   timeZone: "America/New_York",

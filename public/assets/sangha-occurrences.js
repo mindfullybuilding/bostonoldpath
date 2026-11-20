@@ -48,6 +48,10 @@ function resolveWallTime(wallTime, zone) {
   return Math.min(...candidates.filter((instant) => wallTimeAt(instant, zone) === wallTime));
 }
 
+export function meetingDateAt(instant, timeZone) {
+  return new Date(wallTimeAt(instant, timeZone)).toISOString().slice(0, 10);
+}
+
 export function bostonDayBounds(date) {
   const wallDay = readWallTime(`${date}T00:00`);
   return [

@@ -1,21 +1,28 @@
 <section class="container finder-page">
   <div class="finder-heading">
     <h1>Find a Sangha</h1>
+    <p class="finder-intro">A sangha is a community that practices mindfulness together.</p>
     {{#plumlinePreview}}
-    <p class="plumline-preview" role="status">{{plumlinePreview}}</p>
+    <p class="plumline-preview small">{{plumlinePreview}}</p>
     {{/plumlinePreview}}
-    <p>
-      Sangha offers an opportunity to connect authentically with others and to feel safe enough to
-      look at our own suffering in order to change it. We’ve learned “what we don’t transform, we
-      transmit.” We each take in the Dharma through our own filters and, happily, it manifests in
-      each of us differently.
-    </p>
     <div class="finder-shortcuts">
-      <a href="#calendar">Jump to Community Events &amp; Calendar</a>
+      {{#hasMapVenues}}
+      <a href="#regional-sangha-map" aria-label="Jump to Regional Sangha Map">Sangha Map</a>
+      {{/hasMapVenues}}
+      <a href="#calendar" aria-label="Jump to Community Events &amp; Calendar">Community Events</a>
     </div>
+    <details class="finder-about">
+      <summary>About sangha practice</summary>
+      <p>
+        Sangha offers an opportunity to connect authentically with others and to feel safe enough to
+        look at our own suffering in order to change it. We’ve learned “what we don’t transform, we
+        transmit.” We each take in the Dharma through our own filters and, happily, it manifests in
+        each of us differently.
+      </p>
+    </details>
   </div>
   <div class="finder-layout">
-    <form class="filters" id="group-filters" aria-label="Filter groups">
+    <form class="filters" id="group-filters" aria-label="Filter groups" hidden>
       <div class="filters-heading">
         <h2>Filter Sanghas</h2>
         <button type="button" data-close-filters aria-label="Close filters">
@@ -32,16 +39,16 @@
         <button
           class="filter-trigger"
           data-filter-toggle
-          aria-label="Filter groups"
           aria-expanded="false"
           aria-controls="group-filters"
+          hidden
         >
-          <span class="icon icon-filter" aria-hidden="true"></span></button
+          <span class="icon icon-filter" aria-hidden="true"></span> Filters</button
         ><label class="sangha-sort" hidden
-          ><span aria-hidden="true">↑↓</span><span class="sr-only">Sort Sanghas</span
+          ><span aria-hidden="true">Sort</span
           ><select data-sort-sanghas aria-label="Sort Sanghas">
-            <option value="name-asc">Sangha Name: A–Z</option>
-            <option value="name-desc">Sangha Name: Z–A</option>
+            <option value="name-asc">Name: A–Z</option>
+            <option value="name-desc">Name: Z–A</option>
             <option value="day">Day: Sun–Sat</option>
           </select></label
         ><span class="sr-only" data-sort-status role="status"></span>
@@ -55,19 +62,56 @@
       </div>
     </div>
     <aside class="finder-aside" aria-label="Map and community calendar">
-      <section class="region-map" aria-labelledby="regional-map-title">
+      <section
+        id="regional-sangha-map"
+        class="region-map{{#hasMapVenues}} region-map-with-list{{/hasMapVenues}}"
+        aria-labelledby="regional-map-title"
+      >
         <h2 id="regional-map-title">Regional Sangha Map</h2>
         {{#useDirectoryMap}} {{#hasMapVenues}}
         <link rel="stylesheet" href="/assets/leaflet/leaflet.css" media="(min-width: 900px)" />
+        <link rel="stylesheet" href="/assets/sangha-map.css" />
         <script type="module" src="/assets/sangha-map.js"></script>
         <div
-          class="sangha-map"
+          class="sangha-map-widget"
           data-sangha-map
           aria-label="Map of public sangha venues"
           role="region"
           hidden
-        ></div>
-        <p class="small" data-sangha-map-status role="status" hidden></p>
+        >
+          <div class="sangha-map-toolbar">
+            <a class="text-link" href="https://www.openstreetmap.org/copyright"
+              >© OpenStreetMap contributors</a
+            >
+            <button type="button" data-map-zoom-out aria-label="Zoom out">−</button>
+            <button type="button" data-map-zoom-in aria-label="Zoom in">+</button>
+          </div>
+          <div
+            class="sangha-map"
+            data-map-canvas
+            role="group"
+            aria-label="Map area. Use arrow keys to pan."
+          ></div>
+          <p class="small" data-sangha-map-status role="status" hidden></p>
+          <section
+            class="sangha-map-selection"
+            id="sangha-map-selection"
+            aria-labelledby="sangha-map-selection-title"
+            tabindex="-1"
+            hidden
+          >
+            <div class="sangha-map-selection-heading">
+              <h3 id="sangha-map-selection-title"></h3>
+              <button type="button" aria-label="Close map details" data-map-close>
+                <span class="icon icon-close" aria-hidden="true"></span>
+              </button>
+            </div>
+            <ul data-map-selection-venues></ul>
+            <button type="button" class="sangha-map-selection-zoom" data-map-zoom-selection hidden>
+              Zoom to these venues
+            </button>
+          </section>
+        </div>
         <details class="sangha-map-list">
           <summary>Mapped Sanghas</summary>
           <ul>
@@ -75,23 +119,14 @@
             <li>
               <a href="#{{id}}" data-map-lat="{{lat}}" data-map-lng="{{lng}}">{{name}}</a>
               <template>
-                <section
-                  class="sangha-map-details"
-                  id="map-details-{{id}}"
-                  aria-labelledby="map-name-{{id}}"
-                  tabindex="-1"
-                >
-                  <h3 id="map-name-{{id}}">{{name}}</h3>
+                <li class="sangha-map-venue">
                   {{#location}}
                   <p>{{location}}</p>
                   {{/location}} {{#schedule}}
                   <p>{{schedule}}</p>
                   {{/schedule}}
-                  <a href="#{{id}}">View in directory</a>
-                  <button type="button" aria-label="Close map details">
-                    <span class="icon icon-close" aria-hidden="true"></span>
-                  </button>
-                </section>
+                  <a href="#{{id}}" class="text-link">{{name}}</a>
+                </li>
               </template>
             </li>
             {{/mapVenues}}

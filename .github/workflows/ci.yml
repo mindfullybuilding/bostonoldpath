@@ -41,3 +41,14 @@ jobs:
             exit 1
           fi
           npm run test:links
+      - name: Check the Plumline preview with sample data
+        run: |
+          npm run build:plumline-preview
+          MCGB_PREVIEW_PORT=4175 node scripts/preview.mjs > "$RUNNER_TEMP/plumline-preview.log" 2>&1 &
+          preview_pid=$!
+          trap 'kill "$preview_pid" 2>/dev/null || true' EXIT
+          if ! curl --fail --silent --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:4175/ > /dev/null; then
+            cat "$RUNNER_TEMP/plumline-preview.log"
+            exit 1
+          fi
+          TEST_BASE=http://127.0.0.1:4175 node tests/plumline-finder-browser.mjs

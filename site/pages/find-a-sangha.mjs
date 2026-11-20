@@ -73,15 +73,25 @@ function sanghaCardView(sangha, useDirectoryMap) {
   const sessions = (sangha.meetings || []).map((meeting) => ({
     text: meeting.summary || [meeting.dayLabel, meeting.timeLabel].filter(Boolean).join(", "),
     format: meetingFormats[meeting.format],
+    listedUntil: meeting.listedUntil,
   }));
   const publishedSchedule = sangha.meetingDescription?.trim();
-  const scheduleSummary = sessions
-    .map(({ text }) => text)
-    .join(" ")
-    .replace(/\s+/g, " ");
-  const publishedFormats = [...new Set(sessions.map(({ format }) => format).filter(Boolean))];
+  const scheduleTexts = sessions.map(({ text }) => text.replace(/\s+/g, " "));
+  const publishedFormats = [
+    ...new Set(
+      sessions
+        .filter(({ listedUntil }) => !listedUntil)
+        .map(({ format }) => format)
+        .filter(Boolean),
+    ),
+  ];
+  const hasDuplicateSchedule = [scheduleTexts.join(" "), ...scheduleTexts].includes(
+    publishedSchedule?.replace(/\s+/g, " "),
+  );
   const dayOrder = sangha.meetings?.length
-    ? firstMeetingDay(sangha.meetings.flatMap(({ days }) => days || []))
+    ? firstMeetingDay(
+        sangha.meetings.filter(({ listedUntil }) => !listedUntil).flatMap(({ days }) => days || []),
+      )
     : firstMeetingDay(sangha.days || []);
   const encodedEmail =
     !usesContactFallback && registerUrl.startsWith("mailto:") && registerUrl.slice(7);
@@ -100,8 +110,7 @@ function sanghaCardView(sangha, useDirectoryMap) {
     sortDay: dayOrder,
     meetingFormat: publishedFormats.join(" / ") || meetingFormats[modality] || "Ask organizer",
     scheduleDetails: sessions.filter(({ text }) => text),
-    additionalSchedule:
-      publishedSchedule?.replace(/\s+/g, " ") === scheduleSummary ? "" : publishedSchedule,
+    additionalSchedule: hasDuplicateSchedule ? "" : publishedSchedule,
     affinityList: sangha.affinities?.join(", "),
     accessDetails: showAccessDetails ? access : "",
     directionsUrl:
@@ -110,6 +119,7 @@ function sanghaCardView(sangha, useDirectoryMap) {
         : "",
     contactUrl: usesContactFallback ? `mailto:${config.contactEmail}` : registerUrl,
     contactLabel: usesContactFallback ? "Ask MCGB for Organizer Contact" : organizerLabel,
+    scheduleSourceUrl: useDirectoryMap ? organizerLink(sangha.scheduleSourceUrl) : "",
     organizerEmail,
   };
 }
@@ -121,7 +131,8 @@ export function directoryView(sanghas, cardTemplate, { useDirectoryMap = false }
     for (const sangha of sorted) {
       const coordinates = isPublicVenue(sangha) && venueCoordinates(sangha);
       if (!coordinates) continue;
-      const meeting = sangha.meetings?.length === 1 ? sangha.meetings[0] : null;
+      const recurringMeetings = sangha.meetings?.filter(({ listedUntil }) => !listedUntil);
+      const meeting = recurringMeetings?.length === 1 ? recurringMeetings[0] : null;
       mapVenues.push({
         id: sangha.id,
         name: sangha.name,

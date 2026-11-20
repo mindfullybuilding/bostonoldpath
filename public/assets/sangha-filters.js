@@ -1,3 +1,5 @@
+import { calendarDateKey } from "./calendar-view.js";
+
 const weekdays = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
 export function weekdayOrder(day) {
@@ -9,7 +11,7 @@ export function firstMeetingDay(days) {
   return weekdays.find((day) => days.includes(day));
 }
 
-export function matchesSangha(sangha, formData) {
+export function matchesSangha(sangha, formData, today = calendarDateKey(Date.now())) {
   const search = String(formData.get("search") || "")
     .toLowerCase()
     .trim();
@@ -28,6 +30,7 @@ export function matchesSangha(sangha, formData) {
     : [{ format: sangha.modality, days: sangha.days, timeBand: sangha.timeBand }];
   return meetings.some(
     (meeting) =>
+      (!meeting.listedUntil || meeting.listedUntil >= today) &&
       (!formats.length || formats.includes(meeting.format)) &&
       (!days.length || days.some((day) => meeting.days?.includes(day))) &&
       (!timeBands.length || timeBands.includes(meeting.timeBand)),

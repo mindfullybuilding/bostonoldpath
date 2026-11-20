@@ -190,6 +190,12 @@ test("transport pins the authenticated endpoint and handles conditional updates"
     fetcher: async () => new Response(null, { status: 304 }),
   });
   assert.deepEqual(unchanged, { unchanged: true, etag: '"fresh"' });
+  const updatedValidator = await fetchPlumlineDirectory({
+    key: "test-secret",
+    etag: 'W/"fresh"',
+    fetcher: async () => new Response(null, { status: 304, headers: { ETag: '"fresh"' } }),
+  });
+  assert.deepEqual(updatedValidator, { unchanged: true, etag: '"fresh"' });
   await assert.rejects(
     fetchPlumlineDirectory({
       key: "test-secret",
@@ -265,26 +271,28 @@ test("the CLI remembers the latest ETag across review and scheduled checks", asy
     mockFetch,
     `import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+const responses = JSON.parse(await readFile(process.env.MCGB_TEST_RESPONSE));
 globalThis.fetch = async (url, { headers }) => {
-  const { status, etag, expected, payload } = JSON.parse(await readFile(process.env.MCGB_TEST_RESPONSE));
+  const { status, etag, expected, payload } = responses.shift();
   assert.equal(url, "https://plumline.org/api/v1/sanghas");
   assert.equal(headers.Authorization, "Bearer fixture-key");
   assert.equal(headers["If-None-Match"] ?? null, expected);
   return new Response(status === 304 ? null : JSON.stringify(payload), {
     status,
-    headers: { ETag: etag },
+    headers: etag ? { ETag: etag } : {},
   });
 };
 `,
   );
   const script = path.resolve("scripts/refresh-plumline.mjs");
-  async function run(args, response) {
-    await writeFile(responseFile, JSON.stringify(response));
+  async function run(args, response, key = "fixture-key") {
+    const responses = Array.isArray(response) ? response : [response];
+    await writeFile(responseFile, JSON.stringify(responses));
     return promisify(execFile)(process.execPath, ["--import", mockFetch, script, ...args], {
       cwd: directory,
       env: {
         ...process.env,
-        PLUMLINE_API_KEY: "fixture-key",
+        PLUMLINE_API_KEY: key,
         MCGB_TEST_RESPONSE: responseFile,
       },
     });
@@ -303,7 +311,12 @@ globalThis.fetch = async (url, { headers }) => {
   const approved = inDirectory("site", "plumline-approved.json");
   await copyFile(candidate, approved);
   await rm(candidate);
-  const scheduled = ["--scheduled", "--previous", approved];
+  const scheduled = ["--scheduled"];
+  const originalApproved = await readFile(approved, "utf8");
+  await assert.rejects(run(scheduled, [], ""), /Plumline check did not run/);
+  await writeFile(inDirectory("site", "plumline-roster.json"), JSON.stringify({ entries: [] }));
+  await assert.rejects(run(scheduled, []), /No approved Plumline IDs/);
+  await writeFile(inDirectory("site", "plumline-roster.json"), JSON.stringify(roster));
   const globalChange = structuredClone(payload);
   globalChange.sanghas.push({ id: "unrelated-global-record" });
   globalChange.count++;
@@ -317,24 +330,27 @@ globalThis.fetch = async (url, { headers }) => {
   const state = inDirectory(".cache", "plumline", "check-state.json");
   assert.deepEqual(Object.keys(await load(state)).sort(), [
     "approvedRevision",
+    "candidateRevision",
+    "checkedAt",
     "etag",
     "inputRevision",
-    "needsReview",
   ]);
-  assert.equal((await load(state)).needsReview, false);
+  assert.equal((await load(state)).candidateRevision, null);
+  assert.ok(Number.isFinite(Date.parse((await load(state)).checkedAt)));
   await assert.rejects(stat(candidate), { code: "ENOENT" });
   const unchanged = await run(scheduled, {
     status: 304,
     expected: '"global-change"',
-    etag: '"global-change"',
+    etag: 'W/"global-change"',
   });
   assert.match(unchanged.stdout, /HTTP 304/);
+  assert.equal((await load(state)).etag, 'W/"global-change"');
 
   const movedPin = structuredClone(globalChange);
   movedPin.sanghas.find(({ id }) => id === "fixture-joyful-lotus-sangha").latitude = 42.3644;
   await run(scheduled, {
     status: 200,
-    expected: '"global-change"',
+    expected: 'W/"global-change"',
     etag: '"map-change"',
     payload: movedPin,
   });
@@ -342,24 +358,64 @@ globalThis.fetch = async (url, { headers }) => {
     ({ id }) => id === "joyful-lotus-sangha",
   );
   assert.equal(changedVenue.latLng[0], 42.3644);
-  assert.equal((await load(state)).needsReview, true);
-  const unchangedPin = await run(scheduled, {
-    status: 304,
-    expected: '"map-change"',
-    etag: '"map-change"',
-  });
+  const pendingRevision = (await load(state)).candidateRevision;
+  assert.match(pendingRevision, /^[0-9a-f]{64}$/);
+  const expected304 = { status: 304, expected: '"map-change"', etag: '"map-change"' };
+  const unchangedPin = await run(scheduled, expected304);
   assert.match(unchangedPin.stdout, /last candidate still needs review/);
+
+  // Simulate a clean Actions runner with only the metadata cache restored.
+  await rm(candidate);
+  const restored = await run(scheduled, [
+    expected304,
+    { status: 200, expected: null, etag: '"map-change"', payload: movedPin },
+  ]);
+  assert.match(restored.stdout, /Fetching the missing review candidate/);
+  assert.equal((await load(state)).candidateRevision, pendingRevision);
+  assert.ok((await load(candidate)).sanghas.some(({ latLng }) => latLng?.[0] === 42.3644));
+  assert.equal(await readFile(approved, "utf8"), originalApproved);
+
+  const reverted = await run(scheduled, {
+    ...original,
+    expected: '"map-change"',
+  });
+  assert.match(reverted.stdout, /selected public data is unchanged/);
+  await assert.rejects(stat(candidate), { code: "ENOENT" });
+  assert.equal((await load(state)).candidateRevision, null);
+  assert.equal(await readFile(approved, "utf8"), originalApproved);
+
+  const publicRun = [...scheduled, "--metadata-only"];
+  const publicChange = await run(publicRun, {
+    ...original,
+    expected: '"original"',
+    etag: '"map-change"',
+    payload: movedPin,
+  });
+  assert.match(publicChange.stdout, /Run the importer privately/);
+  await assert.rejects(stat(candidate), { code: "ENOENT" });
+  const publicUnchanged = await run(publicRun, expected304);
+  assert.match(publicUnchanged.stdout, /last candidate still needs review/);
+  assert.doesNotMatch(publicUnchanged.stdout, /Fetching the missing review candidate/);
+  assert.equal((await load(state)).candidateRevision, pendingRevision);
 
   const changedRoster = structuredClone(roster);
   changedRoster.entries.find(({ localId }) => localId === "path-of-peace-sangha").location =
     "Franklin, MA";
   await writeFile(inDirectory("site", "plumline-roster.json"), JSON.stringify(changedRoster));
   await run(scheduled, { ...original, etag: '"global-change"' });
-  assert.equal((await load(state)).needsReview, true);
+  assert.match((await load(state)).candidateRevision, /^[0-9a-f]{64}$/);
   const pending = await run(scheduled, {
     status: 304,
     expected: '"global-change"',
     etag: '"global-change"',
   });
   assert.match(pending.stdout, /last candidate still needs review/);
+
+  // An unapproved candidate cannot become the comparison baseline on a later check.
+  await rm(approved);
+  await run(scheduled, { ...original, etag: null });
+  assert.equal((await load(state)).approvedRevision, null);
+  assert.equal((await load(state)).etag, null);
+  assert.match((await load(state)).candidateRevision, /^[0-9a-f]{64}$/);
+  await assert.rejects(stat(approved), { code: "ENOENT" });
 });
