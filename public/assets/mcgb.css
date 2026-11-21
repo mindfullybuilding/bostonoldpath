@@ -707,47 +707,22 @@ button:disabled {
   border-bottom: 1px solid var(--line);
 }
 .finder-heading h1 {
-  font-size: clamp(30px, 3.2vw, 40px);
-  margin-bottom: 8px;
-  text-wrap: balance;
+  font-size: 32px;
+  margin-bottom: 12px;
 }
-.finder-intro,
-.finder-about p {
-  max-width: 65ch;
+.finder-heading > p {
+  max-width: 85ch;
   margin-bottom: 8px;
-  text-wrap: pretty;
 }
 .finder-shortcuts {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0 20px;
-}
-.finder-shortcuts > a,
-.finder-about > summary {
-  width: fit-content;
-  font-size: 16px;
-  min-height: var(--control-height);
-  padding-block: 8px;
-}
-.finder-shortcuts > a {
-  display: inline-flex;
   align-items: center;
 }
-.finder-about {
-  border: 0;
-  border-radius: 0;
-}
-.finder-about > summary,
-.finder-about[open] > summary {
-  margin: 0;
-  padding-inline: 0;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-  color: var(--ink);
-}
-.finder-about > p {
-  padding: 0;
+.finder-shortcuts > a {
+  font-size: 16px;
+  min-height: var(--control-height);
+  display: inline-flex;
+  align-items: center;
 }
 .finder-layout {
   display: grid;
@@ -995,8 +970,6 @@ button:disabled {
 }
 .sangha-map {
   height: 300px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
   isolation: isolate;
 }
 .sangha-map-list {
@@ -1016,10 +989,6 @@ button:disabled {
 }
 .sangha-meeting[data-meeting-until]:not([data-meeting-until=""]):not([data-meeting-current]) {
   display: none;
-}
-.plumline-preview {
-  border-inline-start: 3px solid var(--line);
-  padding-inline-start: 12px;
 }
 .finder-calendar {
   border-top: 1px solid var(--line);
@@ -1425,6 +1394,9 @@ a.resource-card:hover,
   .finder-heading,
   .finder-layout {
     padding: 16px;
+  }
+  .finder-heading h1 {
+    font-size: 30px;
   }
   .finder-aside {
     display: flex;

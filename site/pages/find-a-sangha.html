@@ -1,25 +1,15 @@
 <section class="container finder-page">
   <div class="finder-heading">
     <h1>Find a Sangha</h1>
-    <p class="finder-intro">A sangha is a community that practices mindfulness together.</p>
-    {{#plumlinePreview}}
-    <p class="plumline-preview small">{{plumlinePreview}}</p>
-    {{/plumlinePreview}}
+    <p>
+      Sangha offers an opportunity to connect authentically with others and to feel safe enough to
+      look at our own suffering in order to change it. We’ve learned “what we don’t transform, we
+      transmit.” We each take in the Dharma through our own filters and, happily, it manifests in
+      each of us differently.
+    </p>
     <div class="finder-shortcuts">
-      {{#hasMapVenues}}
-      <a href="#regional-sangha-map" aria-label="Jump to Regional Sangha Map">Sangha Map</a>
-      {{/hasMapVenues}}
-      <a href="#calendar" aria-label="Jump to Community Events &amp; Calendar">Community Events</a>
+      <a href="#calendar">Jump to Community Events &amp; Calendar</a>
     </div>
-    <details class="finder-about">
-      <summary>About sangha practice</summary>
-      <p>
-        Sangha offers an opportunity to connect authentically with others and to feel safe enough to
-        look at our own suffering in order to change it. We’ve learned “what we don’t transform, we
-        transmit.” We each take in the Dharma through our own filters and, happily, it manifests in
-        each of us differently.
-      </p>
-    </details>
   </div>
   <div class="finder-layout">
     <form class="filters" id="group-filters" aria-label="Filter groups" hidden>
@@ -79,19 +69,21 @@
           role="region"
           hidden
         >
-          <div class="sangha-map-toolbar">
-            <a class="text-link" href="https://www.openstreetmap.org/copyright"
-              >© OpenStreetMap contributors</a
-            >
-            <button type="button" data-map-zoom-out aria-label="Zoom out">−</button>
-            <button type="button" data-map-zoom-in aria-label="Zoom in">+</button>
+          <div class="sangha-map-frame">
+            <div
+              class="sangha-map"
+              data-map-canvas
+              role="group"
+              aria-label="Map area. Use arrow keys to pan."
+            ></div>
+            <div class="sangha-map-footer">
+              <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap</a>
+              <div class="sangha-map-zoom">
+                <button type="button" data-map-zoom-out aria-label="Zoom out">−</button>
+                <button type="button" data-map-zoom-in aria-label="Zoom in">+</button>
+              </div>
+            </div>
           </div>
-          <div
-            class="sangha-map"
-            data-map-canvas
-            role="group"
-            aria-label="Map area. Use arrow keys to pan."
-          ></div>
           <p class="small" data-sangha-map-status role="status" hidden></p>
           <section
             class="sangha-map-selection"

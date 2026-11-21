@@ -12,16 +12,31 @@ try {
   await page.route("https://tile.openstreetmap.org/**", (route) => route.abort());
   await page.route("**/api/events", (route) => route.fulfill({ json: { events: [] } }));
   await page.goto(`${base}/find-a-sangha.html`);
-  await expect(page.locator(".plumline-preview")).toBeVisible();
+  const opening = page.locator(".finder-heading");
+  await expect(opening.locator("p")).toHaveText(
+    "Sangha offers an opportunity to connect authentically with others and to feel safe enough to look at our own suffering in order to change it. We’ve learned “what we don’t transform, we transmit.” We each take in the Dharma through our own filters and, happily, it manifests in each of us differently.",
+  );
+  await expect(opening.locator("a")).toHaveText("Jump to Community Events & Calendar");
+  await expect(opening.locator("details")).toHaveCount(0);
   await expect(page.locator(".region-map iframe")).toHaveCount(0);
   const map = page.getByRole("region", { name: "Map of public sangha venues" });
   await page.getByRole("heading", { name: "Regional Sangha Map" }).scrollIntoViewIfNeeded();
   await expect(map).toBeVisible();
   await expect(page.getByText("Map tiles are unavailable", { exact: false })).toBeVisible();
+  const mapFrame = await map.locator(".sangha-map-frame").boundingBox();
+  const canvas = await map.locator("[data-map-canvas]").boundingBox();
+  const attribution = map.getByRole("link", { name: "© OpenStreetMap", exact: true });
+  await expect(attribution).toHaveAttribute("href", "https://www.openstreetmap.org/copyright");
+  const credit = await attribution.boundingBox();
+  expect(credit.y).toBeGreaterThanOrEqual(canvas.y + canvas.height);
   for (const name of ["Zoom in", "Zoom out"]) {
     const bounds = await map.getByRole("button", { name }).boundingBox();
     expect(bounds.width).toBeGreaterThanOrEqual(44);
     expect(bounds.height).toBeGreaterThanOrEqual(44);
+    expect(bounds.y).toBeGreaterThanOrEqual(canvas.y + canvas.height);
+    expect(bounds.x).toBeGreaterThan(mapFrame.x + mapFrame.width / 2);
+    expect(bounds.x).toBeGreaterThan(credit.x + credit.width);
+    expect(bounds.y + bounds.height).toBeLessThan(mapFrame.y + mapFrame.height);
   }
   await expect(map.getByRole("button", { name: /Dandelions|Mountain Bell/ })).toHaveCount(0);
   const mapList = page.locator(".sangha-map-list");
@@ -195,8 +210,10 @@ try {
   await mobileSearch.press("Escape");
   await expect(filterToggle).toBeFocused();
   await expect(mobile.locator(target)).toBeHidden();
-  await mobile.getByRole("link", { name: "Jump to Regional Sangha Map" }).click();
-  await expect(mobile.getByRole("heading", { name: "Regional Sangha Map" })).toBeInViewport();
+  await mobile.getByRole("link", { name: "Jump to Community Events & Calendar" }).click();
+  await expect(mobile).toHaveURL(`${base}/find-a-sangha.html#calendar`);
+  await expect(mobile.locator("#calendar > h2")).toBeInViewport();
+  await mobile.getByRole("heading", { name: "Regional Sangha Map" }).scrollIntoViewIfNeeded();
   await mobile.locator(".sangha-map-list summary").click();
   const mobileVenue = mobile.locator(`.sangha-map-list a[href="${target}"]`);
   await expect(mobileVenue).toBeVisible();
@@ -238,7 +255,13 @@ try {
   await page.clock.setFixedTime(new Date("2026-12-09T17:00:00Z"));
   await page.goto(base);
   await expect(wakeUpRow).toBeVisible();
-  console.log("Plumline finder, map fallback, no-script directory and homepage schedule passed.");
+  await page.goto(`${base}/photo-credits.html`);
+  await expect(page.locator("#map-credits + p")).toContainText("Open Database License");
+  await expect(page.getByRole("link", { name: "OpenStreetMap contributors" })).toHaveAttribute(
+    "href",
+    "https://www.openstreetmap.org/copyright",
+  );
+  console.log("Plumline finder opening, map controls, credits, fallbacks and schedule passed.");
 } finally {
   await browser.close();
 }

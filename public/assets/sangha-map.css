@@ -1,22 +1,40 @@
-.sangha-map-toolbar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
+.sangha-map-frame {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
 }
 
-.sangha-map-toolbar a,
+.sangha-map-frame .sangha-map {
+  border-radius: calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;
+}
+
+.sangha-map-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  padding: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.sangha-map-footer a,
 .sangha-map-selection a {
   display: inline-flex;
   align-items: center;
   min-height: var(--control-height);
 }
-.sangha-map-toolbar a {
-  margin-inline-end: auto;
+
+.sangha-map-footer a {
   font-size: 14px;
 }
 
-.sangha-map-toolbar button,
+.sangha-map-zoom {
+  display: flex;
+  gap: 8px;
+  margin-inline-start: auto;
+}
+
+.sangha-map-zoom button,
 .sangha-map-selection-heading button {
   flex: 0 0 var(--control-height);
   width: var(--control-height);
@@ -24,7 +42,7 @@
   padding: 0;
 }
 
-.sangha-map-toolbar button[aria-disabled="true"] {
+.sangha-map-zoom button[aria-disabled="true"] {
   cursor: default;
   background: var(--surface);
   box-shadow: none;

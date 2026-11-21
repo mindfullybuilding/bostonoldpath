@@ -58,14 +58,9 @@ for (const [name, engine] of [
   await p.setViewportSize({ width: 1280, height: 900 });
   await expect(p.locator(".nav-trigger").first()).toBeFocused();
   await p.goto(base + "/find-a-sangha.html");
-  await expect(p.locator(".finder-intro")).toHaveText(
-    "A sangha is a community that practices mindfulness together.",
-  );
-  const finderAbout = p.getByText("About sangha practice", { exact: true });
-  await finderAbout.press("Enter");
-  await expect(p.locator(".finder-about > p")).toContainText("what we don’t transform");
-  await finderAbout.press("Enter");
-  await expect(p.locator(".finder-about > p")).toBeHidden();
+  await expect(p.locator(".finder-heading > p")).toBeVisible();
+  await expect(p.locator(".finder-heading > p")).toContainText("what we don’t transform");
+  await expect(p.locator(".finder-shortcuts a")).toHaveText("Jump to Community Events & Calendar");
   await p.locator("#group-search").focus();
   await p.setViewportSize({ width: 390, height: 844 });
   await expect(p.locator("[data-filter-toggle]")).toBeFocused();
