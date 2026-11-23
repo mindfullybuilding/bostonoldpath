@@ -5,17 +5,18 @@
   --blue: #367bca;
   --water-label: #2864a6;
   --water-deep: #22548e;
+  --control-height: 44px;
+  --control-radius: 14px;
   --water-surface: linear-gradient(to bottom, #ffffff 0%, #f4f8fc 50%, #e3eef8 100%);
   --water-gloss: linear-gradient(
     to bottom,
     #80b6e6 0%,
-    #367bca 16%,
-    #2864a6 30%,
-    #2864a6 77%,
-    #22548e 100%
+    var(--blue) 16%,
+    var(--water-label) 30%,
+    var(--water-label) 77%,
+    var(--water-deep) 100%
   );
   --control-shadow: 0 3px 7px #173c601f, inset 0 1px 0 #ffffffcc;
-  --continental-blue: #367bca;
   --line: #d8d8d8;
   --surface: #f7f7f5;
   --radius: 12px;
@@ -172,10 +173,10 @@ button,
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 44px;
+  min-height: var(--control-height);
   padding: 11px 20px;
-  border: 1px solid #000;
-  border-radius: 14px;
+  border: 1px solid var(--ink);
+  border-radius: var(--control-radius);
   background: var(--water-surface);
   color: #000;
   box-shadow: var(--control-shadow);
@@ -709,12 +710,17 @@ button:disabled {
   font-size: 32px;
   margin-bottom: 12px;
 }
-.finder-heading p {
+.finder-heading > p {
+  max-width: 85ch;
   margin-bottom: 8px;
+}
+.finder-shortcuts {
+  display: flex;
+  align-items: center;
 }
 .finder-shortcuts > a {
   font-size: 16px;
-  min-height: 44px;
+  min-height: var(--control-height);
   display: inline-flex;
   align-items: center;
 }
@@ -727,6 +733,16 @@ button:disabled {
 }
 .finder-layout > * {
   min-width: 0;
+}
+@media (min-width: 1200px) {
+  .finder-layout:has(.filters[hidden]) {
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem);
+  }
+}
+@media (900px <= width < 1200px) {
+  .filters[hidden] ~ .directory-results {
+    grid-column: 1 / -1;
+  }
 }
 .filters h2 {
   font-size: 18px;
@@ -844,6 +860,7 @@ button:disabled {
 .group-card h2 {
   font-size: 20px;
   margin-bottom: 16px;
+  text-wrap: balance;
 }
 .group-metadata,
 .metadata {
@@ -860,6 +877,7 @@ button:disabled {
 .group-metadata dd,
 .metadata dd {
   margin: 0;
+  font-variant-numeric: tabular-nums;
 }
 .group-card details {
   border: 1px solid var(--line);
@@ -888,22 +906,28 @@ button:disabled {
   grid-row: 3;
   border: 0;
   margin: 0;
+  overflow: visible;
 }
 .group-card > details > summary {
-  display: inline-flex;
+  display: flex;
   width: calc(50% - 6px);
   min-height: 48px;
   list-style: none;
   margin-bottom: 16px;
   border: 1px solid #000;
-  border-radius: 14px;
+  border-radius: var(--control-radius);
+  padding: 12px 8px;
   font-weight: 600;
+  line-height: 1.4;
 }
 .group-card > details > summary::-webkit-details-marker {
   display: none;
 }
 .group-card > details:not([open]) > summary {
   margin-bottom: 0;
+}
+.group-card > details[open] > summary {
+  margin-bottom: 24px;
 }
 .group-card .organizer-contact {
   grid-column: 2;
@@ -943,6 +967,28 @@ button:disabled {
 }
 .region-map .small {
   margin: 12px 0 0;
+}
+.sangha-map {
+  height: 300px;
+  isolation: isolate;
+}
+.sangha-map-list {
+  margin-top: 12px;
+}
+.sangha-map-list ul {
+  margin: 8px 0 0;
+  padding-inline-start: 24px;
+}
+.sangha-map-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.group-card details p.sangha-meeting {
+  margin-block: 4px;
+}
+.sangha-meeting[data-meeting-until]:not([data-meeting-until=""]):not([data-meeting-current]) {
+  display: none;
 }
 .finder-calendar {
   border-top: 1px solid var(--line);
@@ -1369,8 +1415,8 @@ a.resource-card:hover,
   }
   .group-card > details > summary,
   .group-card .organizer-contact {
-    min-height: 68px;
-    padding-inline: 8px;
+    min-height: calc(2lh + 18px);
+    padding: 8px;
   }
   .filter-sheet,
   .copy-group {
@@ -1464,13 +1510,6 @@ a.resource-card:hover,
 .guide-reading .timing {
   font-weight: 650;
   margin-top: 32px;
-}
-
-.finder-shortcuts {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px 24px;
 }
 
 /* Newcomer river: illustrated center on desktop, narrow margin on small screens. */
@@ -2064,22 +2103,6 @@ a.resource-card:hover,
   flex-shrink: 0;
   border-radius: 50%;
 }
-.finder-heading > p {
-  max-width: 85ch;
-}
-.group-card > details > summary {
-  display: flex;
-  line-height: 1.4;
-  padding: 12px 8px;
-}
-.group-card > details[open] > summary {
-  border: 1px solid #000;
-  border-radius: 14px;
-  margin-bottom: 24px;
-}
-.group-card > details {
-  overflow: visible;
-}
 .region-map h2 {
   margin-bottom: 20px;
 }
@@ -2123,31 +2146,20 @@ a.resource-card:hover,
     justify-content: center;
   }
   .results-top {
-    display: grid;
-    grid-template-columns: 48px minmax(0, 1fr);
-    gap: 0 12px;
+    flex-wrap: wrap;
+    gap: 8px 12px;
   }
   .sangha-sort {
-    grid-column: 1 / -1;
-    grid-row: 1;
-    justify-self: end;
-    text-align: right;
+    flex-wrap: wrap;
+    margin-inline-start: auto;
   }
   .results-top p {
-    grid-column: 2;
-    grid-row: 2;
-    justify-self: end;
-  }
-  .results-top .filter-trigger {
-    grid-column: 1;
-    grid-row: 2;
-    align-self: center;
+    flex-basis: 100%;
   }
   .filter-trigger {
-    margin-right: auto;
-    width: 48px;
-    height: 48px;
-    padding: 12px;
+    min-height: 48px;
+    gap: 8px;
+    padding: 8px 12px;
   }
   .filter-trigger[aria-expanded="true"] {
     box-shadow: inset 0 0 0 2px #000;
@@ -2156,8 +2168,13 @@ a.resource-card:hover,
     display: block;
     padding-top: 0;
   }
-  .region-map {
+  .region-map:not(.region-map-with-list),
+  .region-map .sangha-map,
+  [data-sangha-map-status] {
     display: none;
+  }
+  .region-map-with-list + .finder-calendar {
+    margin-top: 24px;
   }
   [data-page="community-voices"] :is(h1, h2) {
     text-align: center;

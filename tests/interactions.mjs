@@ -58,6 +58,9 @@ for (const [name, engine] of [
   await p.setViewportSize({ width: 1280, height: 900 });
   await expect(p.locator(".nav-trigger").first()).toBeFocused();
   await p.goto(base + "/find-a-sangha.html");
+  await expect(p.locator(".finder-heading > p")).toBeVisible();
+  await expect(p.locator(".finder-heading > p")).toContainText("what we don’t transform");
+  await expect(p.locator(".finder-shortcuts a")).toHaveText("Jump to Community Events & Calendar");
   await p.locator("#group-search").focus();
   await p.setViewportSize({ width: 390, height: 844 });
   await expect(p.locator("[data-filter-toggle]")).toBeFocused();
@@ -109,6 +112,7 @@ for (const [name, engine] of [
   await expect(centersLink).toBeFocused();
   expect(
     await fourteenTrainings.evaluate((card) => {
+      card.scrollIntoView({ block: "center" });
       const { left, top } = card.getBoundingClientRect();
       return document.elementFromPoint(left + 8, top + 8)?.closest("a")?.textContent;
     }),
@@ -177,11 +181,18 @@ for (const [name, engine] of [
     await expect(lede).toHaveText(
       "A community of engaged Buddhist practitioners practicing in the Plum Village Tradition of Zen Master Thích Nhất Hạnh (“Thầy”).",
     );
-    const copy = await lede.boundingBox();
-    const actions = await p.locator(".hero .actions").boundingBox();
-    expect(actions.y - (copy.y + copy.height)).toBeGreaterThanOrEqual(24);
-    expect(actions.x).toBeGreaterThanOrEqual(0);
-    expect(actions.x + actions.width).toBeLessThanOrEqual(width);
+    await expect(p.locator(".identity-calligraphy img")).toBeVisible();
+    const { gap, left, right } = await lede.evaluate((copy) => {
+      const actions = document.querySelector(".hero .actions").getBoundingClientRect();
+      return {
+        gap: actions.top - copy.getBoundingClientRect().bottom,
+        left: actions.left,
+        right: actions.right,
+      };
+    });
+    expect(gap).toBeGreaterThanOrEqual(24);
+    expect(left).toBeGreaterThanOrEqual(0);
+    expect(right).toBeLessThanOrEqual(width);
     await p.goto(base + "/our-practice.html");
     await expect(p.getByRole("heading", { name: "What is Mindfulness?" })).toBeVisible();
     const intro = await p.locator(".practice-page .split").boundingBox();
