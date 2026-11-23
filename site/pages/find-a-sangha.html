@@ -58,7 +58,7 @@
         aria-labelledby="regional-map-title"
       >
         <h2 id="regional-map-title">Regional Sangha Map</h2>
-        {{#useDirectoryMap}} {{#hasMapVenues}}
+        {{#hasMapVenues}}
         <link rel="stylesheet" href="/assets/leaflet/leaflet.css" media="(min-width: 900px)" />
         <link rel="stylesheet" href="/assets/sangha-map.css" />
         <script type="module" src="/assets/sangha-map.js"></script>
@@ -126,18 +126,7 @@
         </details>
         {{/hasMapVenues}} {{^hasMapVenues}}
         <p>No public meeting venues are available on the map. See the directory for details.</p>
-        {{/hasMapVenues}} {{/useDirectoryMap}} {{^useDirectoryMap}}
-        <p class="small">
-          Dandelions of the Heart Sangha meets in Newton. Contact the organizer for meeting details.
-        </p>
-        <iframe
-          loading="lazy"
-          title="Supplementary map of regional sanghas"
-          src="https://www.google.com/maps/d/embed?mid=1TBbpA9rWK7PatKg8S-NV2kAVLRAaE_c&amp;ehbc=2E312F"
-          width="100%"
-          height="320"
-        ></iframe>
-        {{/useDirectoryMap}}
+        {{/hasMapVenues}}
       </section>
       <section id="calendar" class="finder-calendar">
         <h2>Community Events</h2>

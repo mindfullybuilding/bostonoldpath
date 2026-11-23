@@ -18,7 +18,7 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173). After changing content or a
 | `site/pages/`                                                 | One HTML template per page. Edit `home.html` for the homepage or the file that matches another page’s URL. |
 | `site/layouts/`                                               | Shared HTML, header, footer, navigation, and breadcrumbs                                                   |
 | `site/page-titles.json`                                       | Page registration and browser tab titles                                                                   |
-| `site/sanghas.json`, `site/resources.json`, `site/config.mjs` | Directory records, resource listings, and shared links                                                     |
+| `site/plumline-directory.json`, `site/resources.json`, `site/config.mjs` | Published directory, resource listings, and shared links                                                     |
 | `scripts/build-site.mjs`                                      | Reads the templates and data and writes the website                                                        |
 | `public/assets/`                                              | Styles, browser JavaScript, images, and public documents                                                   |
 | `api/events.js` and `lib/events.mjs`                          | Calendar endpoint and Groups.io feed processing                                                            |
@@ -47,11 +47,9 @@ GitHub Actions runs lint, unit tests, the build, internal link checks, and the f
 ## First change: update a sangha listing
 
 1. Start a branch from current `main` using the steps above.
-2. Open [site/sanghas.json](site/sanghas.json) and find `path-of-peace-sangha` as an example. For a confirmed meeting-time correction, edit `time` and check whether `timeBand` also needs to change. If the meeting day changes, update both the displayed `day` and the `days` array used by the filters. Keep the record’s `id` stable so existing links keep working.
+2. Confirm the change with the organizer and correct the upstream Plumline listing. Review the API candidate as described below and preserve the listing’s local ID so existing links keep working.
 3. Run `npm run dev` and open [Find a Sangha locally](http://127.0.0.1:4173/find-a-sangha.html). Search for the group, expand its card, and check the edited details and relevant filters.
 4. Open a pull request with the confirmed change, its source, and what you checked in the preview. The directory, homepage schedule, and browser filters all use the same source data.
-
-If you use VS Code, the [contributor CodeTour](.tours/new-joiner-site.tour) follows a record from source through the build and shows where calendar and deployment changes belong.
 
 ## Plumline directory preview
 
@@ -60,13 +58,13 @@ npm run build:plumline-preview
 MCGB_PREVIEW_PORT=4175 npm run preview
 ```
 
-Open [Find a Sangha with sample data](http://127.0.0.1:4175/find-a-sangha.html) and the [homepage schedule](http://127.0.0.1:4175/). The fixture preview exercises the importer, map, and schedule without contacting Plumline. The `codex/mcgb-plumline-finder` and `codex/mcgb-finder-quality` Vercel previews build from `site/plumline-preview.json`, a committed snapshot of the imported MCGB listings. The normal build uses the editorial directory. With the sample preview running, run `TEST_BASE=http://127.0.0.1:4175 node tests/plumline-finder-browser.mjs` for the focused browser check.
+Open [Find a Sangha with sample data](http://127.0.0.1:4175/find-a-sangha.html) and the [homepage schedule](http://127.0.0.1:4175/). The fixture preview exercises the importer, map, and schedule without contacting Plumline. The normal local build and Vercel deployments use the same reviewed API snapshot in `site/plumline-directory.json`. The editorial listings in `site/sanghas.json` provide fallback records to the importer. With the sample preview running, run `TEST_BASE=http://127.0.0.1:4175 node tests/plumline-finder-browser.mjs` for the focused browser check.
 
-While source records are being corrected, the preview withholds Dandelions’ disputed in-person sitting and links to the [teacher’s schedule](https://www.yenkuei.org/services). The preview includes the [Wake Up Boston organizer’s December 13 sitting](https://bostonwakeup.substack.com/about) if it is missing from the snapshot. The preview uses the same reviewed details in the directory and Today’s Sanghas. These adjustments are scoped to the preview.
+While source records are being corrected, the directory withholds Dandelions’ disputed in-person sitting and links to the [teacher’s schedule](https://www.yenkuei.org/services). The directory includes the [Wake Up Boston organizer’s December 13 sitting](https://bostonwakeup.substack.com/about) if it is missing from the snapshot. Find a Sangha and Today’s Sanghas use the same reviewed schedule.
 
 After obtaining a key, provide it via the private `PLUMLINE_API_KEY` environment variable and run `node scripts/refresh-plumline.mjs --review-matches`. Check the proposed associations against the public listings and organizer records before adding IDs to `site/plumline-roster.json`. Confirm which venues can be pinned or used for directions. Keep pending or local-only groups on the editorial data until reviewed.
 
-Run `node scripts/refresh-plumline.mjs` to create a private review candidate. To inspect that candidate locally, pass it to `npm run build -- --plumline-snapshot .cache/plumline/candidate.json`. Review missing groups, contact routes, map pins, and schedule exceptions. To update the hosted review branch, copy only the normalized `sanghas` array into `site/plumline-preview.json` and redeploy that branch. After the first live candidate is approved, retain its normalized snapshot as `site/plumline-approved.json` for comparison. Review changed candidates weekly and replace that baseline only with an approved snapshot. A failed check keeps the last approved data available. Production uses the editorial directory until the live cutover is approved.
+Run `node scripts/refresh-plumline.mjs` to create a private review candidate. To inspect that candidate locally, pass it to `npm run build -- --plumline-snapshot .cache/plumline/candidate.json`. Review missing groups, contact routes, map pins, and schedule exceptions. To publish a reviewed candidate, update only the normalized `sanghas` array in `site/plumline-directory.json` and open a pull request. The preview and production builds read that same file. Retain the approved live candidate as `site/plumline-approved.json` for comparison when available. A failed check leaves the published directory available.
 
 The **Check Plumline directory** workflow is configured for 10:17 UTC daily. GitHub schedules the workflow after it reaches the default branch. The check requires `PLUMLINE_API_KEY` and compares results with the last approved live snapshot in `site/plumline-approved.json`, when available. The run summary records HTTP 200 or 304 and whether a candidate needs review. A missing key or roster fails the check.
 

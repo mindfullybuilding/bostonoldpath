@@ -11,9 +11,7 @@ for (const [name, engine] of [
   const tabKey = name === "WebKit" ? "Alt+Tab" : "Tab";
   const browser = await engine.launch();
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
-  // First-party behavior is isolated from Google Maps’ separate external runtime.
-  // The anonymous embedded-map scan and its findings live in third-party.json.
-  await ctx.route("https://www.google.com/maps/**", (route) => route.abort());
+  await ctx.route("https://tile.openstreetmap.org/**", (route) => route.abort());
   const p = await ctx.newPage();
   await p.clock.setFixedTime(new Date("2026-10-19T16:00:00Z"));
   const errors = [];
@@ -80,11 +78,12 @@ for (const [name, engine] of [
   await expect(p.locator("#mindful-lunch")).toHaveCount(0);
   await p.locator(".filters summary").first().click();
   await p.getByLabel("Online", { exact: true }).check();
-  await expect(p.locator("[data-group]:visible")).toHaveCount(3);
+  await expect(p.locator("[data-group]:visible")).toHaveCount(4);
+  await expect(p.locator("#living-the-14-sangha")).toBeVisible();
   await p.locator("[data-group]:visible").first().locator("summary").focus();
   await p.keyboard.press("Enter");
   await expect(
-    p.locator("[data-group]:visible").first().getByRole("link", { name: "Contact Organizer" }),
+    p.locator("[data-group]:visible").first().getByRole("link", { name: "Message via Plumline" }),
   ).toBeVisible();
   stateScan = await new AxeBuilder({ page: p })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])

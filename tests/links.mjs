@@ -32,6 +32,8 @@ try {
       hasMain: Boolean(document.querySelector("main#main h1")),
     }));
     if (!hasMain) issues.push({ route, error: "Missing main heading" });
+    if (route === "/find-a-sangha.html" && !links.includes("/assets/leaflet/leaflet.css"))
+      issues.push({ route, error: "The built directory is missing the reviewed venue map" });
     pageIds.set(route, new Set(ids));
     for (const href of links) {
       const url = new URL(href, page.url());
