@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import { chromium, expect } from "@playwright/test";
-const sanghas = JSON.parse(await fs.readFile("site/sanghas.json", "utf8"));
+const { sanghas } = JSON.parse(await fs.readFile("site/plumline-directory.json", "utf8"));
 const base = process.env.TEST_BASE || "http://127.0.0.1:4173";
 const b = await chromium.launch();
 const ctx = await b.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
@@ -22,7 +22,7 @@ for (const path of [
     await expect(p.locator("[data-group]")).toHaveCount(sanghas.length);
     await p.locator("[data-group] summary").first().click();
     await expect(
-      p.locator("[data-group]").first().getByRole("link", { name: "Contact Organizer" }),
+      p.locator("[data-group]").first().getByRole("link", { name: "Message via Plumline" }),
     ).toBeVisible();
   }
   if (path.includes("newsletters")) await expect(p.locator(".issue-card a")).toHaveCount(3);

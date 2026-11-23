@@ -79,7 +79,7 @@ async function refresh() {
     previousFile,
     fixture,
     approvedFile,
-    "site/plumline-preview.json",
+    "site/plumline-directory.json",
     checkStateFile,
   ].filter(Boolean);
   if (destinations.some((filename) => path.resolve(filename) === path.resolve(output))) {

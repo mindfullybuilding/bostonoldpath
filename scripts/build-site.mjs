@@ -19,23 +19,18 @@ if (snapshotOption >= 0 && (!snapshotFile || snapshotFile.startsWith("--")))
   throw new Error("--plumline-snapshot requires a candidate file.");
 
 const fixturePreview = args.includes("--plumline-preview");
-const plumlinePreviewBranches = ["codex/mcgb-plumline-finder", "codex/mcgb-finder-quality"];
-const hostedPreview =
-  process.env.VERCEL_ENV === "preview" &&
-  plumlinePreviewBranches.includes(process.env.VERCEL_GIT_COMMIT_REF);
-const directoryFile = snapshotFile || (hostedPreview && "site/plumline-preview.json");
-const useDirectoryMap = fixturePreview || Boolean(directoryFile);
+const directoryFile = snapshotFile ?? "site/plumline-directory.json";
 if (snapshotFile && (process.env.VERCEL || process.env.VERCEL_ENV))
   throw new Error("A Plumline review candidate can only be built locally.");
-if (useDirectoryMap && process.env.VERCEL_ENV === "production")
-  throw new Error("Plumline preview data cannot be built in Vercel production.");
+if (fixturePreview && process.env.VERCEL_ENV === "production")
+  throw new Error("Plumline fixture data cannot be built in Vercel production.");
 if (fixturePreview && snapshotFile)
   throw new Error("Choose either the fixture or a review candidate.");
 
 const readJson = async (file) => JSON.parse(await fs.readFile(file, "utf8"));
-const baseline = await readJson("site/sanghas.json");
-let sanghas = baseline;
+let sanghas;
 if (fixturePreview) {
+  const baseline = await readJson("site/sanghas.json");
   const [payload, roster] = await Promise.all([
     readJson("site/fixtures/plumline-v1.json"),
     readJson("site/fixtures/plumline-roster.json"),
@@ -44,7 +39,7 @@ if (fixturePreview) {
   if (candidate.review.blocked.length)
     throw new Error("The Plumline preview fixture is incomplete.");
   sanghas = candidate.sanghas;
-} else if (directoryFile) {
+} else {
   const candidate = await readJson(directoryFile);
   if (
     snapshotFile &&
@@ -61,24 +56,22 @@ if (fixturePreview) {
     ) ||
     new Set(sanghas.map(({ id }) => id)).size !== sanghas.length
   )
-    throw new Error("Plumline preview directory has invalid or duplicate sangha records.");
+    throw new Error("Plumline directory has invalid or duplicate sangha records.");
 
-  if (hostedPreview) {
+  if (!snapshotFile) {
     const { entries } = await readJson("site/plumline-roster.json");
     const published = new Set(sanghas.map(({ id }) => id));
     if (entries.length !== published.size || entries.some(({ localId }) => !published.has(localId)))
-      throw new Error("Plumline preview directory does not match the approved roster.");
+      throw new Error("The published Plumline directory does not match the approved roster.");
   }
 }
-if (useDirectoryMap) sanghas = applyPlumlineScheduleReview(sanghas);
+sanghas = applyPlumlineScheduleReview(sanghas);
 
 const plumlinePreview = fixturePreview
   ? "Plumline preview with sample data."
-  : hostedPreview
-    ? "Plumline directory snapshot under review."
-    : snapshotFile
-      ? "Plumline preview with directory data under review."
-      : "";
+  : snapshotFile
+    ? "Plumline preview with directory data under review."
+    : "";
 
 const output = "dist";
 await fs.rm(output, { recursive: true, force: true });
@@ -89,18 +82,16 @@ await fs.cp("public", output, {
     path.basename(source) !== "GBCOM Website Working Group.pdf",
 });
 
-if (useDirectoryMap) {
-  const leafletOutput = path.join(output, "assets", "leaflet");
-  await fs.mkdir(leafletOutput, { recursive: true });
-  await fs.copyFile("node_modules/leaflet/LICENSE", path.join(leafletOutput, "LICENSE.txt"));
-  await Promise.all(
-    ["leaflet-src.esm.js", "leaflet.css", "images"].map((asset) =>
-      fs.cp(path.join("node_modules", "leaflet", "dist", asset), path.join(leafletOutput, asset), {
-        recursive: true,
-      }),
-    ),
-  );
-}
+const leafletOutput = path.join(output, "assets", "leaflet");
+await fs.mkdir(leafletOutput, { recursive: true });
+await fs.copyFile("node_modules/leaflet/LICENSE", path.join(leafletOutput, "LICENSE.txt"));
+await Promise.all(
+  ["leaflet-src.esm.js", "leaflet.css", "images"].map((asset) =>
+    fs.cp(path.join("node_modules", "leaflet", "dist", asset), path.join(leafletOutput, asset), {
+      recursive: true,
+    }),
+  ),
+);
 const resources = await readJson("site/resources.json");
 const titles = await readJson("site/page-titles.json");
 const contactLink = link(`mailto:${config.contactEmail}`, config.contactEmail);
@@ -113,7 +104,7 @@ const pageViews = {
       "button primary",
     ),
   },
-  "find-a-sangha": directoryView(sanghas, sanghaCardTemplate, { useDirectoryMap }),
+  "find-a-sangha": directoryView(sanghas, sanghaCardTemplate, { useDirectoryMap: true }),
   newsletters: newsletterView(),
   resources: resourceView(resources),
   "subscribe-calendar": subscriptionView(config.calendarFeedUrl),
@@ -129,7 +120,6 @@ for (const [file, title] of Object.entries(titles)) {
   const body = await fs.readFile(`site/pages/${file}.html`, "utf8");
   const content = Mustache.render(body, {
     contactLink,
-    useDirectoryMap,
     plumlinePreview,
     ...pageViews[file],
   });
